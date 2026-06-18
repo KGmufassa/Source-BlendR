@@ -1,0 +1,203 @@
+{
+  "stage": "Stage 3",
+  "status": "complete",
+  "command": "stage-3-system-architecture",
+  "owning_skill": "system-topology-design",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/03-workflow-architecture.json",
+    "Build-Plans/Stage-1/04-product-capabilities.json",
+    "Build-Plans/Stage-1/08-mvp-operational-model.json"
+  ],
+  "related_stage_2_assumption_ids": [
+    "A-001",
+    "A-002",
+    "A-005",
+    "A-007",
+    "A-010"
+  ],
+  "architecture_drivers": [
+    {
+      "id": "ARCH-DRIVER-001",
+      "driver": "Support supplier product and service aggregation without making automatic supplier portal sync MVP-critical."
+    },
+    {
+      "id": "ARCH-DRIVER-002",
+      "driver": "Represent products, services, bundles, recipes, costs, pricing rules, margins, and generated outputs as explicit domains."
+    },
+    {
+      "id": "ARCH-DRIVER-003",
+      "driver": "Protect supplier credentials, proprietary pricing, customer-specific pricing, and margin data."
+    },
+    {
+      "id": "ARCH-DRIVER-004",
+      "driver": "Use asynchronous processing for imports, document generation, future sync, and AI-assisted workflows."
+    },
+    {
+      "id": "ARCH-DRIVER-005",
+      "driver": "Keep AI, customer portals, analytics, and deep integrations outside launch-critical topology."
+    }
+  ],
+  "system_topology": {
+    "topology_style": "modular_monolith_with_explicit_domain_boundaries",
+    "rationale": "MVP needs coherent data and workflow velocity more than independently deployable microservices. Explicit module boundaries preserve future extraction paths.",
+    "primary_systems": [
+      {
+        "id": "SYSTEM-001",
+        "name": "Web Application",
+        "type": "frontend",
+        "responsibilities": [
+          "Authenticated workspace UI",
+          "Supplier setup",
+          "Import review",
+          "Asset library management",
+          "Pricing, bundle, recipe, and quote workflows"
+        ],
+        "stage_4_handoff_notes": [
+          "Stage 4 should design task-oriented screens for supplier setup, import review, asset library, pricing, bundle/recipe builder, and quote output."
+        ]
+      },
+      {
+        "id": "SYSTEM-002",
+        "name": "Application API",
+        "type": "backend",
+        "responsibilities": [
+          "Domain orchestration",
+          "Authentication and authorization enforcement",
+          "CRUD and workflow APIs",
+          "Command validation",
+          "Event emission for async work"
+        ]
+      },
+      {
+        "id": "SYSTEM-003",
+        "name": "Relational System Of Record",
+        "type": "database",
+        "responsibilities": [
+          "Workspace data",
+          "Supplier records",
+          "Normalized assets",
+          "Products and services",
+          "Pricing rules",
+          "Bundles and recipes",
+          "Quotes and generated output metadata",
+          "Audit records"
+        ]
+      },
+      {
+        "id": "SYSTEM-004",
+        "name": "Object Storage",
+        "type": "storage",
+        "responsibilities": [
+          "Uploaded import files",
+          "Product images",
+          "Supplier documents",
+          "Generated PDFs or exported documents"
+        ]
+      },
+      {
+        "id": "SYSTEM-005",
+        "name": "Job Queue And Workers",
+        "type": "async_processing",
+        "responsibilities": [
+          "Import parsing and normalization",
+          "Document generation",
+          "Notification dispatch",
+          "Future supplier sync jobs",
+          "Future AI enrichment jobs"
+        ]
+      },
+      {
+        "id": "SYSTEM-006",
+        "name": "Integration Adapter Layer",
+        "type": "integration_boundary",
+        "responsibilities": [
+          "File import adapters",
+          "Future supplier API adapters",
+          "Future ecommerce, CRM, accounting, storage, and AI adapters",
+          "Rate-limit and retry handling"
+        ]
+      },
+      {
+        "id": "SYSTEM-007",
+        "name": "Operational Console",
+        "type": "internal_admin",
+        "responsibilities": [
+          "Import diagnostics",
+          "Failed job inspection",
+          "Connector health review",
+          "Support visibility without unrestricted secret access"
+        ],
+        "stage_4_handoff_notes": [
+          "Operational console UX can be lower polish than customer-facing workflows but must support support/debug visibility."
+        ]
+      }
+    ],
+    "external_systems": [
+      "Supplier portals and exports",
+      "Email provider",
+      "Future AI provider",
+      "Future ecommerce, CRM, accounting, and storage systems",
+      "Future customer portal consumers"
+    ]
+  },
+  "system_boundaries": [
+    {
+      "id": "BOUNDARY-SYS-001",
+      "name": "Workspace Trust Boundary",
+      "description": "All user-facing requests are scoped to an authenticated workspace and role."
+    },
+    {
+      "id": "BOUNDARY-SYS-002",
+      "name": "Supplier Integration Boundary",
+      "description": "Supplier-specific import, sync, credential, and rate-limit behavior must remain behind adapter interfaces."
+    },
+    {
+      "id": "BOUNDARY-SYS-003",
+      "name": "Generated Output Boundary",
+      "description": "Quotes, catalogs, price books, and proposals are generated from approved source-of-truth data and stored as output metadata plus files."
+    },
+    {
+      "id": "BOUNDARY-SYS-004",
+      "name": "AI Assistive Boundary",
+      "description": "AI suggestions must not directly mutate approved records without human review."
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-001",
+      "decision": "Use a modular monolith for MVP with explicit domain modules.",
+      "status": "accepted",
+      "rationale": "Preserves implementation speed while giving Stage 5 clear ownership boundaries."
+    },
+    {
+      "id": "ADR-002",
+      "decision": "Use asynchronous jobs for imports and generated outputs.",
+      "status": "accepted",
+      "rationale": "Supplier files, documents, and future sync/AI work are variable-duration tasks."
+    }
+  ],
+  "risks_and_constraints": [
+    {
+      "id": "ARCH-RISK-001",
+      "risk": "A modular monolith can decay into unclear boundaries.",
+      "severity": "medium",
+      "mitigation": "Stage 5 must assign tickets by domain module and enforce domain-owned data access."
+    },
+    {
+      "id": "ARCH-RISK-002",
+      "risk": "Supplier integration scope can expand beyond MVP.",
+      "severity": "high",
+      "mitigation": "Implement file/manual import first and keep supplier connectors behind adapter contracts."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_4_handoff_notes": [
+    "Design UX around import review and correction, not invisible automation.",
+    "Expose quote output as the first generated-output workflow."
+  ],
+  "stage_5_handoff_notes": [
+    "Build domain modules before external connector automation.",
+    "Use workers for import and document generation from the first implementation slice."
+  ]
+}

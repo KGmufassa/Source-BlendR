@@ -1,0 +1,146 @@
+{
+  "stage": "Stage 3",
+  "status": "complete",
+  "command": "stage-3-system-architecture",
+  "owning_skill": "security-and-scalability-architecture",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/09-risk-and-constraints.json",
+    "Build-Plans/Stage-1/06-product-boundaries.json"
+  ],
+  "related_stage_2_assumption_ids": [
+    "A-010"
+  ],
+  "security_foundations": {
+    "authentication_model": {
+      "mvp": "email_password_or_managed_auth_provider",
+      "future": [
+        "MFA",
+        "SSO",
+        "enterprise identity"
+      ],
+      "session_scope": "workspace_member"
+    },
+    "authorization_model": {
+      "style": "role_based_access_control_with_workspace_scope",
+      "roles": [
+        {
+          "id": "ROLE-001",
+          "name": "Owner",
+          "permissions": [
+            "all_workspace_actions",
+            "billing_future",
+            "user_management"
+          ]
+        },
+        {
+          "id": "ROLE-002",
+          "name": "Admin",
+          "permissions": [
+            "supplier_write",
+            "asset_write",
+            "pricing_write",
+            "quote_approve",
+            "user_invite"
+          ]
+        },
+        {
+          "id": "ROLE-003",
+          "name": "Contributor",
+          "permissions": [
+            "supplier_read",
+            "asset_write",
+            "quote_write",
+            "pricing_preview"
+          ]
+        },
+        {
+          "id": "ROLE-004",
+          "name": "Viewer",
+          "permissions": [
+            "supplier_read",
+            "asset_read",
+            "quote_read"
+          ]
+        }
+      ]
+    },
+    "sensitive_data": [
+      "Supplier account details",
+      "Future supplier credentials or tokens",
+      "Vendor pricing",
+      "Cost components",
+      "Margin policies",
+      "Customer-specific pricing",
+      "Quotes and generated outputs",
+      "Customer contact information",
+      "Audit logs"
+    ],
+    "data_protection_controls": [
+      "Workspace-scoped authorization on every request",
+      "Encryption in transit",
+      "Encryption at rest for database and object storage",
+      "Secrets manager for API keys and future supplier credentials",
+      "Signed URLs for private file access",
+      "Expiring and revocable generated-output share links",
+      "Audit logging for imports, pricing changes, approvals, output sharing, and role changes"
+    ],
+    "trust_boundaries": [
+      "Browser to application API",
+      "Application API to database",
+      "Application API to object storage",
+      "Workers to object storage and database",
+      "Integration adapters to external providers",
+      "Generated output share link to external customer"
+    ]
+  },
+  "security_risks": [
+    {
+      "id": "ARCH-RISK-011",
+      "risk": "Supplier credentials could leak if stored without lifecycle controls.",
+      "severity": "critical",
+      "mitigation": "Do not store supplier credentials in MVP unless a secrets manager, access control, rotation, revocation, and audit trail are implemented."
+    },
+    {
+      "id": "ARCH-RISK-012",
+      "risk": "Generated output links may expose confidential customer pricing.",
+      "severity": "high",
+      "mitigation": "Use scoped tokens, expiration, revocation, and access logging."
+    },
+    {
+      "id": "ARCH-RISK-013",
+      "risk": "Workspace scoping bugs could expose vendor pricing or margin data across tenants.",
+      "severity": "critical",
+      "mitigation": "Centralize workspace scoping in authorization middleware and test data-isolation paths."
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-011",
+      "decision": "Supplier credential storage is not MVP-critical.",
+      "status": "accepted",
+      "rationale": "File/manual import avoids the highest credential risk while preserving core workflow validation."
+    },
+    {
+      "id": "ADR-012",
+      "decision": "Use workspace-scoped RBAC as the MVP authorization model.",
+      "status": "accepted",
+      "rationale": "Stage 1 and Stage 2 support simple roles before enterprise governance."
+    }
+  ],
+  "compliance_considerations": [
+    "Supplier terms review before automated portal access.",
+    "Retention policy for uploaded supplier files and generated outputs.",
+    "Auditability for pricing and quote approvals.",
+    "Least privilege for support console access."
+  ],
+  "unresolved_questions": [],
+  "stage_4_handoff_notes": [
+    "UX must clearly distinguish private workspace data from shareable customer output.",
+    "Role and permission states should be visible in workspace settings."
+  ],
+  "stage_5_handoff_notes": [
+    "Add authorization tests before workflow feature completion.",
+    "Implement audit logging alongside pricing and generated-output workflows."
+  ]
+}

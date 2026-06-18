@@ -1,0 +1,151 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "workflow-and-capability-synthesis",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "capabilities": [
+    {
+      "id": "CAP-001",
+      "name": "Workspace, Users, And Governance",
+      "domain": "Platform foundation",
+      "description": "Business workspace, user accounts, role-based access, collaboration, approvals, and future enterprise controls.",
+      "workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-006",
+        "WORKFLOW-007"
+      ]
+    },
+    {
+      "id": "CAP-002",
+      "name": "Supplier And Vendor Management",
+      "domain": "Sourcing operations",
+      "description": "Vendor connections, profiles, grouping, account metadata, connection monitoring, re-authentication, onboarding, notes, and performance tracking.",
+      "workflow_ids": [
+        "WORKFLOW-001"
+      ]
+    },
+    {
+      "id": "CAP-003",
+      "name": "Product Aggregation",
+      "domain": "Data intake",
+      "description": "Single, bulk, category, and collection product import with product metadata, assets, specifications, SKUs, UPCs, dimensions, documents, warranty information, and version history.",
+      "workflow_ids": [
+        "WORKFLOW-002"
+      ]
+    },
+    {
+      "id": "CAP-004",
+      "name": "Service Aggregation",
+      "domain": "Service operations",
+      "description": "Import and manage supplier services, service pricing tables, requirements, turnaround times, availability, and documentation.",
+      "workflow_ids": [
+        "WORKFLOW-002"
+      ]
+    },
+    {
+      "id": "CAP-005",
+      "name": "Unified Asset Library",
+      "domain": "Asset operations",
+      "description": "Central repository for products, services, bundles, recipes, catalog assets, categories, tags, collections, folders, saved views, and search.",
+      "workflow_ids": [
+        "WORKFLOW-003"
+      ]
+    },
+    {
+      "id": "CAP-006",
+      "name": "Pricing, Cost, And Margin Engine",
+      "domain": "Commercial operations",
+      "description": "Product pricing, service pricing, advanced pricing, cost breakdowns, margin calculations, margin protection, thresholds, and approvals.",
+      "workflow_ids": [
+        "WORKFLOW-004",
+        "WORKFLOW-005",
+        "WORKFLOW-006"
+      ]
+    },
+    {
+      "id": "CAP-007",
+      "name": "Bundle And Production Recipe Builder",
+      "domain": "Offer construction",
+      "description": "Reusable combinations of products, services, labor, packaging, shipping, setup, installation, production formulas, quantity scaling, and dynamic pricing updates.",
+      "workflow_ids": [
+        "WORKFLOW-005"
+      ]
+    },
+    {
+      "id": "CAP-008",
+      "name": "Catalog, Price Book, Quote, And Proposal Output",
+      "domain": "Sales enablement",
+      "description": "Branded catalogs, customer or project price books, quote generation, proposals, approvals, revisions, sharing, and export.",
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ]
+    },
+    {
+      "id": "CAP-009",
+      "name": "Customer Management And Portals",
+      "domain": "Customer operations",
+      "description": "Customer profiles, groups, notes, purchase history, assigned pricing tiers, customer portals, favorites, quote requests, and secure catalog access.",
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ]
+    },
+    {
+      "id": "CAP-010",
+      "name": "Monitoring, Automation, Analytics, AI, And Integrations",
+      "domain": "Expansion systems",
+      "description": "Supplier change monitoring, inventory and service availability alerts, approval workflows, reporting, AI assistants, natural language search, ecommerce, CRM, accounting, and storage integrations.",
+      "workflow_ids": [
+        "WORKFLOW-007"
+      ]
+    }
+  ],
+  "capability_dependencies": [
+    {
+      "id": "CAP-DEP-001",
+      "capability_id": "CAP-003",
+      "depends_on": [
+        "CAP-002"
+      ],
+      "reason": "Product import needs supplier source context."
+    },
+    {
+      "id": "CAP-DEP-002",
+      "capability_id": "CAP-004",
+      "depends_on": [
+        "CAP-002"
+      ],
+      "reason": "Service import needs supplier source context."
+    },
+    {
+      "id": "CAP-DEP-003",
+      "capability_id": "CAP-006",
+      "depends_on": [
+        "CAP-003",
+        "CAP-004",
+        "CAP-005"
+      ],
+      "reason": "Pricing and margin calculations consume normalized products, services, and asset organization."
+    },
+    {
+      "id": "CAP-DEP-004",
+      "capability_id": "CAP-007",
+      "depends_on": [
+        "CAP-003",
+        "CAP-004",
+        "CAP-006"
+      ],
+      "reason": "Bundles and recipes require product, service, cost, and pricing components."
+    },
+    {
+      "id": "CAP-DEP-005",
+      "capability_id": "CAP-008",
+      "depends_on": [
+        "CAP-005",
+        "CAP-006",
+        "CAP-007"
+      ],
+      "reason": "Customer-facing outputs depend on approved assets, pricing, and assembled offerings."
+    }
+  ]
+}

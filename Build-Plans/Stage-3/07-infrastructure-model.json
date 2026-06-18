@@ -1,0 +1,120 @@
+{
+  "stage": "Stage 3",
+  "status": "complete",
+  "command": "stage-3-system-architecture",
+  "owning_skill": "integration-and-infrastructure-architecture",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/07-dependency-map.json",
+    "Build-Plans/Stage-1/08-mvp-operational-model.json"
+  ],
+  "related_stage_2_assumption_ids": [
+    "A-002",
+    "A-005",
+    "A-007"
+  ],
+  "infrastructure_model": {
+    "hosting_approach": "managed_platform_or_containerized_web_runtime",
+    "compute": [
+      {
+        "id": "INFRA-001",
+        "name": "Web/API Runtime",
+        "purpose": "Serve frontend and application API."
+      },
+      {
+        "id": "INFRA-002",
+        "name": "Worker Runtime",
+        "purpose": "Run import, document generation, notification, and future integration jobs."
+      }
+    ],
+    "database": {
+      "id": "INFRA-003",
+      "type": "managed_relational_database",
+      "purpose": "Workspace-scoped system of record."
+    },
+    "object_storage": {
+      "id": "INFRA-004",
+      "type": "private_object_storage",
+      "purpose": "Supplier files, images, documents, and generated outputs."
+    },
+    "queue": {
+      "id": "INFRA-005",
+      "type": "managed_queue_or_job_system",
+      "purpose": "Async import parsing, normalization, generated outputs, notifications, future sync, and future AI jobs."
+    },
+    "cache": {
+      "id": "INFRA-006",
+      "type": "optional_cache",
+      "purpose": "Search filters, pricing preview acceleration, and rate-limit counters when needed."
+    },
+    "secrets": {
+      "id": "INFRA-007",
+      "type": "managed_secrets_store",
+      "purpose": "Email provider keys, future AI provider keys, future supplier connector secrets."
+    },
+    "environments": [
+      "local",
+      "staging",
+      "production"
+    ]
+  },
+  "observability_requirements": [
+    {
+      "id": "OBS-001",
+      "requirement": "Structured application logs with workspace, job, and request correlation IDs."
+    },
+    {
+      "id": "OBS-002",
+      "requirement": "Job queue metrics for import parse duration, failure rate, retries, and document generation."
+    },
+    {
+      "id": "OBS-003",
+      "requirement": "Security audit events for role changes, pricing changes, import commits, quote approval, and share-link creation."
+    },
+    {
+      "id": "OBS-004",
+      "requirement": "Integration adapter logs for future connector runs without exposing secrets."
+    }
+  ],
+  "infrastructure_risks": [
+    {
+      "id": "ARCH-RISK-014",
+      "risk": "Large supplier files or generated documents can create long request times if handled synchronously.",
+      "severity": "medium",
+      "mitigation": "Use object storage and queue-backed worker processing."
+    },
+    {
+      "id": "ARCH-RISK-015",
+      "risk": "Document generation and future AI usage can create unbounded cost.",
+      "severity": "medium",
+      "mitigation": "Use quotas, job limits, cost metrics, and explicit feature flags."
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-013",
+      "decision": "Use managed relational database as the system of record.",
+      "status": "accepted",
+      "rationale": "The MVP has relational workflows, transactional pricing snapshots, and strong ownership needs."
+    },
+    {
+      "id": "ADR-014",
+      "decision": "Use private object storage for uploaded and generated files.",
+      "status": "accepted",
+      "rationale": "Supplier files, images, documents, and generated outputs do not belong in the relational database."
+    },
+    {
+      "id": "ADR-015",
+      "decision": "Use queue-backed workers from the first implementation phase.",
+      "status": "accepted",
+      "rationale": "Imports and generated outputs are core workflows and should not block request-response paths."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_4_handoff_notes": [
+    "UI needs progress, error, and retry states for async jobs."
+  ],
+  "stage_5_handoff_notes": [
+    "Create infrastructure tickets for database, object storage, queue, worker runtime, and logging before import workflow tickets complete."
+  ]
+}

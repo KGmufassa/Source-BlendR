@@ -1,41 +1,446 @@
 {
   "stage": "Stage 2",
   "command": "stage-2-research-and-validation",
-  "status": "not_started",
-  "stage_1_inputs": {},
-  "preflight": {},
-  "assumptions": [],
-  "validation_targets": [],
-  "assumption_registry": [],
-  "confidence_scores": {
-    "market": 0.0,
-    "user": 0.0,
-    "competitive": 0.0,
-    "technical": 0.0,
-    "operational": 0.0,
-    "business": 0.0,
-    "scalability": 0.0,
-    "architecture_readiness": 0.0
+  "status": "complete",
+  "schema_ref": "System-References/Schemas/stage-2-output.schema.json",
+  "stage_1_inputs": {
+    "source_directory": "Build-Plans/Stage-1/",
+    "required_files_loaded": true,
+    "stage_1_completion_status": "ready_for_stage_2",
+    "stage_1_handoff_ready": true
   },
-  "market_validation": {},
-  "competitive_landscape": {},
-  "user_validation": {},
-  "technical_validation": {},
-  "operational_validation": {},
-  "business_validation": {},
-  "scalability_analysis": {},
-  "critical_unknowns": [],
+  "preflight": {
+    "stage_1_output_directory_exists": true,
+    "minimum_viable_inputs_exist": true,
+    "required_files_readable": true,
+    "content_sufficient_for_assumption_extraction": true,
+    "blocking_stage_1_status": false,
+    "missing_stage_1_files": []
+  },
+  "assumptions": [
+    "A-001",
+    "A-002",
+    "A-003",
+    "A-004",
+    "A-005",
+    "A-006",
+    "A-007",
+    "A-008",
+    "A-009",
+    "A-010",
+    "A-011",
+    "A-012"
+  ],
+  "validation_targets": [
+    {
+      "id": "VT-001",
+      "target": "Validate first target vertical.",
+      "status": "provisionally_validated",
+      "result": "Apparel decorators and promotional product businesses are the strongest provisional beachhead."
+    },
+    {
+      "id": "VT-002",
+      "target": "Validate supplier import strategy.",
+      "status": "validated_with_constraints",
+      "result": "File/manual import is the safest MVP path; supplier portal automation should be staged."
+    },
+    {
+      "id": "VT-003",
+      "target": "Validate first customer-facing output.",
+      "status": "provisionally_validated",
+      "result": "Quote output is the strongest provisional first output, with catalog and price book variants later."
+    },
+    {
+      "id": "VT-004",
+      "target": "Validate pricing and cost model complexity.",
+      "status": "validated_with_constraints",
+      "result": "Core product, service, labor, shipping, packaging, setup, and margin modeling should be supported; advanced pricing can be staged."
+    }
+  ],
+  "assumption_registry": [
+    {
+      "id": "A-001",
+      "assumption": "Businesses that source supplier products and services need a unified platform for resale pricing and customer-facing output generation.",
+      "domain": "market",
+      "source_stage_1_file": "01-product-foundation.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "high",
+      "architecture_critical": true,
+      "status": "validated",
+      "confidence": 0.72,
+      "evidence": [
+        "EVIDENCE-001",
+        "EVIDENCE-002",
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Validate with target-user interviews before implementation planning."
+    },
+    {
+      "id": "A-002",
+      "assumption": "File/manual import can be the MVP path before broad automatic supplier synchronization.",
+      "domain": "technical",
+      "source_stage_1_file": "08-mvp-operational-model.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "high",
+      "architecture_critical": true,
+      "status": "validated",
+      "confidence": 0.76,
+      "evidence": [
+        "EVIDENCE-003",
+        "EVIDENCE-004"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Stage 3 should design import adapters and implement file/manual import first."
+    },
+    {
+      "id": "A-003",
+      "assumption": "Apparel decorators and promotional product businesses are the best provisional beachhead.",
+      "domain": "user",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "implicit",
+      "risk_if_false": "high",
+      "architecture_critical": false,
+      "status": "validated",
+      "confidence": 0.7,
+      "evidence": [
+        "EVIDENCE-001",
+        "EVIDENCE-002",
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Use as provisional Stage 3 example domain, not hardcoded product limitation."
+    },
+    {
+      "id": "A-004",
+      "assumption": "Existing competitors leave room for differentiation through product-plus-service aggregation, recipes, and margin-first output.",
+      "domain": "competitive",
+      "source_stage_1_file": "05-feature-structure.json",
+      "explicit_or_implicit": "implicit",
+      "risk_if_false": "medium",
+      "architecture_critical": false,
+      "status": "validated",
+      "confidence": 0.7,
+      "evidence": [
+        "EVIDENCE-002",
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Preserve differentiation in Stage 3 domain boundaries."
+    },
+    {
+      "id": "A-005",
+      "assumption": "A unified asset model can represent products, services, bundles, recipes, documents, and catalog assets.",
+      "domain": "technical",
+      "source_stage_1_file": "04-product-capabilities.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "high",
+      "architecture_critical": true,
+      "status": "validated",
+      "confidence": 0.76,
+      "evidence": [
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Stage 3 must define explicit domain entities and avoid overgeneric schemas."
+    },
+    {
+      "id": "A-006",
+      "assumption": "Customer-facing quote output is a viable first output path.",
+      "domain": "operational",
+      "source_stage_1_file": "08-mvp-operational-model.json",
+      "explicit_or_implicit": "implicit",
+      "risk_if_false": "medium",
+      "architecture_critical": false,
+      "status": "validated",
+      "confidence": 0.71,
+      "evidence": [
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Stage 3 should design generated-output service around quotes first with extensible variants."
+    },
+    {
+      "id": "A-007",
+      "assumption": "Pricing, cost, margin, bundle, and recipe calculations are core MVP domains.",
+      "domain": "technical",
+      "source_stage_1_file": "08-mvp-operational-model.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "high",
+      "architecture_critical": true,
+      "status": "validated",
+      "confidence": 0.77,
+      "evidence": [
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Stage 3 should define auditable pricing and cost calculation boundaries."
+    },
+    {
+      "id": "A-008",
+      "assumption": "Simple approval states are enough for MVP pricing and quote review.",
+      "domain": "operational",
+      "source_stage_1_file": "09-risk-and-constraints.json",
+      "explicit_or_implicit": "implicit",
+      "risk_if_false": "medium",
+      "architecture_critical": false,
+      "status": "validated",
+      "confidence": 0.7,
+      "evidence": [
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Use simple draft/review/approved/sent states in Stage 3."
+    },
+    {
+      "id": "A-009",
+      "assumption": "AI should be an expansion layer rather than launch-critical MVP behavior.",
+      "domain": "technical",
+      "source_stage_1_file": "08-mvp-operational-model.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "medium",
+      "architecture_critical": false,
+      "status": "validated",
+      "confidence": 0.68,
+      "evidence": [
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "low",
+      "contradictions": [],
+      "next_action": "Keep AI modular and human-reviewed in Stage 3."
+    },
+    {
+      "id": "A-010",
+      "assumption": "Supplier credentials and portal automation require formal secrets management and access controls.",
+      "domain": "compliance",
+      "source_stage_1_file": "09-risk-and-constraints.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "critical",
+      "architecture_critical": true,
+      "status": "validated",
+      "confidence": 0.8,
+      "evidence": [
+        "EVIDENCE-004"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Stage 3 must include credential security architecture before any credential-stored connector."
+    },
+    {
+      "id": "A-011",
+      "assumption": "Incumbent overlap is manageable if Source-Blendr narrows positioning.",
+      "domain": "competitive",
+      "source_stage_1_file": "02-competitive-landscape.json",
+      "explicit_or_implicit": "implicit",
+      "risk_if_false": "medium",
+      "architecture_critical": false,
+      "status": "validated",
+      "confidence": 0.66,
+      "evidence": [
+        "EVIDENCE-002",
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "medium",
+      "contradictions": [],
+      "next_action": "Focus positioning on product-plus-service resale costing and quotes."
+    },
+    {
+      "id": "A-012",
+      "assumption": "A B2B SaaS subscription model is viable.",
+      "domain": "business",
+      "source_stage_1_file": "01-product-foundation.json",
+      "explicit_or_implicit": "implicit",
+      "risk_if_false": "medium",
+      "architecture_critical": false,
+      "status": "weakened",
+      "confidence": 0.58,
+      "evidence": [
+        "EVIDENCE-001",
+        "EVIDENCE-002",
+        "EVIDENCE-003"
+      ],
+      "evidence_quality": "low",
+      "contradictions": [],
+      "next_action": "Validate pricing and willingness to pay before development orchestration."
+    }
+  ],
+  "confidence_scores": {
+    "market": 0.72,
+    "user": 0.7,
+    "competitive": 0.7,
+    "technical": 0.76,
+    "operational": 0.72,
+    "business": 0.66,
+    "scalability": 0.68,
+    "architecture_readiness": 0.76
+  },
+  "market_validation": {
+    "source_file": "Build-Plans/Stage-2/01-market-analysis.json",
+    "status": "validated_with_caveats"
+  },
+  "competitive_landscape": {
+    "source_file": "Build-Plans/Stage-2/02-competitive-landscape.json",
+    "status": "validated_with_caveats"
+  },
+  "user_validation": {
+    "status": "provisionally_validated",
+    "provisional_beachhead": "Apparel decorators and promotional product businesses"
+  },
+  "technical_validation": {
+    "source_file": "Build-Plans/Stage-2/03-technical-feasibility.json",
+    "status": "validated_with_constraints"
+  },
+  "operational_validation": {
+    "status": "validated_with_constraints",
+    "constraints": [
+      "Use file/manual import first.",
+      "Use simple approval states.",
+      "Use one first output workflow."
+    ]
+  },
+  "business_validation": {
+    "source_file": "Build-Plans/Stage-2/04-business-viability.json",
+    "status": "validated_with_pricing_gap"
+  },
+  "scalability_analysis": {
+    "status": "validated_with_constraints",
+    "constraints": [
+      "Defer broad supplier synchronization.",
+      "Defer AI from launch-critical scope.",
+      "Design integrations as modular adapters."
+    ]
+  },
+  "critical_unknowns": [
+    {
+      "id": "UNKNOWN-001",
+      "unknown": "Final first vertical has not been confirmed by primary research.",
+      "severity": "medium",
+      "next_action": "Validate apparel decorator/promotional product beachhead or choose another vertical before implementation planning.",
+      "blocks_stage_3": false
+    },
+    {
+      "id": "UNKNOWN-002",
+      "unknown": "Specific supplier APIs/exports are not validated.",
+      "severity": "medium",
+      "next_action": "Stage 3 should support file/manual import first and isolate future connector adapters.",
+      "blocks_stage_3": false
+    },
+    {
+      "id": "UNKNOWN-003",
+      "unknown": "Willingness to pay and pricing metric are not validated.",
+      "severity": "medium",
+      "next_action": "Validate pricing before Stage 5 development orchestration.",
+      "blocks_stage_3": false
+    }
+  ],
   "contradictions": [],
-  "risk_registry": [],
-  "recommendations": [],
+  "risk_registry": [
+    "S2-RISK-001",
+    "S2-RISK-002",
+    "S2-RISK-003",
+    "S2-RISK-004",
+    "S2-RISK-005",
+    "S2-RISK-006"
+  ],
+  "recommendations": [
+    "Proceed to Stage 3 with a constrained MVP.",
+    "Use apparel decorators/promotional products as provisional example domain.",
+    "Do not include supplier portal automation, AI, customer portals, or deep integrations as launch-critical.",
+    "Validate pricing before Stage 5 development orchestration."
+  ],
   "interactive_guidance": {
     "open_questions": [],
     "answered_questions": [],
-    "assumptions_made": [],
+    "assumptions_made": [
+      {
+        "id": "S2-ASSUMPTION-001",
+        "assumption": "Apparel decorators/promotional product businesses are the provisional beachhead for Stage 3 examples.",
+        "rationale": "Stage 1 examples and external evidence most strongly support this segment."
+      },
+      {
+        "id": "S2-ASSUMPTION-002",
+        "assumption": "Quote output is the provisional first generated-output workflow.",
+        "rationale": "Quote generation is central to the expanded brief and is validated by adjacent print-shop software."
+      }
+    ],
     "blocked_decisions": [],
     "user_confirmations": [],
-    "validation_confidence_gaps": []
+    "validation_confidence_gaps": [
+      "Primary user interviews are still needed.",
+      "Willingness to pay is not validated.",
+      "Supplier-specific APIs and exports are not validated."
+    ]
   },
-  "architecture_readiness": {},
-  "completion_status": {}
+  "validated_product_model": {
+    "product_id": "PRODUCT-001",
+    "positioning": "Supplier product-and-service aggregation into margin-aware resale quotes and outputs.",
+    "provisional_beachhead": "Apparel decorators and promotional product businesses",
+    "mvp_wedge": "Product plus service aggregation into margin-aware quote or price book output"
+  },
+  "architecture_readiness": {
+    "status": "ready",
+    "score": 0.76,
+    "ready_for": "Stage 3",
+    "architecture_constraints": [
+      "File/manual import first.",
+      "Connector adapter boundary.",
+      "Explicit product/service/bundle/recipe/pricing/output domains.",
+      "Secrets management before credential-stored connectors.",
+      "AI as deferred assistive service."
+    ]
+  },
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_3",
+    "global_status": "ready_for_next_stage",
+    "reason": "Core market, technical, operational, and business assumptions meet readiness thresholds with constraints and mitigations.",
+    "blocking_items": [],
+    "next_actions": [
+      "Run Stage 3 system architecture."
+    ],
+    "ready_for": "Stage 3"
+  },
+  "stage_3_handoff": {
+    "source_stage": "Stage 2",
+    "target_stage": "Stage 3",
+    "source_output_directory": "Build-Plans/Stage-2/",
+    "required_files": [
+      "01-market-analysis.json",
+      "02-competitive-landscape.json",
+      "03-technical-feasibility.json",
+      "04-business-viability.json",
+      "05-risk-validation.json",
+      "06-strategic-positioning.json"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [],
+    "traceability_refs": [
+      "A-001",
+      "A-002",
+      "A-005",
+      "A-007",
+      "A-010",
+      "S2-RISK-001",
+      "S2-RISK-003",
+      "S2-RISK-004"
+    ],
+    "completion_status": {
+      "stage_specific_status": "ready_for_stage_3",
+      "global_status": "ready_for_next_stage",
+      "reason": "Architecture progression is safe with recorded constraints.",
+      "blocking_items": [],
+      "next_actions": [
+        "Run Stage 3 system architecture."
+      ],
+      "ready_for": "Stage 3"
+    }
+  }
 }

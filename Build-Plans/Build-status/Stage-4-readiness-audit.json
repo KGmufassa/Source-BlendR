@@ -1,0 +1,108 @@
+{
+  "stage": "Stage 4",
+  "command": "global-stage-readiness-audit",
+  "audit_status": "passed_with_warnings",
+  "global_workflow_contract": "System-References/Docs/Global-Stage-Workflow-Contract.md",
+  "required_files_present": true,
+  "schemas_valid": true,
+  "completion_status_present": true,
+  "global_status_mapped": true,
+  "handoff_present": true,
+  "handoff_usable": true,
+  "risks_recorded": true,
+  "assumptions_recorded": true,
+  "traceability_present": true,
+  "artifacts_recorded": true,
+  "stage_contract_profile": {
+    "profile_id": "stage-4-ux-interaction-architecture",
+    "profile_requirements_checked": true,
+    "missing_profile_requirements": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-4-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-4/01-user-journeys.json",
+      "Build-Plans/Stage-4/02-interaction-architecture.json",
+      "Build-Plans/Stage-4/03-screen-system.json",
+      "Build-Plans/Stage-4/04-feature-behaviors.json",
+      "Build-Plans/Stage-4/05-state-transition-map.json",
+      "Build-Plans/Stage-4/06-accessibility-framework.json",
+      "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
+      "Build-Plans/Stage-4/08-design-system-foundation.json",
+      "Build-Plans/Build-status/UX-state.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-06-18",
+    "validator": "global-stage-readiness-audit",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "JOURNEY-001",
+      "JOURNEY-002",
+      "SCREEN-004",
+      "SCREEN-010",
+      "BEHAVIOR-006",
+      "UI-BLUEPRINT-002",
+      "UI-BLUEPRINT-006",
+      "VISUAL-SPEC-006",
+      "DESIGN-SYSTEM-001",
+      "A11Y-RISK-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "artifact_evidence_registry": {
+    "registry_path": "Build-Plans/Build-status/Artifact-evidence-registry.json",
+    "required": false,
+    "required_artifacts_present": true,
+    "missing_artifacts": []
+  },
+  "risk_acceptance_ledger": {
+    "ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json",
+    "required": false,
+    "accepted_risks_present": false,
+    "missing_risk_acceptance_entries": [],
+    "expired_or_unowned_risks": []
+  },
+  "revision_loops": [],
+  "visual_design_continuity": {
+    "required": true,
+    "ui_blueprint_refs_present": true,
+    "visual_spec_refs_present": true,
+    "design_system_refs_present": true,
+    "visual_acceptance_criteria_mapped": true,
+    "preview_or_visual_qa_evidence_present": false,
+    "design_system_compliance_recorded": true,
+    "visual_drift_status_recorded": false,
+    "blocking_visual_gaps": []
+  },
+  "blocking_gaps": [],
+  "warnings": [
+    {
+      "id": "WARNING-001",
+      "warning": "Visual approval is assumed rather than explicitly confirmed."
+    },
+    {
+      "id": "WARNING-002",
+      "warning": "Preview or visual QA evidence is not expected until implementation stages."
+    },
+    {
+      "id": "WARNING-003",
+      "warning": "Exact first-vertical copy may need refinement after buyer interviews."
+    }
+  ],
+  "next_actions": [
+    "Run Stage 5 development orchestration.",
+    "Carry UI blueprint refs, visual spec refs, design system refs, responsive requirements, accessibility requirements, and visual acceptance criteria into frontend tickets."
+  ],
+  "ready_for_next_stage": true
+}

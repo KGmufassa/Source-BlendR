@@ -1,0 +1,209 @@
+{
+  "stage": "Stage 3",
+  "status": "complete",
+  "command": "stage-3-system-architecture",
+  "owning_skill": "data-and-api-architecture",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/03-workflow-architecture.json",
+    "Build-Plans/Stage-1/05-feature-structure.json"
+  ],
+  "related_stage_2_assumption_ids": [
+    "A-002",
+    "A-006",
+    "A-007"
+  ],
+  "api_architecture": {
+    "api_style": "workspace_scoped_json_http_api",
+    "external_api_policy": "No public external API for MVP beyond authenticated web app and generated-output sharing links.",
+    "internal_api_policy": "Domain modules communicate through typed application services and domain events."
+  },
+  "api_surfaces": [
+    {
+      "id": "API-001",
+      "name": "Identity And Workspace API",
+      "operations": [
+        "createWorkspace",
+        "inviteUser",
+        "updateMembershipRole",
+        "listWorkspaceMembers"
+      ],
+      "authz": "workspace_admin_or_owner",
+      "workflow_ids": [
+        "WORKFLOW-001"
+      ]
+    },
+    {
+      "id": "API-002",
+      "name": "Supplier API",
+      "operations": [
+        "createSupplier",
+        "updateSupplier",
+        "archiveSupplier",
+        "createSupplierSource",
+        "checkConnectionStatus"
+      ],
+      "authz": "workspace_member_with_supplier_write",
+      "workflow_ids": [
+        "WORKFLOW-001"
+      ]
+    },
+    {
+      "id": "API-003",
+      "name": "Import API",
+      "operations": [
+        "createImportBatch",
+        "uploadImportFile",
+        "previewFieldMapping",
+        "updateFieldMapping",
+        "startImportParse",
+        "listImportErrors",
+        "commitImportRows"
+      ],
+      "authz": "workspace_member_with_import_write",
+      "workflow_ids": [
+        "WORKFLOW-002"
+      ],
+      "async_jobs": [
+        "parseImportFile",
+        "normalizeImportRows"
+      ]
+    },
+    {
+      "id": "API-004",
+      "name": "Asset Library API",
+      "operations": [
+        "searchAssets",
+        "createProduct",
+        "updateProduct",
+        "createServiceOffering",
+        "updateServiceOffering",
+        "tagAsset",
+        "createCollection",
+        "archiveAsset"
+      ],
+      "authz": "workspace_member_with_asset_access",
+      "workflow_ids": [
+        "WORKFLOW-003"
+      ]
+    },
+    {
+      "id": "API-005",
+      "name": "Pricing And Margin API",
+      "operations": [
+        "createPricingRule",
+        "previewPriceCalculation",
+        "applyPricingRule",
+        "createCostComponent",
+        "evaluateMargin",
+        "snapshotPrice"
+      ],
+      "authz": "workspace_member_with_pricing_access",
+      "workflow_ids": [
+        "WORKFLOW-004"
+      ]
+    },
+    {
+      "id": "API-006",
+      "name": "Bundle And Recipe API",
+      "operations": [
+        "createBundle",
+        "updateBundleComponents",
+        "createProductionRecipe",
+        "updateRecipeComponents",
+        "previewAggregateCost",
+        "publishOfferTemplate"
+      ],
+      "authz": "workspace_member_with_offer_write",
+      "workflow_ids": [
+        "WORKFLOW-005"
+      ]
+    },
+    {
+      "id": "API-007",
+      "name": "Quote And Generated Output API",
+      "operations": [
+        "createQuote",
+        "addQuoteLine",
+        "previewQuoteMargin",
+        "submitQuoteForReview",
+        "approveQuote",
+        "generateQuoteOutput",
+        "shareGeneratedOutput",
+        "expireGeneratedOutput"
+      ],
+      "authz": "workspace_member_with_quote_access",
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ],
+      "async_jobs": [
+        "generateDocument"
+      ]
+    },
+    {
+      "id": "API-008",
+      "name": "Customer API",
+      "operations": [
+        "createCustomer",
+        "updateCustomer",
+        "createCustomerContact",
+        "assignPricingProfile"
+      ],
+      "authz": "workspace_member_with_customer_access",
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ]
+    },
+    {
+      "id": "API-009",
+      "name": "Automation And Notification API",
+      "operations": [
+        "listNotifications",
+        "markNotificationRead",
+        "createApprovalRequest",
+        "resolveApprovalRequest"
+      ],
+      "authz": "workspace_member",
+      "workflow_ids": [
+        "WORKFLOW-007"
+      ]
+    }
+  ],
+  "api_risks": [
+    {
+      "id": "ARCH-RISK-007",
+      "risk": "External sharing links may expose customer-specific pricing.",
+      "severity": "high",
+      "mitigation": "Use expiring signed links, access tokens, audit events, and revocation."
+    },
+    {
+      "id": "ARCH-RISK-008",
+      "risk": "Pricing preview endpoints can become performance hotspots.",
+      "severity": "medium",
+      "mitigation": "Cache deterministic calculations and snapshot approved prices."
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-007",
+      "decision": "Do not expose a public integration API in MVP.",
+      "status": "accepted",
+      "rationale": "Stage 2 did not validate external API demand; internal APIs are enough for Stage 4 and Stage 5."
+    },
+    {
+      "id": "ADR-008",
+      "decision": "Use command-style operations for workflow transitions.",
+      "status": "accepted",
+      "rationale": "Imports, quote approval, document generation, and pricing snapshots are workflows, not generic CRUD updates."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_4_handoff_notes": [
+    "Stage 4 should map each API surface into screens and task states.",
+    "Generated-output sharing needs clear UX for expiration and revocation."
+  ],
+  "stage_5_handoff_notes": [
+    "Implement API authorization tests per workspace role.",
+    "Use command handlers for workflow transitions with audit events."
+  ]
+}

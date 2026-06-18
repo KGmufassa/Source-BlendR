@@ -1,0 +1,306 @@
+{
+  "stage": "Stage 4",
+  "status": "complete",
+  "command": "stage-4-ux-interaction-architecture",
+  "owning_skill": "user-journey-design",
+  "schema_ref": "System-References/Schemas/stage-4-output.schema.json",
+  "related_stage_1_workflows": [
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-004",
+    "WORKFLOW-005",
+    "WORKFLOW-006",
+    "WORKFLOW-007"
+  ],
+  "related_stage_3_constraints": [
+    "Use file/manual import first",
+    "Show async import and generated-output progress",
+    "Use workspace-scoped RBAC",
+    "Treat quote output as the first generated-output workflow"
+  ],
+  "user_journeys": [
+    {
+      "id": "JOURNEY-001",
+      "name": "Supplier Setup",
+      "primary_user": "USER-001",
+      "goal": "Create a supplier profile and source record for product or service intake.",
+      "entry_points": [
+        "Main navigation Suppliers",
+        "Empty-state CTA from imports",
+        "Quote/bundle missing supplier prompt"
+      ],
+      "start_state": "Workspace exists and user has supplier write permission.",
+      "steps": [
+        "Open suppliers",
+        "Create supplier",
+        "Add account/contact/source details",
+        "Choose file/manual import path",
+        "Save supplier"
+      ],
+      "success_state": "Supplier and supplier source are available for import batches.",
+      "failure_states": [
+        "Missing required supplier name",
+        "Permission denied",
+        "Duplicate supplier warning"
+      ],
+      "recovery_paths": [
+        "Inline validation correction",
+        "Request admin access",
+        "Merge or continue with duplicate warning"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "JOURNEY-002",
+      "name": "Import Products And Services",
+      "primary_user": "USER-003",
+      "goal": "Upload or manually enter supplier product/service data, resolve mapping errors, and commit clean records.",
+      "entry_points": [
+        "Supplier detail import action",
+        "Imports queue",
+        "Asset library empty state"
+      ],
+      "start_state": "Supplier source exists.",
+      "steps": [
+        "Create import batch",
+        "Upload file or choose manual entry",
+        "Map fields",
+        "Review parsed rows and errors",
+        "Commit valid rows to asset library"
+      ],
+      "success_state": "Products and services are normalized in the asset library.",
+      "failure_states": [
+        "Unsupported file",
+        "Parsing failure",
+        "Required fields missing",
+        "Partial import"
+      ],
+      "recovery_paths": [
+        "Download error report",
+        "Edit field mapping",
+        "Fix rows and retry",
+        "Commit valid rows only"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "JOURNEY-003",
+      "name": "Curate Asset Library",
+      "primary_user": "USER-001",
+      "goal": "Find, organize, edit, and prepare products/services for pricing and offering creation.",
+      "entry_points": [
+        "Main navigation Asset Library",
+        "Import completion summary",
+        "Bundle builder asset picker"
+      ],
+      "start_state": "Assets exist or user is creating assets manually.",
+      "steps": [
+        "Search or filter assets",
+        "Review product/service details",
+        "Edit categories, tags, collections, and documents",
+        "Archive or activate records"
+      ],
+      "success_state": "Assets are ready for pricing, bundles, recipes, and quotes.",
+      "failure_states": [
+        "No results",
+        "Missing cost data",
+        "Edit conflict",
+        "Permission denied"
+      ],
+      "recovery_paths": [
+        "Clear filters",
+        "Add missing costs",
+        "Reload latest record",
+        "Request access"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "JOURNEY-004",
+      "name": "Price And Protect Margin",
+      "primary_user": "USER-004",
+      "goal": "Apply pricing rules and evaluate costs, margins, and approval needs.",
+      "entry_points": [
+        "Asset detail pricing tab",
+        "Bundle/recipe pricing panel",
+        "Quote line margin warning"
+      ],
+      "start_state": "Assets or offerings have cost inputs.",
+      "steps": [
+        "Select pricing rule",
+        "Enter or review cost components",
+        "Preview resale price and margin",
+        "Resolve margin warnings",
+        "Save price snapshot or rule"
+      ],
+      "success_state": "Offering has a valid price and margin state.",
+      "failure_states": [
+        "Missing cost component",
+        "Low margin",
+        "Invalid pricing rule",
+        "Approval required"
+      ],
+      "recovery_paths": [
+        "Edit costs",
+        "Adjust markup",
+        "Request approval",
+        "Save as draft"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "JOURNEY-005",
+      "name": "Build Bundle Or Production Recipe",
+      "primary_user": "USER-001",
+      "goal": "Combine products, services, labor, shipping, packaging, setup, or installation into reusable priced offerings.",
+      "entry_points": [
+        "Offerings navigation",
+        "Asset detail add to bundle",
+        "Quote line create bundle"
+      ],
+      "start_state": "At least one product or service exists.",
+      "steps": [
+        "Create bundle or recipe",
+        "Add components",
+        "Set quantities and scaling rules",
+        "Preview costs, price, and margin",
+        "Publish as reusable offering"
+      ],
+      "success_state": "Bundle or recipe can be inserted into a quote.",
+      "failure_states": [
+        "Missing component cost",
+        "Invalid quantity",
+        "Low margin",
+        "Component archived"
+      ],
+      "recovery_paths": [
+        "Edit component",
+        "Replace component",
+        "Save draft",
+        "Request pricing approval"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "JOURNEY-006",
+      "name": "Generate Quote",
+      "primary_user": "USER-002",
+      "goal": "Create a margin-aware customer quote from products, services, bundles, or recipes.",
+      "entry_points": [
+        "Quotes navigation",
+        "Customer detail",
+        "Bundle/recipe action"
+      ],
+      "start_state": "Customer and priced offerings exist or can be created during quote draft.",
+      "steps": [
+        "Create quote",
+        "Choose customer",
+        "Add quote lines",
+        "Review margin and approvals",
+        "Generate output",
+        "Share or download"
+      ],
+      "success_state": "Customer-ready quote output is generated with immutable pricing snapshots.",
+      "failure_states": [
+        "Missing customer",
+        "Missing price snapshot",
+        "Approval required",
+        "Document generation failed",
+        "Share link expired"
+      ],
+      "recovery_paths": [
+        "Create customer inline",
+        "Snapshot pricing",
+        "Request approval",
+        "Retry generation",
+        "Regenerate share link"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "JOURNEY-007",
+      "name": "Monitor Jobs And Alerts",
+      "primary_user": "USER-003",
+      "goal": "Understand import, output, notification, and future connector job status.",
+      "entry_points": [
+        "Status center",
+        "Import progress banner",
+        "Quote generation progress panel"
+      ],
+      "start_state": "A background job has been started or failed.",
+      "steps": [
+        "Open job status",
+        "Review progress, error details, and retries",
+        "Take recovery action"
+      ],
+      "success_state": "User understands system state and can recover failed async work.",
+      "failure_states": [
+        "Job failed",
+        "Retry limit reached",
+        "Provider unavailable"
+      ],
+      "recovery_paths": [
+        "Retry",
+        "Edit inputs",
+        "Contact support with job ID"
+      ],
+      "mvp_critical": true
+    }
+  ],
+  "journey_roles": [
+    {
+      "role": "Owner/Admin",
+      "journey_access": [
+        "JOURNEY-001",
+        "JOURNEY-002",
+        "JOURNEY-003",
+        "JOURNEY-004",
+        "JOURNEY-005",
+        "JOURNEY-006",
+        "JOURNEY-007"
+      ]
+    },
+    {
+      "role": "Contributor",
+      "journey_access": [
+        "JOURNEY-002",
+        "JOURNEY-003",
+        "JOURNEY-005",
+        "JOURNEY-006"
+      ]
+    },
+    {
+      "role": "Viewer",
+      "journey_access": [
+        "JOURNEY-003",
+        "JOURNEY-006"
+      ]
+    }
+  ],
+  "ux_decisions": [
+    {
+      "id": "UXD-001",
+      "decision": "Use quote generation as the first complete customer-facing output journey.",
+      "rationale": "Matches Stage 3 generated-output architecture and Stage 2 validation."
+    },
+    {
+      "id": "UXD-002",
+      "decision": "Make import review a first-class journey, not a hidden background process.",
+      "rationale": "Supplier data quality is a major risk and users need recovery paths."
+    }
+  ],
+  "ux_risks": [
+    {
+      "id": "UX-RISK-001",
+      "risk": "The MVP has many operational workflows and could feel fragmented.",
+      "severity": "medium",
+      "mitigation": "Use a persistent sidebar, status center, and contextual next actions across workflows."
+    }
+  ],
+  "open_questions": [],
+  "stage_5_handoff_notes": [
+    "Every MVP journey has explicit start, success, failure, and recovery states.",
+    "Stage 5 should preserve job IDs and error summaries in async flows."
+  ]
+}

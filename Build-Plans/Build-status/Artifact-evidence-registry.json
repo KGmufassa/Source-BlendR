@@ -1,4 +1,56 @@
 {
   "registry_version": "1.0.0",
-  "artifacts": []
+  "artifacts": [
+    {
+      "id": "EVIDENCE-001",
+      "stage": "Stage 2",
+      "type": "external_research_source",
+      "name": "PPAI homepage",
+      "url": "https://www.ppai.org/",
+      "evidence_quality": "medium",
+      "used_by": [
+        "Build-Plans/Stage-2/01-market-analysis.json",
+        "Build-Plans/Stage-2/04-business-viability.json"
+      ]
+    },
+    {
+      "id": "EVIDENCE-002",
+      "stage": "Stage 2",
+      "type": "external_research_source",
+      "name": "ASI homepage",
+      "url": "https://asicentral.com/",
+      "evidence_quality": "medium",
+      "used_by": [
+        "Build-Plans/Stage-2/01-market-analysis.json",
+        "Build-Plans/Stage-2/02-competitive-landscape.json",
+        "Build-Plans/Stage-2/04-business-viability.json"
+      ]
+    },
+    {
+      "id": "EVIDENCE-003",
+      "stage": "Stage 2",
+      "type": "external_research_source",
+      "name": "Printavo features",
+      "url": "https://www.printavo.com/features/",
+      "evidence_quality": "medium",
+      "used_by": [
+        "Build-Plans/Stage-2/01-market-analysis.json",
+        "Build-Plans/Stage-2/02-competitive-landscape.json",
+        "Build-Plans/Stage-2/03-technical-feasibility.json",
+        "Build-Plans/Stage-2/04-business-viability.json"
+      ]
+    },
+    {
+      "id": "EVIDENCE-004",
+      "stage": "Stage 2",
+      "type": "external_research_source",
+      "name": "OWASP Secrets Management Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+      "evidence_quality": "medium",
+      "used_by": [
+        "Build-Plans/Stage-2/03-technical-feasibility.json",
+        "Build-Plans/Stage-2/05-risk-validation.json"
+      ]
+    }
+  ]
 }

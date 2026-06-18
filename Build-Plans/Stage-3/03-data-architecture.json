@@ -1,0 +1,188 @@
+{
+  "stage": "Stage 3",
+  "status": "complete",
+  "command": "stage-3-system-architecture",
+  "owning_skill": "data-and-api-architecture",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/05-feature-structure.json",
+    "Build-Plans/Stage-1/07-dependency-map.json"
+  ],
+  "related_stage_2_assumption_ids": [
+    "A-005",
+    "A-007",
+    "A-010"
+  ],
+  "data_architecture": {
+    "persistence_model": "relational_system_of_record_plus_object_storage",
+    "data_ownership_rule": "Each domain module owns writes to its core entities; other modules reference by stable IDs or read models.",
+    "history_strategy": "Use audit events and explicit snapshots for imports, price calculations, quote outputs, and approval transitions.",
+    "tenant_model": "Workspace-scoped multi-tenant data with every business entity carrying workspace ownership."
+  },
+  "data_entities": [
+    {
+      "id": "ENTITY-001",
+      "name": "Workspace",
+      "owner_service": "SERVICE-001",
+      "sensitive": false,
+      "lifecycle": "created_at_signup_archived_on_account_closure"
+    },
+    {
+      "id": "ENTITY-002",
+      "name": "UserMembership",
+      "owner_service": "SERVICE-001",
+      "sensitive": true,
+      "lifecycle": "created_invited_updated_revoked"
+    },
+    {
+      "id": "ENTITY-003",
+      "name": "Supplier",
+      "owner_service": "SERVICE-002",
+      "sensitive": true,
+      "lifecycle": "created_updated_archived"
+    },
+    {
+      "id": "ENTITY-004",
+      "name": "SupplierSource",
+      "owner_service": "SERVICE-002",
+      "sensitive": true,
+      "lifecycle": "created_configured_monitored_archived"
+    },
+    {
+      "id": "ENTITY-005",
+      "name": "ImportBatch",
+      "owner_service": "SERVICE-003",
+      "sensitive": true,
+      "lifecycle": "uploaded_parsed_reviewed_committed_or_failed"
+    },
+    {
+      "id": "ENTITY-006",
+      "name": "Product",
+      "owner_service": "SERVICE-004",
+      "sensitive": false,
+      "lifecycle": "created_imported_updated_archived_versioned"
+    },
+    {
+      "id": "ENTITY-007",
+      "name": "ServiceOffering",
+      "owner_service": "SERVICE-004",
+      "sensitive": false,
+      "lifecycle": "created_imported_updated_archived_versioned"
+    },
+    {
+      "id": "ENTITY-008",
+      "name": "AssetDocument",
+      "owner_service": "SERVICE-004",
+      "sensitive": true,
+      "lifecycle": "uploaded_linked_versioned_deleted"
+    },
+    {
+      "id": "ENTITY-009",
+      "name": "PricingRule",
+      "owner_service": "SERVICE-005",
+      "sensitive": true,
+      "lifecycle": "draft_active_replaced_archived"
+    },
+    {
+      "id": "ENTITY-010",
+      "name": "CostComponent",
+      "owner_service": "SERVICE-005",
+      "sensitive": true,
+      "lifecycle": "created_updated_snapshotted"
+    },
+    {
+      "id": "ENTITY-011",
+      "name": "PriceCalculation",
+      "owner_service": "SERVICE-005",
+      "sensitive": true,
+      "lifecycle": "computed_snapshotted_referenced"
+    },
+    {
+      "id": "ENTITY-012",
+      "name": "Bundle",
+      "owner_service": "SERVICE-006",
+      "sensitive": false,
+      "lifecycle": "draft_active_archived_versioned"
+    },
+    {
+      "id": "ENTITY-013",
+      "name": "ProductionRecipe",
+      "owner_service": "SERVICE-006",
+      "sensitive": false,
+      "lifecycle": "draft_active_archived_versioned"
+    },
+    {
+      "id": "ENTITY-014",
+      "name": "Customer",
+      "owner_service": "SERVICE-008",
+      "sensitive": true,
+      "lifecycle": "created_updated_archived"
+    },
+    {
+      "id": "ENTITY-015",
+      "name": "Quote",
+      "owner_service": "SERVICE-007",
+      "sensitive": true,
+      "lifecycle": "draft_review_approved_sent_accepted_rejected_archived"
+    },
+    {
+      "id": "ENTITY-016",
+      "name": "GeneratedOutput",
+      "owner_service": "SERVICE-007",
+      "sensitive": true,
+      "lifecycle": "requested_generating_generated_shared_expired_archived"
+    },
+    {
+      "id": "ENTITY-017",
+      "name": "AuditEvent",
+      "owner_service": "SERVICE-001",
+      "sensitive": true,
+      "lifecycle": "append_only_retained_by_policy"
+    }
+  ],
+  "relationships": [
+    "Supplier has many SupplierSources",
+    "ImportBatch belongs to SupplierSource and produces Product or ServiceOffering candidates",
+    "Product and ServiceOffering belong to Workspace and optionally Supplier",
+    "Bundle and ProductionRecipe reference Products, ServiceOfferings, CostComponents, and PriceCalculations",
+    "Quote references Customer, QuoteLines, PriceSnapshots, Bundles, Recipes, Products, and Services",
+    "GeneratedOutput references Quote or future Catalog/PriceBook/Proposal records"
+  ],
+  "data_risks": [
+    {
+      "id": "ARCH-RISK-005",
+      "risk": "Customer-specific pricing and margin data may leak across workspaces or customer contexts.",
+      "severity": "high",
+      "mitigation": "Enforce workspace scope at query layer and authorization layer; snapshot customer-specific pricing in generated outputs."
+    },
+    {
+      "id": "ARCH-RISK-006",
+      "risk": "Supplier import records may overwrite curated normalized data.",
+      "severity": "medium",
+      "mitigation": "Use import staging and human commit workflow; preserve source provenance."
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-005",
+      "decision": "Use immutable pricing snapshots for generated outputs.",
+      "status": "accepted",
+      "rationale": "Quotes and price books must remain auditable even when supplier costs or pricing rules change later."
+    },
+    {
+      "id": "ADR-006",
+      "decision": "Use import staging before normalized asset writes.",
+      "status": "accepted",
+      "rationale": "Supplier files and service tables are inconsistent and require review."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_4_handoff_notes": [
+    "UX must show import staging versus committed asset records clearly.",
+    "Pricing snapshot and margin status should be visible in quote review."
+  ],
+  "stage_5_handoff_notes": [
+    "Enforce workspace scoping in every repository/query abstraction.",
+    "Add audit events for pricing, import commit, quote approval, and generated output sharing."
+  ]
+}

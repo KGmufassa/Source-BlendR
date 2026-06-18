@@ -1,0 +1,227 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "workflow-and-capability-synthesis",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "workflows": [
+    {
+      "id": "WORKFLOW-001",
+      "name": "Supplier Source Setup",
+      "primary_user_id": "USER-001",
+      "start_state": "A business has supplier accounts, contacts, price sheets, service tables, or portal access outside Source-Blendr.",
+      "user_actions": [
+        "Create vendor profile",
+        "Record account details and contacts",
+        "Choose import method",
+        "Group or designate preferred vendors"
+      ],
+      "system_actions": [
+        "Store vendor metadata",
+        "Track source type and import status",
+        "Prepare source records for product and service import"
+      ],
+      "end_state": "Supplier sources are available for product, service, cost, availability, and performance workflows.",
+      "feature_ids": [
+        "FEATURE-001",
+        "FEATURE-002",
+        "FEATURE-003"
+      ]
+    },
+    {
+      "id": "WORKFLOW-002",
+      "name": "Product And Service Aggregation",
+      "primary_user_id": "USER-003",
+      "start_state": "Supplier product or service data is available through files, manual entry, documents, or connections.",
+      "user_actions": [
+        "Import products",
+        "Import services and service pricing tables",
+        "Map supplier fields",
+        "Review missing or conflicting data",
+        "Approve records for the unified asset library"
+      ],
+      "system_actions": [
+        "Normalize products and services",
+        "Store supplier-specific costs, descriptions, specifications, images, documents, turnaround times, and availability",
+        "Flag import quality issues"
+      ],
+      "end_state": "Products and services are standardized in the unified asset library.",
+      "feature_ids": [
+        "FEATURE-004",
+        "FEATURE-005",
+        "FEATURE-006",
+        "FEATURE-011",
+        "FEATURE-012",
+        "FEATURE-013"
+      ]
+    },
+    {
+      "id": "WORKFLOW-003",
+      "name": "Asset Organization And Discovery",
+      "primary_user_id": "USER-001",
+      "start_state": "Normalized products, services, bundles, recipes, documents, and catalog assets exist in the workspace.",
+      "user_actions": [
+        "Categorize and tag assets",
+        "Create collections, project folders, and saved views",
+        "Search across vendors, products, services, bundles, and recipes",
+        "Archive, merge, or update records"
+      ],
+      "system_actions": [
+        "Index asset records",
+        "Maintain categories, tags, brands, collections, and saved views",
+        "Expose universal and filtered search results"
+      ],
+      "end_state": "Users can reliably find, curate, and manage supplier assets for pricing and resale workflows.",
+      "feature_ids": [
+        "FEATURE-007",
+        "FEATURE-008",
+        "FEATURE-009",
+        "FEATURE-010"
+      ]
+    },
+    {
+      "id": "WORKFLOW-004",
+      "name": "Cost, Pricing, And Margin Management",
+      "primary_user_id": "USER-004",
+      "start_state": "Products, services, labor, shipping, packaging, setup fees, or installation costs are available.",
+      "user_actions": [
+        "Define product and service pricing rules",
+        "Set margin thresholds and approval rules",
+        "Apply customer, group, wholesale, retail, or promotional pricing",
+        "Review cost breakdown and margin outputs"
+      ],
+      "system_actions": [
+        "Calculate cost breakdowns",
+        "Apply markup, margin, quantity break, tier, labor, and contract pricing logic",
+        "Detect low-margin outputs",
+        "Flag pricing approvals when thresholds are missed"
+      ],
+      "end_state": "Offerings have controlled resale prices and visible margins.",
+      "feature_ids": [
+        "FEATURE-014",
+        "FEATURE-015",
+        "FEATURE-016",
+        "FEATURE-017"
+      ]
+    },
+    {
+      "id": "WORKFLOW-005",
+      "name": "Bundle And Production Recipe Creation",
+      "primary_user_id": "USER-001",
+      "start_state": "Users need to package products, services, labor, shipping, packaging, or setup fees into reusable resale offerings.",
+      "user_actions": [
+        "Select products and services",
+        "Add labor, setup, shipping, packaging, or installation components",
+        "Save bundle or production recipe templates",
+        "Review aggregate costs and prices"
+      ],
+      "system_actions": [
+        "Aggregate component costs",
+        "Calculate bundle or recipe margins",
+        "Update pricing when component costs change",
+        "Support quantity scaling rules"
+      ],
+      "end_state": "Reusable bundles and production recipes are available for catalogs, price books, quotes, and proposals.",
+      "feature_ids": [
+        "FEATURE-018",
+        "FEATURE-019",
+        "FEATURE-020"
+      ]
+    },
+    {
+      "id": "WORKFLOW-006",
+      "name": "Catalog, Price Book, Quote, And Proposal Generation",
+      "primary_user_id": "USER-002",
+      "start_state": "Approved products, services, bundles, recipes, prices, and margins are available.",
+      "user_actions": [
+        "Select customer, industry, project, or team context",
+        "Choose offerings and fields",
+        "Generate catalog, price book, quote, or proposal",
+        "Share or export the output",
+        "Track quote status and revisions"
+      ],
+      "system_actions": [
+        "Assemble selected offering data",
+        "Apply customer-specific pricing and templates",
+        "Generate shareable or downloadable outputs",
+        "Track quote lifecycle state"
+      ],
+      "end_state": "A customer-ready sales output is generated from current source-of-truth data.",
+      "feature_ids": [
+        "FEATURE-021",
+        "FEATURE-022",
+        "FEATURE-023",
+        "FEATURE-024",
+        "FEATURE-025"
+      ]
+    },
+    {
+      "id": "WORKFLOW-007",
+      "name": "Monitoring, Automation, And Intelligence",
+      "primary_user_id": "USER-003",
+      "start_state": "Supplier products, services, costs, availability, quotes, catalogs, and margins exist in Source-Blendr.",
+      "user_actions": [
+        "Configure alerts, sync schedules, and approval workflows",
+        "Review pricing, availability, inventory, and margin changes",
+        "Use AI assistance for categorization, descriptions, search, pricing suggestions, catalog creation, or quote drafting"
+      ],
+      "system_actions": [
+        "Monitor changes",
+        "Trigger notifications and approvals",
+        "Provide AI-assisted recommendations when enabled",
+        "Record automation and approval history"
+      ],
+      "end_state": "Users can detect supplier changes, protect margins, and accelerate catalog or quote work with automation and AI assistance.",
+      "feature_ids": [
+        "FEATURE-026",
+        "FEATURE-027",
+        "FEATURE-028",
+        "FEATURE-029"
+      ]
+    }
+  ],
+  "workflow_relationships": [
+    {
+      "id": "WORKFLOW-REL-001",
+      "from": "WORKFLOW-001",
+      "to": "WORKFLOW-002",
+      "relationship": "Supplier source records provide context for product and service aggregation."
+    },
+    {
+      "id": "WORKFLOW-REL-002",
+      "from": "WORKFLOW-002",
+      "to": "WORKFLOW-003",
+      "relationship": "Normalized assets must exist before reliable organization, search, and discovery."
+    },
+    {
+      "id": "WORKFLOW-REL-003",
+      "from": "WORKFLOW-003",
+      "to": "WORKFLOW-004",
+      "relationship": "Curated products and services feed pricing, cost, and margin rules."
+    },
+    {
+      "id": "WORKFLOW-REL-004",
+      "from": "WORKFLOW-004",
+      "to": "WORKFLOW-005",
+      "relationship": "Bundles and recipes require cost and pricing logic for component aggregation."
+    },
+    {
+      "id": "WORKFLOW-REL-005",
+      "from": "WORKFLOW-005",
+      "to": "WORKFLOW-006",
+      "relationship": "Customer-facing outputs can include products, services, bundles, and production recipes."
+    },
+    {
+      "id": "WORKFLOW-REL-006",
+      "from": "WORKFLOW-007",
+      "to": "WORKFLOW-004",
+      "relationship": "Monitoring and automation can trigger pricing recalculation, margin alerts, and approval workflows."
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "ASSUMPTION-004",
+      "assumption": "Initial workflows can be asynchronous and review-based; real-time supplier synchronization and AI automation can be phased after core asset, pricing, and output workflows are validated."
+    }
+  ]
+}

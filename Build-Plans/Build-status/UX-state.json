@@ -1,29 +1,297 @@
 {
   "stage": "Stage 4",
   "command": "stage-4-ux-interaction-architecture",
-  "status": "not_started",
-  "stage_1_inputs": {},
-  "stage_2_inputs": {},
-  "stage_3_inputs": {},
-  "preflight": {},
-  "user_journeys": {},
-  "interaction_architecture": {},
-  "screen_system": {},
-  "feature_behaviors": {},
-  "state_transition_map": {},
-  "accessibility_framework": {},
-  "ux_decisions": [],
-  "ux_risks": [],
-  "interaction_tradeoffs": [],
+  "status": "complete",
+  "schema_ref": "System-References/Schemas/stage-4-output.schema.json",
+  "stage_1_inputs": {
+    "source_directory": "Build-Plans/Stage-1/",
+    "required_files_loaded": true,
+    "minimum_viable_inputs_exist": true
+  },
+  "stage_2_inputs": {
+    "source_directory": "Build-Plans/Stage-2/",
+    "required_files_loaded": true
+  },
+  "stage_3_inputs": {
+    "source_directory": "Build-Plans/Stage-3/",
+    "required_files_loaded": true,
+    "stage_3_completion_status": "ready_for_stage_4"
+  },
+  "preflight": {
+    "stage_1_user_and_workflow_outputs_readable": true,
+    "stage_3_architecture_outputs_readable": true,
+    "primary_users_defined": true,
+    "mvp_workflows_defined": true,
+    "feature_structure_clear": true,
+    "security_and_permission_constraints_available": true,
+    "api_and_data_constraints_available": true,
+    "architecture_risks_block_ux": false,
+    "blocking_items": []
+  },
+  "user_journeys": {
+    "source_file": "Build-Plans/Stage-4/01-user-journeys.json",
+    "journey_ids": [
+      "JOURNEY-001",
+      "JOURNEY-002",
+      "JOURNEY-003",
+      "JOURNEY-004",
+      "JOURNEY-005",
+      "JOURNEY-006",
+      "JOURNEY-007"
+    ]
+  },
+  "interaction_architecture": {
+    "source_file": "Build-Plans/Stage-4/02-interaction-architecture.json",
+    "navigation_model": "persistent_left_sidebar",
+    "interaction_pattern_ids": [
+      "IX-001",
+      "IX-002",
+      "IX-003",
+      "IX-004"
+    ]
+  },
+  "screen_system": {
+    "source_file": "Build-Plans/Stage-4/03-screen-system.json",
+    "screen_ids": [
+      "SCREEN-001",
+      "SCREEN-002",
+      "SCREEN-003",
+      "SCREEN-004",
+      "SCREEN-005",
+      "SCREEN-006",
+      "SCREEN-007",
+      "SCREEN-008",
+      "SCREEN-009",
+      "SCREEN-010",
+      "SCREEN-011",
+      "SCREEN-012",
+      "SCREEN-013"
+    ]
+  },
+  "feature_behaviors": {
+    "source_file": "Build-Plans/Stage-4/04-feature-behaviors.json",
+    "behavior_ids": [
+      "BEHAVIOR-001",
+      "BEHAVIOR-002",
+      "BEHAVIOR-003",
+      "BEHAVIOR-004",
+      "BEHAVIOR-005",
+      "BEHAVIOR-006",
+      "BEHAVIOR-007"
+    ]
+  },
+  "state_transition_map": {
+    "source_file": "Build-Plans/Stage-4/05-state-transition-map.json",
+    "core_state_groups": [
+      "supplier",
+      "import",
+      "pricing",
+      "bundle_recipe",
+      "quote"
+    ]
+  },
+  "accessibility_framework": {
+    "source_file": "Build-Plans/Stage-4/06-accessibility-framework.json",
+    "target": "WCAG 2.2 AA"
+  },
+  "ui_blueprints": {
+    "source_file": "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
+    "ui_blueprint_ids": [
+      "UI-BLUEPRINT-001",
+      "UI-BLUEPRINT-002",
+      "UI-BLUEPRINT-003",
+      "UI-BLUEPRINT-004",
+      "UI-BLUEPRINT-005",
+      "UI-BLUEPRINT-006",
+      "UI-BLUEPRINT-007"
+    ]
+  },
+  "visual_spec_inventory": [
+    "VISUAL-SPEC-001",
+    "VISUAL-SPEC-002",
+    "VISUAL-SPEC-003",
+    "VISUAL-SPEC-004",
+    "VISUAL-SPEC-005",
+    "VISUAL-SPEC-006",
+    "VISUAL-SPEC-007"
+  ],
+  "design_system_foundation": {
+    "source_file": "Build-Plans/Stage-4/08-design-system-foundation.json",
+    "design_system_id": "DESIGN-SYSTEM-001",
+    "design_approval_status": "assumed_approved_for_stage_5"
+  },
+  "frontend_build_package": {
+    "source_file": "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
+    "page_count": 13,
+    "component_count": 16,
+    "shared_component_count": 8,
+    "routes": [
+      "/dashboard",
+      "/suppliers",
+      "/suppliers/:supplierId",
+      "/imports/:importBatchId",
+      "/assets",
+      "/assets/:assetId",
+      "/pricing",
+      "/offerings/:offeringId",
+      "/quotes",
+      "/quotes/:quoteId",
+      "/customers/:customerId",
+      "/status",
+      "/settings"
+    ],
+    "recommended_skills": [
+      "frontend-design",
+      "screen-system-design",
+      "ux-enforcement"
+    ]
+  },
+  "ux_decisions": [
+    "UXD-001",
+    "UXD-002",
+    "UXD-003",
+    "UXD-004",
+    "UXD-005",
+    "UXD-006",
+    "UXD-007",
+    "UXD-008",
+    "UXD-009",
+    "UXD-010"
+  ],
+  "ux_risks": [
+    {
+      "id": "UX-RISK-001",
+      "severity": "medium",
+      "mitigation": "Use persistent sidebar, status center, and contextual next actions."
+    },
+    {
+      "id": "UX-RISK-004",
+      "severity": "medium",
+      "mitigation": "Allow save-as-draft and partial import commit where safe."
+    },
+    {
+      "id": "A11Y-RISK-001",
+      "severity": "high",
+      "mitigation": "Require keyboard and screen-reader-operable table/grid patterns."
+    },
+    {
+      "id": "UX-RISK-007",
+      "severity": "low",
+      "mitigation": "Treat design tokens as adjustable in Stage 5 while preserving layout and accessibility requirements."
+    }
+  ],
+  "interaction_tradeoffs": [
+    "IX-TRADEOFF-001",
+    "IX-TRADEOFF-002"
+  ],
   "open_questions": [],
   "interactive_guidance": {
     "open_questions": [],
     "answered_questions": [],
-    "assumptions_made": [],
+    "assumptions_made": [
+      {
+        "id": "UX-ASSUMPTION-001",
+        "assumption": "B2B SaaS dashboard visual direction is acceptable for Stage 5 planning.",
+        "rationale": "Product category and workflows imply operational software, not marketing or consumer UI."
+      },
+      {
+        "id": "UX-ASSUMPTION-002",
+        "assumption": "Quote builder is the first launch-critical generated-output screen.",
+        "rationale": "Stage 2 and Stage 3 both selected quote output as the provisional first output."
+      },
+      {
+        "id": "UX-ASSUMPTION-003",
+        "assumption": "Import review wizard is required as a first-class launch-critical screen.",
+        "rationale": "Stage 3 separates import staging from normalized asset writes."
+      }
+    ],
     "blocked_decisions": [],
     "user_confirmations": [],
-    "ux_confidence_gaps": []
+    "ux_confidence_gaps": [
+      "Visual approval is inferred rather than explicitly confirmed.",
+      "Exact first vertical copy and labels may need refinement after buyer interviews."
+    ]
   },
-  "stage_5_handoff": {},
-  "completion_status": {}
+  "stage_5_handoff": {
+    "source_stage": "Stage 4",
+    "target_stage": "Stage 5",
+    "source_output_directory": "Build-Plans/Stage-4/",
+    "required_files": [
+      "01-user-journeys.json",
+      "02-interaction-architecture.json",
+      "03-screen-system.json",
+      "04-feature-behaviors.json",
+      "05-state-transition-map.json",
+      "06-accessibility-framework.json",
+      "07-ui-blueprint-specification.json",
+      "08-design-system-foundation.json"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [],
+    "traceability_refs": [
+      "JOURNEY-001",
+      "JOURNEY-002",
+      "JOURNEY-003",
+      "JOURNEY-004",
+      "JOURNEY-005",
+      "JOURNEY-006",
+      "SCREEN-004",
+      "SCREEN-005",
+      "SCREEN-007",
+      "SCREEN-008",
+      "SCREEN-010",
+      "UI-BLUEPRINT-002",
+      "UI-BLUEPRINT-006",
+      "DESIGN-SYSTEM-001"
+    ],
+    "ui_blueprint_ids": [
+      "UI-BLUEPRINT-001",
+      "UI-BLUEPRINT-002",
+      "UI-BLUEPRINT-003",
+      "UI-BLUEPRINT-004",
+      "UI-BLUEPRINT-005",
+      "UI-BLUEPRINT-006",
+      "UI-BLUEPRINT-007"
+    ],
+    "visual_spec_ids": [
+      "VISUAL-SPEC-001",
+      "VISUAL-SPEC-002",
+      "VISUAL-SPEC-003",
+      "VISUAL-SPEC-004",
+      "VISUAL-SPEC-005",
+      "VISUAL-SPEC-006",
+      "VISUAL-SPEC-007"
+    ],
+    "design_system_ids": [
+      "DESIGN-SYSTEM-001"
+    ],
+    "frontend_task_hints": [
+      "Build workspace shell and route structure first.",
+      "Build shared data table, validation summary, status badge, permission-aware button, async job banner, and detail drawer components.",
+      "Implement import review wizard before asset library commit flows.",
+      "Implement pricing/margin preview before quote generation.",
+      "Carry accessibility requirements into acceptance criteria."
+    ],
+    "completion_status": {
+      "stage_specific_status": "ready_for_stage_5",
+      "global_status": "ready_for_next_stage",
+      "reason": "UX architecture, UI blueprints, design system, accessibility framework, and frontend build package are complete enough for development orchestration.",
+      "blocking_items": [],
+      "next_actions": [
+        "Run Stage 5 development orchestration."
+      ],
+      "ready_for": "Stage 5"
+    }
+  },
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_5",
+    "global_status": "ready_for_next_stage",
+    "reason": "All Stage 4 outputs exist and cover launch-critical journeys, screens, behaviors, states, accessibility, UI blueprints, visual specs, and design system foundation.",
+    "blocking_items": [],
+    "next_actions": [
+      "Run Stage 5 development orchestration."
+    ],
+    "ready_for": "Stage 5"
+  }
 }

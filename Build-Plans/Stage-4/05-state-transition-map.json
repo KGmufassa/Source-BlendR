@@ -1,0 +1,174 @@
+{
+  "stage": "Stage 4",
+  "status": "complete",
+  "command": "stage-4-ux-interaction-architecture",
+  "owning_skill": "state-transition-and-accessibility-design",
+  "schema_ref": "System-References/Schemas/stage-4-output.schema.json",
+  "related_stage_1_workflows": [
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-004",
+    "WORKFLOW-005",
+    "WORKFLOW-006",
+    "WORKFLOW-007"
+  ],
+  "related_stage_3_architecture_constraints": [
+    "Queue-backed imports and generated outputs",
+    "Command-style workflow transitions",
+    "Audit events for pricing, imports, and quote approval"
+  ],
+  "state_transition_map": {
+    "workflow_states": [
+      {
+        "workflow_id": "WORKFLOW-001",
+        "states": [
+          "no_supplier",
+          "supplier_draft",
+          "supplier_active",
+          "supplier_archived"
+        ],
+        "transitions": [
+          "create",
+          "save",
+          "archive",
+          "restore"
+        ]
+      },
+      {
+        "workflow_id": "WORKFLOW-002",
+        "states": [
+          "not_started",
+          "file_uploaded",
+          "queued",
+          "parsing",
+          "mapping_required",
+          "validation_errors",
+          "ready_to_commit",
+          "partially_committed",
+          "committed",
+          "failed"
+        ],
+        "transitions": [
+          "upload",
+          "start_parse",
+          "update_mapping",
+          "retry",
+          "commit_valid",
+          "cancel"
+        ]
+      },
+      {
+        "workflow_id": "WORKFLOW-004",
+        "states": [
+          "missing_costs",
+          "ready_to_price",
+          "previewed",
+          "low_margin",
+          "approval_required",
+          "approved",
+          "snapshotted"
+        ],
+        "transitions": [
+          "add_cost",
+          "preview",
+          "adjust",
+          "request_approval",
+          "approve",
+          "snapshot"
+        ]
+      },
+      {
+        "workflow_id": "WORKFLOW-005",
+        "states": [
+          "draft",
+          "invalid_components",
+          "priced",
+          "low_margin",
+          "published",
+          "archived"
+        ],
+        "transitions": [
+          "add_component",
+          "validate",
+          "price",
+          "publish",
+          "archive"
+        ]
+      },
+      {
+        "workflow_id": "WORKFLOW-006",
+        "states": [
+          "draft",
+          "pricing_incomplete",
+          "review",
+          "approved",
+          "generating",
+          "generated",
+          "shared",
+          "accepted",
+          "rejected",
+          "expired"
+        ],
+        "transitions": [
+          "add_line",
+          "snapshot_price",
+          "submit",
+          "approve",
+          "generate",
+          "share",
+          "expire"
+        ]
+      }
+    ],
+    "screen_states": [
+      "empty",
+      "loading",
+      "loaded",
+      "dirty",
+      "saving",
+      "saved",
+      "validation_error",
+      "permission_denied",
+      "async_processing",
+      "async_failed",
+      "archived"
+    ],
+    "feature_states": [
+      "enabled",
+      "disabled_with_reason",
+      "hidden_by_permission",
+      "requires_prerequisite",
+      "pending_approval",
+      "completed"
+    ]
+  },
+  "transition_triggers": [
+    "User command",
+    "API validation response",
+    "Background job event",
+    "Permission check",
+    "Approval decision",
+    "Expiration timer"
+  ],
+  "ux_decisions": [
+    {
+      "id": "UXD-009",
+      "decision": "Async workflows expose both contextual state and global status center state.",
+      "rationale": "Users need feedback where they started work and a global way to recover later."
+    }
+  ],
+  "ux_risks": [
+    {
+      "id": "UX-RISK-005",
+      "risk": "Many states can overwhelm users if exposed as technical status.",
+      "severity": "medium",
+      "mitigation": "Use human-readable labels and group technical states into user-facing progress phases."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_5_handoff_notes": [
+    "Implement state enums with user-facing labels and recovery actions.",
+    "Do not rely on toasts alone for async job state."
+  ]
+}

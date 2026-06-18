@@ -1,0 +1,148 @@
+{
+  "stage": "Stage 2",
+  "status": "complete",
+  "command": "stage-2-research-and-validation",
+  "owning_skill": "validation-synthesis",
+  "schema_ref": "System-References/Schemas/stage-2-output.schema.json",
+  "related_assumption_ids": [
+    "A-001",
+    "A-002",
+    "A-003",
+    "A-004",
+    "A-005",
+    "A-006",
+    "A-007",
+    "A-008",
+    "A-009",
+    "A-010",
+    "A-011",
+    "A-012"
+  ],
+  "risk_registry": [
+    {
+      "id": "S2-RISK-001",
+      "risk": "The broad multi-vertical vision could dilute early adoption.",
+      "domain": "market",
+      "severity": "high",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "A-001",
+        "A-003"
+      ],
+      "mitigation": "Use apparel decorators/promotional product businesses as provisional Stage 3 focus and validate before implementation.",
+      "owner_stage": "Stage 2"
+    },
+    {
+      "id": "S2-RISK-002",
+      "risk": "Existing category-specific platforms already cover parts of the workflow.",
+      "domain": "competitive",
+      "severity": "medium",
+      "likelihood": "high",
+      "affected_assumptions": [
+        "A-004",
+        "A-011"
+      ],
+      "mitigation": "Differentiate on product-plus-service aggregation, recipes, margin modeling, and source-to-output workflow.",
+      "owner_stage": "Stage 2"
+    },
+    {
+      "id": "S2-RISK-003",
+      "risk": "The unified asset and pricing model could become overgeneralized.",
+      "domain": "technical",
+      "severity": "high",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "A-005",
+        "A-007"
+      ],
+      "mitigation": "Stage 3 should define explicit domain models for suppliers, assets, services, bundles, recipes, pricing, margins, and outputs.",
+      "owner_stage": "Stage 2"
+    },
+    {
+      "id": "S2-RISK-004",
+      "risk": "Supplier credential handling and portal automation create security and compliance exposure.",
+      "domain": "technical_compliance",
+      "severity": "high",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "A-002",
+        "A-010"
+      ],
+      "mitigation": "Avoid credential-stored portal automation in MVP unless Stage 3 includes secrets management, access control, auditability, and supplier terms review.",
+      "owner_stage": "Stage 2"
+    },
+    {
+      "id": "S2-RISK-005",
+      "risk": "AI output could create inaccurate descriptions, pricing suggestions, or quote recommendations.",
+      "domain": "ai",
+      "severity": "medium",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "A-009"
+      ],
+      "mitigation": "Defer AI from MVP or require human approval and source-grounding for AI suggestions.",
+      "owner_stage": "Stage 2"
+    },
+    {
+      "id": "S2-RISK-006",
+      "risk": "Unvalidated willingness to pay could undermine business viability.",
+      "domain": "business",
+      "severity": "medium",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "A-012"
+      ],
+      "mitigation": "Validate SaaS pricing and buying triggers with target users before implementation planning.",
+      "owner_stage": "Stage 2"
+    }
+  ],
+  "contradictions": [],
+  "critical_unknowns": [
+    {
+      "id": "UNKNOWN-001",
+      "unknown": "Final first vertical has not been confirmed by primary research.",
+      "severity": "medium",
+      "next_action": "Validate apparel decorator/promotional product beachhead or choose another vertical before implementation planning.",
+      "blocks_stage_3": false
+    },
+    {
+      "id": "UNKNOWN-002",
+      "unknown": "Specific supplier APIs/exports are not validated.",
+      "severity": "medium",
+      "next_action": "Stage 3 should support file/manual import first and isolate future connector adapters.",
+      "blocks_stage_3": false
+    },
+    {
+      "id": "UNKNOWN-003",
+      "unknown": "Willingness to pay and pricing metric are not validated.",
+      "severity": "medium",
+      "next_action": "Validate pricing before Stage 5 development orchestration.",
+      "blocks_stage_3": false
+    }
+  ],
+  "mitigation_paths": [
+    "Use a constrained MVP boundary.",
+    "Make file/manual import the launch path.",
+    "Keep supplier connectors, AI, portals, and integrations modular and deferred.",
+    "Use explicit domain boundaries in Stage 3."
+  ],
+  "unresolved_blockers": [],
+  "stage_3_carry_forward_risks": [
+    "Supplier connector abstraction and credential security",
+    "Unified product/service/bundle/recipe data model",
+    "Pricing and margin calculation auditability",
+    "Generated output service boundaries",
+    "AI as a non-critical assistive service"
+  ],
+  "evidence_quality_summary": {
+    "market": "medium",
+    "competitive": "medium",
+    "technical": "medium",
+    "business": "medium_for_category_low_for_pricing"
+  },
+  "recommendations": [
+    "Proceed to Stage 3 with explicit architecture warnings.",
+    "Do not treat supplier portal automation, AI, integrations, or customer portals as MVP-critical.",
+    "Preserve unresolved validation items as architecture constraints and later validation tasks."
+  ]
+}

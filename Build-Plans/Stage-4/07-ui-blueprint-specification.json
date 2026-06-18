@@ -1,0 +1,794 @@
+{
+  "stage": "Stage 4",
+  "status": "complete",
+  "command": "stage-4-ux-interaction-architecture",
+  "owning_skill": "ui-blueprint-specification",
+  "schema_ref": "System-References/Schemas/stage-4-output.schema.json",
+  "related_stage_1_features": [
+    "FEATURE-001",
+    "FEATURE-004",
+    "FEATURE-007",
+    "FEATURE-014",
+    "FEATURE-018",
+    "FEATURE-019",
+    "FEATURE-023"
+  ],
+  "related_stage_3_architecture_constraints": [
+    "Workspace-scoped RBAC",
+    "Async import and document jobs",
+    "Immutable pricing snapshots",
+    "Signed generated-output links"
+  ],
+  "ui_blueprints": [
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-001",
+      "page_ref": "SCREEN-001",
+      "page": {
+        "purpose": "Operational overview and next-action dashboard.",
+        "primary_user": "Owner/Admin/Contributor",
+        "screen_type": "Dashboard",
+        "layout_type": "Sidebar",
+        "sections": [
+          "Workflow status summary",
+          "Recent imports",
+          "Margin alerts",
+          "Quote activity",
+          "Background jobs"
+        ],
+        "components": [
+          "Cards",
+          "Tables",
+          "Notifications",
+          "Search"
+        ],
+        "actions": [
+          "Create supplier",
+          "Start import",
+          "Create quote",
+          "Retry job"
+        ],
+        "data_needed": [
+          "Recent suppliers",
+          "Import batches",
+          "Quote states",
+          "Margin alerts",
+          "Job statuses"
+        ],
+        "states": [
+          "empty",
+          "loaded",
+          "async_processing",
+          "async_failed"
+        ],
+        "validation": [
+          "Permission-aware actions",
+          "No hidden failed jobs"
+        ],
+        "navigation": [
+          "Suppliers",
+          "Imports",
+          "Asset Library",
+          "Quotes",
+          "Status Center"
+        ]
+      },
+      "visual_spec": {
+        "visual_style": "SaaS Dashboard",
+        "density": "Balanced",
+        "color_direction": "Neutral foundation with teal action accents and amber/red status colors",
+        "typography_feel": "Clear, compact, business-focused",
+        "component_style": "Outlined",
+        "primary_visual_focus": "Operational next actions and status confidence",
+        "responsive_behavior": "Sidebar collapses to bottom/tab navigation on mobile; dashboard cards stack above tables.",
+        "visual_do_rules": [
+          "Use compact status cards",
+          "Keep alert colors semantic",
+          "Prioritize table scanability"
+        ],
+        "visual_dont_rules": [
+          "Do not use marketing hero layouts",
+          "Do not hide operational errors in decorative cards"
+        ],
+        "reference_apps": [
+          "Linear for density",
+          "Stripe Dashboard for operational clarity"
+        ],
+        "visual_acceptance_criteria": [
+          "All dashboard widgets fit at 1440px without horizontal scroll",
+          "Mobile layout exposes failed jobs and next actions above secondary metrics",
+          "Status colors are not the only status indicator"
+        ],
+        "user_approval_status": "assumed_approved_for_stage_5"
+      }
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-002",
+      "page_ref": "SCREEN-004",
+      "page": {
+        "purpose": "Upload, map, validate, and commit product or service imports.",
+        "primary_user": "Operations or purchasing manager",
+        "screen_type": "Wizard",
+        "layout_type": "Custom",
+        "sections": [
+          "Step indicator",
+          "Upload/manual entry",
+          "Field mapping",
+          "Validation table",
+          "Commit summary"
+        ],
+        "components": [
+          "File Upload",
+          "Forms",
+          "Tables",
+          "Notifications",
+          "Modals"
+        ],
+        "actions": [
+          "Upload",
+          "Update mapping",
+          "Validate",
+          "Commit",
+          "Download error report"
+        ],
+        "data_needed": [
+          "Supplier source",
+          "Import batch",
+          "Field mapping",
+          "Row errors",
+          "Commit preview"
+        ],
+        "states": [
+          "empty",
+          "loading",
+          "mapping_required",
+          "validation_error",
+          "ready_to_commit",
+          "committed",
+          "failed"
+        ],
+        "validation": [
+          "Required field mapping",
+          "Unsupported file handling",
+          "Partial commit confirmation"
+        ],
+        "navigation": [
+          "Supplier detail",
+          "Asset Library",
+          "Status Center"
+        ]
+      },
+      "visual_spec": {
+        "visual_style": "Data Dense",
+        "density": "Data Dense",
+        "color_direction": "Neutral table-heavy UI with blue focus states and semantic validation colors",
+        "typography_feel": "Highly legible utility typography",
+        "component_style": "Dense Utility",
+        "primary_visual_focus": "Row-level validation and mapping confidence",
+        "responsive_behavior": "Mobile uses stacked cards for rows and keeps step actions sticky.",
+        "visual_do_rules": [
+          "Make row errors easy to scan",
+          "Keep current step obvious",
+          "Show commit impact before action"
+        ],
+        "visual_dont_rules": [
+          "Do not rely on color alone for errors",
+          "Do not bury download error report action"
+        ],
+        "reference_apps": [
+          "Airtable import mapping",
+          "Stripe data table patterns"
+        ],
+        "visual_acceptance_criteria": [
+          "Keyboard users can complete all wizard steps",
+          "Validation errors remain visible while editing mapping",
+          "Commit action is disabled with explanation until prerequisites pass"
+        ],
+        "user_approval_status": "assumed_approved_for_stage_5"
+      }
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-003",
+      "page_ref": "SCREEN-005",
+      "page": {
+        "purpose": "Search, filter, and manage products, services, documents, and collections.",
+        "primary_user": "Owner/Admin/Contributor",
+        "screen_type": "List",
+        "layout_type": "Split View",
+        "sections": [
+          "Search and filters",
+          "Asset table",
+          "Detail preview",
+          "Bulk actions"
+        ],
+        "components": [
+          "Search",
+          "Filters",
+          "Tables",
+          "Drawers",
+          "Tabs"
+        ],
+        "actions": [
+          "Read",
+          "Update",
+          "Archive",
+          "Tag",
+          "Add to bundle",
+          "Add to quote"
+        ],
+        "data_needed": [
+          "Products",
+          "Services",
+          "Supplier provenance",
+          "Categories",
+          "Tags",
+          "Cost status"
+        ],
+        "states": [
+          "empty",
+          "loaded",
+          "no_results",
+          "permission_denied",
+          "archived"
+        ],
+        "validation": [
+          "Archive warns on references",
+          "Missing cost status shown"
+        ],
+        "navigation": [
+          "Asset detail",
+          "Pricing",
+          "Bundle builder",
+          "Quote builder"
+        ]
+      },
+      "visual_spec": {
+        "visual_style": "Data Dense",
+        "density": "Data Dense",
+        "color_direction": "Neutral with teal action and status badges",
+        "typography_feel": "Compact operational",
+        "component_style": "Outlined",
+        "primary_visual_focus": "Fast scan across asset type, supplier, cost readiness, and usage",
+        "responsive_behavior": "Split view collapses into list then detail route on mobile.",
+        "visual_do_rules": [
+          "Use clear product/service type badges",
+          "Keep filters persistent",
+          "Show cost readiness in every row"
+        ],
+        "visual_dont_rules": [
+          "Do not use card grid for dense asset management",
+          "Do not hide supplier provenance"
+        ],
+        "reference_apps": [
+          "Airtable",
+          "Notion database list"
+        ],
+        "visual_acceptance_criteria": [
+          "Rows remain readable at tablet width",
+          "Filters do not push table below first viewport on desktop",
+          "Archived and missing-cost states are text-labeled"
+        ],
+        "user_approval_status": "assumed_approved_for_stage_5"
+      }
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-004",
+      "page_ref": "SCREEN-007",
+      "page": {
+        "purpose": "Preview pricing rules, costs, margin, and approval state.",
+        "primary_user": "Pricing or finance manager",
+        "screen_type": "Custom",
+        "layout_type": "Split View",
+        "sections": [
+          "Cost breakdown",
+          "Pricing rule controls",
+          "Margin preview",
+          "Approval status",
+          "Audit timeline"
+        ],
+        "components": [
+          "Forms",
+          "Tables",
+          "Cards",
+          "Timeline",
+          "Notifications"
+        ],
+        "actions": [
+          "Create",
+          "Update",
+          "Approve",
+          "Reject",
+          "Export"
+        ],
+        "data_needed": [
+          "Cost components",
+          "Pricing rules",
+          "Margin policy",
+          "Price calculations",
+          "Approval requests"
+        ],
+        "states": [
+          "missing_costs",
+          "ready_to_price",
+          "previewed",
+          "low_margin",
+          "approval_required",
+          "approved"
+        ],
+        "validation": [
+          "Missing costs block approved snapshot",
+          "Low margin requires approval"
+        ],
+        "navigation": [
+          "Asset detail",
+          "Bundle builder",
+          "Quote builder"
+        ]
+      },
+      "visual_spec": {
+        "visual_style": "SaaS Dashboard",
+        "density": "Balanced",
+        "color_direction": "Neutral with strong semantic margin states",
+        "typography_feel": "Precise financial utility",
+        "component_style": "Outlined",
+        "primary_visual_focus": "Margin confidence and pricing impact",
+        "responsive_behavior": "Cost and margin panels stack on mobile with sticky approve/request actions.",
+        "visual_do_rules": [
+          "Show price, cost, and margin in close proximity",
+          "Use explicit low-margin warnings",
+          "Preserve audit context"
+        ],
+        "visual_dont_rules": [
+          "Do not make margin status decorative",
+          "Do not obscure approval requirement"
+        ],
+        "reference_apps": [
+          "Stripe pricing settings",
+          "QuickBooks form clarity"
+        ],
+        "visual_acceptance_criteria": [
+          "A user can identify why a price is blocked within 5 seconds",
+          "Margin status is available to screen readers",
+          "Approval actions are visually distinct from save actions"
+        ],
+        "user_approval_status": "assumed_approved_for_stage_5"
+      }
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-005",
+      "page_ref": "SCREEN-008",
+      "page": {
+        "purpose": "Build reusable bundles and production recipes from components.",
+        "primary_user": "Owner/operator",
+        "screen_type": "Custom",
+        "layout_type": "Split View",
+        "sections": [
+          "Component picker",
+          "Recipe canvas",
+          "Quantity/scaling controls",
+          "Cost and margin preview",
+          "Publish checklist"
+        ],
+        "components": [
+          "Search",
+          "Tables",
+          "Forms",
+          "Cards",
+          "Drawers"
+        ],
+        "actions": [
+          "Create",
+          "Update",
+          "Approve",
+          "Archive"
+        ],
+        "data_needed": [
+          "Products",
+          "Services",
+          "Cost components",
+          "Pricing preview",
+          "Component status"
+        ],
+        "states": [
+          "draft",
+          "invalid_components",
+          "priced",
+          "low_margin",
+          "published",
+          "archived"
+        ],
+        "validation": [
+          "At least one component required",
+          "Archived components block publish",
+          "Missing costs block publish"
+        ],
+        "navigation": [
+          "Asset Library",
+          "Pricing",
+          "Quote Builder"
+        ]
+      },
+      "visual_spec": {
+        "visual_style": "SaaS Dashboard",
+        "density": "Balanced",
+        "color_direction": "Neutral with teal build actions and amber validation",
+        "typography_feel": "Clear builder-oriented",
+        "component_style": "Soft Card",
+        "primary_visual_focus": "Component composition and live cost/margin preview",
+        "responsive_behavior": "Mobile uses step sections: details, components, pricing, publish.",
+        "visual_do_rules": [
+          "Keep live pricing visible while editing components",
+          "Use compact component cards",
+          "Show invalid components inline"
+        ],
+        "visual_dont_rules": [
+          "Do not use drag-and-drop as the only interaction",
+          "Do not hide cost impact behind a modal"
+        ],
+        "reference_apps": [
+          "Shopify product bundle patterns",
+          "Airtable linked record picker"
+        ],
+        "visual_acceptance_criteria": [
+          "Components can be added without pointer-only interactions",
+          "Cost preview updates are announced or clearly refreshed",
+          "Publish checklist shows all blockers"
+        ],
+        "user_approval_status": "assumed_approved_for_stage_5"
+      }
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-006",
+      "page_ref": "SCREEN-010",
+      "page": {
+        "purpose": "Create, review, approve, generate, and share customer quotes.",
+        "primary_user": "Sales or account representative",
+        "screen_type": "Custom",
+        "layout_type": "Split View",
+        "sections": [
+          "Quote header",
+          "Customer panel",
+          "Line item builder",
+          "Margin and approval summary",
+          "Generated output panel",
+          "Share controls"
+        ],
+        "components": [
+          "Forms",
+          "Tables",
+          "Search",
+          "Drawers",
+          "Modals",
+          "Notifications"
+        ],
+        "actions": [
+          "Create",
+          "Update",
+          "Approve",
+          "Reject",
+          "Export",
+          "Share",
+          "Download"
+        ],
+        "data_needed": [
+          "Customer",
+          "Products",
+          "Services",
+          "Bundles",
+          "Recipes",
+          "Price snapshots",
+          "Quote status",
+          "Generated output"
+        ],
+        "states": [
+          "draft",
+          "pricing_incomplete",
+          "review",
+          "approved",
+          "generating",
+          "generated",
+          "shared",
+          "expired"
+        ],
+        "validation": [
+          "Customer required",
+          "At least one line required",
+          "Valid pricing snapshot required for generation",
+          "Low margin requires approval"
+        ],
+        "navigation": [
+          "Quote list",
+          "Customer detail",
+          "Asset Library",
+          "Status Center"
+        ]
+      },
+      "visual_spec": {
+        "visual_style": "SaaS Dashboard",
+        "density": "Balanced",
+        "color_direction": "Neutral workspace with teal primary actions and margin status accents",
+        "typography_feel": "Professional and quote-document focused",
+        "component_style": "Outlined",
+        "primary_visual_focus": "Quote line accuracy, margin state, and generated-output readiness",
+        "responsive_behavior": "Mobile separates quote details, lines, margin, and sharing into tabs.",
+        "visual_do_rules": [
+          "Keep quote status visible",
+          "Show margin summary near line items",
+          "Make generation and sharing security states explicit"
+        ],
+        "visual_dont_rules": [
+          "Do not allow generate/share controls to appear ready when prerequisites fail",
+          "Do not hide expired link state"
+        ],
+        "reference_apps": [
+          "PandaDoc flow clarity",
+          "Stripe invoice editor density"
+        ],
+        "visual_acceptance_criteria": [
+          "A user can identify quote readiness and blockers at all times",
+          "Generated output progress persists outside the current page",
+          "Share link expiration and revocation are visible"
+        ],
+        "user_approval_status": "assumed_approved_for_stage_5"
+      }
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-007",
+      "page_ref": "SCREEN-012",
+      "page": {
+        "purpose": "Review async job progress, failures, retries, and support details.",
+        "primary_user": "Operations or purchasing manager",
+        "screen_type": "Dashboard",
+        "layout_type": "Table",
+        "sections": [
+          "Job filters",
+          "Active jobs",
+          "Failed jobs",
+          "Job detail drawer",
+          "Retry actions"
+        ],
+        "components": [
+          "Tables",
+          "Filters",
+          "Drawers",
+          "Notifications"
+        ],
+        "actions": [
+          "Read",
+          "Retry",
+          "Cancel",
+          "Export"
+        ],
+        "data_needed": [
+          "Job ID",
+          "Job type",
+          "Status",
+          "Error summary",
+          "Retry eligibility",
+          "Timestamps"
+        ],
+        "states": [
+          "empty",
+          "loaded",
+          "async_processing",
+          "async_failed",
+          "retrying"
+        ],
+        "validation": [
+          "Retry only eligible jobs",
+          "Error logs never expose secrets"
+        ],
+        "navigation": [
+          "Imports",
+          "Quote Builder",
+          "Supplier Detail"
+        ]
+      },
+      "visual_spec": {
+        "visual_style": "Data Dense",
+        "density": "Data Dense",
+        "color_direction": "Neutral operational with semantic job states",
+        "typography_feel": "Utility and diagnostic",
+        "component_style": "Dense Utility",
+        "primary_visual_focus": "Failure visibility and recoverability",
+        "responsive_behavior": "Mobile shows failed jobs first, then active jobs.",
+        "visual_do_rules": [
+          "Show job status with text labels",
+          "Surface support reference IDs",
+          "Keep retry actions near errors"
+        ],
+        "visual_dont_rules": [
+          "Do not expose secrets",
+          "Do not use transient-only failure messages"
+        ],
+        "reference_apps": [
+          "GitHub Actions job list",
+          "Stripe event logs"
+        ],
+        "visual_acceptance_criteria": [
+          "Failed jobs are visible without filtering",
+          "Retry eligibility is clear",
+          "Job detail drawer is keyboard accessible"
+        ],
+        "user_approval_status": "assumed_approved_for_stage_5"
+      }
+    }
+  ],
+  "page_inventory": [
+    "SCREEN-001",
+    "SCREEN-002",
+    "SCREEN-003",
+    "SCREEN-004",
+    "SCREEN-005",
+    "SCREEN-006",
+    "SCREEN-007",
+    "SCREEN-008",
+    "SCREEN-009",
+    "SCREEN-010",
+    "SCREEN-011",
+    "SCREEN-012",
+    "SCREEN-013"
+  ],
+  "component_inventory": [
+    "WorkspaceShell",
+    "SidebarNav",
+    "GlobalSearch",
+    "StatusBadge",
+    "DataTable",
+    "FilterBar",
+    "DetailDrawer",
+    "StepWizard",
+    "FileUploadPanel",
+    "ValidationSummary",
+    "JobProgressPanel",
+    "PricingPreview",
+    "MarginAlert",
+    "ComponentPicker",
+    "QuoteLineTable",
+    "ShareLinkPanel"
+  ],
+  "visual_spec_inventory": [
+    "VISUAL-SPEC-001",
+    "VISUAL-SPEC-002",
+    "VISUAL-SPEC-003",
+    "VISUAL-SPEC-004",
+    "VISUAL-SPEC-005",
+    "VISUAL-SPEC-006",
+    "VISUAL-SPEC-007"
+  ],
+  "shared_components": [
+    "WorkspaceShell",
+    "StatusBadge",
+    "PermissionAwareButton",
+    "ValidationSummary",
+    "AsyncJobBanner",
+    "DataTable",
+    "DetailDrawer",
+    "ConfirmDialog"
+  ],
+  "navigation_inventory": [
+    "Dashboard",
+    "Suppliers",
+    "Imports",
+    "Asset Library",
+    "Pricing",
+    "Offerings",
+    "Quotes",
+    "Customers",
+    "Settings",
+    "Status Center"
+  ],
+  "route_inventory": [
+    "/dashboard",
+    "/suppliers",
+    "/suppliers/:supplierId",
+    "/imports/:importBatchId",
+    "/assets",
+    "/assets/:assetId",
+    "/pricing",
+    "/offerings/:offeringId",
+    "/quotes",
+    "/quotes/:quoteId",
+    "/customers/:customerId",
+    "/status",
+    "/settings"
+  ],
+  "state_inventory": [
+    "empty",
+    "loading",
+    "loaded",
+    "dirty",
+    "saving",
+    "validation_error",
+    "permission_denied",
+    "async_processing",
+    "async_failed",
+    "approved",
+    "shared",
+    "expired"
+  ],
+  "action_inventory": [
+    "Create",
+    "Read",
+    "Update",
+    "Delete",
+    "Export",
+    "Share",
+    "Invite",
+    "Approve",
+    "Reject",
+    "Upload",
+    "Download",
+    "Retry"
+  ],
+  "frontend_build_package": {
+    "page_count": 13,
+    "component_count": 16,
+    "shared_component_count": 8,
+    "frontend_tasks": [
+      "Build workspace shell and navigation",
+      "Build shared data table, status badge, validation summary, and permission-aware controls",
+      "Build import review wizard",
+      "Build asset library list/detail flow",
+      "Build pricing preview and margin alert components",
+      "Build bundle/recipe builder",
+      "Build quote builder and generated output sharing",
+      "Build status center"
+    ],
+    "recommended_skills": [
+      "frontend-design",
+      "screen-system-design",
+      "ux-enforcement"
+    ],
+    "task_generator_notes": [
+      "Preserve UI blueprint IDs in frontend tickets.",
+      "Carry visual acceptance criteria into frontend acceptance tests."
+    ],
+    "agent_builder_notes": [
+      "Do not create marketing-style pages.",
+      "Prioritize dense but readable operational workflows."
+    ]
+  },
+  "visual_approval_status": {
+    "launch_critical_pages": "assumed_approved_for_stage_5",
+    "approval_basis": "No explicit visual preference was provided; B2B SaaS dashboard defaults were inferred from product category and stage instructions."
+  },
+  "ui_blueprint_markdown_path": "",
+  "stage_5_handoff": {
+    "ui_blueprint_refs": [
+      "UI-BLUEPRINT-001",
+      "UI-BLUEPRINT-002",
+      "UI-BLUEPRINT-003",
+      "UI-BLUEPRINT-004",
+      "UI-BLUEPRINT-005",
+      "UI-BLUEPRINT-006",
+      "UI-BLUEPRINT-007"
+    ],
+    "visual_spec_refs": [
+      "VISUAL-SPEC-001",
+      "VISUAL-SPEC-002",
+      "VISUAL-SPEC-003",
+      "VISUAL-SPEC-004",
+      "VISUAL-SPEC-005",
+      "VISUAL-SPEC-006",
+      "VISUAL-SPEC-007"
+    ],
+    "routes": [
+      "/dashboard",
+      "/imports/:importBatchId",
+      "/assets",
+      "/pricing",
+      "/offerings/:offeringId",
+      "/quotes/:quoteId",
+      "/status"
+    ]
+  },
+  "ux_risks": [
+    {
+      "id": "UX-RISK-006",
+      "risk": "Assumed visual approval could need revision if user prefers a different style.",
+      "severity": "low",
+      "mitigation": "Record assumed approval and keep design tokens easy to adjust in Stage 5."
+    }
+  ],
+  "unresolved_questions": []
+}

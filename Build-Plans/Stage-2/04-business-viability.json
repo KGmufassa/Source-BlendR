@@ -1,0 +1,131 @@
+{
+  "stage": "Stage 2",
+  "status": "complete",
+  "command": "stage-2-research-and-validation",
+  "owning_skill": "business-and-scalability-validation",
+  "schema_ref": "System-References/Schemas/stage-2-output.schema.json",
+  "related_assumption_ids": [
+    "A-001",
+    "A-003",
+    "A-004",
+    "A-009",
+    "A-011",
+    "A-012"
+  ],
+  "business_confidence": 0.66,
+  "scalability_confidence": 0.68,
+  "confidence_rationale": "Business viability is plausible because the category has existing paid platforms and operationally painful workflows, but pricing, willingness to pay, and acquisition path still need primary validation.",
+  "monetization_analysis": {
+    "finding_type": "inference",
+    "provisional_model": "B2B SaaS subscription by workspace, with possible tiers for users, supplier connections, catalog/quote volume, automation, AI, portals, and integrations.",
+    "pricing_realism": "unvalidated",
+    "confidence": 0.58,
+    "next_action": "Interview operators and compare adjacent platform pricing before setting subscription tiers."
+  },
+  "acquisition_assumptions": {
+    "likely_channels": [
+      "Vertical-specific communities and trade associations",
+      "Supplier/referral partnerships",
+      "Content around pricing calculators and quote templates",
+      "Migration from spreadsheets for apparel decorators and promotional product distributors"
+    ],
+    "confidence": 0.58,
+    "risk": "Acquisition may be expensive if competing against entrenched industry platforms."
+  },
+  "retention_feasibility": {
+    "finding_type": "inference",
+    "retention_drivers": [
+      "Source-of-truth supplier asset library",
+      "Reusable pricing rules",
+      "Saved bundles and production recipes",
+      "Customer quote and output history",
+      "Margin alerts and operational reporting"
+    ],
+    "confidence": 0.69
+  },
+  "cost_sustainability": {
+    "mvp": "Likely sustainable if AI, real-time sync, and heavy document automation are not launch-critical.",
+    "expansion_risks": [
+      "AI token and retrieval costs",
+      "Media/document storage",
+      "Supplier connector maintenance",
+      "Support burden for import cleanup",
+      "Customer portal and public sharing security"
+    ],
+    "confidence": 0.67
+  },
+  "business_constraints": [
+    "Do not build a full marketplace before proving internal source-to-quote workflow adoption.",
+    "Do not promise automated supplier connectivity until supplier-specific access paths are validated.",
+    "Use one vertical's pricing model to define initial tiering and onboarding."
+  ],
+  "growth_risks": [
+    {
+      "id": "S2-RISK-008",
+      "risk": "Too many verticals increase acquisition and onboarding complexity.",
+      "severity": "high",
+      "mitigation": "Choose one beachhead vertical for MVP validation and implementation."
+    },
+    {
+      "id": "S2-RISK-009",
+      "risk": "Unvalidated willingness to pay could undermine SaaS viability.",
+      "severity": "medium",
+      "mitigation": "Validate current spend on ASI/ESP, Printavo-like tools, spreadsheets, labor, catalog production, and quote management."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EVIDENCE-001",
+      "source_type": "industry association website",
+      "source_name": "PPAI",
+      "url": "https://www.ppai.org/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "PPAI's membership and Solutions Center indicate a large professional market that uses industry-specific business resources and software.",
+      "confidence_effect": "raises business viability confidence",
+      "confidence_delta": 0.05,
+      "is_inference": false,
+      "limitations": "Does not provide Source-Blendr-specific willingness to pay."
+    },
+    {
+      "id": "EVIDENCE-002",
+      "source_type": "industry platform website",
+      "source_name": "ASI",
+      "url": "https://asicentral.com/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "ASI demonstrates that paid network/platform software exists around promo sourcing, supplier access, product search, catalogs, and distributor workflows.",
+      "confidence_effect": "raises monetization plausibility and competitive pressure",
+      "confidence_delta": 0.06,
+      "is_inference": false,
+      "limitations": "Incumbency may raise switching costs."
+    },
+    {
+      "id": "EVIDENCE-003",
+      "source_type": "competitor website",
+      "source_name": "Printavo",
+      "url": "https://www.printavo.com/features/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "Printavo validates commercial demand for operational software in print shops, including quotes, customer management, reporting, automation, and product catalog workflows.",
+      "confidence_effect": "raises business and retention feasibility confidence",
+      "confidence_delta": 0.05,
+      "is_inference": false,
+      "limitations": "Feature overlap also increases competition."
+    }
+  ],
+  "unresolved_unknowns": [
+    "Target customer willingness to pay.",
+    "Preferred pricing metric.",
+    "Expected onboarding effort and support cost.",
+    "Most defensible acquisition channel."
+  ],
+  "recommendations": [
+    "Validate pricing with target users before Stage 5 ticketing.",
+    "Use operational savings and margin protection as the initial value metric.",
+    "Avoid AI-heavy pricing tiers until AI usage cost is measured."
+  ]
+}

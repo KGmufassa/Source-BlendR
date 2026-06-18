@@ -1,0 +1,304 @@
+{
+  "stage": "Stage 3",
+  "status": "complete",
+  "command": "stage-3-system-architecture",
+  "owning_skill": "service-boundary-architecture",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/04-product-capabilities.json",
+    "Build-Plans/Stage-1/05-feature-structure.json",
+    "Build-Plans/Stage-1/08-mvp-operational-model.json"
+  ],
+  "related_stage_2_assumption_ids": [
+    "A-002",
+    "A-005",
+    "A-007",
+    "A-010"
+  ],
+  "service_architecture": {
+    "service_style": "domain_modules_inside_single_application_runtime",
+    "services": [
+      {
+        "id": "SERVICE-001",
+        "name": "Identity And Workspace Service",
+        "purpose": "Manage users, workspaces, roles, invitations, and session authorization.",
+        "owned_data": [
+          "Workspace",
+          "User",
+          "Membership",
+          "Role",
+          "Permission"
+        ],
+        "capability_ids": [
+          "CAP-001"
+        ],
+        "communication": "synchronous_api",
+        "failure_modes": [
+          "Authorization scope errors",
+          "Workspace data leakage"
+        ]
+      },
+      {
+        "id": "SERVICE-002",
+        "name": "Supplier Service",
+        "purpose": "Own supplier profiles, source configuration, vendor grouping, status, and connector metadata.",
+        "owned_data": [
+          "Supplier",
+          "SupplierAccount",
+          "SupplierSource",
+          "ConnectionStatus"
+        ],
+        "capability_ids": [
+          "CAP-002"
+        ],
+        "communication": "synchronous_api_and_async_events",
+        "failure_modes": [
+          "Stale connection state",
+          "Supplier-specific behavior leaking into core domains"
+        ]
+      },
+      {
+        "id": "SERVICE-003",
+        "name": "Import Service",
+        "purpose": "Own import files, mappings, parsing jobs, validation errors, and normalized import staging.",
+        "owned_data": [
+          "ImportBatch",
+          "ImportFile",
+          "FieldMapping",
+          "ImportRow",
+          "ImportError"
+        ],
+        "capability_ids": [
+          "CAP-003",
+          "CAP-004"
+        ],
+        "communication": "async_worker_with_synchronous_review_api",
+        "failure_modes": [
+          "Partial imports",
+          "Malformed supplier files",
+          "Unsupported service pricing tables"
+        ]
+      },
+      {
+        "id": "SERVICE-004",
+        "name": "Asset Library Service",
+        "purpose": "Own normalized product, service, document, category, tag, collection, and saved-view records.",
+        "owned_data": [
+          "Asset",
+          "Product",
+          "ServiceOffering",
+          "AssetDocument",
+          "Category",
+          "Tag",
+          "Collection",
+          "SavedView"
+        ],
+        "capability_ids": [
+          "CAP-003",
+          "CAP-004",
+          "CAP-005"
+        ],
+        "communication": "synchronous_api",
+        "failure_modes": [
+          "Overgeneric asset model",
+          "Inconsistent product/service field ownership"
+        ]
+      },
+      {
+        "id": "SERVICE-005",
+        "name": "Pricing And Margin Service",
+        "purpose": "Own pricing rules, cost components, calculations, margin thresholds, and price snapshots.",
+        "owned_data": [
+          "PricingRule",
+          "CostComponent",
+          "PriceCalculation",
+          "MarginPolicy",
+          "PriceSnapshot"
+        ],
+        "capability_ids": [
+          "CAP-006"
+        ],
+        "communication": "synchronous_calculation_api_and_async_recalculation_events",
+        "failure_modes": [
+          "Incorrect margins",
+          "Untraceable price changes",
+          "Circular pricing dependencies"
+        ]
+      },
+      {
+        "id": "SERVICE-006",
+        "name": "Offer Assembly Service",
+        "purpose": "Own bundles, production recipes, components, quantity scaling, and reusable offering templates.",
+        "owned_data": [
+          "Bundle",
+          "ProductionRecipe",
+          "RecipeComponent",
+          "BundleTemplate",
+          "QuantityScale"
+        ],
+        "capability_ids": [
+          "CAP-007"
+        ],
+        "communication": "synchronous_api",
+        "failure_modes": [
+          "Component version drift",
+          "Incorrect aggregate costs"
+        ]
+      },
+      {
+        "id": "SERVICE-007",
+        "name": "Generated Output Service",
+        "purpose": "Own quotes first, with extensible generated-output support for price books, catalogs, and proposals.",
+        "owned_data": [
+          "Quote",
+          "QuoteLine",
+          "GeneratedOutput",
+          "OutputTemplate",
+          "OutputRevision"
+        ],
+        "capability_ids": [
+          "CAP-008"
+        ],
+        "communication": "synchronous_api_and_async_document_generation",
+        "failure_modes": [
+          "Output does not match approved pricing snapshot",
+          "Document generation timeout"
+        ]
+      },
+      {
+        "id": "SERVICE-008",
+        "name": "Customer Service",
+        "purpose": "Own customer profiles, contacts, groups, and customer-specific pricing relationships.",
+        "owned_data": [
+          "Customer",
+          "CustomerContact",
+          "CustomerGroup",
+          "CustomerPricingProfile"
+        ],
+        "capability_ids": [
+          "CAP-009"
+        ],
+        "communication": "synchronous_api",
+        "failure_modes": [
+          "Customer-specific pricing leakage"
+        ]
+      },
+      {
+        "id": "SERVICE-009",
+        "name": "Automation And Notification Service",
+        "purpose": "Own notifications, approval triggers, and future monitoring automation.",
+        "owned_data": [
+          "Notification",
+          "ApprovalRequest",
+          "AutomationRule",
+          "Alert"
+        ],
+        "capability_ids": [
+          "CAP-010"
+        ],
+        "communication": "event_driven_async",
+        "failure_modes": [
+          "Duplicate notifications",
+          "Missed approval alerts"
+        ]
+      },
+      {
+        "id": "SERVICE-010",
+        "name": "Integration Adapter Service",
+        "purpose": "Own file, supplier, AI, ecommerce, CRM, accounting, and storage adapter contracts.",
+        "owned_data": [
+          "IntegrationConfig",
+          "ConnectorRun",
+          "ExternalReference"
+        ],
+        "capability_ids": [
+          "CAP-010"
+        ],
+        "communication": "async_jobs_and_adapter_interfaces",
+        "failure_modes": [
+          "Rate-limit failures",
+          "Credential errors",
+          "Supplier API schema drift"
+        ]
+      }
+    ]
+  },
+  "communication_patterns": [
+    {
+      "id": "COMM-001",
+      "pattern": "Request-response",
+      "used_for": [
+        "CRUD operations",
+        "Pricing previews",
+        "Bundle/recipe editing",
+        "Quote editing"
+      ]
+    },
+    {
+      "id": "COMM-002",
+      "pattern": "Queue-backed background jobs",
+      "used_for": [
+        "Import parsing",
+        "Import normalization",
+        "Document generation",
+        "Future supplier sync",
+        "Future AI enrichment"
+      ]
+    },
+    {
+      "id": "COMM-003",
+      "pattern": "Domain events",
+      "used_for": [
+        "Asset imported",
+        "Price recalculated",
+        "Margin threshold breached",
+        "Quote approved",
+        "Output generated"
+      ]
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-003",
+      "decision": "Treat quote generation as the first Generated Output Service use case.",
+      "status": "accepted",
+      "rationale": "Stage 2 identified quote output as the strongest provisional first output while preserving catalogs and price books as variants."
+    },
+    {
+      "id": "ADR-004",
+      "decision": "Separate Import Service from Asset Library Service.",
+      "status": "accepted",
+      "rationale": "Imports are messy, asynchronous, and review-based; normalized assets must remain clean source-of-truth records."
+    }
+  ],
+  "risks_and_constraints": [
+    {
+      "id": "ARCH-RISK-003",
+      "risk": "Pricing and generated outputs can become tightly coupled.",
+      "severity": "high",
+      "mitigation": "Generated outputs must reference immutable price snapshots rather than recompute silently."
+    },
+    {
+      "id": "ARCH-RISK-004",
+      "risk": "Integration adapter behavior may leak into supplier and asset domains.",
+      "severity": "medium",
+      "mitigation": "Adapters write through import staging or external references, not directly into normalized entities."
+    }
+  ],
+  "tradeoffs": [
+    {
+      "id": "TRADEOFF-001",
+      "choice": "Domain modules instead of microservices",
+      "benefit": "Simpler MVP implementation, consistent transactions, easier local reasoning.",
+      "cost": "Requires discipline to preserve service boundaries."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_4_handoff_notes": [
+    "UX should expose service boundaries as user workflows, not technical modules.",
+    "Quote builder should show pricing snapshot and margin state clearly."
+  ],
+  "stage_5_handoff_notes": [
+    "Tickets should align to service modules and avoid cross-module writes except through defined APIs."
+  ]
+}

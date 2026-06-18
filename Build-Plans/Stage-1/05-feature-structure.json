@@ -1,0 +1,242 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "workflow-and-capability-synthesis",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "feature_groups": [
+    {
+      "id": "FG-001",
+      "name": "Supplier Management",
+      "capability_id": "CAP-002",
+      "features": [
+        {
+          "id": "FEATURE-001",
+          "name": "Vendor profiles",
+          "description": "Supplier contact information, account numbers, notes, preferred vendor designation, purchase history, and performance tracking."
+        },
+        {
+          "id": "FEATURE-002",
+          "name": "Vendor connection management",
+          "description": "Connection setup, secure credential handling, account grouping, connection status, re-authentication, and onboarding wizard."
+        },
+        {
+          "id": "FEATURE-003",
+          "name": "Vendor intelligence",
+          "description": "Availability tracking, new and discontinued product alerts, pricing change monitoring, lead times, and vendor comparison tools."
+        }
+      ]
+    },
+    {
+      "id": "FG-002",
+      "name": "Product Aggregation",
+      "capability_id": "CAP-003",
+      "features": [
+        {
+          "id": "FEATURE-004",
+          "name": "Product import",
+          "description": "Single, bulk, category, collection, scheduled, and synchronized product import."
+        },
+        {
+          "id": "FEATURE-005",
+          "name": "Product data collection",
+          "description": "Names, descriptions, images, specifications, SKUs, UPCs, weight, dimensions, documents, guides, and warranty information."
+        },
+        {
+          "id": "FEATURE-006",
+          "name": "Product lifecycle management",
+          "description": "Editing, duplication, archiving, version history, tagging, categorization, and merging."
+        }
+      ]
+    },
+    {
+      "id": "FG-003",
+      "name": "Service Aggregation",
+      "capability_id": "CAP-004",
+      "features": [
+        {
+          "id": "FEATURE-011",
+          "name": "Service import",
+          "description": "Supplier service offerings, pricing tables, descriptions, requirements, and turnaround times."
+        },
+        {
+          "id": "FEATURE-012",
+          "name": "Supported service catalog",
+          "description": "Screen printing, DTF, embroidery, heat press, laser engraving, graphic design, packaging, kitting, warehousing, freight, installation, assembly, and production services."
+        },
+        {
+          "id": "FEATURE-013",
+          "name": "Service management",
+          "description": "Categorization, version tracking, vendor-specific services, availability tracking, and documentation storage."
+        }
+      ]
+    },
+    {
+      "id": "FG-004",
+      "name": "Unified Asset Library",
+      "capability_id": "CAP-005",
+      "features": [
+        {
+          "id": "FEATURE-007",
+          "name": "Centralized repository",
+          "description": "Products, services, bundles, production recipes, and catalog assets."
+        },
+        {
+          "id": "FEATURE-008",
+          "name": "Organization tools",
+          "description": "Categories, subcategories, brands, tags, collections, project folders, and saved views."
+        },
+        {
+          "id": "FEATURE-009",
+          "name": "Search and discovery",
+          "description": "Universal search, vendor search, service search, product search, AI-powered search, and smart filtering."
+        },
+        {
+          "id": "FEATURE-010",
+          "name": "Asset maintenance",
+          "description": "Review, archive, merge, update, and curate assets for resale use."
+        }
+      ]
+    },
+    {
+      "id": "FG-005",
+      "name": "Pricing, Cost, And Margin",
+      "capability_id": "CAP-006",
+      "features": [
+        {
+          "id": "FEATURE-014",
+          "name": "Product and service pricing rules",
+          "description": "Fixed, percentage, cost-plus, margin-based, category, vendor, tier, quantity break, labor, and hourly pricing."
+        },
+        {
+          "id": "FEATURE-015",
+          "name": "Advanced pricing",
+          "description": "Customer-specific, group, wholesale, retail, promotional, and contract pricing."
+        },
+        {
+          "id": "FEATURE-016",
+          "name": "Cost breakdown engine",
+          "description": "Track product, service, labor, shipping, packaging, setup, installation, and related job costs."
+        },
+        {
+          "id": "FEATURE-017",
+          "name": "Margin management",
+          "description": "Gross margin calculations, forecasting, optimization, alerts, low-margin detection, minimum profit thresholds, and approval workflows."
+        }
+      ]
+    },
+    {
+      "id": "FG-006",
+      "name": "Bundles And Production Recipes",
+      "capability_id": "CAP-007",
+      "features": [
+        {
+          "id": "FEATURE-018",
+          "name": "Bundle builder",
+          "description": "Combine products, services, labor, packaging, shipping, setup fees, and installation into reusable offerings."
+        },
+        {
+          "id": "FEATURE-019",
+          "name": "Production recipe builder",
+          "description": "Repeatable production formulas with multi-component products, automatic cost calculations, quantity scaling, and dynamic pricing updates."
+        },
+        {
+          "id": "FEATURE-020",
+          "name": "Bundle templates",
+          "description": "Reusable configurations for offerings such as blank shirt plus DTF print, hoodie plus embroidery, trophy plus engraving, sign plus installation, or product plus setup service."
+        }
+      ]
+    },
+    {
+      "id": "FG-007",
+      "name": "Sales Output",
+      "capability_id": "CAP-008",
+      "features": [
+        {
+          "id": "FEATURE-021",
+          "name": "Catalog builder",
+          "description": "Custom, branded, multi-page, product, service, and hybrid catalogs with layouts, cover pages, brand colors, and publishing."
+        },
+        {
+          "id": "FEATURE-022",
+          "name": "Price book management",
+          "description": "Customer, industry, project, and team price books with PDF generation, secure sharing, online access, versioning, and expiration controls."
+        },
+        {
+          "id": "FEATURE-023",
+          "name": "Quote builder",
+          "description": "Generate quotes from products, services, bundles, and production recipes."
+        },
+        {
+          "id": "FEATURE-024",
+          "name": "Proposal builder",
+          "description": "Branded proposals, product and service recommendations, supporting documents, and electronic approvals."
+        },
+        {
+          "id": "FEATURE-025",
+          "name": "Quote tracking",
+          "description": "Draft, sent, accepted, rejected, and revision history states."
+        }
+      ]
+    },
+    {
+      "id": "FG-008",
+      "name": "Customer, Automation, AI, Integrations, And Enterprise Expansion",
+      "capability_id": "CAP-010",
+      "features": [
+        {
+          "id": "FEATURE-026",
+          "name": "Customer management",
+          "description": "Profiles, contacts, groups, notes, purchase history, custom pricing, portals, favorites, and quote requests."
+        },
+        {
+          "id": "FEATURE-027",
+          "name": "Automation and notifications",
+          "description": "Scheduled imports, product and service synchronization, vendor monitoring, price change alerts, inventory alerts, margin alerts, and approvals."
+        },
+        {
+          "id": "FEATURE-028",
+          "name": "AI assistants and natural language search",
+          "description": "Product, service, pricing, catalog, and quote assistance for summaries, categorization, attribute extraction, suggested markups, recommendations, and natural language queries."
+        },
+        {
+          "id": "FEATURE-029",
+          "name": "Analytics, integrations, collaboration, and enterprise",
+          "description": "Financial, vendor, catalog, and quote reporting; ecommerce, CRM, accounting, and storage integrations; multi-user collaboration; SSO, MFA, audit logging, retention, and compliance reporting."
+        }
+      ]
+    }
+  ],
+  "feature_relationships": [
+    {
+      "id": "FEATURE-REL-001",
+      "from": "FEATURE-004",
+      "to": "FEATURE-007",
+      "relationship": "Imported products populate the unified asset library."
+    },
+    {
+      "id": "FEATURE-REL-002",
+      "from": "FEATURE-011",
+      "to": "FEATURE-007",
+      "relationship": "Imported services populate the unified asset library."
+    },
+    {
+      "id": "FEATURE-REL-003",
+      "from": "FEATURE-016",
+      "to": "FEATURE-018",
+      "relationship": "Bundles depend on complete component cost breakdowns."
+    },
+    {
+      "id": "FEATURE-REL-004",
+      "from": "FEATURE-018",
+      "to": "FEATURE-023",
+      "relationship": "Quote builder can include bundles and production recipes."
+    },
+    {
+      "id": "FEATURE-REL-005",
+      "from": "FEATURE-017",
+      "to": "FEATURE-027",
+      "relationship": "Margin rules can trigger alerts and approvals."
+    }
+  ]
+}

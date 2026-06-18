@@ -1,0 +1,85 @@
+{
+  "stage": "Stage 4",
+  "status": "complete",
+  "command": "stage-4-ux-interaction-architecture",
+  "owning_skill": "state-transition-and-accessibility-design",
+  "schema_ref": "System-References/Schemas/stage-4-output.schema.json",
+  "related_stage_1_workflows": [
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-004",
+    "WORKFLOW-006"
+  ],
+  "related_stage_3_architecture_constraints": [
+    "Async job states must be visible",
+    "Permission-denied states must be explicit",
+    "Generated-output sharing is security-sensitive"
+  ],
+  "accessibility_framework": {
+    "standard": "WCAG 2.2 AA target",
+    "keyboard_requirements": [
+      "All navigation, forms, tables, modals, drawers, wizards, tabs, and menus are keyboard operable.",
+      "Import mapping grid supports keyboard row and field navigation.",
+      "Quote builder line items support keyboard add, edit, reorder where supported, and remove actions."
+    ],
+    "screen_reader_expectations": [
+      "Async job updates use polite live regions for progress and assertive messaging for failure.",
+      "Validation summaries link to invalid fields.",
+      "Status badges include text labels, not color alone.",
+      "Tables have headers, row labels, and clear sort/filter announcements."
+    ],
+    "focus_management": [
+      "Wizard step changes move focus to step heading.",
+      "Modals and drawers trap focus and return focus to trigger.",
+      "After save or error, focus moves to confirmation or validation summary.",
+      "Generated-output sharing confirmation focuses revocation and copy-link controls."
+    ],
+    "contrast_and_readability": [
+      "Text and interactive controls meet AA contrast.",
+      "Margin alerts and error states use icon plus text plus color.",
+      "Dense tables preserve minimum touch and click target sizes."
+    ],
+    "form_accessibility": [
+      "Every input has a visible label.",
+      "Required fields are announced and visually indicated.",
+      "Error messages are field-specific and summarized at form level."
+    ],
+    "motion_constraints": [
+      "No required information is conveyed by animation.",
+      "Progress indicators have text equivalents.",
+      "Respect reduced-motion preference."
+    ]
+  },
+  "accessibility_risks": [
+    {
+      "id": "A11Y-RISK-001",
+      "risk": "Import mapping and quote line editing can become inaccessible if built as pointer-only grids.",
+      "severity": "high",
+      "mitigation": "Require keyboard and screen-reader-operable table/grid patterns before implementation acceptance."
+    },
+    {
+      "id": "A11Y-RISK-002",
+      "risk": "Status badges for margin and approval may rely on color alone.",
+      "severity": "medium",
+      "mitigation": "Use text labels, icons, and accessible descriptions."
+    },
+    {
+      "id": "A11Y-RISK-003",
+      "risk": "Async failures may be missed if only shown as transient toasts.",
+      "severity": "medium",
+      "mitigation": "Use persistent inline panels and status center records."
+    }
+  ],
+  "ux_decisions": [
+    {
+      "id": "UXD-010",
+      "decision": "Accessibility is a baseline launch requirement, not a later enhancement.",
+      "rationale": "Operational workflows depend on forms, tables, validation, and async states."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_5_handoff_notes": [
+    "Frontend implementation must include keyboard QA for import review, pricing tables, bundle components, and quote lines.",
+    "Visual QA must include contrast checks for status badges and alerts."
+  ]
+}

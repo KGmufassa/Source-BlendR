@@ -1,0 +1,192 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "mvp-and-optimization",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "mvp_scope": {
+    "id": "MVP-001",
+    "mvp_goal": "Let a business aggregate supplier products and services, organize them in a unified asset library, calculate costs and margins, build simple bundles or production recipes, and generate one customer-ready sales output.",
+    "included_workflows": [
+      "WORKFLOW-001",
+      "WORKFLOW-002",
+      "WORKFLOW-003",
+      "WORKFLOW-004",
+      "WORKFLOW-005",
+      "WORKFLOW-006"
+    ],
+    "must_have_capabilities": [
+      "CAP-001",
+      "CAP-002",
+      "CAP-003",
+      "CAP-004",
+      "CAP-005",
+      "CAP-006",
+      "CAP-007",
+      "CAP-008"
+    ],
+    "mvp_boundary": "Prioritize reliable supplier source setup, file/manual import for products and services, unified asset organization, core pricing and margin calculations, simple bundles or recipes, and one quote/catalog/price-book output path before broad automation, AI, analytics, portals, enterprise, marketplace, procurement, or deep integrations."
+  },
+  "feature_priorities": {
+    "must_have": [
+      "FEATURE-001",
+      "FEATURE-004",
+      "FEATURE-005",
+      "FEATURE-007",
+      "FEATURE-008",
+      "FEATURE-011",
+      "FEATURE-014",
+      "FEATURE-016",
+      "FEATURE-017",
+      "FEATURE-018",
+      "FEATURE-019",
+      "FEATURE-023"
+    ],
+    "should_have": [
+      "FEATURE-002",
+      "FEATURE-006",
+      "FEATURE-010",
+      "FEATURE-012",
+      "FEATURE-013",
+      "FEATURE-020",
+      "FEATURE-021",
+      "FEATURE-022",
+      "FEATURE-024",
+      "FEATURE-025"
+    ],
+    "optional": [
+      "FEATURE-009",
+      "FEATURE-015"
+    ],
+    "deferred": [
+      "FEATURE-DEFERRED-001",
+      "FEATURE-DEFERRED-002",
+      "FEATURE-DEFERRED-003",
+      "FEATURE-DEFERRED-004",
+      "FEATURE-DEFERRED-005",
+      "FEATURE-DEFERRED-006",
+      "FEATURE-DEFERRED-007",
+      "FEATURE-DEFERRED-008"
+    ]
+  },
+  "deferred_features": [
+    {
+      "id": "FEATURE-DEFERRED-001",
+      "name": "Broad automatic supplier portal synchronization",
+      "reason": "Integration variability, credential handling, and supplier terms create high early complexity."
+    },
+    {
+      "id": "FEATURE-DEFERRED-002",
+      "name": "Customer portals and secure customer login",
+      "reason": "Customer access control should follow validation of the internal quote, catalog, and price book workflows."
+    },
+    {
+      "id": "FEATURE-DEFERRED-003",
+      "name": "Advanced AI assistants",
+      "reason": "AI search, pricing suggestions, catalog generation, and quote drafting require validated data quality, retrieval, moderation, and usage controls."
+    },
+    {
+      "id": "FEATURE-DEFERRED-004",
+      "name": "Advanced analytics dashboards",
+      "reason": "Reporting value depends on enough real supplier, quote, catalog, and margin activity."
+    },
+    {
+      "id": "FEATURE-DEFERRED-005",
+      "name": "Ecommerce, CRM, accounting, and storage integrations",
+      "reason": "Integration priorities should follow customer validation."
+    },
+    {
+      "id": "FEATURE-DEFERRED-006",
+      "name": "Enterprise governance",
+      "reason": "SSO, MFA, audit logging, retention, and compliance reporting should be staged after core product-market validation unless an enterprise launch buyer requires them."
+    },
+    {
+      "id": "FEATURE-DEFERRED-007",
+      "name": "Procurement, RFQs, bidding, and marketplace",
+      "reason": "Marketplace and procurement workflows are separate operating models from internal sourcing and quoting."
+    },
+    {
+      "id": "FEATURE-DEFERRED-008",
+      "name": "Production planning, capacity management, white label, and global expansion",
+      "reason": "These are later-stage operating systems that depend on validated core adoption."
+    }
+  ],
+  "launch_critical_systems": [
+    "Authentication and workspace access",
+    "Supplier profile records",
+    "Product and service import or manual entry",
+    "Unified asset model",
+    "Search and organization",
+    "Pricing, cost, and margin calculation",
+    "Bundle and recipe model",
+    "Quote or price book generator"
+  ],
+  "implementation_phases": {
+    "phase_1_foundation": [
+      "Workspace and roles",
+      "Supplier profile model",
+      "Unified product, service, bundle, and recipe data model"
+    ],
+    "phase_2_core_intake": [
+      "File/manual product import",
+      "File/manual service import",
+      "Field mapping and import review",
+      "Asset organization and search"
+    ],
+    "phase_3_commercial_logic": [
+      "Cost breakdown engine",
+      "Product and service pricing rules",
+      "Margin thresholds",
+      "Simple bundle and recipe builder"
+    ],
+    "phase_4_sales_output": [
+      "Quote builder or first validated output type",
+      "Export/share workflow",
+      "Revision or approval state"
+    ],
+    "phase_5_expansion_candidates": [
+      "Supplier monitoring",
+      "Catalog and price book publishing",
+      "Customer-specific pricing",
+      "Customer portals",
+      "AI assistance",
+      "Integrations",
+      "Analytics"
+    ]
+  },
+  "optimization_recommendations": [
+    {
+      "id": "OPT-001",
+      "recommendation": "Pick one initial vertical and model its most common product plus service bundle workflow."
+    },
+    {
+      "id": "OPT-002",
+      "recommendation": "Ship file/manual import and import review before scheduled synchronization or portal automation."
+    },
+    {
+      "id": "OPT-003",
+      "recommendation": "Choose one launch-critical output type, likely quote or price book, before building every catalog, proposal, portal, and publishing mode."
+    },
+    {
+      "id": "OPT-004",
+      "recommendation": "Treat AI and integrations as acceleration layers after the core data model, pricing logic, and output workflows are validated."
+    }
+  ],
+  "complexity_reductions": [
+    {
+      "id": "REDUCTION-001",
+      "reduction": "Defer real-time supplier sync.",
+      "preserved_value": "Users can still centralize supplier data and build priced offerings through controlled imports."
+    },
+    {
+      "id": "REDUCTION-002",
+      "reduction": "Defer customer portals.",
+      "preserved_value": "Users can still generate and share customer-ready outputs."
+    },
+    {
+      "id": "REDUCTION-003",
+      "reduction": "Defer marketplace and procurement.",
+      "preserved_value": "The product remains focused on internal sourcing, pricing, bundling, and quoting."
+    }
+  ]
+}

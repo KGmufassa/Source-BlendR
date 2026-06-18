@@ -1,0 +1,308 @@
+{
+  "stage": "Stage 4",
+  "status": "complete",
+  "command": "stage-4-ux-interaction-architecture",
+  "owning_skill": "feature-behavior-specification",
+  "schema_ref": "System-References/Schemas/stage-4-output.schema.json",
+  "related_stage_1_features": [
+    "FEATURE-001",
+    "FEATURE-004",
+    "FEATURE-007",
+    "FEATURE-011",
+    "FEATURE-014",
+    "FEATURE-016",
+    "FEATURE-017",
+    "FEATURE-018",
+    "FEATURE-019",
+    "FEATURE-023"
+  ],
+  "related_stage_3_architecture_constraints": [
+    "Command-style API operations",
+    "Import staging before normalized asset writes",
+    "Immutable pricing snapshots for generated outputs",
+    "Workspace-scoped RBAC"
+  ],
+  "feature_behaviors": [
+    {
+      "id": "BEHAVIOR-001",
+      "feature": "Supplier profiles",
+      "screen_ids": [
+        "SCREEN-002",
+        "SCREEN-003"
+      ],
+      "trigger_actions": [
+        "Create",
+        "Update",
+        "Archive"
+      ],
+      "required_inputs": [
+        "Supplier name",
+        "Source type"
+      ],
+      "system_responses": [
+        "Create supplier record",
+        "Show source readiness",
+        "Log audit event"
+      ],
+      "validation_rules": [
+        "Supplier name is required",
+        "Duplicate supplier names warn but do not block"
+      ],
+      "permission_checks": [
+        "supplier_write for create/update/archive"
+      ],
+      "error_behavior": "Show inline field errors and preserve draft."
+    },
+    {
+      "id": "BEHAVIOR-002",
+      "feature": "Product and service import",
+      "screen_ids": [
+        "SCREEN-004"
+      ],
+      "trigger_actions": [
+        "Upload",
+        "Map",
+        "Validate",
+        "Commit"
+      ],
+      "required_inputs": [
+        "Supplier source",
+        "File or manual rows",
+        "Field mapping"
+      ],
+      "system_responses": [
+        "Create import batch",
+        "Start parse job",
+        "Show row status",
+        "Commit valid rows into Asset Library"
+      ],
+      "validation_rules": [
+        "Unsupported file blocks parsing",
+        "Required mapped fields must be resolved before commit",
+        "Partial commit requires explicit confirmation"
+      ],
+      "permission_checks": [
+        "import_write"
+      ],
+      "error_behavior": "Display row-level errors, downloadable report, mapping retry, and commit-valid-only option."
+    },
+    {
+      "id": "BEHAVIOR-003",
+      "feature": "Asset library management",
+      "screen_ids": [
+        "SCREEN-005",
+        "SCREEN-006"
+      ],
+      "trigger_actions": [
+        "Search",
+        "Filter",
+        "Edit",
+        "Tag",
+        "Archive"
+      ],
+      "required_inputs": [
+        "Asset type",
+        "Name",
+        "Supplier provenance when imported"
+      ],
+      "system_responses": [
+        "Update asset record",
+        "Retain source provenance",
+        "Warn if asset is used in bundle, recipe, or quote"
+      ],
+      "validation_rules": [
+        "Cannot silently overwrite imported source fields without change indication",
+        "Archive action confirms if asset is referenced"
+      ],
+      "permission_checks": [
+        "asset_read",
+        "asset_write"
+      ],
+      "error_behavior": "Show conflict or reference warning with safe cancel."
+    },
+    {
+      "id": "BEHAVIOR-004",
+      "feature": "Pricing and margin preview",
+      "screen_ids": [
+        "SCREEN-007",
+        "SCREEN-010"
+      ],
+      "trigger_actions": [
+        "Preview",
+        "Apply",
+        "Snapshot",
+        "Request Approval"
+      ],
+      "required_inputs": [
+        "Cost components",
+        "Pricing rule",
+        "Margin policy"
+      ],
+      "system_responses": [
+        "Calculate price",
+        "Show margin state",
+        "Flag low margin",
+        "Create price snapshot"
+      ],
+      "validation_rules": [
+        "Missing cost blocks approved price snapshot",
+        "Low margin requires adjustment or approval",
+        "Approved quote lines use immutable snapshots"
+      ],
+      "permission_checks": [
+        "pricing_access",
+        "quote_approve for overrides"
+      ],
+      "error_behavior": "Explain missing cost or low-margin condition with next action."
+    },
+    {
+      "id": "BEHAVIOR-005",
+      "feature": "Bundle and production recipe builder",
+      "screen_ids": [
+        "SCREEN-008"
+      ],
+      "trigger_actions": [
+        "Create",
+        "Add Component",
+        "Preview Cost",
+        "Publish"
+      ],
+      "required_inputs": [
+        "Offering name",
+        "At least one component",
+        "Quantity or scaling rule"
+      ],
+      "system_responses": [
+        "Aggregate cost",
+        "Preview price and margin",
+        "Save draft or publish"
+      ],
+      "validation_rules": [
+        "Quantity must be positive",
+        "Archived components require replacement before publish",
+        "Missing component costs block publish"
+      ],
+      "permission_checks": [
+        "offer_write",
+        "pricing_access"
+      ],
+      "error_behavior": "Highlight invalid component and allow save as draft."
+    },
+    {
+      "id": "BEHAVIOR-006",
+      "feature": "Quote generation",
+      "screen_ids": [
+        "SCREEN-009",
+        "SCREEN-010",
+        "SCREEN-011"
+      ],
+      "trigger_actions": [
+        "Create Quote",
+        "Add Line",
+        "Submit For Review",
+        "Approve",
+        "Generate",
+        "Share"
+      ],
+      "required_inputs": [
+        "Customer",
+        "At least one line",
+        "Price snapshots for approved output"
+      ],
+      "system_responses": [
+        "Save quote draft",
+        "Show margin summary",
+        "Create generated output job",
+        "Create share link"
+      ],
+      "validation_rules": [
+        "Quote cannot be generated without customer and valid line pricing",
+        "Approval required when margin threshold is breached",
+        "Share link must have expiration or revocation path"
+      ],
+      "permission_checks": [
+        "quote_write",
+        "quote_approve",
+        "quote_share"
+      ],
+      "error_behavior": "Show missing prerequisite checklist and preserve quote draft."
+    },
+    {
+      "id": "BEHAVIOR-007",
+      "feature": "Status center",
+      "screen_ids": [
+        "SCREEN-012"
+      ],
+      "trigger_actions": [
+        "View",
+        "Retry",
+        "Cancel"
+      ],
+      "required_inputs": [
+        "Job ID"
+      ],
+      "system_responses": [
+        "Show progress",
+        "Show failure reason",
+        "Retry eligible jobs"
+      ],
+      "validation_rules": [
+        "Only retry jobs with recoverable errors",
+        "Do not expose secrets in logs"
+      ],
+      "permission_checks": [
+        "workspace_member"
+      ],
+      "error_behavior": "Show job-safe error summary and support reference."
+    }
+  ],
+  "validation_rules": [
+    "All create/edit forms preserve input after validation failure.",
+    "Destructive or externally visible actions require confirmation.",
+    "Generated outputs require valid pricing snapshots.",
+    "Permission-denied states explain whether action is unavailable or requires admin access."
+  ],
+  "permission_behaviors": [
+    "Owner/Admin can manage users, suppliers, pricing approvals, and settings.",
+    "Contributor can create imports, assets, offerings, and quotes but may need approval.",
+    "Viewer can inspect assets and quotes but not mutate records."
+  ],
+  "error_behaviors": [
+    "Inline field validation for form errors.",
+    "Validation summary for import and quote prerequisites.",
+    "Persistent async failure panel for job failures.",
+    "Non-destructive retry path wherever possible."
+  ],
+  "ux_decisions": [
+    {
+      "id": "UXD-007",
+      "decision": "Generated output sharing requires expiration and revocation controls.",
+      "rationale": "Stage 3 identified customer-specific pricing exposure risk."
+    },
+    {
+      "id": "UXD-008",
+      "decision": "Low-margin quote lines block generation unless approved.",
+      "rationale": "Margin protection is core to the product promise."
+    }
+  ],
+  "ux_risks": [
+    {
+      "id": "UX-RISK-004",
+      "risk": "Strict validation could slow expert users.",
+      "severity": "medium",
+      "mitigation": "Allow save-as-draft and partial import commit where safe."
+    }
+  ],
+  "interaction_tradeoffs": [
+    {
+      "id": "IX-TRADEOFF-002",
+      "choice": "Block publish/generate on missing pricing data",
+      "benefit": "Protects margin and output integrity.",
+      "cost": "Requires clear prerequisite UX."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_5_handoff_notes": [
+    "Each launch-critical feature behavior has explicit trigger, validation, permission, and error behavior."
+  ]
+}

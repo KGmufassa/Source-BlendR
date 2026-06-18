@@ -1,0 +1,194 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "product-intelligence",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "users": [
+    {
+      "id": "USER-001",
+      "role": "Reseller owner or operator",
+      "type": "primary",
+      "motivations": [
+        "Centralize products, services, vendors, costs, and resale pricing",
+        "Create profitable customer-ready offers quickly",
+        "Reduce spreadsheet-based sourcing, pricing, and quoting work"
+      ],
+      "pain_points": [
+        "Supplier portals and price sheets are fragmented",
+        "Product and service costs are hard to combine into complete job pricing",
+        "Manual quote and catalog creation creates delays and margin errors"
+      ],
+      "desired_outcomes": [
+        "Unified supplier asset library",
+        "Reusable bundles and production recipes",
+        "Automated cost, price, margin, catalog, and quote generation"
+      ]
+    },
+    {
+      "id": "USER-002",
+      "role": "Sales or account representative",
+      "type": "secondary",
+      "motivations": [
+        "Find approved products and services",
+        "Generate accurate quotes and proposals",
+        "Share customer-specific catalogs or price books"
+      ],
+      "pain_points": [
+        "Unclear current pricing",
+        "Slow proposal turnaround",
+        "Limited confidence in margins and approved offerings"
+      ],
+      "desired_outcomes": [
+        "Fast quote creation",
+        "Reliable catalog and price book access",
+        "Customer-specific pricing visibility"
+      ]
+    },
+    {
+      "id": "USER-003",
+      "role": "Operations or purchasing manager",
+      "type": "secondary",
+      "motivations": [
+        "Standardize vendor, product, service, and production cost intake",
+        "Control availability, lead time, and vendor performance data",
+        "Maintain clean source data for quoting and catalog outputs"
+      ],
+      "pain_points": [
+        "Supplier data inconsistency",
+        "Service pricing table complexity",
+        "Manual updates when vendor prices or availability change"
+      ],
+      "desired_outcomes": [
+        "Controlled import and review workflow",
+        "Clean product and service records",
+        "Visible vendor performance and availability status"
+      ]
+    },
+    {
+      "id": "USER-004",
+      "role": "Pricing or finance manager",
+      "type": "secondary",
+      "motivations": [
+        "Protect margins",
+        "Standardize markup and pricing rules",
+        "Forecast profit across quotes, bundles, catalogs, and vendors"
+      ],
+      "pain_points": [
+        "Hidden labor, shipping, packaging, setup, and service costs",
+        "Low-margin quotes escaping review",
+        "Difficulty comparing margins by vendor or offering"
+      ],
+      "desired_outcomes": [
+        "Complete cost breakdowns",
+        "Margin alerts and minimum profit thresholds",
+        "Approval workflows for pricing exceptions"
+      ]
+    },
+    {
+      "id": "USER-005",
+      "role": "Customer buyer or portal user",
+      "type": "future_secondary",
+      "motivations": [
+        "Access assigned catalogs, price books, and quote request workflows"
+      ],
+      "pain_points": [
+        "Waiting for updated sales documents",
+        "Unclear available products, services, or pricing"
+      ],
+      "desired_outcomes": [
+        "Secure access to approved customer-facing offerings"
+      ]
+    }
+  ],
+  "system_relationships": [
+    {
+      "id": "REL-001",
+      "user_id": "USER-001",
+      "system_touchpoints": [
+        "Vendor and service source setup",
+        "Unified asset library",
+        "Bundle and recipe builder",
+        "Pricing and margin engine",
+        "Catalog, price book, quote, and proposal generation"
+      ]
+    },
+    {
+      "id": "REL-002",
+      "user_id": "USER-002",
+      "system_touchpoints": [
+        "Product and service search",
+        "Bundle and recipe selection",
+        "Quote builder",
+        "Proposal and price book sharing"
+      ]
+    },
+    {
+      "id": "REL-003",
+      "user_id": "USER-004",
+      "system_touchpoints": [
+        "Pricing rules",
+        "Cost breakdowns",
+        "Margin analysis",
+        "Approval workflows"
+      ]
+    }
+  ],
+  "user_needs": [
+    {
+      "id": "NEED-001",
+      "user_ids": [
+        "USER-001",
+        "USER-003"
+      ],
+      "need": "Import and normalize supplier products and services into a consistent internal asset model.",
+      "related_features": [
+        "FEATURE-001",
+        "FEATURE-002",
+        "FEATURE-003",
+        "FEATURE-011",
+        "FEATURE-012"
+      ]
+    },
+    {
+      "id": "NEED-002",
+      "user_ids": [
+        "USER-001",
+        "USER-004"
+      ],
+      "need": "Calculate complete product, service, labor, shipping, packaging, setup, and installation costs before resale pricing.",
+      "related_features": [
+        "FEATURE-014",
+        "FEATURE-015",
+        "FEATURE-016",
+        "FEATURE-017"
+      ]
+    },
+    {
+      "id": "NEED-003",
+      "user_ids": [
+        "USER-001",
+        "USER-002"
+      ],
+      "need": "Generate customer-ready catalogs, price books, quotes, and proposals from approved offerings.",
+      "related_features": [
+        "FEATURE-021",
+        "FEATURE-022",
+        "FEATURE-023",
+        "FEATURE-024"
+      ]
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "ASSUMPTION-003",
+      "assumption": "The first release serves one business workspace at a time, with simple internal roles before enterprise department access controls, SSO, and full audit governance."
+    }
+  ],
+  "source_trace": [
+    {
+      "source": "User-provided expanded Source-Blendr product brief",
+      "evidence": "User roles inferred from vendor aggregation, pricing, quoting, customer management, collaboration, and enterprise features."
+    }
+  ]
+}

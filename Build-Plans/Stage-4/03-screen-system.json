@@ -1,0 +1,245 @@
+{
+  "stage": "Stage 4",
+  "status": "complete",
+  "command": "stage-4-ux-interaction-architecture",
+  "owning_skill": "screen-system-design",
+  "schema_ref": "System-References/Schemas/stage-4-output.schema.json",
+  "related_stage_1_features": [
+    "FEATURE-001",
+    "FEATURE-004",
+    "FEATURE-007",
+    "FEATURE-014",
+    "FEATURE-018",
+    "FEATURE-019",
+    "FEATURE-023",
+    "FEATURE-027"
+  ],
+  "related_stage_3_architecture_constraints": [
+    "Generated outputs reference quote and pricing snapshots",
+    "Import Service is separate from Asset Library Service",
+    "Workspace-scoped RBAC"
+  ],
+  "screen_system": {
+    "screen_model": "workspace_dashboard_with_operational_modules",
+    "navigation_structure": {
+      "primary_nav": [
+        "Dashboard",
+        "Suppliers",
+        "Imports",
+        "Asset Library",
+        "Pricing",
+        "Offerings",
+        "Quotes",
+        "Customers",
+        "Settings"
+      ],
+      "utility_nav": [
+        "Global Search",
+        "Status Center",
+        "Notifications",
+        "Help"
+      ]
+    }
+  },
+  "screen_groups": [
+    {
+      "id": "SCREEN-GROUP-001",
+      "name": "Workspace Operations",
+      "screens": [
+        "SCREEN-001"
+      ]
+    },
+    {
+      "id": "SCREEN-GROUP-002",
+      "name": "Supplier And Import",
+      "screens": [
+        "SCREEN-002",
+        "SCREEN-003",
+        "SCREEN-004"
+      ]
+    },
+    {
+      "id": "SCREEN-GROUP-003",
+      "name": "Assets And Offerings",
+      "screens": [
+        "SCREEN-005",
+        "SCREEN-006",
+        "SCREEN-007",
+        "SCREEN-008"
+      ]
+    },
+    {
+      "id": "SCREEN-GROUP-004",
+      "name": "Customer Output",
+      "screens": [
+        "SCREEN-009",
+        "SCREEN-010",
+        "SCREEN-011"
+      ]
+    },
+    {
+      "id": "SCREEN-GROUP-005",
+      "name": "Administration",
+      "screens": [
+        "SCREEN-012",
+        "SCREEN-013"
+      ]
+    }
+  ],
+  "screen_inventory": [
+    {
+      "id": "SCREEN-001",
+      "name": "Dashboard",
+      "screen_type": "Dashboard",
+      "purpose": "Show operational status, recent imports, margin alerts, quote activity, and next actions.",
+      "permissions": [
+        "workspace_member"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-002",
+      "name": "Supplier List",
+      "screen_type": "List",
+      "purpose": "Search, filter, create, and monitor suppliers.",
+      "permissions": [
+        "supplier_read"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-003",
+      "name": "Supplier Detail",
+      "screen_type": "Detail View",
+      "purpose": "View supplier profile, source records, notes, import history, and actions.",
+      "permissions": [
+        "supplier_read"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-004",
+      "name": "Import Review Wizard",
+      "screen_type": "Wizard",
+      "purpose": "Upload, map, validate, and commit product or service records.",
+      "permissions": [
+        "import_write"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-005",
+      "name": "Asset Library",
+      "screen_type": "List",
+      "purpose": "Search and manage products, services, documents, categories, and collections.",
+      "permissions": [
+        "asset_read"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-006",
+      "name": "Asset Detail",
+      "screen_type": "Detail View",
+      "purpose": "Edit product/service details, costs, supplier provenance, documents, and usage.",
+      "permissions": [
+        "asset_read"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-007",
+      "name": "Pricing Workspace",
+      "screen_type": "Custom",
+      "purpose": "Preview pricing rules, costs, margins, alerts, and approval needs.",
+      "permissions": [
+        "pricing_access"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-008",
+      "name": "Bundle And Recipe Builder",
+      "screen_type": "Custom",
+      "purpose": "Compose products, services, labor, shipping, packaging, and setup into reusable offerings.",
+      "permissions": [
+        "offer_write"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-009",
+      "name": "Quote List",
+      "screen_type": "List",
+      "purpose": "Search, filter, create, and track quote lifecycle states.",
+      "permissions": [
+        "quote_read"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-010",
+      "name": "Quote Builder",
+      "screen_type": "Custom",
+      "purpose": "Create customer quotes, add lines, review margins, approve, generate, and share.",
+      "permissions": [
+        "quote_write"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-011",
+      "name": "Customer Detail",
+      "screen_type": "Detail View",
+      "purpose": "Manage customer profile, contacts, pricing profile, and quote history.",
+      "permissions": [
+        "customer_read"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-012",
+      "name": "Status Center",
+      "screen_type": "Dashboard",
+      "purpose": "Review background jobs, errors, retries, and operational diagnostics.",
+      "permissions": [
+        "workspace_member"
+      ],
+      "mvp_critical": true
+    },
+    {
+      "id": "SCREEN-013",
+      "name": "Workspace Settings",
+      "screen_type": "Settings",
+      "purpose": "Manage users, roles, workspace settings, and future integration settings.",
+      "permissions": [
+        "admin"
+      ],
+      "mvp_critical": true
+    }
+  ],
+  "ux_decisions": [
+    {
+      "id": "UXD-005",
+      "decision": "Use a separate Import Review Wizard rather than embedding import correction inside Asset Library.",
+      "rationale": "Import staging is architecturally separate and has unique validation states."
+    },
+    {
+      "id": "UXD-006",
+      "decision": "Use a dedicated Quote Builder instead of a generic generated-output editor.",
+      "rationale": "Quote is the first launch-critical output."
+    }
+  ],
+  "ux_risks": [
+    {
+      "id": "UX-RISK-003",
+      "risk": "Pricing workspace could become too abstract for non-finance users.",
+      "severity": "medium",
+      "mitigation": "Expose cost, price, margin, and approval state in plain operational labels."
+    }
+  ],
+  "open_questions": [],
+  "stage_5_handoff_notes": [
+    "Treat SCREEN-001 through SCREEN-013 as launch-critical route inventory."
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "stage": "Stage 3",
+  "status": "complete",
+  "command": "stage-3-system-architecture",
+  "owning_skill": "security-and-scalability-architecture",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/08-mvp-operational-model.json",
+    "Build-Plans/Stage-1/09-risk-and-constraints.json"
+  ],
+  "related_stage_2_assumption_ids": [
+    "A-002",
+    "A-005",
+    "A-007",
+    "A-009"
+  ],
+  "scalability_framework": {
+    "load_assumptions": {
+      "mvp": "Small teams, moderate supplier files, quote generation on demand, and no real-time collaboration requirement.",
+      "future": "Higher import volume, scheduled supplier sync, customer portals, AI enrichment, analytics, and public sharing traffic."
+    },
+    "scaling_strategy": [
+      {
+        "id": "SCALE-001",
+        "area": "Application API",
+        "strategy": "Scale stateless API runtime horizontally when traffic grows."
+      },
+      {
+        "id": "SCALE-002",
+        "area": "Workers",
+        "strategy": "Scale import, document, notification, sync, and AI workers independently by queue depth."
+      },
+      {
+        "id": "SCALE-003",
+        "area": "Database",
+        "strategy": "Use indexed workspace-scoped queries, read models for search-heavy screens, and archival for old import rows."
+      },
+      {
+        "id": "SCALE-004",
+        "area": "Object Storage",
+        "strategy": "Use signed URLs, lifecycle policies, and separate generated output storage from source uploads."
+      },
+      {
+        "id": "SCALE-005",
+        "area": "Pricing Calculations",
+        "strategy": "Keep deterministic calculation inputs explicit and snapshot approved outputs."
+      },
+      {
+        "id": "SCALE-006",
+        "area": "AI",
+        "strategy": "Use feature flags, quotas, async processing, source-grounded prompts, and human review before approval."
+      }
+    ],
+    "resilience_strategy": [
+      "Retry transient worker failures with capped backoff.",
+      "Make import and document jobs idempotent where possible.",
+      "Persist job status and error details for user-visible recovery.",
+      "Prevent third-party outages from corrupting source-of-truth data.",
+      "Use operational console for failed imports and connector diagnostics."
+    ],
+    "performance_sensitive_workflows": [
+      "Asset search",
+      "Import preview",
+      "Pricing preview",
+      "Bundle/recipe cost preview",
+      "Quote generation",
+      "Generated output sharing"
+    ]
+  },
+  "scalability_risks": [
+    {
+      "id": "ARCH-RISK-016",
+      "risk": "Asset search can become slow as product and service libraries grow.",
+      "severity": "medium",
+      "mitigation": "Start with relational search/indexes and preserve a later search-service extraction path."
+    },
+    {
+      "id": "ARCH-RISK-017",
+      "risk": "Import history can grow quickly and bloat operational tables.",
+      "severity": "medium",
+      "mitigation": "Separate import staging tables and apply retention/archival policy."
+    },
+    {
+      "id": "ARCH-RISK-018",
+      "risk": "Future AI enrichment can create cost and latency spikes.",
+      "severity": "medium",
+      "mitigation": "Keep AI async, quota-limited, feature-flagged, and non-authoritative."
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-016",
+      "decision": "Do not introduce dedicated search, analytics, or AI infrastructure in MVP.",
+      "status": "accepted",
+      "rationale": "Stage 2 validation supports deferring these until usage justifies operational complexity."
+    },
+    {
+      "id": "ADR-017",
+      "decision": "Use queue depth and job failure rates as early scaling signals.",
+      "status": "accepted",
+      "rationale": "Import, document, and future connector workloads are the most likely early bottlenecks."
+    }
+  ],
+  "tradeoffs": [
+    {
+      "id": "TRADEOFF-002",
+      "choice": "Relational search first, dedicated search later",
+      "benefit": "Lower MVP complexity.",
+      "cost": "May need migration when asset volume and search complexity grow."
+    },
+    {
+      "id": "TRADEOFF-003",
+      "choice": "Async document generation",
+      "benefit": "Reliable for heavier outputs.",
+      "cost": "Requires UX states for progress and completion."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_4_handoff_notes": [
+    "Design loading, progress, retry, and empty states for import, document generation, and search."
+  ],
+  "stage_5_handoff_notes": [
+    "Add queue/job tests for retry, idempotency, and failure visibility.",
+    "Instrument job duration and failure metrics from MVP."
+  ]
+}

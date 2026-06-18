@@ -1,0 +1,138 @@
+{
+  "stage": "Stage 2",
+  "status": "complete",
+  "command": "stage-2-research-and-validation",
+  "owning_skill": "technical-and-operational-validation",
+  "schema_ref": "System-References/Schemas/stage-2-output.schema.json",
+  "related_assumption_ids": [
+    "A-002",
+    "A-005",
+    "A-006",
+    "A-007",
+    "A-008",
+    "A-009",
+    "A-010"
+  ],
+  "technical_confidence": 0.76,
+  "operational_confidence": 0.72,
+  "scalability_confidence": 0.68,
+  "confidence_rationale": "Core MVP feasibility is strong if imports are file/manual first and AI, real-time sync, portals, and deep integrations are deferred. Supplier credentials and broad connector automation remain architecture-sensitive risks.",
+  "technical_validation": {
+    "core_mvp_feasibility": {
+      "finding_type": "inference",
+      "status": "validated_with_constraints",
+      "summary": "Supplier records, product/service import, unified asset library, pricing logic, bundles/recipes, and document output are technically feasible with common web application architecture.",
+      "evidence_quality": "medium",
+      "confidence": 0.78,
+      "limitations": [
+        "No supplier API inventory has been validated.",
+        "No data volume assumptions have been tested."
+      ]
+    },
+    "supplier_integration_feasibility": {
+      "finding_type": "inference",
+      "status": "weakened",
+      "summary": "Broad supplier portal synchronization is feasible only as a staged program and should not be an MVP dependency.",
+      "evidence_quality": "low",
+      "confidence": 0.52,
+      "limitations": [
+        "Supplier-specific APIs, exports, credential policies, and terms are unverified."
+      ]
+    },
+    "ai_feasibility": {
+      "finding_type": "inference",
+      "status": "validated_for_later_phase",
+      "summary": "AI assistance for categorization, summarization, extraction, search, pricing suggestions, and quote drafting is plausible after structured data and review workflows exist.",
+      "evidence_quality": "low",
+      "confidence": 0.58,
+      "limitations": [
+        "AI should not be launch-critical until data quality, human review, hallucination controls, and cost controls are defined."
+      ]
+    }
+  },
+  "integration_feasibility": {
+    "mvp_recommendation": "Start with file/manual import and import templates.",
+    "stage_3_constraints": [
+      "Separate supplier source model from normalized asset model.",
+      "Design connector interfaces as replaceable adapters.",
+      "Do not hardwire any single supplier portal into the domain model.",
+      "Treat supplier credentials as high-sensitivity secrets."
+    ]
+  },
+  "operational_validation": {
+    "support_burden": {
+      "risk_level": "medium",
+      "summary": "Messy supplier files and service pricing tables will create onboarding and support load.",
+      "mitigation": "Supported import templates, import preview, clear validation errors, and vertical-specific onboarding."
+    },
+    "approval_workflows": {
+      "risk_level": "medium",
+      "summary": "Pricing and quote approvals are useful but can slow users if overbuilt.",
+      "mitigation": "Start with simple draft, review, approved, sent states."
+    }
+  },
+  "infrastructure_constraints": [
+    "Use asynchronous import jobs for larger supplier files.",
+    "Store files, images, and documents separately from normalized asset records.",
+    "Track import provenance and field mapping decisions.",
+    "Design pricing calculations for repeatability and auditability.",
+    "Separate AI suggestions from approved source-of-truth fields."
+  ],
+  "architecture_warnings": [
+    {
+      "id": "ARCH-WARN-001",
+      "warning": "Supplier credentials and portal automation require secrets management, least privilege, auditing, lifecycle controls, and terms review before implementation.",
+      "related_risk_ids": [
+        "S2-RISK-004"
+      ]
+    },
+    {
+      "id": "ARCH-WARN-002",
+      "warning": "The unified asset model must represent products, services, bundles, recipes, documents, pricing rules, and customer-facing outputs without collapsing into a generic blob schema."
+    },
+    {
+      "id": "ARCH-WARN-003",
+      "warning": "Document generation should be isolated from pricing logic so quotes, price books, catalogs, and proposals can evolve independently."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EVIDENCE-004",
+      "source_type": "security guidance",
+      "source_name": "OWASP Secrets Management Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "OWASP guidance supports centralized and standardized secrets management, access controls, lifecycle management, auditing, and rotation.",
+      "confidence_effect": "raises technical feasibility only if credential automation is architected correctly",
+      "confidence_delta": 0.06,
+      "is_inference": false,
+      "limitations": "General security guidance, not supplier-specific API validation."
+    },
+    {
+      "id": "EVIDENCE-003",
+      "source_type": "competitor website",
+      "source_name": "Printavo",
+      "url": "https://www.printavo.com/features/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "Adjacent competitors demonstrate feasibility of quotes, invoices, catalogs, purchase orders, customer management, reporting, and automation in print-shop software.",
+      "confidence_effect": "raises workflow feasibility confidence",
+      "confidence_delta": 0.07,
+      "is_inference": false,
+      "limitations": "Does not prove Source-Blendr's broader supplier aggregation architecture."
+    }
+  ],
+  "unresolved_unknowns": [
+    "Specific supplier API/export availability.",
+    "Expected import volume, media/document volume, and sync frequency.",
+    "Whether credentials must be stored for MVP or can be avoided through file import."
+  ],
+  "recommendations": [
+    "Stage 3 should design connector boundaries but implement file/manual import first.",
+    "Stage 3 should treat AI as a non-critical service boundary with human approval.",
+    "Stage 3 should model pricing, costs, bundles, recipes, and generated outputs as separate but traceable domains."
+  ]
+}

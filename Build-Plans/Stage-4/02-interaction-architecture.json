@@ -1,0 +1,142 @@
+{
+  "stage": "Stage 4",
+  "status": "complete",
+  "command": "stage-4-ux-interaction-architecture",
+  "owning_skill": "interaction-architecture-design",
+  "schema_ref": "System-References/Schemas/stage-4-output.schema.json",
+  "related_stage_1_workflows": [
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-004",
+    "WORKFLOW-005",
+    "WORKFLOW-006"
+  ],
+  "related_stage_3_architecture_constraints": [
+    "API command operations for workflow transitions",
+    "Queue-backed imports and document generation",
+    "Workspace-scoped RBAC",
+    "Signed links for generated output sharing"
+  ],
+  "interaction_architecture": {
+    "navigation_model": {
+      "primary": "persistent_left_sidebar",
+      "secondary": "contextual_tabs_and_detail_panels",
+      "global_elements": [
+        "Workspace switcher",
+        "Global search",
+        "Status center",
+        "Notifications",
+        "User menu"
+      ],
+      "primary_nav_items": [
+        "Dashboard",
+        "Suppliers",
+        "Imports",
+        "Asset Library",
+        "Pricing",
+        "Offerings",
+        "Quotes",
+        "Customers",
+        "Settings"
+      ]
+    },
+    "interaction_principles": [
+      "Keep primary actions visible and contextual.",
+      "Use wizards only for sequential setup or import mapping.",
+      "Use split views for list-to-detail workflows.",
+      "Use command confirmations for destructive, external-sharing, approval, or irreversible state changes.",
+      "Never hide async work; every background job has progress, failure, and retry affordances."
+    ]
+  },
+  "interaction_patterns": [
+    {
+      "id": "IX-001",
+      "name": "Review And Commit",
+      "used_for": [
+        "Import batches",
+        "Pricing changes",
+        "Quote approval"
+      ],
+      "behavior": "Users review staged changes, see validation warnings, then commit or save draft."
+    },
+    {
+      "id": "IX-002",
+      "name": "Preview Before Generate",
+      "used_for": [
+        "Price calculations",
+        "Bundle/recipe costs",
+        "Quote outputs"
+      ],
+      "behavior": "System previews calculated outputs before user commits to generated output or approval."
+    },
+    {
+      "id": "IX-003",
+      "name": "Async Progress With Recovery",
+      "used_for": [
+        "Import parsing",
+        "Document generation"
+      ],
+      "behavior": "Show queued, processing, completed, failed, retrying, and failed-final states with job details."
+    },
+    {
+      "id": "IX-004",
+      "name": "Permission-Aware Actions",
+      "used_for": [
+        "Pricing",
+        "Approvals",
+        "Settings",
+        "Sharing"
+      ],
+      "behavior": "Unavailable actions are hidden when irrelevant and disabled with explanation when context matters."
+    }
+  ],
+  "feedback_patterns": [
+    "Inline validation for forms and mappings",
+    "Toast for low-risk completed actions",
+    "Persistent banner for async jobs or blocked workflows",
+    "Status badges for draft, review, approved, sent, failed, and archived states",
+    "Audit timeline for pricing, import, and quote transitions"
+  ],
+  "recovery_patterns": [
+    "Retry failed job",
+    "Edit and resubmit",
+    "Save draft",
+    "Download error report",
+    "Request approval",
+    "Revoke share link",
+    "Restore archived record where supported"
+  ],
+  "ux_decisions": [
+    {
+      "id": "UXD-003",
+      "decision": "Use persistent sidebar navigation with contextual detail tabs.",
+      "rationale": "Operational users need fast movement across related sourcing, pricing, and quote workflows."
+    },
+    {
+      "id": "UXD-004",
+      "decision": "Expose background job state through a status center and contextual banners.",
+      "rationale": "Stage 3 requires async imports and document generation."
+    }
+  ],
+  "ux_risks": [
+    {
+      "id": "UX-RISK-002",
+      "risk": "Users may not understand why actions are disabled by permissions or missing prerequisites.",
+      "severity": "medium",
+      "mitigation": "Disabled actions include concise reason and next step."
+    }
+  ],
+  "interaction_tradeoffs": [
+    {
+      "id": "IX-TRADEOFF-001",
+      "choice": "Split views for operational lists",
+      "benefit": "Fast scanning and editing.",
+      "cost": "Requires careful responsive collapse on mobile."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_5_handoff_notes": [
+    "Implement shared status badges, validation summaries, job progress panels, and permission-aware buttons."
+  ]
+}

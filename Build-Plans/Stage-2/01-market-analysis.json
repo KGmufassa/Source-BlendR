@@ -1,0 +1,122 @@
+{
+  "stage": "Stage 2",
+  "status": "complete",
+  "command": "stage-2-research-and-validation",
+  "owning_skill": "market-and-competitive-validation",
+  "schema_ref": "System-References/Schemas/stage-2-output.schema.json",
+  "related_assumption_ids": [
+    "A-001",
+    "A-002",
+    "A-003",
+    "A-004"
+  ],
+  "market_confidence": 0.72,
+  "confidence_rationale": "The market is validated at a category level by established promotional-products and print-shop software ecosystems, but Source-Blendr still needs primary validation for first vertical, first import method, and first customer-facing output.",
+  "demand_validation": {
+    "finding_type": "evidence-backed finding",
+    "summary": "The promotional-products and print/decorator markets show active demand for sourcing, supplier access, catalogs, quote/order workflows, automation, and business management software.",
+    "evidence_quality": "medium",
+    "limitations": [
+      "Evidence validates adjacent market demand, not direct Source-Blendr willingness to pay.",
+      "Primary interviews are still needed before narrowing MVP vertical."
+    ]
+  },
+  "audience_viability": {
+    "validated_segments": [
+      "Promotional product distributors",
+      "Decorated apparel and print shops",
+      "Businesses that combine products, decoration services, quotes, catalogs, and customer-facing sales outputs"
+    ],
+    "provisional_segments": [
+      "Sign shops",
+      "Awards and engraving businesses",
+      "Contractors and installation-heavy service resellers",
+      "Print brokers"
+    ],
+    "confidence": 0.7
+  },
+  "user_pain_validation": {
+    "finding_type": "evidence-backed finding",
+    "validated_pains": [
+      "Supplier/product sourcing and comparison are established workflows in promotional products.",
+      "Print and decoration businesses use software for quotes, invoices, customer management, product catalogs, purchase orders, reporting, and workflow automation.",
+      "Automation and approval workflows are already marketed by adjacent competitors, supporting the reality of admin overhead and workflow fragmentation."
+    ],
+    "confidence": 0.73
+  },
+  "adoption_likelihood": {
+    "finding_type": "inference",
+    "summary": "Adoption is plausible if Source-Blendr starts with a focused vertical and solves a high-friction workflow that existing tools only partially cover.",
+    "confidence": 0.66,
+    "limitations": [
+      "No direct buyer interviews yet.",
+      "Switching barriers may be high where teams already use ASI/ESP, Printavo, QuickBooks, CRM, or spreadsheets."
+    ]
+  },
+  "market_risks": [
+    {
+      "id": "S2-RISK-001",
+      "risk": "The broad multi-vertical vision could dilute early adoption.",
+      "severity": "high",
+      "mitigation": "Validate and select one launch vertical before Stage 3 finalizes domain boundaries."
+    },
+    {
+      "id": "S2-RISK-002",
+      "risk": "Existing category-specific platforms already cover parts of the workflow.",
+      "severity": "medium",
+      "mitigation": "Differentiate on product-plus-service aggregation, production recipes, complete cost modeling, and resale output generation."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EVIDENCE-001",
+      "source_type": "industry association website",
+      "source_name": "PPAI",
+      "url": "https://www.ppai.org/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "PPAI describes nearly 15,000 member companies and positions its Solutions Center around software and business efficiency needs for promotional products companies.",
+      "confidence_effect": "raises market and user confidence",
+      "confidence_delta": 0.08,
+      "is_inference": false,
+      "limitations": "Does not validate Source-Blendr-specific demand."
+    },
+    {
+      "id": "EVIDENCE-002",
+      "source_type": "industry platform website",
+      "source_name": "ASI",
+      "url": "https://asicentral.com/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "ASI markets ESP+ as a unified promo platform for sourcing, supplier access, product comparison, distributor websites, catalogs, and a large promo industry network.",
+      "confidence_effect": "raises market and competitive confidence",
+      "confidence_delta": 0.1,
+      "is_inference": false,
+      "limitations": "Also proves strong incumbent competition."
+    },
+    {
+      "id": "EVIDENCE-003",
+      "source_type": "competitor website",
+      "source_name": "Printavo",
+      "url": "https://www.printavo.com/features/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "Printavo markets print shop features including quotes, invoices, product catalogs, purchase orders, customer management, reporting, and custom automation.",
+      "confidence_effect": "raises user workflow realism confidence",
+      "confidence_delta": 0.09,
+      "is_inference": false,
+      "limitations": "Printavo validates adjacent workflows but not supplier aggregation across services and products."
+    }
+  ],
+  "unresolved_unknowns": [
+    "Which initial vertical has the highest urgency and lowest adoption friction?",
+    "Which workflow is the strongest entry point: quote, price book, catalog, or bundle/recipe costing?"
+  ],
+  "recommendations": [
+    "Use apparel decorators/promotional product businesses as the provisional first validation segment.",
+    "Interview 5-8 target operators before finalizing Stage 3 architecture priorities."
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "dependency-and-risk-analysis",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "dependencies": [
+    {
+      "id": "DEP-001",
+      "name": "Authentication, workspace access, and roles",
+      "type": "platform",
+      "required_for": [
+        "CAP-001"
+      ],
+      "criticality": "high"
+    },
+    {
+      "id": "DEP-002",
+      "name": "Unified asset data model",
+      "type": "data",
+      "required_for": [
+        "CAP-003",
+        "CAP-004",
+        "CAP-005",
+        "CAP-007",
+        "CAP-008"
+      ],
+      "criticality": "high"
+    },
+    {
+      "id": "DEP-003",
+      "name": "Supplier import and normalization pipeline",
+      "type": "workflow",
+      "required_for": [
+        "WORKFLOW-002"
+      ],
+      "criticality": "high"
+    },
+    {
+      "id": "DEP-004",
+      "name": "Pricing, cost, and margin calculation engine",
+      "type": "business logic",
+      "required_for": [
+        "WORKFLOW-004",
+        "WORKFLOW-005",
+        "WORKFLOW-006"
+      ],
+      "criticality": "high"
+    },
+    {
+      "id": "DEP-005",
+      "name": "Bundle and recipe component model",
+      "type": "business logic",
+      "required_for": [
+        "WORKFLOW-005",
+        "CAP-007"
+      ],
+      "criticality": "high"
+    },
+    {
+      "id": "DEP-006",
+      "name": "Document, catalog, price book, quote, and proposal generation",
+      "type": "output",
+      "required_for": [
+        "WORKFLOW-006",
+        "CAP-008"
+      ],
+      "criticality": "high"
+    },
+    {
+      "id": "DEP-007",
+      "name": "Supplier integration policy and credential security review",
+      "type": "external dependency",
+      "required_for": [
+        "CAP-002",
+        "CAP-003",
+        "CAP-004",
+        "CAP-010"
+      ],
+      "criticality": "high"
+    },
+    {
+      "id": "DEP-008",
+      "name": "Notification and approval workflow engine",
+      "type": "workflow",
+      "required_for": [
+        "CAP-006",
+        "CAP-010"
+      ],
+      "criticality": "medium"
+    },
+    {
+      "id": "DEP-009",
+      "name": "AI processing, retrieval, moderation, and usage controls",
+      "type": "ai",
+      "required_for": [
+        "FEATURE-028"
+      ],
+      "criticality": "medium"
+    },
+    {
+      "id": "DEP-010",
+      "name": "External integration framework",
+      "type": "integration",
+      "required_for": [
+        "FEATURE-029"
+      ],
+      "criticality": "medium"
+    }
+  ],
+  "missing_systems": [
+    {
+      "id": "MISSING-SYSTEM-001",
+      "system": "Confirmed initial vertical and use case",
+      "impact": "Stage 2 must validate whether MVP targets apparel decorators, promotional products, sign shops, awards, contractors, print brokers, or another initial segment."
+    },
+    {
+      "id": "MISSING-SYSTEM-002",
+      "system": "Confirmed first supplier import method",
+      "impact": "Stage 2 must validate whether file import, manual entry, API integration, portal connection, or a named supplier connector is required for MVP."
+    },
+    {
+      "id": "MISSING-SYSTEM-003",
+      "system": "Confirmed first customer-facing output",
+      "impact": "Stage 2 should validate whether the first output should be quote, proposal, catalog, price book, or customer portal access."
+    },
+    {
+      "id": "MISSING-SYSTEM-004",
+      "system": "Confirmed pricing complexity threshold",
+      "impact": "Stage 2 should determine whether the first pricing model must support services, labor, quantity breaks, customer-specific pricing, and approvals."
+    }
+  ],
+  "dependency_relationships": [
+    {
+      "id": "DEP-REL-001",
+      "from": "DEP-003",
+      "to": "DEP-002",
+      "relationship": "Normalized supplier records must persist into the unified asset model."
+    },
+    {
+      "id": "DEP-REL-002",
+      "from": "DEP-004",
+      "to": "DEP-005",
+      "relationship": "Bundle and recipe pricing depends on cost and margin calculations."
+    },
+    {
+      "id": "DEP-REL-003",
+      "from": "DEP-005",
+      "to": "DEP-006",
+      "relationship": "Quotes, proposals, catalogs, and price books can include bundle and recipe outputs."
+    },
+    {
+      "id": "DEP-REL-004",
+      "from": "DEP-007",
+      "to": "DEP-003",
+      "relationship": "Supplier import implementation depends on credential, terms, and integration policy decisions."
+    }
+  ]
+}

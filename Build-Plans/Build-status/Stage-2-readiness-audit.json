@@ -1,0 +1,119 @@
+{
+  "stage": "Stage 2",
+  "command": "global-stage-readiness-audit",
+  "audit_status": "passed_with_warnings",
+  "global_workflow_contract": "System-References/Docs/Global-Stage-Workflow-Contract.md",
+  "required_files_present": true,
+  "schemas_valid": true,
+  "completion_status_present": true,
+  "global_status_mapped": true,
+  "handoff_present": true,
+  "handoff_usable": true,
+  "risks_recorded": true,
+  "assumptions_recorded": true,
+  "traceability_present": true,
+  "artifacts_recorded": true,
+  "stage_contract_profile": {
+    "profile_id": "stage-2-research-and-validation",
+    "profile_requirements_checked": true,
+    "missing_profile_requirements": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-2-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-2/01-market-analysis.json",
+      "Build-Plans/Stage-2/02-competitive-landscape.json",
+      "Build-Plans/Stage-2/03-technical-feasibility.json",
+      "Build-Plans/Stage-2/04-business-viability.json",
+      "Build-Plans/Stage-2/05-risk-validation.json",
+      "Build-Plans/Stage-2/06-strategic-positioning.json",
+      "Build-Plans/Build-status/Validation-state.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-06-18",
+    "validator": "global-stage-readiness-audit",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "A-001",
+      "A-002",
+      "A-003",
+      "A-004",
+      "A-005",
+      "A-006",
+      "A-007",
+      "A-008",
+      "A-009",
+      "A-010",
+      "A-011",
+      "A-012",
+      "S2-RISK-001",
+      "S2-RISK-002",
+      "S2-RISK-003",
+      "S2-RISK-004",
+      "S2-RISK-005",
+      "S2-RISK-006",
+      "EVIDENCE-001",
+      "EVIDENCE-002",
+      "EVIDENCE-003",
+      "EVIDENCE-004"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "artifact_evidence_registry": {
+    "registry_path": "Build-Plans/Build-status/Artifact-evidence-registry.json",
+    "required": true,
+    "required_artifacts_present": true,
+    "missing_artifacts": []
+  },
+  "risk_acceptance_ledger": {
+    "ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json",
+    "required": false,
+    "accepted_risks_present": false,
+    "missing_risk_acceptance_entries": [],
+    "expired_or_unowned_risks": []
+  },
+  "revision_loops": [],
+  "visual_design_continuity": {
+    "required": false,
+    "ui_blueprint_refs_present": false,
+    "visual_spec_refs_present": false,
+    "design_system_refs_present": false,
+    "visual_acceptance_criteria_mapped": false,
+    "preview_or_visual_qa_evidence_present": false,
+    "design_system_compliance_recorded": false,
+    "visual_drift_status_recorded": false,
+    "blocking_visual_gaps": []
+  },
+  "blocking_gaps": [],
+  "warnings": [
+    {
+      "id": "WARNING-001",
+      "warning": "Primary buyer interviews are still needed before implementation planning."
+    },
+    {
+      "id": "WARNING-002",
+      "warning": "Supplier-specific API and export availability are not validated."
+    },
+    {
+      "id": "WARNING-003",
+      "warning": "Pricing and willingness-to-pay evidence is low and should be validated before Stage 5."
+    }
+  ],
+  "next_actions": [
+    "Run Stage 3 system architecture.",
+    "Carry supplier connector, credential security, domain model, pricing auditability, and generated-output boundaries into Stage 3.",
+    "Validate pricing and buyer interviews before development orchestration."
+  ],
+  "ready_for_next_stage": true
+}

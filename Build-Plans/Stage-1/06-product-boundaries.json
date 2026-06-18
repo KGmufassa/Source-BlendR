@@ -1,0 +1,97 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "workflow-and-capability-synthesis",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "operational_boundaries": [
+    {
+      "id": "BOUNDARY-001",
+      "name": "Supplier Data Intake Boundary",
+      "inside_scope": [
+        "Vendor profiles and source records",
+        "Product and service imports",
+        "Supplier product, service, cost, document, and availability metadata",
+        "Field mapping, review, and normalization"
+      ],
+      "outside_scope": [
+        "Bypassing supplier portal access controls",
+        "Unsupported scraping against vendor terms",
+        "Guaranteed live synchronization with every supplier",
+        "Supplier order execution"
+      ]
+    },
+    {
+      "id": "BOUNDARY-002",
+      "name": "Commercial Modeling Boundary",
+      "inside_scope": [
+        "Product pricing",
+        "Service pricing",
+        "Cost breakdowns",
+        "Margin calculations",
+        "Bundles",
+        "Production recipes",
+        "Pricing approvals"
+      ],
+      "outside_scope": [
+        "Accounting system of record",
+        "Tax calculation engine",
+        "Payroll or labor management system",
+        "Full ERP replacement"
+      ]
+    },
+    {
+      "id": "BOUNDARY-003",
+      "name": "Customer-Facing Output Boundary",
+      "inside_scope": [
+        "Catalogs",
+        "Price books",
+        "Quotes",
+        "Proposals",
+        "Secure sharing and exports"
+      ],
+      "outside_scope": [
+        "Customer checkout",
+        "Payment processing",
+        "Order fulfillment",
+        "Procurement purchase orders"
+      ]
+    },
+    {
+      "id": "BOUNDARY-004",
+      "name": "Expansion Capability Boundary",
+      "inside_scope": [
+        "Stageable AI assistance",
+        "Stageable analytics",
+        "Stageable integrations",
+        "Stageable customer portals",
+        "Stageable enterprise governance"
+      ],
+      "outside_scope": [
+        "Vendor marketplace",
+        "Supplier bidding",
+        "Demand forecasting",
+        "Production planning",
+        "White-label storefronts",
+        "Global multi-currency and multi-language operations"
+      ]
+    }
+  ],
+  "ownership_separations": [
+    {
+      "id": "BOUNDARY-OWN-001",
+      "owner": "Source-Blendr",
+      "responsibility": "Store normalized supplier assets, service definitions, bundle and recipe models, pricing rules, margin outputs, customer-facing documents, and workflow states."
+    },
+    {
+      "id": "BOUNDARY-OWN-002",
+      "owner": "Supplier systems",
+      "responsibility": "Maintain authoritative supplier product, inventory, service, pricing, account, credential, and portal data."
+    },
+    {
+      "id": "BOUNDARY-OWN-003",
+      "owner": "External systems",
+      "responsibility": "Maintain ecommerce, CRM, accounting, storage, and enterprise identity system records when integrated."
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "stage": "Stage 3",
+  "status": "complete",
+  "command": "stage-3-system-architecture",
+  "owning_skill": "integration-and-infrastructure-architecture",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/07-dependency-map.json",
+    "Build-Plans/Stage-1/09-risk-and-constraints.json"
+  ],
+  "related_stage_2_assumption_ids": [
+    "A-002",
+    "A-009",
+    "A-010"
+  ],
+  "integration_architecture": {
+    "integration_strategy": "adapter_based_with_file_import_as_mvp_path",
+    "mvp_integrations": [
+      {
+        "id": "INTEGRATION-001",
+        "name": "File Import",
+        "type": "file_upload",
+        "authentication": "authenticated_workspace_user",
+        "owner_service": "SERVICE-003",
+        "failure_handling": [
+          "Reject unsupported file types",
+          "Persist parse errors",
+          "Allow mapping correction and retry"
+        ],
+        "mvp_critical": true
+      },
+      {
+        "id": "INTEGRATION-002",
+        "name": "Email Notification Provider",
+        "type": "third_party_service",
+        "authentication": "server_side_api_key_in_secrets_manager",
+        "owner_service": "SERVICE-009",
+        "failure_handling": [
+          "Retry transient failures",
+          "Record delivery status",
+          "Expose notification failure in operational console"
+        ],
+        "mvp_critical": false
+      }
+    ],
+    "deferred_integrations": [
+      {
+        "id": "INTEGRATION-003",
+        "name": "Supplier API Connector",
+        "type": "supplier_adapter",
+        "authentication": "oauth_or_token_or_secret_per_supplier_after_terms_review",
+        "owner_service": "SERVICE-010",
+        "reason_deferred": "Supplier-specific access paths are unvalidated."
+      },
+      {
+        "id": "INTEGRATION-004",
+        "name": "AI Provider",
+        "type": "ai_adapter",
+        "authentication": "server_side_api_key_in_secrets_manager",
+        "owner_service": "SERVICE-010",
+        "reason_deferred": "AI is assistive and not launch-critical."
+      },
+      {
+        "id": "INTEGRATION-005",
+        "name": "Ecommerce, CRM, Accounting, And Storage Connectors",
+        "type": "business_system_adapters",
+        "authentication": "oauth_or_api_key_per_provider",
+        "owner_service": "SERVICE-010",
+        "reason_deferred": "Stage 2 did not validate specific provider priority."
+      }
+    ],
+    "adapter_contract_requirements": [
+      "Adapters never write normalized assets directly.",
+      "Adapters emit import batches, external references, or sync proposals.",
+      "Adapters must report rate-limit, authentication, and schema errors.",
+      "Adapters must be idempotent where possible."
+    ]
+  },
+  "integration_risks": [
+    {
+      "id": "ARCH-RISK-009",
+      "risk": "Supplier connectors may require different authentication, rate-limit, data, and terms handling.",
+      "severity": "high",
+      "mitigation": "Use adapter contracts and keep supplier automation deferred until each supplier is validated."
+    },
+    {
+      "id": "ARCH-RISK-010",
+      "risk": "Third-party integration failures may block workflows if treated synchronously.",
+      "severity": "medium",
+      "mitigation": "Use queues, retry policies, and visible integration status."
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-009",
+      "decision": "Supplier connectors are adapter implementations, not core domain dependencies.",
+      "status": "accepted",
+      "rationale": "Stage 2 found supplier-specific APIs and exports unvalidated."
+    },
+    {
+      "id": "ADR-010",
+      "decision": "File import is the only MVP-critical external intake integration.",
+      "status": "accepted",
+      "rationale": "It validates the core source-to-quote workflow without credential automation risk."
+    }
+  ],
+  "risks_and_constraints": [
+    "Supplier credential storage requires security architecture before implementation.",
+    "Provider choices for AI, ecommerce, CRM, accounting, and storage are deferred.",
+    "Future connector runs must preserve source provenance."
+  ],
+  "unresolved_questions": [],
+  "stage_4_handoff_notes": [
+    "Import UX should communicate supported formats, mapping status, parse errors, and retry actions.",
+    "Future connector settings should be designed as optional expansion surfaces."
+  ],
+  "stage_5_handoff_notes": [
+    "Build a file-import adapter and connector interface before named supplier connectors.",
+    "Add integration run logging from the first async job implementation."
+  ]
+}

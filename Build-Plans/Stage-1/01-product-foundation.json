@@ -1,0 +1,87 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "product-intelligence",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "product_identity": {
+    "product_id": "PRODUCT-001",
+    "name": "Source-Blendr",
+    "working_title": "Source-Blendr",
+    "product_type": "B2B supplier aggregation, pricing, quoting, and resale management platform",
+    "product_category": "Sourcing operations, supplier aggregation, service aggregation, pricing automation, catalog and quote generation",
+    "core_problem": "Businesses that buy, customize, package, and resell vendor offerings must manage products, services, production costs, pricing, quotes, catalogs, and margins across disconnected supplier portals, spreadsheets, documents, and manual workflows.",
+    "core_promise": "Centralize supplier products, services, production costs, pricing rules, bundles, catalogs, price books, quotes, and margin controls in one intelligent resale operating workspace.",
+    "primary_user_outcome": "A business user can aggregate supplier products and services, assemble custom offerings, price them profitably, and produce customer-ready catalogs, price books, quotes, or proposals from one source of truth."
+  },
+  "strategic_intent": {
+    "intent_id": "INTENT-001",
+    "why_now": "Resellers, decorators, print brokers, sign shops, contractors, and promotional product businesses increasingly need to combine products, services, labor, shipping, and vendor-specific costs into fast, accurate customer-facing sales outputs.",
+    "behavior_change_required": "Users must trust Source-Blendr as the operational system of record for supplier assets, service costs, bundle definitions, pricing rules, margin visibility, and generated sales documents.",
+    "value_proposition": "Reduce manual supplier research, duplicated catalog work, pricing errors, quote delays, margin leakage, and fragmented resale operations.",
+    "platform_positioning": "Source-Blendr is the operating system for sourcing, pricing, packaging, quoting, and reselling vendor products and services.",
+    "initial_exclusions": [
+      "Full procurement and purchase order automation",
+      "Supplier bidding and RFQ marketplace",
+      "Customer checkout and payment processing",
+      "Full ERP or accounting replacement",
+      "Real-time guaranteed inventory across every vendor",
+      "Production planning and capacity management",
+      "White-label storefronts",
+      "Global multi-currency and multi-language operations"
+    ]
+  },
+  "recommendations": [
+    {
+      "id": "REC-001",
+      "recommendation": "Validate the first target vertical before finalizing MVP scope.",
+      "rationale": "Apparel decorators, promotional product resellers, sign shops, awards businesses, contractors, and print brokers have different service models and pricing needs."
+    },
+    {
+      "id": "REC-002",
+      "recommendation": "Make products, services, bundles, recipes, and customer-facing outputs first-class planning objects.",
+      "rationale": "The expanded vision depends on combining product costs, service costs, labor, shipping, packaging, setup fees, and margin logic."
+    },
+    {
+      "id": "REC-003",
+      "recommendation": "Keep the MVP focused on one or two import methods, a unified asset library, pricing and margin calculation, bundle/recipe creation, and one quote or catalog output path.",
+      "rationale": "The full platform spans integrations, AI, automation, analytics, customer portals, collaboration, and enterprise governance; shipping all of that at once would obscure validation."
+    }
+  ],
+  "confidence_scores": {
+    "product_identity": "high",
+    "primary_user": "high",
+    "core_problem": "high",
+    "expanded_capability_map": "high",
+    "mvp_vertical_focus": "medium",
+    "vendor_integration_scope": "medium",
+    "ai_automation_scope": "medium"
+  },
+  "assumptions": [
+    {
+      "id": "ASSUMPTION-001",
+      "assumption": "The primary initial buyers are businesses that source vendor products and services, combine them into resale offerings, and need accurate pricing, margin, catalog, and quote workflows.",
+      "validation_stage": "Stage 2"
+    },
+    {
+      "id": "ASSUMPTION-002",
+      "assumption": "The MVP should support reliable file/manual imports before broad automatic supplier portal synchronization.",
+      "validation_stage": "Stage 2"
+    },
+    {
+      "id": "ASSUMPTION-005",
+      "assumption": "Bundles and production recipes are essential differentiators, but the MVP can start with simple reusable bundle/recipe templates before advanced workflow automation.",
+      "validation_stage": "Stage 2"
+    }
+  ],
+  "source_trace": [
+    {
+      "source": "README.md",
+      "evidence": "Repository README describes Source-Blendr as a wholesale sourcing and product management platform."
+    },
+    {
+      "source": "User-provided expanded Source-Blendr product brief",
+      "evidence": "Expanded brief defines supplier aggregation, service aggregation, pricing, bundling, recipes, catalogs, price books, quoting, customer management, automation, AI, integrations, analytics, collaboration, and enterprise expansion."
+    }
+  ]
+}

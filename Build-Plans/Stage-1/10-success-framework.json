@@ -1,0 +1,94 @@
+{
+  "stage": "Stage 1",
+  "status": "complete",
+  "command": "Stage-1-product-initialization",
+  "owning_skill": "product-intelligence",
+  "schema_ref": "System-References/Schemas/stage-1-output.schema.json",
+  "success_criteria": [
+    {
+      "id": "SUCCESS-001",
+      "criterion": "A user can create supplier records and import or manually enter products and services with required cost and metadata fields.",
+      "measurement_type": "workflow completion",
+      "related_workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-002"
+      ]
+    },
+    {
+      "id": "SUCCESS-002",
+      "criterion": "A user can organize products, services, bundles, and recipes in a searchable unified asset library.",
+      "measurement_type": "workflow completion",
+      "related_workflow_ids": [
+        "WORKFLOW-003"
+      ]
+    },
+    {
+      "id": "SUCCESS-003",
+      "criterion": "A user can calculate product, service, labor, shipping, packaging, setup, and other relevant costs into a margin-aware resale price.",
+      "measurement_type": "workflow completion",
+      "related_workflow_ids": [
+        "WORKFLOW-004"
+      ]
+    },
+    {
+      "id": "SUCCESS-004",
+      "criterion": "A user can build a reusable bundle or production recipe and preserve cost, pricing, and margin visibility.",
+      "measurement_type": "workflow completion",
+      "related_workflow_ids": [
+        "WORKFLOW-005"
+      ]
+    },
+    {
+      "id": "SUCCESS-005",
+      "criterion": "A user can generate the first validated customer-ready output type from current supplier assets, pricing, bundles, and recipes.",
+      "measurement_type": "workflow completion",
+      "related_workflow_ids": [
+        "WORKFLOW-006"
+      ]
+    }
+  ],
+  "outcome_indicators": [
+    {
+      "id": "METRIC-001",
+      "indicator": "Time from supplier data receipt to customer-ready quote, catalog, or price book decreases versus manual spreadsheet and document workflow."
+    },
+    {
+      "id": "METRIC-002",
+      "indicator": "Users maintain more supplier products and services in Source-Blendr than in standalone spreadsheets after onboarding."
+    },
+    {
+      "id": "METRIC-003",
+      "indicator": "Generated quotes or price books require fewer manual pricing corrections over time."
+    },
+    {
+      "id": "METRIC-004",
+      "indicator": "Low-margin offerings are detected before being sent to customers."
+    }
+  ],
+  "validation_targets_for_stage_2": [
+    {
+      "id": "VALIDATION-TARGET-001",
+      "target": "Select and validate the first target vertical and primary buyer profile."
+    },
+    {
+      "id": "VALIDATION-TARGET-002",
+      "target": "Validate whether file/manual import is acceptable for first product and service aggregation workflows."
+    },
+    {
+      "id": "VALIDATION-TARGET-003",
+      "target": "Determine the first customer-facing output type: quote, proposal, catalog, price book, or portal view."
+    },
+    {
+      "id": "VALIDATION-TARGET-004",
+      "target": "Validate the minimum cost breakdown and pricing model required for the first vertical."
+    },
+    {
+      "id": "VALIDATION-TARGET-005",
+      "target": "Identify the most valuable first bundle or production recipe pattern."
+    },
+    {
+      "id": "VALIDATION-TARGET-006",
+      "target": "Rank AI, automation, analytics, customer portal, and integration features by validated urgency."
+    }
+  ]
+}

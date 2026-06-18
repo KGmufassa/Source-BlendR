@@ -1,32 +1,402 @@
 {
   "stage": "Stage 3",
   "command": "stage-3-system-architecture",
-  "status": "not_started",
-  "stage_1_inputs": {},
-  "stage_2_inputs": {},
-  "preflight": {},
-  "architecture_drivers": [],
-  "architecture_decisions": [],
-  "system_topology": {},
-  "service_architecture": {},
-  "data_architecture": {},
-  "api_architecture": {},
-  "integration_architecture": {},
-  "security_foundations": {},
-  "infrastructure_model": {},
-  "scalability_framework": {},
-  "architecture_risks": [],
-  "tradeoffs": [],
+  "status": "complete",
+  "schema_ref": "System-References/Schemas/stage-3-output.schema.json",
+  "stage_1_inputs": {
+    "source_directory": "Build-Plans/Stage-1/",
+    "required_files_loaded": true,
+    "minimum_viable_inputs_exist": true
+  },
+  "stage_2_inputs": {
+    "source_directory": "Build-Plans/Stage-2/",
+    "required_files_loaded": true,
+    "stage_2_completion_status": "ready_for_stage_3",
+    "architecture_readiness_status": "ready"
+  },
+  "preflight": {
+    "stage_1_outputs_exist": true,
+    "stage_2_outputs_exist": true,
+    "architecture_readiness_acceptable": true,
+    "critical_unknowns_mitigated": true,
+    "validated_assumptions_available": true,
+    "high_and_critical_risks_have_mitigations": true,
+    "mvp_scope_clear_enough": true,
+    "blocking_items": []
+  },
+  "architecture_drivers": [
+    "ARCH-DRIVER-001",
+    "ARCH-DRIVER-002",
+    "ARCH-DRIVER-003",
+    "ARCH-DRIVER-004",
+    "ARCH-DRIVER-005"
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-001",
+      "decision": "Use a modular monolith for MVP with explicit domain modules.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-002",
+      "decision": "Use asynchronous jobs for imports and generated outputs.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-003",
+      "decision": "Treat quote generation as the first Generated Output Service use case.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-004",
+      "decision": "Separate Import Service from Asset Library Service.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-005",
+      "decision": "Use immutable pricing snapshots for generated outputs.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-006",
+      "decision": "Use import staging before normalized asset writes.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-007",
+      "decision": "Do not expose a public integration API in MVP.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-008",
+      "decision": "Use command-style operations for workflow transitions.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-009",
+      "decision": "Supplier connectors are adapter implementations, not core domain dependencies.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-010",
+      "decision": "File import is the only MVP-critical external intake integration.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-011",
+      "decision": "Supplier credential storage is not MVP-critical.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-012",
+      "decision": "Use workspace-scoped RBAC as the MVP authorization model.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-013",
+      "decision": "Use managed relational database as the system of record.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-014",
+      "decision": "Use private object storage for uploaded and generated files.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-015",
+      "decision": "Use queue-backed workers from the first implementation phase.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-016",
+      "decision": "Do not introduce dedicated search, analytics, or AI infrastructure in MVP.",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-017",
+      "decision": "Use queue depth and job failure rates as early scaling signals.",
+      "status": "accepted"
+    }
+  ],
+  "system_topology": {
+    "source_file": "Build-Plans/Stage-3/01-system-topology.json",
+    "topology_style": "modular_monolith_with_explicit_domain_boundaries",
+    "primary_system_ids": [
+      "SYSTEM-001",
+      "SYSTEM-002",
+      "SYSTEM-003",
+      "SYSTEM-004",
+      "SYSTEM-005",
+      "SYSTEM-006",
+      "SYSTEM-007"
+    ]
+  },
+  "service_architecture": {
+    "source_file": "Build-Plans/Stage-3/02-service-architecture.json",
+    "service_ids": [
+      "SERVICE-001",
+      "SERVICE-002",
+      "SERVICE-003",
+      "SERVICE-004",
+      "SERVICE-005",
+      "SERVICE-006",
+      "SERVICE-007",
+      "SERVICE-008",
+      "SERVICE-009",
+      "SERVICE-010"
+    ]
+  },
+  "data_architecture": {
+    "source_file": "Build-Plans/Stage-3/03-data-architecture.json",
+    "entity_ids": [
+      "ENTITY-001",
+      "ENTITY-002",
+      "ENTITY-003",
+      "ENTITY-004",
+      "ENTITY-005",
+      "ENTITY-006",
+      "ENTITY-007",
+      "ENTITY-008",
+      "ENTITY-009",
+      "ENTITY-010",
+      "ENTITY-011",
+      "ENTITY-012",
+      "ENTITY-013",
+      "ENTITY-014",
+      "ENTITY-015",
+      "ENTITY-016",
+      "ENTITY-017"
+    ]
+  },
+  "api_architecture": {
+    "source_file": "Build-Plans/Stage-3/04-api-architecture.json",
+    "api_surface_ids": [
+      "API-001",
+      "API-002",
+      "API-003",
+      "API-004",
+      "API-005",
+      "API-006",
+      "API-007",
+      "API-008",
+      "API-009"
+    ]
+  },
+  "integration_architecture": {
+    "source_file": "Build-Plans/Stage-3/05-integration-architecture.json",
+    "mvp_integration_ids": [
+      "INTEGRATION-001",
+      "INTEGRATION-002"
+    ],
+    "deferred_integration_ids": [
+      "INTEGRATION-003",
+      "INTEGRATION-004",
+      "INTEGRATION-005"
+    ]
+  },
+  "security_foundations": {
+    "source_file": "Build-Plans/Stage-3/06-security-foundations.json",
+    "auth_model": "workspace_scoped_rbac",
+    "critical_controls": [
+      "workspace_scope",
+      "secrets_manager",
+      "signed_urls",
+      "audit_logging"
+    ]
+  },
+  "infrastructure_model": {
+    "source_file": "Build-Plans/Stage-3/07-infrastructure-model.json",
+    "infra_ids": [
+      "INFRA-001",
+      "INFRA-002",
+      "INFRA-003",
+      "INFRA-004",
+      "INFRA-005",
+      "INFRA-006",
+      "INFRA-007"
+    ]
+  },
+  "scalability_framework": {
+    "source_file": "Build-Plans/Stage-3/08-scalability-framework.json",
+    "scale_ids": [
+      "SCALE-001",
+      "SCALE-002",
+      "SCALE-003",
+      "SCALE-004",
+      "SCALE-005",
+      "SCALE-006"
+    ]
+  },
+  "architecture_risks": [
+    {
+      "id": "ARCH-RISK-001",
+      "severity": "medium",
+      "mitigation": "Stage 5 must assign tickets by domain module and enforce domain-owned data access."
+    },
+    {
+      "id": "ARCH-RISK-002",
+      "severity": "high",
+      "mitigation": "Implement file/manual import first and keep supplier connectors behind adapter contracts."
+    },
+    {
+      "id": "ARCH-RISK-003",
+      "severity": "high",
+      "mitigation": "Generated outputs must reference immutable price snapshots rather than recompute silently."
+    },
+    {
+      "id": "ARCH-RISK-011",
+      "severity": "critical",
+      "mitigation": "Do not store supplier credentials in MVP unless a secrets manager, access control, rotation, revocation, and audit trail are implemented."
+    },
+    {
+      "id": "ARCH-RISK-013",
+      "severity": "critical",
+      "mitigation": "Centralize workspace scoping in authorization middleware and test data-isolation paths."
+    }
+  ],
+  "tradeoffs": [
+    {
+      "id": "TRADEOFF-001",
+      "choice": "Domain modules instead of microservices"
+    },
+    {
+      "id": "TRADEOFF-002",
+      "choice": "Relational search first, dedicated search later"
+    },
+    {
+      "id": "TRADEOFF-003",
+      "choice": "Async document generation"
+    }
+  ],
   "open_questions": [],
   "interactive_guidance": {
     "open_questions": [],
     "answered_questions": [],
-    "assumptions_made": [],
+    "assumptions_made": [
+      {
+        "id": "ARCH-ASSUMPTION-001",
+        "assumption": "MVP can use a modular monolith rather than independently deployed microservices.",
+        "rationale": "Stage 2 constrained MVP scope and did not require independent service scaling."
+      },
+      {
+        "id": "ARCH-ASSUMPTION-002",
+        "assumption": "File/manual import is the first supplier intake path.",
+        "rationale": "Stage 2 validated this as the safest path before supplier connector automation."
+      },
+      {
+        "id": "ARCH-ASSUMPTION-003",
+        "assumption": "Quote generation is the first generated-output workflow.",
+        "rationale": "Stage 2 identified quote output as the strongest provisional first output."
+      }
+    ],
     "blocked_decisions": [],
     "user_confirmations": [],
-    "architecture_confidence_gaps": []
+    "architecture_confidence_gaps": [
+      "Named supplier APIs remain unvalidated and are intentionally deferred.",
+      "Pricing willingness-to-pay remains a Stage 5-before-build validation item."
+    ]
   },
-  "stage_4_handoff": {},
-  "stage_5_handoff": {},
-  "completion_status": {}
+  "stage_4_handoff": {
+    "source_stage": "Stage 3",
+    "target_stage": "Stage 4",
+    "source_output_directory": "Build-Plans/Stage-3/",
+    "required_files": [
+      "01-system-topology.json",
+      "02-service-architecture.json",
+      "03-data-architecture.json",
+      "04-api-architecture.json",
+      "05-integration-architecture.json",
+      "06-security-foundations.json",
+      "07-infrastructure-model.json",
+      "08-scalability-framework.json"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [],
+    "traceability_refs": [
+      "SYSTEM-001",
+      "SERVICE-003",
+      "SERVICE-004",
+      "SERVICE-005",
+      "SERVICE-006",
+      "SERVICE-007",
+      "API-003",
+      "API-005",
+      "API-006",
+      "API-007"
+    ],
+    "ux_focus": [
+      "Supplier setup",
+      "Import review and correction",
+      "Unified asset library",
+      "Pricing and margin preview",
+      "Bundle and recipe builder",
+      "Quote builder and generated-output sharing",
+      "Async job progress and retry states"
+    ],
+    "completion_status": {
+      "stage_specific_status": "ready_for_stage_4",
+      "global_status": "ready_for_next_stage",
+      "reason": "Architecture outputs are complete enough for UX and interaction architecture.",
+      "blocking_items": [],
+      "next_actions": [
+        "Run Stage 4 UX interaction architecture."
+      ],
+      "ready_for": "Stage 4"
+    }
+  },
+  "stage_5_handoff": {
+    "source_stage": "Stage 3",
+    "target_stage": "Stage 5",
+    "source_output_directory": "Build-Plans/Stage-3/",
+    "required_files": [
+      "01-system-topology.json",
+      "02-service-architecture.json",
+      "03-data-architecture.json",
+      "04-api-architecture.json",
+      "05-integration-architecture.json",
+      "06-security-foundations.json",
+      "07-infrastructure-model.json",
+      "08-scalability-framework.json"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [],
+    "traceability_refs": [
+      "ADR-001",
+      "ADR-002",
+      "ADR-004",
+      "ADR-005",
+      "ADR-009",
+      "ADR-011",
+      "ADR-015"
+    ],
+    "implementation_guidance": [
+      "Build workspace auth and RBAC first.",
+      "Implement supplier, import, and asset modules before pricing and generated outputs.",
+      "Use queue-backed workers for imports and document generation.",
+      "Add authorization and workspace-isolation tests early.",
+      "Defer supplier connectors, AI, portals, and deep integrations."
+    ],
+    "completion_status": {
+      "stage_specific_status": "architecture_ready_for_stage_5",
+      "global_status": "ready_for_next_stage",
+      "reason": "Service, data, API, infrastructure, security, and scalability boundaries are implementation-planning ready.",
+      "blocking_items": [],
+      "next_actions": [
+        "Use after Stage 4 UX handoff for development orchestration."
+      ],
+      "ready_for": "Stage 5"
+    }
+  },
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_4",
+    "global_status": "ready_for_next_stage",
+    "reason": "All Stage 3 architecture outputs exist, architecture risks have mitigation paths, and handoffs are usable.",
+    "blocking_items": [],
+    "next_actions": [
+      "Run Stage 4 UX interaction architecture."
+    ],
+    "ready_for": "Stage 4"
+  }
 }

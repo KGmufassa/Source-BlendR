@@ -1,0 +1,134 @@
+{
+  "stage": "Stage 1",
+  "command": "global-stage-readiness-audit",
+  "audit_status": "passed_with_warnings",
+  "global_workflow_contract": "System-References/Docs/Global-Stage-Workflow-Contract.md",
+  "required_files_present": true,
+  "schemas_valid": true,
+  "completion_status_present": true,
+  "global_status_mapped": true,
+  "handoff_present": true,
+  "handoff_usable": true,
+  "risks_recorded": true,
+  "assumptions_recorded": true,
+  "traceability_present": true,
+  "artifacts_recorded": true,
+  "stage_contract_profile": {
+    "profile_id": "stage-1-product-initialization",
+    "profile_requirements_checked": true,
+    "missing_profile_requirements": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json",
+      "Build-Plans/Stage-1/05-feature-structure.json",
+      "Build-Plans/Stage-1/06-product-boundaries.json",
+      "Build-Plans/Stage-1/07-dependency-map.json",
+      "Build-Plans/Stage-1/08-mvp-operational-model.json",
+      "Build-Plans/Stage-1/09-risk-and-constraints.json",
+      "Build-Plans/Stage-1/10-success-framework.json",
+      "Build-Plans/Build-status/Planning-state.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-06-18",
+    "validator": "global-stage-readiness-audit",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "PRODUCT-001",
+      "USER-001",
+      "WORKFLOW-001",
+      "WORKFLOW-002",
+      "WORKFLOW-003",
+      "WORKFLOW-004",
+      "WORKFLOW-005",
+      "WORKFLOW-006",
+      "WORKFLOW-007",
+      "CAP-001",
+      "CAP-002",
+      "CAP-003",
+      "CAP-004",
+      "CAP-005",
+      "CAP-006",
+      "CAP-007",
+      "CAP-008",
+      "CAP-009",
+      "CAP-010",
+      "MVP-001",
+      "RISK-001",
+      "RISK-002",
+      "RISK-006",
+      "RISK-008",
+      "ASSUMPTION-001",
+      "ASSUMPTION-002",
+      "ASSUMPTION-005"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "artifact_evidence_registry": {
+    "registry_path": "Build-Plans/Build-status/Artifact-evidence-registry.json",
+    "required": false,
+    "required_artifacts_present": true,
+    "missing_artifacts": []
+  },
+  "risk_acceptance_ledger": {
+    "ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json",
+    "required": false,
+    "accepted_risks_present": false,
+    "missing_risk_acceptance_entries": [],
+    "expired_or_unowned_risks": []
+  },
+  "revision_loops": [],
+  "visual_design_continuity": {
+    "required": false,
+    "ui_blueprint_refs_present": false,
+    "visual_spec_refs_present": false,
+    "design_system_refs_present": false,
+    "visual_acceptance_criteria_mapped": false,
+    "preview_or_visual_qa_evidence_present": false,
+    "design_system_compliance_recorded": false,
+    "visual_drift_status_recorded": false,
+    "blocking_visual_gaps": []
+  },
+  "blocking_gaps": [],
+  "warnings": [
+    {
+      "id": "WARNING-001",
+      "warning": "First target vertical is a Stage 2 validation target."
+    },
+    {
+      "id": "WARNING-002",
+      "warning": "Supplier import strategy is a Stage 2 validation target."
+    },
+    {
+      "id": "WARNING-003",
+      "warning": "First customer-facing output type is a Stage 2 validation target."
+    },
+    {
+      "id": "WARNING-004",
+      "warning": "Minimum pricing and cost model is a Stage 2 validation target."
+    }
+  ],
+  "next_actions": [
+    "Run Stage 2 research and validation.",
+    "Validate first target vertical.",
+    "Validate supplier import strategy.",
+    "Validate first customer-facing output type.",
+    "Validate pricing, cost, bundle, and recipe requirements."
+  ],
+  "ready_for_next_stage": true
+}

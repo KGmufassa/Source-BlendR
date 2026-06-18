@@ -1,0 +1,132 @@
+{
+  "stage": "Stage 2",
+  "status": "complete",
+  "command": "stage-2-research-and-validation",
+  "owning_skill": "market-and-competitive-validation",
+  "schema_ref": "System-References/Schemas/stage-2-output.schema.json",
+  "related_assumption_ids": [
+    "A-001",
+    "A-003",
+    "A-004",
+    "A-011"
+  ],
+  "competitive_confidence": 0.7,
+  "confidence_rationale": "Direct and adjacent competitors are identifiable, but the exact overlap depends on Source-Blendr's selected first vertical and output workflow.",
+  "direct_competitors": [
+    {
+      "name": "ASI ESP+",
+      "category": "Promotional products sourcing and distributor platform",
+      "validated_capabilities": [
+        "Supplier/product sourcing",
+        "Product comparison",
+        "Distributor websites",
+        "Catalog services",
+        "Large supplier/distributor network"
+      ],
+      "source_url": "https://asicentral.com/",
+      "threat_level": "high",
+      "differentiation_gap_for_source_blendr": "ESP+ appears strongest in promo sourcing/network workflows; Source-Blendr must differentiate through service aggregation, production recipes, margin modeling, and cross-vendor custom offer construction."
+    },
+    {
+      "name": "Printavo",
+      "category": "Print shop management software",
+      "validated_capabilities": [
+        "Quotes and invoices",
+        "Product catalogs and purchase orders",
+        "Customer management",
+        "Reporting",
+        "Custom automation",
+        "Screen printing, embroidery, sign, and digital print workflows"
+      ],
+      "source_url": "https://www.printavo.com/features/",
+      "threat_level": "medium",
+      "differentiation_gap_for_source_blendr": "Printavo validates shop operations but Source-Blendr can focus upstream on supplier/service aggregation, cost composition, bundles, and reusable resale offerings."
+    }
+  ],
+  "indirect_competitors": [
+    {
+      "name": "Spreadsheets plus supplier portals",
+      "category": "Manual operating stack",
+      "threat_level": "high",
+      "reason": "Current workflows may be flexible, familiar, and free enough to resist replacement."
+    },
+    {
+      "name": "Generic CRM, accounting, ecommerce, and document tools",
+      "category": "Horizontal software stack",
+      "threat_level": "medium",
+      "reason": "HubSpot, Salesforce, QuickBooks, Shopify, Google Drive, and proposal tools can cover fragments of the workflow without unified supplier modeling."
+    }
+  ],
+  "existing_alternatives": [
+    "ASI/ESP-style sourcing platforms",
+    "Print shop management platforms",
+    "Supplier portals and price sheets",
+    "Spreadsheet pricing calculators",
+    "QuickBooks or accounting workflows",
+    "CRM quote/proposal workflows",
+    "Manual PDF catalog and price book creation"
+  ],
+  "saturation_risk": {
+    "level": "medium_high",
+    "summary": "The market has strong incumbents in promo sourcing and print-shop operations, but Source-Blendr's combined product-service-cost-bundle-resale model remains a plausible differentiation wedge."
+  },
+  "differentiation_opportunities": [
+    {
+      "id": "DIFF-001",
+      "opportunity": "Product plus service aggregation",
+      "reason": "Many adjacent tools center either product sourcing or shop/order management; Source-Blendr can own combined supplier product and service cost modeling."
+    },
+    {
+      "id": "DIFF-002",
+      "opportunity": "Production recipes and reusable resale bundles",
+      "reason": "Recipe-based cost and pricing logic directly supports custom offerings such as apparel plus decoration, awards plus engraving, or sign plus installation."
+    },
+    {
+      "id": "DIFF-003",
+      "opportunity": "Margin-first quote and price book output",
+      "reason": "Source-Blendr can position around profitability controls rather than only sourcing, cataloging, or order management."
+    }
+  ],
+  "positioning_gaps": [
+    {
+      "id": "POSITIONING-GAP-001",
+      "gap": "The product category is broad and risks sounding like ERP, CRM, catalog software, quote software, and sourcing software at once.",
+      "mitigation": "Use a narrow first-positioning statement around supplier products plus services into profitable resale quotes."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EVIDENCE-002",
+      "source_type": "industry platform website",
+      "source_name": "ASI",
+      "url": "https://asicentral.com/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "ASI positions ESP+ as a single platform for promo business, product search, supplier relationships, catalogs, and websites.",
+      "confidence_effect": "raises competitor confidence and incumbent threat level",
+      "confidence_delta": 0.1,
+      "is_inference": false,
+      "limitations": "Does not fully expose detailed pricing, workflow, or API capabilities."
+    },
+    {
+      "id": "EVIDENCE-003",
+      "source_type": "competitor website",
+      "source_name": "Printavo",
+      "url": "https://www.printavo.com/features/",
+      "freshness": "current page accessed 2026-06-18",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "Printavo lists quotes, invoices, product catalogs, purchase orders, customer management, reporting, and automation features for print shops.",
+      "confidence_effect": "raises adjacent competitor confidence",
+      "confidence_delta": 0.08,
+      "is_inference": false,
+      "limitations": "Does not validate Source-Blendr's cross-supplier aggregation feature."
+    }
+  ],
+  "recommendations": [
+    "Do not position against every incumbent at once.",
+    "Use a wedge such as: profitable product-plus-service resale quoting from supplier data.",
+    "Carry competitive overlap into Stage 3 as modular capability boundaries rather than monolithic ERP scope."
+  ]
+}
