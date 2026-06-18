@@ -1,0 +1,29 @@
+{
+  "stage": "Stage 4",
+  "command": "stage-4-ux-interaction-architecture",
+  "status": "not_started",
+  "stage_1_inputs": {},
+  "stage_2_inputs": {},
+  "stage_3_inputs": {},
+  "preflight": {},
+  "user_journeys": {},
+  "interaction_architecture": {},
+  "screen_system": {},
+  "feature_behaviors": {},
+  "state_transition_map": {},
+  "accessibility_framework": {},
+  "ux_decisions": [],
+  "ux_risks": [],
+  "interaction_tradeoffs": [],
+  "open_questions": [],
+  "interactive_guidance": {
+    "open_questions": [],
+    "answered_questions": [],
+    "assumptions_made": [],
+    "blocked_decisions": [],
+    "user_confirmations": [],
+    "ux_confidence_gaps": []
+  },
+  "stage_5_handoff": {},
+  "completion_status": {}
+}

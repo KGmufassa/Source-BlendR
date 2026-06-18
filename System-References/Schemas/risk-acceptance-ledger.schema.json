@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "risk-acceptance-ledger.schema.json",
+  "title": "Risk Acceptance Ledger",
+  "type": "object",
+  "required": [
+    "ledger_version",
+    "accepted_risks"
+  ],
+  "properties": {
+    "ledger_version": {
+      "type": "string"
+    },
+    "accepted_risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "risk_id",
+          "source_stage",
+          "risk",
+          "severity",
+          "status"
+        ],
+        "properties": {
+          "risk_id": {
+            "type": "string"
+          },
+          "source_stage": {
+            "type": "string"
+          },
+          "source_output": {
+            "type": "string"
+          },
+          "risk": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "accepted_by": {
+            "type": "string"
+          },
+          "accepted_at": {
+            "type": "string"
+          },
+          "acceptance_reason": {
+            "type": "string"
+          },
+          "mitigation": {
+            "type": "string"
+          },
+          "owner_stage": {
+            "type": "string"
+          },
+          "downstream_visibility": {
+            "type": "array"
+          },
+          "revisit_trigger": {
+            "type": "string"
+          },
+          "expires_or_recheck_at": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

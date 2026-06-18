@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "global-readiness-audit.schema.json",
+  "title": "Global Stage Readiness Audit",
+  "type": "object",
+  "required": ["stage", "command", "audit_status", "ready_for_next_stage"],
+  "properties": {
+    "stage": { "type": "string" },
+    "command": { "type": "string" },
+    "audit_status": { "type": "string" },
+    "required_files_present": { "type": "boolean" },
+    "schemas_valid": { "type": "boolean" },
+    "schema_validation": { "type": "object" },
+    "artifact_evidence_registry": { "type": "object" },
+    "risk_acceptance_ledger": { "type": "object" },
+    "reference_integrity": { "type": "object" },
+    "revision_loops": { "type": "array" },
+    "blocking_gaps": { "type": "array" },
+    "warnings": { "type": "array" },
+    "next_actions": { "type": "array" },
+    "ready_for_next_stage": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

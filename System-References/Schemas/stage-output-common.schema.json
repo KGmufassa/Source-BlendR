@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stage-output-common.schema.json",
+  "title": "Common Stage Output",
+  "type": "object",
+  "required": ["stage", "status"],
+  "properties": {
+    "stage": { "type": "string" },
+    "status": { "type": "string" },
+    "completion_status": { "type": ["object", "string"] },
+    "stage_2_handoff": { "type": "object" },
+    "stage_3_handoff": { "type": "object" },
+    "stage_4_handoff": { "type": "object" },
+    "stage_5_handoff": { "type": "object" },
+    "stage_6_handoff": { "type": "object" },
+    "stage_7_handoff": { "type": "object" },
+    "stage_8_handoff": { "type": "object" },
+    "source_trace": { "type": "array" },
+    "evidence_refs": { "type": "array" },
+    "schema_validation": { "type": "object" },
+    "reference_integrity": { "type": "object" },
+    "risk_acceptance_ledger": { "type": "object" },
+    "revision_loops": { "type": "array" },
+    "artifact_refs": { "type": "array" }
+  },
+  "additionalProperties": true
+}
