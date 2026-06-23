@@ -1,0 +1,166 @@
+{
+  "stage": "Stage 5",
+  "status": "complete",
+  "command": "stage-5-development-orchestration",
+  "owning_skill": "engineering-dependency-planning",
+  "schema_ref": "System-References/Schemas/stage-5-output.schema.json",
+  "related_stage_1_scope_or_features": [
+    "FEATURE-001",
+    "FEATURE-004",
+    "FEATURE-014",
+    "FEATURE-018",
+    "FEATURE-023"
+  ],
+  "related_stage_3_architecture_dependencies": [
+    "SERVICE-001",
+    "SERVICE-003",
+    "SERVICE-004",
+    "SERVICE-005",
+    "SERVICE-006",
+    "SERVICE-007",
+    "API-003",
+    "API-005",
+    "API-006",
+    "API-007",
+    "INFRA-003",
+    "INFRA-004",
+    "INFRA-005"
+  ],
+  "related_stage_4_ux_dependencies": [
+    "UI-BLUEPRINT-002",
+    "UI-BLUEPRINT-003",
+    "UI-BLUEPRINT-004",
+    "UI-BLUEPRINT-005",
+    "UI-BLUEPRINT-006",
+    "DESIGN-SYSTEM-001"
+  ],
+  "engineering_dependencies": {
+    "dependency_strategy": "contracts_first_for_shared_domains",
+    "critical_path": [
+      "TICKET-001",
+      "TICKET-002",
+      "TICKET-004",
+      "TICKET-005",
+      "TICKET-008",
+      "TICKET-010",
+      "TICKET-012",
+      "TICKET-013",
+      "TICKET-014"
+    ]
+  },
+  "dependency_graph": [
+    {
+      "ticket_id": "TICKET-001",
+      "depends_on": [],
+      "blocks": [
+        "TICKET-002",
+        "TICKET-003",
+        "TICKET-004"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-002",
+      "depends_on": [
+        "TICKET-001"
+      ],
+      "blocks": [
+        "TICKET-004",
+        "TICKET-005",
+        "TICKET-008",
+        "TICKET-010"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-003",
+      "depends_on": [
+        "TICKET-001"
+      ],
+      "blocks": [
+        "TICKET-006",
+        "TICKET-007",
+        "TICKET-009",
+        "TICKET-011"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-005",
+      "depends_on": [
+        "TICKET-004"
+      ],
+      "blocks": [
+        "TICKET-007",
+        "TICKET-008"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-008",
+      "depends_on": [
+        "TICKET-005"
+      ],
+      "blocks": [
+        "TICKET-009",
+        "TICKET-010"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-010",
+      "depends_on": [
+        "TICKET-008",
+        "TICKET-009"
+      ],
+      "blocks": [
+        "TICKET-011",
+        "TICKET-012"
+      ]
+    }
+  ],
+  "parallel_workstreams": [
+    {
+      "id": "PARALLEL-STREAM-001",
+      "name": "Foundation backend and frontend shell",
+      "safe_after": [],
+      "tickets": [
+        "TICKET-001",
+        "TICKET-003"
+      ],
+      "condition": "Shared route and auth contract agreed before merge."
+    },
+    {
+      "id": "PARALLEL-STREAM-002",
+      "name": "Asset UI and pricing backend after import contract",
+      "safe_after": [
+        "TICKET-004",
+        "TICKET-005"
+      ],
+      "tickets": [
+        "TICKET-007",
+        "TICKET-008"
+      ],
+      "condition": "Asset and pricing API contracts stable."
+    }
+  ],
+  "blocked_work": [
+    {
+      "id": "BLOCKED-001",
+      "work": "Named supplier API connectors",
+      "reason": "Deferred by Stage 2 and Stage 3; not MVP-critical."
+    }
+  ],
+  "coordination_notes": [
+    "Frontend tickets must preserve UI blueprint, visual spec, and design system references.",
+    "Backend tickets must emit audit events for import commits, pricing snapshots, quote approval, and sharing.",
+    "Testing tickets should begin once API contracts exist, not wait until all UI work is complete."
+  ],
+  "dependency_risks": [
+    {
+      "id": "EXEC-RISK-003",
+      "risk": "Pricing snapshots are a cross-domain dependency for quote generation.",
+      "severity": "high",
+      "mitigation": "Make pricing snapshot ticket a prerequisite for quote output tickets."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_6_handoff_notes": [
+    "Follow ticket dependency graph for Stage 6 execution queue."
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "stage": "Stage 5",
+  "status": "complete",
+  "command": "stage-5-development-orchestration",
+  "owning_skill": "implementation-sequence-planning",
+  "schema_ref": "System-References/Schemas/stage-5-output.schema.json",
+  "related_stage_1_scope_or_features": [
+    "MVP-001"
+  ],
+  "related_stage_3_architecture_dependencies": [
+    "ADR-001",
+    "ADR-002",
+    "ADR-004",
+    "ADR-005",
+    "ADR-015"
+  ],
+  "related_stage_4_ux_dependencies": [
+    "SCREEN-001",
+    "SCREEN-004",
+    "SCREEN-005",
+    "SCREEN-007",
+    "SCREEN-008",
+    "SCREEN-010",
+    "SCREEN-012"
+  ],
+  "implementation_sequence": {
+    "strategy": "foundation_then_workflow_slices",
+    "queue_policy": "Stage 6 executes tickets by execution_queue_position unless parallel batch permits safe concurrent work."
+  },
+  "implementation_slices": [
+    {
+      "slice_id": "SLICE-001",
+      "name": "Platform Foundation",
+      "goal": "Establish workspace, RBAC, persistence, object storage, queue, audit, and app shell foundations.",
+      "ticket_ids": [
+        "TICKET-001",
+        "TICKET-002",
+        "TICKET-003"
+      ],
+      "validation_checkpoint": "Workspace shell renders and protected routes enforce workspace-scoped access."
+    },
+    {
+      "slice_id": "SLICE-002",
+      "name": "Supplier And Import Intake",
+      "goal": "Enable supplier setup and import review into normalized assets.",
+      "ticket_ids": [
+        "TICKET-004",
+        "TICKET-005",
+        "TICKET-006"
+      ],
+      "validation_checkpoint": "User can create supplier, upload file, map fields, handle errors, and commit valid products/services."
+    },
+    {
+      "slice_id": "SLICE-003",
+      "name": "Asset Library And Commercial Logic",
+      "goal": "Enable asset search, cost components, pricing previews, margins, bundles, and recipes.",
+      "ticket_ids": [
+        "TICKET-007",
+        "TICKET-008",
+        "TICKET-009"
+      ],
+      "validation_checkpoint": "User can find assets, preview price/margin, and publish a valid bundle/recipe."
+    },
+    {
+      "slice_id": "SLICE-004",
+      "name": "Quote Output",
+      "goal": "Enable customer quote drafting, approval, generation, sharing, and async job status.",
+      "ticket_ids": [
+        "TICKET-010",
+        "TICKET-011",
+        "TICKET-012"
+      ],
+      "validation_checkpoint": "User can create a quote from priced offerings, generate an output, and share/revoke a link."
+    },
+    {
+      "slice_id": "SLICE-005",
+      "name": "Validation And Release Hardening",
+      "goal": "Complete automated validation, accessibility, security, regression, and release readiness.",
+      "ticket_ids": [
+        "TICKET-013",
+        "TICKET-014"
+      ],
+      "validation_checkpoint": "Launch-critical E2E, accessibility, RBAC, async recovery, and release gates pass."
+    }
+  ],
+  "sequence_dependencies": [
+    {
+      "from": "SLICE-001",
+      "to": "SLICE-002",
+      "reason": "Supplier and import flows require workspace, RBAC, database, storage, queue, and shell foundations."
+    },
+    {
+      "from": "SLICE-002",
+      "to": "SLICE-003",
+      "reason": "Commercial logic requires committed normalized products/services."
+    },
+    {
+      "from": "SLICE-003",
+      "to": "SLICE-004",
+      "reason": "Quotes require customers, valid offerings, price snapshots, and margin states."
+    },
+    {
+      "from": "SLICE-004",
+      "to": "SLICE-005",
+      "reason": "Release hardening validates the complete workflow."
+    }
+  ],
+  "validation_checkpoints": [
+    "CHECKPOINT-001: workspace auth and RBAC",
+    "CHECKPOINT-002: import review and commit",
+    "CHECKPOINT-003: pricing, margin, and bundle publish",
+    "CHECKPOINT-004: quote generation and sharing",
+    "CHECKPOINT-005: release regression"
+  ],
+  "sequence_risks": [
+    {
+      "id": "EXEC-RISK-002",
+      "risk": "Frontend screens can be built before API contracts settle.",
+      "severity": "medium",
+      "mitigation": "Use shared API contract stubs and serialize merge until API tests pass."
+    }
+  ],
+  "execution_decisions": [
+    {
+      "id": "EXEC-DECISION-002",
+      "decision": "Implement import review before pricing and quotes."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_6_handoff_notes": [
+    "Do not start quote output before pricing snapshots are available."
+  ]
+}

@@ -51,6 +51,681 @@
         "Build-Plans/Stage-2/03-technical-feasibility.json",
         "Build-Plans/Stage-2/05-risk-validation.json"
       ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-AUTH-TESTS",
+      "stage": "Stage 6",
+      "type": "expected_validation_artifact",
+      "name": "Auth and RBAC automated test evidence",
+      "expected_from": [
+        "TICKET-001"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-5/05-build-tickets.json",
+        "Build-Plans/Stage-5/07-parallel-execution-plan.json",
+        "Build-Plans/Build-status/Development-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-INFRA-TESTS",
+      "stage": "Stage 6",
+      "type": "expected_validation_artifact",
+      "name": "Persistence, storage, queue, and audit scaffold test evidence",
+      "expected_from": [
+        "TICKET-002"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-5/05-build-tickets.json",
+        "Build-Plans/Stage-5/07-parallel-execution-plan.json",
+        "Build-Plans/Build-status/Development-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-SHELL-PREVIEW",
+      "stage": "Stage 6",
+      "type": "expected_frontend_artifact",
+      "name": "Workspace shell preview evidence",
+      "expected_from": [
+        "TICKET-003"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-5/05-build-tickets.json",
+        "Build-Plans/Stage-5/07-parallel-execution-plan.json",
+        "Build-Plans/Build-status/Development-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-SHELL-VISUAL-QA",
+      "stage": "Stage 6",
+      "type": "expected_frontend_artifact",
+      "name": "Workspace shell visual QA evidence",
+      "expected_from": [
+        "TICKET-003"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-5/05-build-tickets.json",
+        "Build-Plans/Build-status/Development-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-IMPORT-API-TESTS",
+      "stage": "Stage 6",
+      "type": "expected_validation_artifact",
+      "name": "Supplier import API and lifecycle test evidence",
+      "expected_from": [
+        "TICKET-004",
+        "TICKET-005"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-5/07-parallel-execution-plan.json",
+        "Build-Plans/Build-status/Development-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-IMPORT-VISUAL-QA",
+      "stage": "Stage 6",
+      "type": "visual_qa_artifact",
+      "name": "Import review wizard visual QA evidence",
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-006"
+      ],
+      "files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-006-import-review-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-006-import-review-mobile.png"
+      ],
+      "preview_url": "http://localhost:3002/imports/demo-import",
+      "validation": {
+        "visual_qa": "passed_current_scope",
+        "responsive": "desktop and mobile screenshots captured"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-PRICING-TESTS",
+      "stage": "Stage 6",
+      "type": "validation_artifact",
+      "name": "Pricing, margin, and snapshot test evidence",
+      "produced_by": [
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-008"
+      ],
+      "files": [
+        "tests/backend/pricing-service.test.ts"
+      ],
+      "validation": {
+        "tests": "passed: deterministic pricing, low-margin policy, immutable snapshots, audit events"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-QUOTE-API-TESTS",
+      "stage": "Stage 6",
+      "type": "validation_artifact",
+      "name": "Quote generation and share access API test evidence",
+      "expected_from": [
+        "TICKET-010"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ],
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-010"
+      ],
+      "files": [
+        "tests/backend/quote-service.test.ts"
+      ],
+      "validation": {
+        "tests": "passed: quote lifecycle, share-link security, generated output job state, audit transitions"
+      }
+    },
+    {
+      "id": "ARTIFACT-STAGE6-QUOTE-VISUAL-QA",
+      "stage": "Stage 6",
+      "type": "visual_qa_artifact",
+      "name": "Quote builder and status center visual QA evidence",
+      "expected_from": [
+        "TICKET-011",
+        "TICKET-012"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ],
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-011",
+        "TICKET-012"
+      ],
+      "files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-011-quote-builder-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-011-quote-builder-mobile.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-012-status-center-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-012-status-center-mobile.png"
+      ],
+      "preview_urls": [
+        "http://localhost:3002/quotes",
+        "http://localhost:3002/status"
+      ],
+      "validation": {
+        "visual_qa": "passed_current_scope",
+        "responsive": "desktop and mobile screenshots captured"
+      }
+    },
+    {
+      "id": "ARTIFACT-STAGE6-SECURITY-REVIEW",
+      "stage": "Stage 6",
+      "type": "review_artifact",
+      "name": "Launch-critical security review evidence",
+      "expected_from": [
+        "TICKET-001",
+        "TICKET-008",
+        "TICKET-010",
+        "TICKET-013"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ],
+      "produced_by": [
+        "security-review",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-001",
+        "TICKET-008",
+        "TICKET-010",
+        "TICKET-013"
+      ],
+      "files": [
+        "tests/backend/rbac.test.ts",
+        "tests/backend/pricing-service.test.ts",
+        "tests/backend/quote-service.test.ts",
+        "tests/e2e/release-critical.spec.ts"
+      ],
+      "validation": {
+        "security_review": "passed_for_local_mvp_scope",
+        "coverage": "RBAC, snapshot immutability, hashed share tokens, expiration, revocation, audit events, and UI secret-pattern checks"
+      }
+    },
+    {
+      "id": "ARTIFACT-STAGE6-RELEASE-REGRESSION",
+      "stage": "Stage 6",
+      "type": "validation_artifact",
+      "name": "Launch-critical regression suite evidence",
+      "expected_from": [
+        "TICKET-013",
+        "TICKET-014"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ],
+      "produced_by": [
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-013",
+        "TICKET-014"
+      ],
+      "files": [
+        "tests/e2e/release-critical.spec.ts",
+        "Build-Plans/Stage-6/03-regression-analysis.json"
+      ],
+      "commands": [
+        "npm run typecheck",
+        "npm test",
+        "npm audit --audit-level=moderate",
+        "npm run build",
+        "npm run test:e2e"
+      ],
+      "results": {
+        "typecheck": "passed",
+        "tests": "passed: 10 files, 38 tests",
+        "audit": "passed: 0 vulnerabilities",
+        "build": "passed",
+        "e2e": "passed: 8 tests"
+      }
+    },
+    {
+      "id": "ARTIFACT-STAGE6-INITIALIZATION",
+      "stage": "Stage 6",
+      "type": "stage_execution_artifact",
+      "name": "Stage 6 initialization, expanded ticket contracts, and blocker record",
+      "produced_by": [
+        "stage-6-implementation-validation",
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "files": [
+        "Build-Plans/Stage-6/00-expanded-ticket-contracts.json",
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Stage-6/03-regression-analysis.json",
+        "Build-Plans/Stage-6/04-system-health.json",
+        "Build-Plans/Stage-6/05-repair-log.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ],
+      "used_by": [
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-ASSET-VISUAL-QA",
+      "stage": "Stage 6",
+      "type": "visual_qa_artifact",
+      "name": "Asset library visual QA evidence",
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-007"
+      ],
+      "files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-007-asset-library-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-007-asset-library-mobile.png"
+      ],
+      "preview_url": "http://localhost:3002/assets",
+      "validation": {
+        "visual_qa": "passed_current_scope",
+        "responsive": "desktop and mobile screenshots captured"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-PRICING-VISUAL-QA",
+      "stage": "Stage 6",
+      "type": "visual_qa_artifact",
+      "name": "Pricing workspace and bundle recipe visual QA evidence",
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-009"
+      ],
+      "files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-pricing-workspace-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-pricing-workspace-mobile.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-bundle-builder-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-bundle-builder-mobile.png"
+      ],
+      "preview_url": "http://localhost:3002/pricing",
+      "related_preview_url": "http://localhost:3002/offerings/demo-offering",
+      "validation": {
+        "visual_qa": "passed_current_scope",
+        "responsive": "desktop and full-page mobile screenshots captured"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH1-SCAFFOLD",
+      "stage": "Stage 6",
+      "type": "implementation_artifact",
+      "name": "Stage 6 BATCH-001 application scaffold",
+      "produced_by": [
+        "implementation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-001",
+        "TICKET-003"
+      ],
+      "files": [
+        "package.json",
+        "package-lock.json",
+        "next.config.ts",
+        "tsconfig.json",
+        "vitest.config.ts",
+        "playwright.config.ts",
+        ".gitignore",
+        "app/**",
+        "src/**",
+        "tests/**"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH1-VALIDATION",
+      "stage": "Stage 6",
+      "type": "validation_artifact",
+      "name": "Stage 6 BATCH-001 validation command results",
+      "produced_by": [
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-001",
+        "TICKET-003"
+      ],
+      "commands": [
+        "npm run build",
+        "npm run typecheck",
+        "npm test",
+        "npm audit --audit-level=moderate"
+      ],
+      "results": {
+        "build": "passed",
+        "typecheck": "passed",
+        "tests": "passed: 2 files, 4 tests",
+        "audit": "passed: found 0 vulnerabilities"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH1-PREVIEW",
+      "stage": "Stage 6",
+      "type": "preview_artifact",
+      "name": "Stage 6 BATCH-001 workspace shell preview",
+      "produced_by": [
+        "implementation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-003"
+      ],
+      "preview_url": "http://localhost:3000/dashboard",
+      "status": "running",
+      "used_by": [
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH2-INFRASTRUCTURE",
+      "stage": "Stage 6",
+      "type": "implementation_artifact",
+      "name": "Stage 6 BATCH-002 persistence, storage, queue, and audit scaffolds",
+      "produced_by": [
+        "implementation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-002"
+      ],
+      "files": [
+        "src/server/persistence/database.ts",
+        "src/server/persistence/memory-database.ts",
+        "src/server/storage/object-storage.ts",
+        "src/server/storage/local-object-storage.ts",
+        "src/server/queue/job-queue.ts",
+        "src/server/audit/database-audit-sink.ts",
+        "src/server/infrastructure/runtime.ts",
+        "tests/backend/infrastructure.test.ts"
+      ],
+      "validation": {
+        "build": "passed",
+        "typecheck": "passed",
+        "tests": "passed: 3 files, 8 tests",
+        "audit": "passed: found 0 vulnerabilities"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH3-SUPPLIER-APIS",
+      "stage": "Stage 6",
+      "type": "implementation_artifact",
+      "name": "Stage 6 BATCH-003 supplier and source API implementation",
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-004"
+      ],
+      "files": [
+        "src/domain/suppliers/supplier.ts",
+        "src/server/suppliers/supplier-service.ts",
+        "src/server/suppliers/api-schemas.ts",
+        "src/server/infrastructure/app-runtime.ts",
+        "src/server/http/errors.ts",
+        "src/domain/audit/audit-log.ts",
+        "app/api/workspaces/[workspaceId]/suppliers/route.ts",
+        "app/api/workspaces/[workspaceId]/suppliers/[supplierId]/route.ts",
+        "app/api/workspaces/[workspaceId]/suppliers/[supplierId]/sources/route.ts",
+        "app/api/workspaces/[workspaceId]/suppliers/[supplierId]/sources/[sourceId]/route.ts",
+        "tests/backend/supplier-service.test.ts"
+      ],
+      "validation": {
+        "build": "passed",
+        "typecheck": "passed",
+        "tests": "passed: 4 files, 12 tests",
+        "audit": "passed: found 0 vulnerabilities"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH3-IMPORT-LIFECYCLE",
+      "stage": "Stage 6",
+      "type": "implementation_artifact",
+      "name": "Stage 6 BATCH-003 import batch lifecycle and asset commit implementation",
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-005"
+      ],
+      "files": [
+        "src/domain/imports/import-batch.ts",
+        "src/server/imports/import-service.ts",
+        "src/server/imports/api-schemas.ts",
+        "src/server/imports/api-service.ts",
+        "src/server/http/errors.ts",
+        "src/domain/audit/audit-log.ts",
+        "app/api/workspaces/[workspaceId]/imports/route.ts",
+        "app/api/workspaces/[workspaceId]/imports/[importBatchId]/route.ts",
+        "app/api/workspaces/[workspaceId]/imports/[importBatchId]/mapping/route.ts",
+        "app/api/workspaces/[workspaceId]/imports/[importBatchId]/validate/route.ts",
+        "app/api/workspaces/[workspaceId]/imports/[importBatchId]/preview/route.ts",
+        "app/api/workspaces/[workspaceId]/imports/[importBatchId]/commit/route.ts",
+        "app/api/workspaces/[workspaceId]/imports/[importBatchId]/retry/route.ts",
+        "app/api/workspaces/[workspaceId]/imports/[importBatchId]/fail/route.ts",
+        "app/api/workspaces/[workspaceId]/imports/[importBatchId]/errors/route.ts",
+        "tests/backend/import-service.test.ts"
+      ],
+      "validation": {
+        "build": "passed",
+        "typecheck": "passed",
+        "tests": "passed: 5 files, 17 tests",
+        "audit": "passed: found 0 vulnerabilities"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH4-IMPORT-ASSET-PRICING",
+      "stage": "Stage 6",
+      "type": "implementation_artifact",
+      "name": "Stage 6 BATCH-004 import UI, asset library, and pricing backend implementation",
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-006",
+        "TICKET-007",
+        "TICKET-008"
+      ],
+      "files": [
+        "src/ui/components/ImportReviewWizard.tsx",
+        "src/ui/components/AssetLibrary.tsx",
+        "src/domain/pricing/pricing.ts",
+        "src/server/pricing/pricing-service.ts",
+        "app/imports/[importBatchId]/page.tsx",
+        "app/assets/page.tsx",
+        "app/api/workspaces/[workspaceId]/pricing/**",
+        "tests/frontend/batch-004-ui.test.tsx",
+        "tests/backend/pricing-service.test.ts",
+        "Build-Plans/Stage-6/visual-evidence/ticket-006-import-review-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-006-import-review-mobile.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-007-asset-library-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-007-asset-library-mobile.png"
+      ],
+      "validation": {
+        "build": "passed",
+        "typecheck": "passed",
+        "tests": "passed: 7 files, 25 tests",
+        "audit": "passed: found 0 vulnerabilities"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH5-PRICING-BUNDLE-UI",
+      "stage": "Stage 6",
+      "type": "implementation_artifact",
+      "name": "Stage 6 BATCH-005 pricing workspace and bundle recipe UI implementation",
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-009"
+      ],
+      "files": [
+        "src/ui/components/PricingWorkspace.tsx",
+        "src/ui/components/BundleRecipeBuilder.tsx",
+        "app/pricing/page.tsx",
+        "app/offerings/[offeringId]/page.tsx",
+        "tests/frontend/batch-005-ui.test.tsx",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-pricing-workspace-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-pricing-workspace-mobile.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-bundle-builder-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-bundle-builder-mobile.png"
+      ],
+      "validation": {
+        "build": "passed",
+        "typecheck": "passed",
+        "tests": "passed: 8 files, 29 tests",
+        "audit": "passed: found 0 vulnerabilities"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-BATCH6-QUOTE-STATUS",
+      "stage": "Stage 6",
+      "type": "implementation_artifact",
+      "name": "Stage 6 BATCH-006 quote backend, quote builder, and status center implementation",
+      "produced_by": [
+        "implementation-execution",
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-010",
+        "TICKET-011",
+        "TICKET-012"
+      ],
+      "files": [
+        "src/domain/quotes/quote.ts",
+        "src/server/quotes/quote-service.ts",
+        "src/server/quotes/api-schemas.ts",
+        "src/ui/components/QuoteBuilder.tsx",
+        "src/ui/components/StatusCenter.tsx",
+        "app/api/workspaces/[workspaceId]/customers/route.ts",
+        "app/api/workspaces/[workspaceId]/quotes/**",
+        "app/api/share/quotes/[token]/route.ts",
+        "app/quotes/page.tsx",
+        "app/status/page.tsx",
+        "tests/backend/quote-service.test.ts",
+        "tests/frontend/batch-006-ui.test.tsx"
+      ],
+      "validation": {
+        "build": "passed",
+        "typecheck": "passed",
+        "tests": "passed: 10 files, 38 tests",
+        "audit": "passed: found 0 vulnerabilities"
+      },
+      "used_by": [
+        "Build-Plans/Stage-6/01-implementation-status.json",
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-RELEASE-CHECKLIST",
+      "stage": "Stage 6",
+      "type": "release_artifact",
+      "name": "MVP release candidate checklist and operations notes",
+      "produced_by": [
+        "validation-execution"
+      ],
+      "ticket_ids": [
+        "TICKET-014"
+      ],
+      "files": [
+        "docs/release/mvp-release-candidate-checklist.md",
+        "docs/release/support-and-operations-notes.md"
+      ],
+      "used_by": [
+        "Build-Plans/Stage-6/04-system-health.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ]
+    },
+    {
+      "id": "ARTIFACT-STAGE6-READINESS-AUDIT",
+      "stage": "Stage 6",
+      "type": "readiness_audit_artifact",
+      "name": "Stage 6 readiness audit",
+      "produced_by": [
+        "global-stage-readiness-audit"
+      ],
+      "ticket_ids": [
+        "TICKET-014"
+      ],
+      "files": [
+        "Build-Plans/Build-status/Stage-6-readiness-audit.json"
+      ],
+      "used_by": [
+        "Build-Plans/Build-status/Global-workflow-state.json"
+      ]
     }
   ]
 }

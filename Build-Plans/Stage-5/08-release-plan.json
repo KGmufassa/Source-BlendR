@@ -1,0 +1,177 @@
+{
+  "stage": "Stage 5",
+  "command": "stage-5-development-orchestration",
+  "artifact": "08-release-plan",
+  "status": "complete",
+  "owning_skill": "stage-5-development-orchestration",
+  "schema_ref": "System-References/Schemas/stage-5-output.schema.json",
+  "release_strategy": "private_beta_then_mvp_launch",
+  "release_scope": {
+    "included": [
+      "workspace auth and RBAC",
+      "manual supplier profile setup",
+      "CSV/manual source import",
+      "import review and asset commit",
+      "unified asset library",
+      "pricing rules and margin snapshots",
+      "bundle and recipe composition",
+      "quote builder",
+      "generated quote output",
+      "secure quote sharing",
+      "async status center and retry flow"
+    ],
+    "deferred": [
+      "direct supplier portal integrations",
+      "AI assistants",
+      "customer portal",
+      "analytics dashboards",
+      "ecommerce integrations",
+      "CRM integrations",
+      "accounting integrations",
+      "enterprise SSO",
+      "marketplace functionality",
+      "multi-currency and localization"
+    ]
+  },
+  "release_phases": [
+    {
+      "id": "RELEASE-PHASE-001",
+      "name": "Internal Development Validation",
+      "entry_condition": "Stage 6 implementation begins from ready_for_stage_6 handoff.",
+      "exit_condition": "All Stage 6 tickets through TICKET-012 are merged with unit, integration, visual, and accessibility evidence.",
+      "owners": [
+        "AGENT-BACKEND-001",
+        "AGENT-FRONTEND-001",
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "id": "RELEASE-PHASE-002",
+      "name": "Release Candidate",
+      "entry_condition": "TICKET-013 launch-critical validation is complete.",
+      "exit_condition": "TICKET-014 release checklist is complete with no unresolved launch blockers.",
+      "owners": [
+        "AGENT-QA-001",
+        "AGENT-SECURITY-001",
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "id": "RELEASE-PHASE-003",
+      "name": "Private Beta",
+      "entry_condition": "Stage 7 deployment plan is approved and release candidate is deployed to a controlled beta environment.",
+      "exit_condition": "Target beta users can complete supplier import, pricing, bundle, and quote workflows without blocking defects.",
+      "owners": [
+        "product owner",
+        "implementation lead",
+        "support owner"
+      ]
+    },
+    {
+      "id": "RELEASE-PHASE-004",
+      "name": "MVP Launch",
+      "entry_condition": "Private beta exit criteria are met and rollback plan is verified.",
+      "exit_condition": "MVP is available to intended launch users with monitoring, support intake, and incident response active.",
+      "owners": [
+        "product owner",
+        "release owner",
+        "support owner"
+      ]
+    }
+  ],
+  "release_gates": [
+    {
+      "id": "GATE-001",
+      "name": "Automated Test Gate",
+      "required": true,
+      "criteria": "Unit, API integration, frontend interaction, and launch-critical E2E tests pass in CI or local equivalent."
+    },
+    {
+      "id": "GATE-002",
+      "name": "Security Gate",
+      "required": true,
+      "criteria": "Auth, RBAC, credential storage, quote sharing, and audit event flows pass security review."
+    },
+    {
+      "id": "GATE-003",
+      "name": "Accessibility And Visual Gate",
+      "required": true,
+      "criteria": "Stage 4 visual specs, responsive behavior, keyboard flow, and accessibility requirements are verified for launch-critical screens."
+    },
+    {
+      "id": "GATE-004",
+      "name": "Data Integrity Gate",
+      "required": true,
+      "criteria": "Import commits, pricing snapshots, margin calculations, generated quotes, and rollback scenarios preserve expected data integrity."
+    },
+    {
+      "id": "GATE-005",
+      "name": "Operational Readiness Gate",
+      "required": true,
+      "criteria": "Monitoring, worker retry visibility, support triage, backup/restore expectations, and release notes are prepared for Stage 7."
+    }
+  ],
+  "rollback_plan": {
+    "rollback_triggers": [
+      "auth or RBAC regression",
+      "incorrect pricing or margin calculations",
+      "broken generated quote outputs",
+      "data corruption during import commit",
+      "security exposure in quote share links",
+      "worker failure causing unrecoverable job states"
+    ],
+    "rollback_actions": [
+      "disable beta access through feature flags or workspace entitlement controls",
+      "pause import and quote generation workers",
+      "disable public quote share links if access control is affected",
+      "revert the release branch or deployment artifact",
+      "restore affected database state from the latest verified backup when required",
+      "notify impacted beta users and record incident notes"
+    ],
+    "recovery_validation": [
+      "verify workspace login and RBAC",
+      "verify import batch state consistency",
+      "verify pricing snapshot consistency",
+      "verify quote output access controls",
+      "verify worker retry queue health"
+    ]
+  },
+  "stage_7_handoff": {
+    "ready_for_stage_7_after": [
+      "TICKET-013",
+      "TICKET-014",
+      "Stage-6-readiness-audit"
+    ],
+    "stage_7_focus": [
+      "deployment environment preparation",
+      "monitoring and alerting",
+      "private beta rollout",
+      "support workflow setup",
+      "release notes and operational runbooks"
+    ],
+    "required_evidence": [
+      "ARTIFACT-STAGE6-RELEASE-REGRESSION",
+      "ARTIFACT-STAGE6-QUOTE-VISUAL-QA",
+      "ARTIFACT-STAGE6-IMPORT-VISUAL-QA",
+      "ARTIFACT-STAGE6-SECURITY-REVIEW"
+    ]
+  },
+  "release_risks": [
+    {
+      "id": "RELEASE-RISK-001",
+      "risk": "Supplier import correctness is launch-critical and likely to expose edge cases in customer data.",
+      "mitigation": "Limit MVP import formats, validate before commit, preserve raw import files, and provide recoverable failed states."
+    },
+    {
+      "id": "RELEASE-RISK-002",
+      "risk": "Pricing or margin errors can directly affect customer trust.",
+      "mitigation": "Use immutable pricing snapshots, visible cost breakdowns, and explicit test fixtures for high-risk calculation paths."
+    },
+    {
+      "id": "RELEASE-RISK-003",
+      "risk": "Quote sharing creates external access exposure.",
+      "mitigation": "Use scoped tokens, expiration controls, audit logs, and security review before beta release."
+    }
+  ],
+  "completion_status": "ready_for_stage_6"
+}

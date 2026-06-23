@@ -1,0 +1,694 @@
+{
+  "stage": "Stage 6",
+  "command": "stage-6-implementation-validation",
+  "artifact": "02-validation-results",
+  "status": "complete",
+  "skill": "validation-execution",
+  "validation_results": {
+    "overall_status": "passed",
+    "validated_scope": [
+      "BATCH-001 scaffold",
+      "TICKET-001 initial RBAC foundation",
+      "TICKET-003 initial workspace shell",
+      "TICKET-002 infrastructure scaffolds",
+      "TICKET-004 supplier and source APIs",
+      "TICKET-005 import batch lifecycle and asset commit",
+      "TICKET-006 import review wizard UI",
+      "TICKET-007 asset library UI",
+      "TICKET-008 pricing, cost, margin, and snapshots",
+      "TICKET-009 pricing workspace and bundle recipe UI",
+      "TICKET-010 customer quote and generated output backend",
+      "TICKET-011 quote builder UI",
+      "TICKET-012 status center and async recovery UI",
+      "TICKET-013 launch-critical automated validation",
+      "TICKET-014 MVP release candidate checklist"
+    ]
+  },
+  "ticket_validation_results": [
+    {
+      "ticket_id": "TICKET-001",
+      "status": "passed_initial_scope",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Workspace-scoped users, memberships, roles, and permissions exist.",
+          "status": "passed_for_in_memory_foundation"
+        },
+        {
+          "criterion": "Protected routes and APIs reject unauthorized workspace access.",
+          "status": "passed_for_guard_contract"
+        },
+        {
+          "criterion": "Audit events record membership and role changes.",
+          "status": "partial",
+          "note": "Invite audit event helper exists; persistence and role-update audit events continue in TICKET-002."
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-003",
+      "status": "passed_initial_scope",
+      "preview_url": "http://localhost:3000/dashboard",
+      "visual_drift_status": "requires_user_review",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Workspace shell and routes exist.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Shared components use DESIGN-SYSTEM-001 tokens.",
+          "status": "passed_initial_scope"
+        },
+        {
+          "criterion": "Layout is responsive and keyboard navigable.",
+          "status": "passed_initial_automated_scope"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-002",
+      "status": "passed",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Database, object storage, and queue abstractions exist.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Workers can process placeholder jobs.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Audit hook interface is available to domain modules.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-004",
+      "status": "passed",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Supplier CRUD and source records work.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Workspace scoping is enforced for every supplier and source operation.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Audit events are emitted for supplier and source mutations.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Source records support MVP file/manual intake metadata without depending on named portal connectors.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-005",
+      "status": "passed",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Upload, mapping, validation, row errors, and commit are supported.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Import staging never silently overwrites normalized assets.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Failed imports expose recoverable error states.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Committed assets preserve supplier provenance and import batch traceability.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-006",
+      "status": "passed",
+      "preview_url": "http://localhost:3002/imports/demo-import",
+      "visual_drift_status": "passed_current_scope",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Wizard supports upload, mapping, validation, commit, and error report.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Keyboard users can complete mapping.",
+          "status": "passed_component_scope"
+        },
+        {
+          "criterion": "Visual acceptance criteria for VISUAL-SPEC-002 pass.",
+          "status": "passed_current_scope"
+        },
+        {
+          "criterion": "Commit action is disabled with an explanation until prerequisites pass.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-007",
+      "status": "passed",
+      "preview_url": "http://localhost:3002/assets",
+      "visual_drift_status": "passed_current_scope",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Users can search, filter, inspect, tag, and archive assets.",
+          "status": "passed_component_scope"
+        },
+        {
+          "criterion": "Missing cost and archived states are visible.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Supplier provenance remains visible in list and detail contexts.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-008",
+      "status": "passed",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Cost components, pricing rules, margin policies, and immutable price snapshots exist.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Low-margin conditions are detected.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Pricing snapshots are immutable once used by generated outputs.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Calculation paths include deterministic test fixtures.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "status": "passed",
+      "preview_url": "http://localhost:3002/pricing",
+      "related_preview_url": "http://localhost:3002/offerings/demo-offering",
+      "visual_drift_status": "passed_current_scope",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Users can preview margin and publish valid bundles/recipes.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Low-margin and invalid-component states are visible and accessible.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Component picker supports non-pointer interaction.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Publish checklist shows all blockers.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-010",
+      "status": "passed",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Quotes use customers, quote lines, approval states, price snapshots, generated output jobs, and signed share links.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Share links can expire and be revoked.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Generated output jobs preserve status and retry visibility.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Quote sharing emits audit events and avoids exposing workspace-private data outside token scope.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "status": "passed",
+      "preview_url": "http://localhost:3002/quotes",
+      "visual_drift_status": "passed_current_scope",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Quote builder shows readiness, blockers, margin summary, generation progress, and sharing controls.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Keyboard users can edit quote lines.",
+          "status": "passed_component_scope"
+        },
+        {
+          "criterion": "Generate/share controls are unavailable when prerequisites fail.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Share link expiration and revocation states are visible.",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-012",
+      "status": "passed",
+      "preview_url": "http://localhost:3002/status",
+      "visual_drift_status": "passed_current_scope",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Failed jobs are visible without filtering.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Users can inspect failed jobs and retry eligible jobs.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Job details never expose raw secrets.",
+          "status": "passed_component_scope"
+        },
+        {
+          "criterion": "Job detail selection is keyboard accessible.",
+          "status": "passed_component_scope"
+        }
+      ]
+    },
+    {
+      "ticket_id": "TICKET-013",
+      "status": "passed",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Launch-critical E2E, accessibility, security, and regression checks are automated or documented with required artifacts.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Validation maps back to ticket acceptance criteria and release gates.",
+          "status": "passed"
+        },
+        {
+          "criterion": "Visual QA and responsive evidence exists for launch-critical frontend tickets.",
+          "status": "passed"
+        }
+      ],
+      "validation_evidence": [
+        "npm run test:e2e: 8 passed",
+        "npm test: 10 files, 38 tests",
+        "visual evidence files registered"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-014",
+      "status": "passed",
+      "acceptance_criteria_results": [
+        {
+          "criterion": "Release checklist includes gates, rollback, support notes, and known deferred work.",
+          "status": "passed"
+        },
+        {
+          "criterion": "All release gates are complete, blocked with reason, or explicitly accepted as risk.",
+          "status": "passed_with_warnings"
+        },
+        {
+          "criterion": "Stage 7 handoff includes operational, deployment, monitoring, analytics, and support needs.",
+          "status": "passed"
+        }
+      ],
+      "validation_evidence": [
+        "docs/release/mvp-release-candidate-checklist.md",
+        "docs/release/support-and-operations-notes.md",
+        "Build-Plans/Build-status/Stage-6-readiness-audit.json"
+      ]
+    }
+  ],
+  "agent_validation_results": [
+    {
+      "agent_id": "AGENT-QA-001",
+      "status": "passed",
+      "validated_ticket_ids": [
+        "TICKET-013",
+        "TICKET-014"
+      ]
+    },
+    {
+      "agent_id": "AGENT-SECURITY-001",
+      "status": "passed_for_local_mvp_scope",
+      "validated_ticket_ids": [
+        "TICKET-010",
+        "TICKET-013"
+      ]
+    },
+    {
+      "agent_id": "AGENT-COORDINATION-001",
+      "status": "stage_7_handoff_ready"
+    }
+  ],
+  "batch_validation_results": [
+    {
+      "batch_id": "BATCH-001",
+      "validation_status": "passed_initial_scope",
+      "validated_ticket_ids": [
+        "TICKET-001",
+        "TICKET-003"
+      ]
+    },
+    {
+      "batch_id": "BATCH-002",
+      "validation_status": "passed",
+      "validated_ticket_ids": [
+        "TICKET-002"
+      ]
+    },
+    {
+      "batch_id": "BATCH-003",
+      "validation_status": "passed",
+      "validated_ticket_ids": [
+        "TICKET-004",
+        "TICKET-005"
+      ]
+    },
+    {
+      "batch_id": "BATCH-004",
+      "validation_status": "passed",
+      "validated_ticket_ids": [
+        "TICKET-006",
+        "TICKET-007",
+        "TICKET-008"
+      ]
+    },
+    {
+      "batch_id": "BATCH-005",
+      "validation_status": "passed",
+      "validated_ticket_ids": [
+        "TICKET-009"
+      ]
+    },
+    {
+      "batch_id": "BATCH-006",
+      "validation_status": "passed",
+      "validated_ticket_ids": [
+        "TICKET-010",
+        "TICKET-011",
+        "TICKET-012"
+      ]
+    },
+    {
+      "batch_id": "BATCH-007",
+      "validation_status": "passed_with_warnings",
+      "validated_ticket_ids": [
+        "TICKET-013",
+        "TICKET-014"
+      ],
+      "warnings": [
+        "Production managed adapters, monitoring, and CI wiring remain Stage 7 work."
+      ]
+    }
+  ],
+  "ui_blueprint_validation_results": [
+    {
+      "ticket_id": "TICKET-003",
+      "ui_blueprint_id": "UI-BLUEPRINT-001",
+      "status": "passed_initial_structure",
+      "notes": "Dashboard, navigation, status cards, recent import table, core routes, and explicit async/status affordances are present."
+    },
+    {
+      "ticket_id": "TICKET-006",
+      "ui_blueprint_id": "UI-BLUEPRINT-002",
+      "status": "passed_current_scope",
+      "notes": "Import review wizard includes upload state, mapping controls, validation table, commit summary, and error report action."
+    },
+    {
+      "ticket_id": "TICKET-007",
+      "ui_blueprint_id": "UI-BLUEPRINT-003",
+      "status": "passed_current_scope",
+      "notes": "Asset library includes persistent filters, table-first list, detail drawer, provenance, cost readiness, and asset actions."
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "ui_blueprint_id": "UI-BLUEPRINT-004/UI-BLUEPRINT-005",
+      "status": "passed_current_scope",
+      "notes": "Pricing workspace and recipe builder include margin, approval, component picker, recipe composition, scaling, and publish checklist flows."
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "ui_blueprint_id": "UI-BLUEPRINT-006",
+      "status": "passed_current_scope",
+      "notes": "Quote builder includes queue, customer detail, line editing, blockers, margin, output generation state, and secure share controls."
+    },
+    {
+      "ticket_id": "TICKET-012",
+      "ui_blueprint_id": "UI-BLUEPRINT-007",
+      "status": "passed_current_scope",
+      "notes": "Status center includes failed job priority, job table, detail panel, support references, retry state, and sanitized error display."
+    }
+  ],
+  "visual_spec_validation_results": [
+    {
+      "ticket_id": "TICKET-003",
+      "visual_spec_id": "VISUAL-SPEC-001",
+      "status": "requires_user_review",
+      "notes": "Automated tests and build pass; screenshot-based visual approval has not been captured yet."
+    },
+    {
+      "ticket_id": "TICKET-006",
+      "visual_spec_id": "VISUAL-SPEC-002",
+      "status": "passed_current_scope",
+      "notes": "Desktop and mobile production screenshots captured."
+    },
+    {
+      "ticket_id": "TICKET-007",
+      "visual_spec_id": "VISUAL-SPEC-003",
+      "status": "passed_current_scope",
+      "notes": "Desktop and mobile production screenshots captured."
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "visual_spec_id": "VISUAL-SPEC-004/VISUAL-SPEC-005",
+      "status": "passed_current_scope",
+      "notes": "Desktop and full-page mobile production screenshots captured."
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "visual_spec_id": "VISUAL-SPEC-006",
+      "notes": "Desktop and mobile production screenshots captured.",
+      "status": "passed_current_scope"
+    },
+    {
+      "ticket_id": "TICKET-012",
+      "visual_spec_id": "VISUAL-SPEC-007",
+      "notes": "Desktop and mobile production screenshots captured.",
+      "status": "passed_current_scope"
+    }
+  ],
+  "design_system_validation_results": [
+    {
+      "ticket_id": "TICKET-003",
+      "design_system_id": "DESIGN-SYSTEM-001",
+      "status": "passed_initial_scope",
+      "notes": "CSS tokens implement Stage 4 color, typography, spacing, radius, table, panel, button, and status conventions."
+    }
+  ],
+  "visual_qa_results": [
+    {
+      "ticket_id": "TICKET-003",
+      "status": "preview_available_user_review_required",
+      "preview_url": "http://localhost:3000/dashboard"
+    },
+    {
+      "ticket_id": "TICKET-006",
+      "status": "passed_current_scope",
+      "preview_url": "http://localhost:3002/imports/demo-import",
+      "evidence_files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-006-import-review-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-006-import-review-mobile.png"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-007",
+      "status": "passed_current_scope",
+      "preview_url": "http://localhost:3002/assets",
+      "evidence_files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-007-asset-library-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-007-asset-library-mobile.png"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "status": "passed_current_scope",
+      "preview_url": "http://localhost:3002/pricing",
+      "related_preview_url": "http://localhost:3002/offerings/demo-offering",
+      "evidence_files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-pricing-workspace-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-pricing-workspace-mobile.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-bundle-builder-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-009-bundle-builder-mobile.png"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "status": "passed_current_scope",
+      "preview_url": "http://localhost:3002/quotes",
+      "evidence_files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-011-quote-builder-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-011-quote-builder-mobile.png"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-012",
+      "status": "passed_current_scope",
+      "preview_url": "http://localhost:3002/status",
+      "evidence_files": [
+        "Build-Plans/Stage-6/visual-evidence/ticket-012-status-center-desktop.png",
+        "Build-Plans/Stage-6/visual-evidence/ticket-012-status-center-mobile.png"
+      ]
+    }
+  ],
+  "responsive_validation_results": [
+    {
+      "ticket_id": "TICKET-003",
+      "status": "implemented_initial_css_rules",
+      "validated_by": [
+        "npm run build",
+        "component test"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-006",
+      "status": "passed_current_scope",
+      "validated_by": [
+        "component test",
+        "desktop screenshot",
+        "mobile screenshot"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-007",
+      "status": "passed_current_scope",
+      "validated_by": [
+        "component test",
+        "desktop screenshot",
+        "mobile screenshot"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "status": "passed_current_scope",
+      "validated_by": [
+        "component test",
+        "desktop screenshots",
+        "full-page mobile screenshots"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "status": "passed_current_scope",
+      "validated_by": [
+        "component test",
+        "desktop screenshot",
+        "mobile screenshot"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-012",
+      "status": "passed_current_scope",
+      "validated_by": [
+        "component test",
+        "desktop screenshot",
+        "mobile screenshot"
+      ]
+    }
+  ],
+  "visual_drift_results": [
+    {
+      "ticket_id": "TICKET-003",
+      "visual_drift_status": "requires_user_review"
+    },
+    {
+      "ticket_id": "TICKET-006",
+      "visual_drift_status": "passed_current_scope"
+    },
+    {
+      "ticket_id": "TICKET-007",
+      "visual_drift_status": "passed_current_scope"
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "visual_drift_status": "passed_current_scope"
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "visual_drift_status": "passed_current_scope"
+    },
+    {
+      "ticket_id": "TICKET-012",
+      "visual_drift_status": "passed_current_scope"
+    }
+  ],
+  "artifact_evidence_updates": [
+    "ARTIFACT-STAGE6-INITIALIZATION",
+    "ARTIFACT-STAGE6-BATCH1-SCAFFOLD",
+    "ARTIFACT-STAGE6-BATCH1-VALIDATION",
+    "ARTIFACT-STAGE6-BATCH1-PREVIEW",
+    "ARTIFACT-STAGE6-AUTH-TESTS",
+    "ARTIFACT-STAGE6-SHELL-PREVIEW",
+    "ARTIFACT-STAGE6-INFRA-TESTS",
+    "ARTIFACT-STAGE6-BATCH2-INFRASTRUCTURE",
+    "ARTIFACT-STAGE6-BATCH3-SUPPLIER-APIS",
+    "ARTIFACT-STAGE6-BATCH3-IMPORT-LIFECYCLE",
+    "ARTIFACT-STAGE6-IMPORT-API-TESTS",
+    "ARTIFACT-STAGE6-IMPORT-VISUAL-QA",
+    "ARTIFACT-STAGE6-ASSET-VISUAL-QA",
+    "ARTIFACT-STAGE6-PRICING-TESTS",
+    "ARTIFACT-STAGE6-BATCH4-IMPORT-ASSET-PRICING",
+    "ARTIFACT-STAGE6-PRICING-VISUAL-QA",
+    "ARTIFACT-STAGE6-BATCH5-PRICING-BUNDLE-UI",
+    "ARTIFACT-STAGE6-QUOTE-API-TESTS",
+    "ARTIFACT-STAGE6-QUOTE-VISUAL-QA",
+    "ARTIFACT-STAGE6-BATCH6-QUOTE-STATUS",
+    "ARTIFACT-STAGE6-RELEASE-REGRESSION",
+    "ARTIFACT-STAGE6-SECURITY-REVIEW",
+    "ARTIFACT-STAGE6-RELEASE-CHECKLIST",
+    "ARTIFACT-STAGE6-READINESS-AUDIT"
+  ],
+  "passed_checks": [
+    "npm run typecheck passed.",
+    "npm test passed: 10 files, 38 tests.",
+    "npm audit --audit-level=moderate passed with zero vulnerabilities.",
+    "npm run build passed.",
+    "npm run test:e2e passed: 8 tests across desktop and mobile.",
+    "Release checklist and support operations notes created.",
+    "Stage 6 readiness audit created."
+  ],
+  "failed_checks": [],
+  "coverage_gaps": [
+    "Automated accessibility is covered by keyboard and semantic assertions; axe or equivalent scanner integration remains Stage 7/CI work.",
+    "Visual evidence is screenshot-based without automated pixel-diff baseline comparison.",
+    "Deployment provider, managed persistence, queue, object storage, monitoring, and backup validation remain Stage 7 work."
+  ],
+  "validation_risks": [
+    {
+      "id": "VALIDATION-RISK-001",
+      "risk": "Local adapter validation does not prove managed deployment behavior.",
+      "severity": "medium"
+    },
+    {
+      "id": "VALIDATION-RISK-002",
+      "risk": "E2E coverage verifies representative UI states rather than a live database-backed browser transaction for every route.",
+      "severity": "medium"
+    }
+  ],
+  "completion_status": "ready_for_stage_7"
+}

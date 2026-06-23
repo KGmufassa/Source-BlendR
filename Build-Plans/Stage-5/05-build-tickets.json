@@ -1,0 +1,997 @@
+{
+  "stage": "Stage 5",
+  "status": "complete",
+  "command": "stage-5-development-orchestration",
+  "owning_skill": "build-ticket-generation",
+  "schema_ref": "System-References/Schemas/stage-5-output.schema.json",
+  "related_stage_1_scope_or_features": [
+    "MVP-001",
+    "FEATURE-001",
+    "FEATURE-004",
+    "FEATURE-007",
+    "FEATURE-014",
+    "FEATURE-018",
+    "FEATURE-019",
+    "FEATURE-023"
+  ],
+  "related_stage_3_architecture_dependencies": [
+    "SERVICE-001",
+    "SERVICE-003",
+    "SERVICE-004",
+    "SERVICE-005",
+    "SERVICE-006",
+    "SERVICE-007",
+    "API-003",
+    "API-005",
+    "API-007",
+    "INFRA-003",
+    "INFRA-004",
+    "INFRA-005"
+  ],
+  "related_stage_4_ux_dependencies": [
+    "UI-BLUEPRINT-001",
+    "UI-BLUEPRINT-002",
+    "UI-BLUEPRINT-003",
+    "UI-BLUEPRINT-004",
+    "UI-BLUEPRINT-005",
+    "UI-BLUEPRINT-006",
+    "UI-BLUEPRINT-007",
+    "DESIGN-SYSTEM-001"
+  ],
+  "build_tickets": [
+    {
+      "ticket_id": "TICKET-001",
+      "slice_id": "SLICE-001",
+      "title": "Build workspace auth and RBAC foundation",
+      "description": "Implement workspace-scoped authentication, roles, permissions, membership, route protection, and audit event foundation.",
+      "ticket_type": "foundation",
+      "priority": "critical",
+      "stage_1_feature_refs": [],
+      "stage_3_architecture_refs": [
+        "SERVICE-001",
+        "ENTITY-001",
+        "ENTITY-002",
+        "ADR-012",
+        "ARCH-RISK-013"
+      ],
+      "stage_4_ux_refs": [
+        "SCREEN-013"
+      ],
+      "ui_blueprint_refs": [],
+      "visual_spec_refs": [],
+      "design_system_refs": [],
+      "page_refs": [
+        "SCREEN-013"
+      ],
+      "component_refs": [],
+      "shared_component_refs": [
+        "PermissionAwareButton"
+      ],
+      "route_refs": [
+        "/settings"
+      ],
+      "state_refs": [
+        "permission_denied"
+      ],
+      "action_refs": [
+        "Invite",
+        "Update"
+      ],
+      "frontend_task_hint": "",
+      "visual_requirements": {
+        "visual_style": "not_applicable",
+        "density": "not_applicable",
+        "color_direction": "not_applicable",
+        "typography_feel": "not_applicable",
+        "component_style": "not_applicable",
+        "primary_visual_focus": "not_applicable",
+        "responsive_behavior": "not_applicable",
+        "visual_do_rules": [],
+        "visual_dont_rules": [],
+        "reference_apps": [],
+        "visual_acceptance_criteria": [],
+        "user_approval_status": "not_applicable"
+      },
+      "responsive_requirements": {
+        "desktop_layout": "not_applicable",
+        "tablet_layout": "not_applicable",
+        "mobile_layout": "not_applicable",
+        "collapse_rules": [],
+        "navigation_behavior": "not_applicable",
+        "priority_content_mobile": []
+      },
+      "visual_acceptance_criteria_refs": [],
+      "preview_required": false,
+      "visual_qa_required": false,
+      "design_system_compliance_required": false,
+      "expected_artifacts": [
+        "ARTIFACT-STAGE6-AUTH-TESTS"
+      ],
+      "prerequisites": [],
+      "depends_on_tickets": [],
+      "primary_skill": "backend-development",
+      "recommended_skills": [
+        "backend-development",
+        "security-review",
+        "test-driven-development"
+      ],
+      "agent_required_skills": [
+        "backend-development",
+        "security-review",
+        "test-driven-development"
+      ],
+      "agent_skill_instructions": {
+        "must_use": [
+          "backend-development",
+          "security-review"
+        ],
+        "use_if_needed": [
+          "debugging-wizard"
+        ],
+        "skill_usage_order": [
+          "backend-development",
+          "security-review",
+          "test-driven-development"
+        ],
+        "usage_notes": "Implement backend foundation with security review of workspace scoping and tests before dependent tickets proceed."
+      },
+      "skill_match": {
+        "primary_skill_score": 0.92,
+        "matched_capabilities": [
+          "backend",
+          "api architecture",
+          "security"
+        ],
+        "matched_task_triggers": [
+          "backend implementation",
+          "auth",
+          "API security"
+        ],
+        "matched_domains": [
+          "backend",
+          "security"
+        ],
+        "risk_flags_considered": [
+          "workspace data leakage",
+          "authorization"
+        ],
+        "selection_reason": "Backend-development best matches auth, RBAC, API, and service foundation work.",
+        "coverage_gaps": []
+      },
+      "acceptance_criteria": [
+        "Workspace-scoped users, memberships, roles, and permissions exist.",
+        "Protected routes and APIs reject unauthorized workspace access.",
+        "Audit events record membership and role changes."
+      ],
+      "validation_steps": [
+        "Run unit tests for permission checks.",
+        "Run API tests for workspace isolation.",
+        "Run security review checklist for auth paths."
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 1,
+      "handoff_notes": "Blocks most feature tickets.",
+      "completion_status": "not_started"
+    },
+    {
+      "ticket_id": "TICKET-002",
+      "slice_id": "SLICE-001",
+      "title": "Create persistence, storage, queue, and audit scaffolds",
+      "description": "Set up relational data foundations, object storage abstractions, job queue contracts, worker structure, and audit logging hooks.",
+      "ticket_type": "foundation",
+      "priority": "critical",
+      "stage_1_feature_refs": [],
+      "stage_3_architecture_refs": [
+        "INFRA-003",
+        "INFRA-004",
+        "INFRA-005",
+        "ENTITY-017",
+        "ADR-013",
+        "ADR-014",
+        "ADR-015"
+      ],
+      "stage_4_ux_refs": [
+        "SCREEN-012"
+      ],
+      "ui_blueprint_refs": [],
+      "visual_spec_refs": [],
+      "design_system_refs": [],
+      "page_refs": [
+        "SCREEN-012"
+      ],
+      "component_refs": [],
+      "shared_component_refs": [
+        "AsyncJobBanner"
+      ],
+      "route_refs": [
+        "/status"
+      ],
+      "state_refs": [
+        "async_processing",
+        "async_failed"
+      ],
+      "action_refs": [
+        "Retry"
+      ],
+      "frontend_task_hint": "",
+      "visual_requirements": {
+        "visual_style": "not_applicable",
+        "density": "not_applicable",
+        "color_direction": "not_applicable",
+        "typography_feel": "not_applicable",
+        "component_style": "not_applicable",
+        "primary_visual_focus": "not_applicable",
+        "responsive_behavior": "not_applicable",
+        "visual_do_rules": [],
+        "visual_dont_rules": [],
+        "reference_apps": [],
+        "visual_acceptance_criteria": [],
+        "user_approval_status": "not_applicable"
+      },
+      "responsive_requirements": {
+        "desktop_layout": "not_applicable",
+        "tablet_layout": "not_applicable",
+        "mobile_layout": "not_applicable",
+        "collapse_rules": [],
+        "navigation_behavior": "not_applicable",
+        "priority_content_mobile": []
+      },
+      "visual_acceptance_criteria_refs": [],
+      "preview_required": false,
+      "visual_qa_required": false,
+      "design_system_compliance_required": false,
+      "expected_artifacts": [
+        "ARTIFACT-STAGE6-INFRA-TESTS"
+      ],
+      "prerequisites": [
+        "TICKET-001"
+      ],
+      "depends_on_tickets": [
+        "TICKET-001"
+      ],
+      "primary_skill": "backend-development",
+      "recommended_skills": [
+        "backend-development",
+        "test-driven-development"
+      ],
+      "agent_required_skills": [
+        "backend-development",
+        "test-driven-development"
+      ],
+      "agent_skill_instructions": {
+        "must_use": [
+          "backend-development"
+        ],
+        "use_if_needed": [
+          "debugging-wizard"
+        ],
+        "skill_usage_order": [
+          "backend-development",
+          "test-driven-development"
+        ],
+        "usage_notes": "Create infrastructure abstractions without committing to named cloud providers unless existing codebase requires one."
+      },
+      "skill_match": {
+        "primary_skill_score": 0.88,
+        "matched_capabilities": [
+          "backend",
+          "DevOps",
+          "service design"
+        ],
+        "matched_task_triggers": [
+          "backend implementation",
+          "infrastructure"
+        ],
+        "matched_domains": [
+          "backend",
+          "DevOps"
+        ],
+        "risk_flags_considered": [
+          "async failure",
+          "storage exposure"
+        ],
+        "selection_reason": "Backend-development covers service and infrastructure foundations.",
+        "coverage_gaps": []
+      },
+      "acceptance_criteria": [
+        "Database, object storage, and queue abstractions exist.",
+        "Workers can process placeholder jobs.",
+        "Audit hook interface is available to domain modules."
+      ],
+      "validation_steps": [
+        "Run queue worker unit tests.",
+        "Run storage abstraction tests.",
+        "Run audit hook tests."
+      ],
+      "risk_level": "medium",
+      "stage_6_execution_queue_position": 2,
+      "handoff_notes": "Required for import and generated output jobs.",
+      "completion_status": "not_started"
+    },
+    {
+      "ticket_id": "TICKET-003",
+      "slice_id": "SLICE-001",
+      "title": "Build workspace shell and design system primitives",
+      "description": "Implement app shell, routes, navigation, design tokens, shared controls, responsive layout, and base accessibility behavior.",
+      "ticket_type": "frontend",
+      "priority": "critical",
+      "stage_1_feature_refs": [],
+      "stage_3_architecture_refs": [
+        "SYSTEM-001"
+      ],
+      "stage_4_ux_refs": [
+        "UI-BLUEPRINT-001",
+        "DESIGN-SYSTEM-001"
+      ],
+      "ui_blueprint_refs": [
+        "UI-BLUEPRINT-001"
+      ],
+      "visual_spec_refs": [
+        "VISUAL-SPEC-001"
+      ],
+      "design_system_refs": [
+        "DESIGN-SYSTEM-001"
+      ],
+      "page_refs": [
+        "SCREEN-001"
+      ],
+      "component_refs": [
+        "WorkspaceShell",
+        "SidebarNav",
+        "GlobalSearch",
+        "StatusBadge"
+      ],
+      "shared_component_refs": [
+        "WorkspaceShell",
+        "StatusBadge",
+        "PermissionAwareButton",
+        "ValidationSummary",
+        "AsyncJobBanner",
+        "DataTable",
+        "DetailDrawer",
+        "ConfirmDialog"
+      ],
+      "route_refs": [
+        "/dashboard",
+        "/suppliers",
+        "/imports/:importBatchId",
+        "/assets",
+        "/pricing",
+        "/offerings/:offeringId",
+        "/quotes",
+        "/status",
+        "/settings"
+      ],
+      "state_refs": [
+        "empty",
+        "loading",
+        "loaded",
+        "permission_denied"
+      ],
+      "action_refs": [
+        "Create",
+        "Read",
+        "Update"
+      ],
+      "frontend_task_hint": "Build workspace shell and navigation",
+      "visual_requirements": {
+        "visual_style": "SaaS Dashboard",
+        "density": "Balanced",
+        "color_direction": "Neutral foundation with teal action accents and semantic status colors",
+        "typography_feel": "Clear, compact, business-focused",
+        "component_style": "Outlined",
+        "primary_visual_focus": "Operational next actions and status confidence",
+        "responsive_behavior": "Sidebar collapses to mobile navigation; dashboard widgets stack.",
+        "visual_do_rules": [
+          "Use compact status cards",
+          "Keep alert colors semantic",
+          "Prioritize table scanability"
+        ],
+        "visual_dont_rules": [
+          "Do not use marketing hero layouts",
+          "Do not hide operational errors"
+        ],
+        "reference_apps": [
+          "Linear",
+          "Stripe Dashboard"
+        ],
+        "visual_acceptance_criteria": [
+          "All shared controls align to design tokens",
+          "Keyboard focus states are visible",
+          "Mobile navigation exposes core routes"
+        ],
+        "user_approval_status": "assumed_approved_for_stage_5"
+      },
+      "responsive_requirements": {
+        "desktop_layout": "Persistent sidebar and content region",
+        "tablet_layout": "Collapsed sidebar with full content",
+        "mobile_layout": "Collapsed navigation with stacked content",
+        "collapse_rules": [
+          "Sidebar collapses",
+          "Tables use responsive wrappers or priority columns"
+        ],
+        "navigation_behavior": "Persistent route access on desktop, compact navigation on mobile",
+        "priority_content_mobile": [
+          "Current workflow state",
+          "Primary action",
+          "Failed async jobs"
+        ]
+      },
+      "visual_acceptance_criteria_refs": [
+        "VISUAL-SPEC-001"
+      ],
+      "preview_required": true,
+      "visual_qa_required": true,
+      "design_system_compliance_required": true,
+      "expected_artifacts": [
+        "ARTIFACT-STAGE6-SHELL-PREVIEW",
+        "ARTIFACT-STAGE6-SHELL-VISUAL-QA"
+      ],
+      "prerequisites": [
+        "DESIGN-SYSTEM-001"
+      ],
+      "depends_on_tickets": [
+        "TICKET-001"
+      ],
+      "primary_skill": "frontend-design",
+      "recommended_skills": [
+        "frontend-design",
+        "ux-enforcement",
+        "test-driven-development"
+      ],
+      "agent_required_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "agent_skill_instructions": {
+        "must_use": [
+          "frontend-design",
+          "ux-enforcement"
+        ],
+        "use_if_needed": [
+          "debugging-wizard"
+        ],
+        "skill_usage_order": [
+          "frontend-design",
+          "ux-enforcement"
+        ],
+        "usage_notes": "Preserve Stage 4 design system, responsive rules, accessibility constraints, and visual acceptance criteria."
+      },
+      "skill_match": {
+        "primary_skill_score": 0.95,
+        "matched_capabilities": [
+          "UI design",
+          "design systems",
+          "responsive design",
+          "accessibility"
+        ],
+        "matched_task_triggers": [
+          "frontend",
+          "design system"
+        ],
+        "matched_domains": [
+          "frontend",
+          "UI design"
+        ],
+        "risk_flags_considered": [
+          "visual drift",
+          "responsive defects",
+          "accessibility"
+        ],
+        "selection_reason": "Frontend-design directly matches shared frontend system and design token implementation.",
+        "coverage_gaps": []
+      },
+      "acceptance_criteria": [
+        "Workspace shell and routes exist.",
+        "Shared components use DESIGN-SYSTEM-001 tokens.",
+        "Layout is responsive and keyboard navigable."
+      ],
+      "validation_steps": [
+        "Run frontend tests.",
+        "Run visual QA for shell and dashboard.",
+        "Run accessibility checks for navigation and shared controls."
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 3,
+      "handoff_notes": "Unblocks most frontend tickets.",
+      "completion_status": "not_started"
+    }
+  ],
+  "ticket_groups_pending_expansion": [
+    {
+      "ticket_ids": [
+        "TICKET-004",
+        "TICKET-005",
+        "TICKET-006",
+        "TICKET-007",
+        "TICKET-008",
+        "TICKET-009",
+        "TICKET-010",
+        "TICKET-011",
+        "TICKET-012",
+        "TICKET-013",
+        "TICKET-014"
+      ],
+      "note": "Detailed ticket contracts are summarized in compact_ticket_matrix and consumed by agent plans."
+    }
+  ],
+  "compact_ticket_matrix": [
+    {
+      "ticket_id": "TICKET-004",
+      "slice_id": "SLICE-002",
+      "title": "Implement supplier and source APIs",
+      "ticket_type": "backend",
+      "priority": "critical",
+      "depends_on_tickets": [
+        "TICKET-001",
+        "TICKET-002"
+      ],
+      "primary_skill": "backend-development",
+      "recommended_skills": [
+        "backend-development",
+        "test-driven-development"
+      ],
+      "agent_required_skills": [
+        "backend-development",
+        "test-driven-development"
+      ],
+      "acceptance_criteria": [
+        "Supplier CRUD and source records work",
+        "Workspace scoping is enforced",
+        "Audit events are emitted"
+      ],
+      "validation_steps": [
+        "Run API tests",
+        "Run authorization tests"
+      ],
+      "risk_level": "medium",
+      "stage_6_execution_queue_position": 4
+    },
+    {
+      "ticket_id": "TICKET-005",
+      "slice_id": "SLICE-002",
+      "title": "Implement import batch lifecycle and asset commit",
+      "ticket_type": "backend",
+      "priority": "critical",
+      "depends_on_tickets": [
+        "TICKET-004"
+      ],
+      "primary_skill": "backend-development",
+      "recommended_skills": [
+        "backend-development",
+        "test-driven-development"
+      ],
+      "agent_required_skills": [
+        "backend-development",
+        "test-driven-development"
+      ],
+      "acceptance_criteria": [
+        "Upload, mapping, validation, row errors, and commit are supported",
+        "Import staging never silently overwrites normalized assets"
+      ],
+      "validation_steps": [
+        "Run import lifecycle tests",
+        "Run malformed file tests"
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 5
+    },
+    {
+      "ticket_id": "TICKET-006",
+      "slice_id": "SLICE-002",
+      "title": "Build import review wizard UI",
+      "ticket_type": "frontend",
+      "priority": "critical",
+      "depends_on_tickets": [
+        "TICKET-003",
+        "TICKET-005"
+      ],
+      "primary_skill": "frontend-design",
+      "recommended_skills": [
+        "frontend-design",
+        "ux-enforcement",
+        "test-driven-development"
+      ],
+      "agent_required_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "ui_blueprint_refs": [
+        "UI-BLUEPRINT-002"
+      ],
+      "visual_spec_refs": [
+        "VISUAL-SPEC-002"
+      ],
+      "design_system_refs": [
+        "DESIGN-SYSTEM-001"
+      ],
+      "page_refs": [
+        "SCREEN-004"
+      ],
+      "route_refs": [
+        "/imports/:importBatchId"
+      ],
+      "component_refs": [
+        "StepWizard",
+        "FileUploadPanel",
+        "ValidationSummary",
+        "DataTable"
+      ],
+      "state_refs": [
+        "mapping_required",
+        "validation_error",
+        "async_processing",
+        "async_failed"
+      ],
+      "preview_required": true,
+      "visual_qa_required": true,
+      "design_system_compliance_required": true,
+      "acceptance_criteria": [
+        "Wizard supports upload, mapping, validation, commit, and error report",
+        "Keyboard users can complete mapping",
+        "Visual acceptance criteria for VISUAL-SPEC-002 pass"
+      ],
+      "validation_steps": [
+        "Run component tests",
+        "Run accessibility checks",
+        "Capture preview evidence"
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 6
+    },
+    {
+      "ticket_id": "TICKET-007",
+      "slice_id": "SLICE-003",
+      "title": "Build asset library UI",
+      "ticket_type": "frontend",
+      "priority": "high",
+      "depends_on_tickets": [
+        "TICKET-003",
+        "TICKET-005"
+      ],
+      "primary_skill": "frontend-design",
+      "recommended_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "agent_required_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "ui_blueprint_refs": [
+        "UI-BLUEPRINT-003"
+      ],
+      "visual_spec_refs": [
+        "VISUAL-SPEC-003"
+      ],
+      "design_system_refs": [
+        "DESIGN-SYSTEM-001"
+      ],
+      "page_refs": [
+        "SCREEN-005",
+        "SCREEN-006"
+      ],
+      "route_refs": [
+        "/assets",
+        "/assets/:assetId"
+      ],
+      "component_refs": [
+        "DataTable",
+        "FilterBar",
+        "DetailDrawer"
+      ],
+      "preview_required": true,
+      "visual_qa_required": true,
+      "design_system_compliance_required": true,
+      "acceptance_criteria": [
+        "Users can search, filter, inspect, tag, and archive assets",
+        "Missing cost and archived states are visible"
+      ],
+      "validation_steps": [
+        "Run responsive table checks",
+        "Run accessibility checks"
+      ],
+      "risk_level": "medium",
+      "stage_6_execution_queue_position": 7
+    },
+    {
+      "ticket_id": "TICKET-008",
+      "slice_id": "SLICE-003",
+      "title": "Implement pricing, cost, margin, and snapshots",
+      "ticket_type": "backend",
+      "priority": "critical",
+      "depends_on_tickets": [
+        "TICKET-005"
+      ],
+      "primary_skill": "backend-development",
+      "recommended_skills": [
+        "backend-development",
+        "test-driven-development",
+        "security-review"
+      ],
+      "agent_required_skills": [
+        "backend-development",
+        "test-driven-development"
+      ],
+      "acceptance_criteria": [
+        "Cost components, pricing rules, margin policies, and immutable price snapshots exist",
+        "Low-margin conditions are detected"
+      ],
+      "validation_steps": [
+        "Run calculation unit tests",
+        "Run snapshot audit tests"
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 8
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "slice_id": "SLICE-003",
+      "title": "Build pricing workspace and bundle recipe UI",
+      "ticket_type": "frontend",
+      "priority": "high",
+      "depends_on_tickets": [
+        "TICKET-007",
+        "TICKET-008"
+      ],
+      "primary_skill": "frontend-design",
+      "recommended_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "agent_required_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "ui_blueprint_refs": [
+        "UI-BLUEPRINT-004",
+        "UI-BLUEPRINT-005"
+      ],
+      "visual_spec_refs": [
+        "VISUAL-SPEC-004",
+        "VISUAL-SPEC-005"
+      ],
+      "design_system_refs": [
+        "DESIGN-SYSTEM-001"
+      ],
+      "page_refs": [
+        "SCREEN-007",
+        "SCREEN-008"
+      ],
+      "route_refs": [
+        "/pricing",
+        "/offerings/:offeringId"
+      ],
+      "component_refs": [
+        "PricingPreview",
+        "MarginAlert",
+        "ComponentPicker"
+      ],
+      "preview_required": true,
+      "visual_qa_required": true,
+      "design_system_compliance_required": true,
+      "acceptance_criteria": [
+        "Users can preview margin and publish valid bundles/recipes",
+        "Low-margin and invalid-component states are visible and accessible"
+      ],
+      "validation_steps": [
+        "Run UI tests",
+        "Run keyboard checks for component picker"
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 9
+    },
+    {
+      "ticket_id": "TICKET-010",
+      "slice_id": "SLICE-004",
+      "title": "Implement customer quote and generated output backend",
+      "ticket_type": "backend",
+      "priority": "critical",
+      "depends_on_tickets": [
+        "TICKET-008",
+        "TICKET-009"
+      ],
+      "primary_skill": "backend-development",
+      "recommended_skills": [
+        "backend-development",
+        "security-review",
+        "test-driven-development"
+      ],
+      "agent_required_skills": [
+        "backend-development",
+        "security-review",
+        "test-driven-development"
+      ],
+      "acceptance_criteria": [
+        "Quotes use customers, quote lines, approval states, price snapshots, generated output jobs, and signed share links",
+        "Share links can expire and be revoked"
+      ],
+      "validation_steps": [
+        "Run quote lifecycle API tests",
+        "Run share-link security tests"
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 10
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "slice_id": "SLICE-004",
+      "title": "Build quote builder UI",
+      "ticket_type": "frontend",
+      "priority": "critical",
+      "depends_on_tickets": [
+        "TICKET-009",
+        "TICKET-010"
+      ],
+      "primary_skill": "frontend-design",
+      "recommended_skills": [
+        "frontend-design",
+        "ux-enforcement",
+        "test-driven-development"
+      ],
+      "agent_required_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "ui_blueprint_refs": [
+        "UI-BLUEPRINT-006"
+      ],
+      "visual_spec_refs": [
+        "VISUAL-SPEC-006"
+      ],
+      "design_system_refs": [
+        "DESIGN-SYSTEM-001"
+      ],
+      "page_refs": [
+        "SCREEN-009",
+        "SCREEN-010",
+        "SCREEN-011"
+      ],
+      "route_refs": [
+        "/quotes",
+        "/quotes/:quoteId",
+        "/customers/:customerId"
+      ],
+      "component_refs": [
+        "QuoteLineTable",
+        "PricingPreview",
+        "ShareLinkPanel"
+      ],
+      "preview_required": true,
+      "visual_qa_required": true,
+      "design_system_compliance_required": true,
+      "acceptance_criteria": [
+        "Quote builder shows readiness, blockers, margin summary, generation progress, and sharing controls",
+        "Keyboard users can edit quote lines"
+      ],
+      "validation_steps": [
+        "Run quote builder component tests",
+        "Run accessibility checks",
+        "Capture visual QA evidence"
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 11
+    },
+    {
+      "ticket_id": "TICKET-012",
+      "slice_id": "SLICE-004",
+      "title": "Build status center and async recovery",
+      "ticket_type": "frontend",
+      "priority": "high",
+      "depends_on_tickets": [
+        "TICKET-002",
+        "TICKET-005",
+        "TICKET-010"
+      ],
+      "primary_skill": "frontend-design",
+      "recommended_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "agent_required_skills": [
+        "frontend-design",
+        "ux-enforcement"
+      ],
+      "ui_blueprint_refs": [
+        "UI-BLUEPRINT-007"
+      ],
+      "visual_spec_refs": [
+        "VISUAL-SPEC-007"
+      ],
+      "design_system_refs": [
+        "DESIGN-SYSTEM-001"
+      ],
+      "page_refs": [
+        "SCREEN-012"
+      ],
+      "route_refs": [
+        "/status"
+      ],
+      "component_refs": [
+        "JobProgressPanel",
+        "AsyncJobBanner",
+        "DataTable"
+      ],
+      "preview_required": true,
+      "visual_qa_required": true,
+      "design_system_compliance_required": true,
+      "acceptance_criteria": [
+        "Users can inspect failed jobs and retry eligible jobs",
+        "Job details never expose secrets"
+      ],
+      "validation_steps": [
+        "Run async recovery UI tests",
+        "Run accessibility checks for job drawer"
+      ],
+      "risk_level": "medium",
+      "stage_6_execution_queue_position": 12
+    },
+    {
+      "ticket_id": "TICKET-013",
+      "slice_id": "SLICE-005",
+      "title": "Implement launch-critical automated validation",
+      "ticket_type": "testing",
+      "priority": "critical",
+      "depends_on_tickets": [
+        "TICKET-006",
+        "TICKET-009",
+        "TICKET-011",
+        "TICKET-012"
+      ],
+      "primary_skill": "test-driven-development",
+      "recommended_skills": [
+        "test-driven-development",
+        "ux-enforcement",
+        "security-review"
+      ],
+      "agent_required_skills": [
+        "test-driven-development",
+        "ux-enforcement",
+        "security-review"
+      ],
+      "acceptance_criteria": [
+        "Launch-critical E2E, accessibility, security, and regression checks are automated or documented with required artifacts"
+      ],
+      "validation_steps": [
+        "Run full test suite",
+        "Run accessibility checks",
+        "Run security checks"
+      ],
+      "risk_level": "high",
+      "stage_6_execution_queue_position": 13
+    },
+    {
+      "ticket_id": "TICKET-014",
+      "slice_id": "SLICE-005",
+      "title": "Prepare MVP release candidate checklist",
+      "ticket_type": "documentation",
+      "priority": "high",
+      "depends_on_tickets": [
+        "TICKET-013"
+      ],
+      "primary_skill": "test-driven-development",
+      "recommended_skills": [
+        "test-driven-development",
+        "security-review",
+        "ux-enforcement"
+      ],
+      "agent_required_skills": [
+        "test-driven-development"
+      ],
+      "acceptance_criteria": [
+        "Release checklist includes gates, rollback, support notes, and known deferred work"
+      ],
+      "validation_steps": [
+        "Confirm all release gates are complete",
+        "Confirm expected artifacts are registered"
+      ],
+      "risk_level": "medium",
+      "stage_6_execution_queue_position": 14
+    }
+  ],
+  "coverage_note": "TICKET-001 through TICKET-003 use full ticket contract fields; TICKET-004 through TICKET-014 use compact ticket fields preserving required routing, dependencies, skills, acceptance criteria, validation, risk, and queue order.",
+  "unresolved_questions": [],
+  "stage_6_handoff_notes": [
+    "Stage 6 should expand compact ticket fields into full execution records before implementation if required by the executor."
+  ]
+}

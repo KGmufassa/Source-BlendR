@@ -1,0 +1,155 @@
+{
+  "stage": "Stage 5",
+  "status": "complete",
+  "command": "stage-5-development-orchestration",
+  "owning_skill": "testing-strategy-planning",
+  "schema_ref": "System-References/Schemas/stage-5-output.schema.json",
+  "related_stage_1_scope_or_features": [
+    "FEATURE-004",
+    "FEATURE-014",
+    "FEATURE-018",
+    "FEATURE-023"
+  ],
+  "related_stage_3_architecture_dependencies": [
+    "API-003",
+    "API-005",
+    "API-007",
+    "ARCH-RISK-013"
+  ],
+  "related_stage_4_ux_dependencies": [
+    "BEHAVIOR-002",
+    "BEHAVIOR-004",
+    "BEHAVIOR-006",
+    "A11Y-RISK-001"
+  ],
+  "testing_strategy": {
+    "strategy": "risk_based_test_pyramid_with_launch_critical_e2e",
+    "release_blocking_workflows": [
+      "Supplier setup",
+      "Import review and commit",
+      "Asset library search/edit",
+      "Pricing and margin preview",
+      "Bundle/recipe publish",
+      "Quote generation and sharing",
+      "Status center async recovery"
+    ]
+  },
+  "test_levels": [
+    {
+      "id": "TEST-LEVEL-001",
+      "name": "Unit tests",
+      "scope": [
+        "Pricing calculations",
+        "Margin policies",
+        "Import validation",
+        "Permission guards",
+        "State transition helpers"
+      ]
+    },
+    {
+      "id": "TEST-LEVEL-002",
+      "name": "API and integration tests",
+      "scope": [
+        "Workspace-scoped API access",
+        "Import batch lifecycle",
+        "Asset commit",
+        "Price snapshot creation",
+        "Quote lifecycle",
+        "Share link expiration/revocation"
+      ]
+    },
+    {
+      "id": "TEST-LEVEL-003",
+      "name": "Frontend component and interaction tests",
+      "scope": [
+        "Import wizard",
+        "Data tables",
+        "Pricing preview",
+        "Bundle builder",
+        "Quote line table",
+        "Status center"
+      ]
+    },
+    {
+      "id": "TEST-LEVEL-004",
+      "name": "End-to-end tests",
+      "scope": [
+        "Create supplier to committed asset",
+        "Committed asset to priced bundle",
+        "Priced bundle to generated quote",
+        "Failed async job to retry recovery"
+      ]
+    },
+    {
+      "id": "TEST-LEVEL-005",
+      "name": "Accessibility and visual QA",
+      "scope": [
+        "Keyboard import mapping",
+        "Keyboard quote line editing",
+        "Screen-reader status badges",
+        "Contrast for alerts",
+        "Responsive split-view collapse"
+      ]
+    },
+    {
+      "id": "TEST-LEVEL-006",
+      "name": "Security checks",
+      "scope": [
+        "Workspace isolation",
+        "RBAC action restrictions",
+        "Signed share link access",
+        "No secrets in job logs"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Every launch-critical ticket includes ticket-level validation steps.",
+    "Every frontend ticket includes accessibility and responsive acceptance criteria.",
+    "Every backend ticket includes authorization and error-state validation where applicable.",
+    "Release cannot proceed if import, pricing, quote, or RBAC E2E tests fail."
+  ],
+  "regression_strategy": {
+    "smoke_suite": [
+      "Workspace login",
+      "Supplier create",
+      "Import commit",
+      "Price preview",
+      "Bundle publish",
+      "Quote generate"
+    ],
+    "visual_regression_targets": [
+      "Dashboard",
+      "Import Review Wizard",
+      "Asset Library",
+      "Pricing Workspace",
+      "Bundle Builder",
+      "Quote Builder",
+      "Status Center"
+    ],
+    "accessibility_regression_targets": [
+      "Import Review Wizard",
+      "Quote Builder",
+      "Data tables",
+      "Modals and drawers"
+    ]
+  },
+  "testing_risks": [
+    {
+      "id": "EXEC-RISK-004",
+      "risk": "Accessibility for table/grid-heavy workflows may be missed if tested late.",
+      "severity": "high",
+      "mitigation": "Require accessibility checks in each frontend ticket acceptance criteria."
+    }
+  ],
+  "release_test_gates": [
+    "GATE-001: unit and API tests pass",
+    "GATE-002: launch-critical E2E suite passes",
+    "GATE-003: accessibility checks pass for critical workflows",
+    "GATE-004: visual acceptance criteria reviewed",
+    "GATE-005: security checks pass for RBAC and sharing"
+  ],
+  "unresolved_questions": [],
+  "stage_6_handoff_notes": [
+    "Stage 6 validation should record expected artifacts for test reports, preview evidence, visual QA, and accessibility checks."
+  ]
+}

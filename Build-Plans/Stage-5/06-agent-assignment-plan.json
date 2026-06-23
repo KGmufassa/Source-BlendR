@@ -1,0 +1,324 @@
+{
+  "stage": "Stage 5",
+  "command": "stage-5-development-orchestration",
+  "artifact": "06-agent-assignment-plan",
+  "status": "complete",
+  "owning_skill": "stage-5-development-orchestration",
+  "schema_ref": "System-References/Schemas/stage-5-output.schema.json",
+  "available_agents": {
+    "existing_agents_found": false,
+    "generated_agent_directory": ".opencode/agents",
+    "generation_reason": "No implementation agent profiles existed for the Stage 6 handoff, so Stage 5 generated scoped agent profiles from the ticket queue, skill registry, Stage 4 frontend contracts, and engineering dependency graph."
+  },
+  "generated_agents": [
+    {
+      "id": "AGENT-BACKEND-001",
+      "name": "backend-implementation-agent",
+      "file": ".opencode/agents/backend-implementation-agent.md",
+      "mode": "subagent",
+      "model": "GPT 5.5",
+      "temperature": 0.1,
+      "permissions": {
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "primary_ticket_ids": [
+        "TICKET-001",
+        "TICKET-002",
+        "TICKET-004",
+        "TICKET-005",
+        "TICKET-008",
+        "TICKET-010"
+      ],
+      "matched_skills": [
+        "backend-development",
+        "test-driven-development",
+        "security-review"
+      ],
+      "allowed_scope": [
+        "backend services",
+        "API routes",
+        "persistence models",
+        "queue workers",
+        "audit logging",
+        "backend tests",
+        "security-sensitive configuration"
+      ],
+      "required_validation": [
+        "unit tests",
+        "API integration tests",
+        "authorization tests",
+        "queue idempotency tests",
+        "audit-log coverage"
+      ],
+      "suitability_score": 0.91
+    },
+    {
+      "id": "AGENT-FRONTEND-001",
+      "name": "frontend-implementation-agent",
+      "file": ".opencode/agents/frontend-implementation-agent.md",
+      "mode": "subagent",
+      "model": "GPT 5.5",
+      "temperature": 0.1,
+      "permissions": {
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "primary_ticket_ids": [
+        "TICKET-003",
+        "TICKET-006",
+        "TICKET-007",
+        "TICKET-009",
+        "TICKET-011",
+        "TICKET-012"
+      ],
+      "matched_skills": [
+        "frontend-design",
+        "ux-enforcement",
+        "test-driven-development"
+      ],
+      "required_stage_4_refs": [
+        "UI-BLUEPRINT-001",
+        "UI-BLUEPRINT-002",
+        "UI-BLUEPRINT-003",
+        "UI-BLUEPRINT-004",
+        "UI-BLUEPRINT-005",
+        "UI-BLUEPRINT-006",
+        "UI-BLUEPRINT-007",
+        "VISUAL-SPEC-001",
+        "VISUAL-SPEC-002",
+        "VISUAL-SPEC-003",
+        "VISUAL-SPEC-004",
+        "VISUAL-SPEC-005",
+        "VISUAL-SPEC-006",
+        "VISUAL-SPEC-007",
+        "DESIGN-SYSTEM-001"
+      ],
+      "required_validation": [
+        "component interaction tests",
+        "responsive preview evidence",
+        "visual QA screenshots",
+        "accessibility checks",
+        "design-system compliance checks"
+      ],
+      "suitability_score": 0.94
+    },
+    {
+      "id": "AGENT-QA-001",
+      "name": "qa-validation-agent",
+      "file": ".opencode/agents/qa-validation-agent.md",
+      "mode": "subagent",
+      "model": "GPT 5.5",
+      "temperature": 0.1,
+      "permissions": {
+        "edit": "allow",
+        "bash": "allow"
+      },
+      "primary_ticket_ids": [
+        "TICKET-013",
+        "TICKET-014"
+      ],
+      "matched_skills": [
+        "test-driven-development",
+        "ux-enforcement",
+        "security-review"
+      ],
+      "required_validation": [
+        "release-blocking E2E coverage",
+        "regression suite execution",
+        "accessibility evidence review",
+        "security evidence review",
+        "release checklist completion"
+      ],
+      "suitability_score": 0.9
+    },
+    {
+      "id": "AGENT-SECURITY-001",
+      "name": "security-review-agent",
+      "file": ".opencode/agents/security-review-agent.md",
+      "mode": "subagent",
+      "model": "GPT 5.5",
+      "temperature": 0.1,
+      "permissions": {
+        "edit": "deny",
+        "bash": "deny"
+      },
+      "review_ticket_ids": [
+        "TICKET-001",
+        "TICKET-008",
+        "TICKET-010",
+        "TICKET-013"
+      ],
+      "matched_skills": [
+        "security-review"
+      ],
+      "required_validation": [
+        "auth and RBAC review",
+        "supplier credential handling review",
+        "quote sharing access review",
+        "security regression evidence review"
+      ],
+      "suitability_score": 0.88
+    },
+    {
+      "id": "AGENT-COORDINATION-001",
+      "name": "orchestration-coordinator-agent",
+      "file": ".opencode/agents/orchestration-coordinator-agent.md",
+      "mode": "subagent",
+      "model": "GPT 5.5",
+      "temperature": 0.1,
+      "permissions": {
+        "edit": "deny",
+        "bash": "deny"
+      },
+      "coordination_ticket_ids": [
+        "TICKET-001",
+        "TICKET-002",
+        "TICKET-003",
+        "TICKET-004",
+        "TICKET-005",
+        "TICKET-006",
+        "TICKET-007",
+        "TICKET-008",
+        "TICKET-009",
+        "TICKET-010",
+        "TICKET-011",
+        "TICKET-012",
+        "TICKET-013",
+        "TICKET-014"
+      ],
+      "matched_skills": [
+        "git-worktree-orchestrator",
+        "worktree-merge-manager",
+        "commit-summary"
+      ],
+      "required_validation": [
+        "dependency gate tracking",
+        "merge readiness tracking",
+        "commit summary preparation",
+        "Stage 6 handoff consistency review"
+      ],
+      "suitability_score": 0.84
+    }
+  ],
+  "ticket_assignments": [
+    {
+      "ticket_id": "TICKET-001",
+      "primary_agent_id": "AGENT-BACKEND-001",
+      "supporting_agent_ids": [
+        "AGENT-SECURITY-001",
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-002",
+      "primary_agent_id": "AGENT-BACKEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-003",
+      "primary_agent_id": "AGENT-FRONTEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-004",
+      "primary_agent_id": "AGENT-BACKEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-005",
+      "primary_agent_id": "AGENT-BACKEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-006",
+      "primary_agent_id": "AGENT-FRONTEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-007",
+      "primary_agent_id": "AGENT-FRONTEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-008",
+      "primary_agent_id": "AGENT-BACKEND-001",
+      "supporting_agent_ids": [
+        "AGENT-SECURITY-001",
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "primary_agent_id": "AGENT-FRONTEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-010",
+      "primary_agent_id": "AGENT-BACKEND-001",
+      "supporting_agent_ids": [
+        "AGENT-SECURITY-001",
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "primary_agent_id": "AGENT-FRONTEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-012",
+      "primary_agent_id": "AGENT-FRONTEND-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-013",
+      "primary_agent_id": "AGENT-QA-001",
+      "supporting_agent_ids": [
+        "AGENT-SECURITY-001",
+        "AGENT-COORDINATION-001"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-014",
+      "primary_agent_id": "AGENT-QA-001",
+      "supporting_agent_ids": [
+        "AGENT-COORDINATION-001"
+      ]
+    }
+  ],
+  "unassigned_tickets": [],
+  "assignment_risks": [
+    {
+      "id": "AGENT-RISK-001",
+      "risk": "TICKET-004 through TICKET-014 are represented as compact ticket records rather than full expanded contracts.",
+      "impact": "Stage 6 implementers must expand execution records before coding to avoid ambiguity in acceptance criteria, touched files, and validation commands.",
+      "mitigation": "Require each Stage 6 ticket branch to begin with a ticket execution note that expands fields from the compact ticket matrix."
+    },
+    {
+      "id": "AGENT-RISK-002",
+      "risk": "Generated agents use inferred model and permission defaults.",
+      "impact": "Permissions may need adjustment if Stage 6 uses a stricter local execution policy.",
+      "mitigation": "Coordinator verifies agent frontmatter before delegating implementation work."
+    }
+  ],
+  "completion_status": "ready_for_stage_6"
+}

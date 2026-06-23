@@ -1,0 +1,256 @@
+{
+  "stage": "Stage 5",
+  "command": "stage-5-development-orchestration",
+  "artifact": "07-parallel-execution-plan",
+  "status": "complete",
+  "owning_skill": "stage-5-development-orchestration",
+  "schema_ref": "System-References/Schemas/stage-5-output.schema.json",
+  "execution_strategy": "dependency_gated_parallelism",
+  "parallel_batches": [
+    {
+      "id": "BATCH-001",
+      "name": "Foundation Kickoff",
+      "mode": "parallel",
+      "entry_condition": "Stage 5 audit passed and Stage 6 branch or worktree strategy selected.",
+      "ticket_ids": [
+        "TICKET-001",
+        "TICKET-003"
+      ],
+      "agent_ids": [
+        "AGENT-BACKEND-001",
+        "AGENT-FRONTEND-001"
+      ],
+      "merge_condition": "Auth/RBAC contract and workspace shell route contract are stable enough for downstream backend and frontend work.",
+      "validation_gate": "CHECKPOINT-001"
+    },
+    {
+      "id": "BATCH-002",
+      "name": "Persistence And Job Infrastructure",
+      "mode": "serial",
+      "entry_condition": "TICKET-001 interface contracts are merged.",
+      "ticket_ids": [
+        "TICKET-002"
+      ],
+      "agent_ids": [
+        "AGENT-BACKEND-001"
+      ],
+      "merge_condition": "Database, storage, queue, audit, and idempotency scaffolds have automated test coverage.",
+      "validation_gate": "CHECKPOINT-001"
+    },
+    {
+      "id": "BATCH-003",
+      "name": "Supplier And Import Backend",
+      "mode": "serial",
+      "entry_condition": "TICKET-001 and TICKET-002 are merged.",
+      "ticket_ids": [
+        "TICKET-004",
+        "TICKET-005"
+      ],
+      "agent_ids": [
+        "AGENT-BACKEND-001"
+      ],
+      "merge_condition": "Supplier profiles, source adapters, import batches, review diffs, commit flow, and retry behavior are validated.",
+      "validation_gate": "CHECKPOINT-002"
+    },
+    {
+      "id": "BATCH-004",
+      "name": "Import UI, Asset Library, And Pricing Backend",
+      "mode": "parallel",
+      "entry_condition": "TICKET-005 import commit contracts are merged.",
+      "ticket_ids": [
+        "TICKET-006",
+        "TICKET-007",
+        "TICKET-008"
+      ],
+      "agent_ids": [
+        "AGENT-FRONTEND-001",
+        "AGENT-BACKEND-001"
+      ],
+      "merge_condition": "Import review wizard, asset library, pricing rules, cost breakdowns, margin calculations, and immutable snapshots are validated.",
+      "validation_gate": "CHECKPOINT-003"
+    },
+    {
+      "id": "BATCH-005",
+      "name": "Commercial Workspace",
+      "mode": "serial",
+      "entry_condition": "TICKET-007 and TICKET-008 are merged.",
+      "ticket_ids": [
+        "TICKET-009"
+      ],
+      "agent_ids": [
+        "AGENT-FRONTEND-001"
+      ],
+      "merge_condition": "Pricing workspace, bundle builder, and recipe UI preserve Stage 4 interaction and visual contracts.",
+      "validation_gate": "CHECKPOINT-003"
+    },
+    {
+      "id": "BATCH-006",
+      "name": "Quote Output And Operations Status",
+      "mode": "dependency_split",
+      "entry_condition": "TICKET-008 and TICKET-009 are merged.",
+      "ticket_ids": [
+        "TICKET-010",
+        "TICKET-011",
+        "TICKET-012"
+      ],
+      "agent_ids": [
+        "AGENT-BACKEND-001",
+        "AGENT-FRONTEND-001"
+      ],
+      "internal_order": [
+        "TICKET-010",
+        "TICKET-011",
+        "TICKET-012"
+      ],
+      "parallel_note": "TICKET-012 may start after quote job and async status contracts from TICKET-010 are stable; TICKET-011 waits for quote create/update/share APIs.",
+      "merge_condition": "Quote builder, generated quote outputs, share tokens, status center, and recovery actions are validated.",
+      "validation_gate": "CHECKPOINT-004"
+    },
+    {
+      "id": "BATCH-007",
+      "name": "Release Validation",
+      "mode": "serial",
+      "entry_condition": "TICKET-006, TICKET-009, TICKET-011, and TICKET-012 are merged.",
+      "ticket_ids": [
+        "TICKET-013",
+        "TICKET-014"
+      ],
+      "agent_ids": [
+        "AGENT-QA-001",
+        "AGENT-SECURITY-001",
+        "AGENT-COORDINATION-001"
+      ],
+      "merge_condition": "Launch-critical regression, accessibility, visual QA, security evidence, and release checklist are complete.",
+      "validation_gate": "CHECKPOINT-005"
+    }
+  ],
+  "file_ownership_boundaries": [
+    {
+      "owner_agent_id": "AGENT-BACKEND-001",
+      "paths": [
+        "server/**",
+        "api/**",
+        "database/**",
+        "workers/**",
+        "tests/backend/**",
+        "tests/integration/**"
+      ],
+      "coordination_required_for": [
+        "shared route contracts",
+        "frontend API clients",
+        "generated output schemas"
+      ]
+    },
+    {
+      "owner_agent_id": "AGENT-FRONTEND-001",
+      "paths": [
+        "app/**",
+        "src/**",
+        "components/**",
+        "styles/**",
+        "tests/frontend/**",
+        "tests/e2e/**"
+      ],
+      "coordination_required_for": [
+        "API response contracts",
+        "route inventory",
+        "visual QA evidence"
+      ]
+    },
+    {
+      "owner_agent_id": "AGENT-QA-001",
+      "paths": [
+        "tests/**",
+        "docs/release/**",
+        "Build-Plans/Build-status/**"
+      ],
+      "coordination_required_for": [
+        "release gate evidence",
+        "Stage 6 readiness audit"
+      ]
+    }
+  ],
+  "shared_contracts": [
+    "workspace auth and RBAC contract",
+    "supplier and source adapter contract",
+    "import batch state machine contract",
+    "asset library search/filter contract",
+    "pricing snapshot contract",
+    "quote generation and share token contract",
+    "async job status and retry contract",
+    "Stage 4 design-system and visual acceptance contracts"
+  ],
+  "workspace_plan": {
+    "recommended_strategy": "use one branch per batch or one worktree per implementation agent",
+    "candidate_worktrees": [
+      "worktrees/backend-agent",
+      "worktrees/frontend-agent",
+      "worktrees/qa-agent"
+    ],
+    "coordination_skill": "git-worktree-orchestrator",
+    "merge_skill": "worktree-merge-manager",
+    "merge_order": [
+      "BATCH-001",
+      "BATCH-002",
+      "BATCH-003",
+      "BATCH-004",
+      "BATCH-005",
+      "BATCH-006",
+      "BATCH-007"
+    ]
+  },
+  "validation_gates": [
+    {
+      "id": "CHECKPOINT-001",
+      "required_before_next_batch": true,
+      "evidence_ids": [
+        "ARTIFACT-STAGE6-AUTH-TESTS",
+        "ARTIFACT-STAGE6-INFRA-TESTS",
+        "ARTIFACT-STAGE6-SHELL-PREVIEW"
+      ]
+    },
+    {
+      "id": "CHECKPOINT-002",
+      "required_before_next_batch": true,
+      "evidence_ids": [
+        "ARTIFACT-STAGE6-IMPORT-API-TESTS"
+      ]
+    },
+    {
+      "id": "CHECKPOINT-003",
+      "required_before_next_batch": true,
+      "evidence_ids": [
+        "ARTIFACT-STAGE6-IMPORT-VISUAL-QA",
+        "ARTIFACT-STAGE6-PRICING-TESTS"
+      ]
+    },
+    {
+      "id": "CHECKPOINT-004",
+      "required_before_next_batch": true,
+      "evidence_ids": [
+        "ARTIFACT-STAGE6-QUOTE-VISUAL-QA",
+        "ARTIFACT-STAGE6-QUOTE-API-TESTS"
+      ]
+    },
+    {
+      "id": "CHECKPOINT-005",
+      "required_before_stage_7": true,
+      "evidence_ids": [
+        "ARTIFACT-STAGE6-RELEASE-REGRESSION"
+      ]
+    }
+  ],
+  "execution_risks": [
+    {
+      "id": "EXEC-RISK-005",
+      "risk": "Parallel frontend work can drift from backend response contracts.",
+      "mitigation": "Freeze lightweight OpenAPI or typed API client contracts at each checkpoint before parallel implementation continues."
+    },
+    {
+      "id": "EXEC-RISK-006",
+      "risk": "Visual QA evidence can be deferred until too late in the release cycle.",
+      "mitigation": "Require screenshots and responsive checks at every frontend ticket merge, not only during TICKET-013."
+    }
+  ],
+  "completion_status": "ready_for_stage_6"
+}

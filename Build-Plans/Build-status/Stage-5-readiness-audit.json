@@ -1,0 +1,129 @@
+{
+  "stage": "Stage 5",
+  "command": "global-stage-readiness-audit",
+  "audit_status": "passed_with_warnings",
+  "global_workflow_contract": "System-References/Docs/Global-Stage-Workflow-Contract.md",
+  "required_files_present": true,
+  "schemas_valid": true,
+  "completion_status_present": true,
+  "global_status_mapped": true,
+  "handoff_present": true,
+  "handoff_usable": true,
+  "risks_recorded": true,
+  "assumptions_recorded": true,
+  "traceability_present": true,
+  "artifacts_recorded": true,
+  "stage_contract_profile": {
+    "profile_id": "stage-5-development-orchestration",
+    "profile_requirements_checked": true,
+    "missing_profile_requirements": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-5-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-5/01-development-roadmap.json",
+      "Build-Plans/Stage-5/02-implementation-sequence.json",
+      "Build-Plans/Stage-5/03-engineering-dependencies.json",
+      "Build-Plans/Stage-5/04-testing-strategy.json",
+      "Build-Plans/Stage-5/05-build-tickets.json",
+      "Build-Plans/Stage-5/06-agent-assignment-plan.json",
+      "Build-Plans/Stage-5/07-parallel-execution-plan.json",
+      "Build-Plans/Stage-5/08-release-plan.json",
+      "Build-Plans/Build-status/Development-state.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-06-19",
+    "validator": "global-stage-readiness-audit",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "TICKET-001",
+      "TICKET-002",
+      "TICKET-003",
+      "TICKET-004",
+      "TICKET-005",
+      "TICKET-006",
+      "TICKET-007",
+      "TICKET-008",
+      "TICKET-009",
+      "TICKET-010",
+      "TICKET-011",
+      "TICKET-012",
+      "TICKET-013",
+      "TICKET-014",
+      "AGENT-BACKEND-001",
+      "AGENT-FRONTEND-001",
+      "AGENT-QA-001",
+      "AGENT-SECURITY-001",
+      "AGENT-COORDINATION-001",
+      "BATCH-001",
+      "BATCH-002",
+      "BATCH-003",
+      "BATCH-004",
+      "BATCH-005",
+      "BATCH-006",
+      "BATCH-007"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "artifact_evidence_registry": {
+    "registry_path": "Build-Plans/Build-status/Artifact-evidence-registry.json",
+    "required": false,
+    "required_artifacts_present": true,
+    "missing_artifacts": []
+  },
+  "agent_generation": {
+    "agent_directory": ".opencode/agents",
+    "agent_files_present": true,
+    "agent_frontmatter_present": true,
+    "generated_agent_files": [
+      ".opencode/agents/backend-implementation-agent.md",
+      ".opencode/agents/frontend-implementation-agent.md",
+      ".opencode/agents/qa-validation-agent.md",
+      ".opencode/agents/security-review-agent.md",
+      ".opencode/agents/orchestration-coordinator-agent.md"
+    ]
+  },
+  "visual_design_continuity": {
+    "required": true,
+    "ui_blueprint_refs_present": true,
+    "visual_spec_refs_present": true,
+    "design_system_refs_present": true,
+    "visual_acceptance_criteria_mapped": true,
+    "preview_or_visual_qa_evidence_present": false,
+    "design_system_compliance_recorded": true,
+    "visual_drift_status_recorded": false,
+    "blocking_visual_gaps": []
+  },
+  "blocking_gaps": [],
+  "warnings": [
+    {
+      "id": "WARNING-001",
+      "warning": "TICKET-004 through TICKET-014 use compact ticket records and should be expanded into full execution records before Stage 6 implementation begins."
+    },
+    {
+      "id": "WARNING-002",
+      "warning": "Generated agent profiles use inferred GPT 5.5 model and permission settings; verify local agent runtime support before delegation."
+    },
+    {
+      "id": "WARNING-003",
+      "warning": "Visual approval remains assumed from Stage 4 until implementation preview and visual QA evidence is produced."
+    }
+  ],
+  "next_actions": [
+    "Run Stage 6 implementation and validation using the Stage 5 ticket queue, agent assignment plan, and dependency-gated parallel execution plan.",
+    "Expand compact ticket records into full execution records before implementation starts for TICKET-004 through TICKET-014.",
+    "Capture expected Stage 6 artifacts in the evidence registry as tickets are implemented."
+  ],
+  "ready_for_next_stage": true
+}

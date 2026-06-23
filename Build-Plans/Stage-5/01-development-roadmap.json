@@ -1,0 +1,169 @@
+{
+  "stage": "Stage 5",
+  "status": "complete",
+  "command": "stage-5-development-orchestration",
+  "owning_skill": "development-roadmap-planning",
+  "schema_ref": "System-References/Schemas/stage-5-output.schema.json",
+  "related_stage_1_scope_or_features": [
+    "MVP-001",
+    "FEATURE-001",
+    "FEATURE-004",
+    "FEATURE-007",
+    "FEATURE-014",
+    "FEATURE-016",
+    "FEATURE-017",
+    "FEATURE-018",
+    "FEATURE-019",
+    "FEATURE-023"
+  ],
+  "related_stage_3_architecture_dependencies": [
+    "SERVICE-001",
+    "SERVICE-003",
+    "SERVICE-004",
+    "SERVICE-005",
+    "SERVICE-006",
+    "SERVICE-007",
+    "INFRA-003",
+    "INFRA-004",
+    "INFRA-005",
+    "ADR-001",
+    "ADR-015"
+  ],
+  "related_stage_4_ux_dependencies": [
+    "JOURNEY-001",
+    "JOURNEY-002",
+    "JOURNEY-003",
+    "JOURNEY-004",
+    "JOURNEY-005",
+    "JOURNEY-006",
+    "UI-BLUEPRINT-001",
+    "UI-BLUEPRINT-002",
+    "UI-BLUEPRINT-003",
+    "UI-BLUEPRINT-004",
+    "UI-BLUEPRINT-005",
+    "UI-BLUEPRINT-006",
+    "DESIGN-SYSTEM-001"
+  ],
+  "development_roadmap": {
+    "roadmap_strategy": "foundation_first_then_vertical_workflow_slices",
+    "mvp_launch_boundary": "Workspace auth, supplier setup, file/manual import, asset library, pricing and margin preview, bundle/recipe builder, quote generation, status center, and shared UX/design system foundations.",
+    "deferred_scope": [
+      "Supplier portal automation",
+      "AI assistants",
+      "Customer portals",
+      "Analytics dashboards",
+      "Ecommerce/CRM/accounting integrations",
+      "Enterprise SSO and advanced governance",
+      "Marketplace/procurement workflows"
+    ]
+  },
+  "workstreams": [
+    {
+      "id": "WORKSTREAM-001",
+      "name": "Platform Foundation",
+      "focus": "Workspace, RBAC, database, object storage, queue, audit, and route shell."
+    },
+    {
+      "id": "WORKSTREAM-002",
+      "name": "Supplier And Asset Intake",
+      "focus": "Supplier records, import batches, field mapping, import review, and asset library."
+    },
+    {
+      "id": "WORKSTREAM-003",
+      "name": "Commercial Logic",
+      "focus": "Cost components, pricing rules, margin policies, bundles, recipes, and price snapshots."
+    },
+    {
+      "id": "WORKSTREAM-004",
+      "name": "Customer Output",
+      "focus": "Customers, quotes, quote lines, approvals, generated output jobs, and share links."
+    },
+    {
+      "id": "WORKSTREAM-005",
+      "name": "Frontend Experience",
+      "focus": "Workspace shell, shared components, UI blueprints, design system, responsive behavior, and accessibility."
+    },
+    {
+      "id": "WORKSTREAM-006",
+      "name": "Validation And Release",
+      "focus": "Automated tests, accessibility checks, security checks, regression flow, release gates, and operational readiness."
+    }
+  ],
+  "milestones": [
+    {
+      "id": "MILESTONE-001",
+      "name": "Foundation Ready",
+      "readiness_criteria": [
+        "Workspace auth and RBAC exist",
+        "Database, object storage, and queue scaffolds exist",
+        "Workspace shell and design tokens are implemented",
+        "Authorization tests cover workspace isolation"
+      ]
+    },
+    {
+      "id": "MILESTONE-002",
+      "name": "Supplier Intake Ready",
+      "readiness_criteria": [
+        "Supplier CRUD works",
+        "Import wizard supports upload, mapping, validation, and commit",
+        "Asset library shows committed products/services",
+        "Import error recovery is testable"
+      ]
+    },
+    {
+      "id": "MILESTONE-003",
+      "name": "Commercial Workflow Ready",
+      "readiness_criteria": [
+        "Cost and pricing previews work",
+        "Margin alerts and approval states work",
+        "Bundles and recipes aggregate component cost",
+        "Invalid components block publish"
+      ]
+    },
+    {
+      "id": "MILESTONE-004",
+      "name": "Quote MVP Ready",
+      "readiness_criteria": [
+        "Quotes use customers and price snapshots",
+        "Quote generation job produces output metadata",
+        "Share links are expiring and revocable",
+        "Status center shows async failures"
+      ]
+    },
+    {
+      "id": "MILESTONE-005",
+      "name": "Release Candidate",
+      "readiness_criteria": [
+        "Launch-critical E2E flow passes",
+        "Accessibility checks pass for import, tables, builders, and quotes",
+        "Security checks pass for RBAC and sharing",
+        "Release checklist is complete"
+      ]
+    }
+  ],
+  "deferred_work": [
+    "Named supplier connectors",
+    "AI enrichment and AI search",
+    "Customer portal",
+    "Advanced analytics",
+    "Public external API"
+  ],
+  "roadmap_risks": [
+    {
+      "id": "EXEC-RISK-001",
+      "risk": "The MVP has several dependent workflows and could exceed a single release if every screen is built to full depth.",
+      "severity": "high",
+      "mitigation": "Build vertical slices with clear milestone gates and keep noncritical variants deferred."
+    }
+  ],
+  "execution_decisions": [
+    {
+      "id": "EXEC-DECISION-001",
+      "decision": "Build by dependency-aware vertical slices after foundation."
+    }
+  ],
+  "unresolved_questions": [],
+  "stage_6_handoff_notes": [
+    "Stage 6 should start with foundation tickets and validate workspace isolation before feature workflows."
+  ]
+}
