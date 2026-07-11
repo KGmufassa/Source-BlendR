@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stage-6-output.schema.json",
+  "title": "Stage 6 Output",
+  "allOf": [{ "$ref": "stage-output-common.schema.json" }],
+  "properties": {
+    "visual_reference_validation_results": { "type": "array", "default": [] },
+    "visual_reference_compliance": { "type": "object", "default": {} },
+    "visual_drift_source": { "type": "string", "default": "" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stage-4-output.schema.json",
+  "title": "Stage 4 Output",
+  "allOf": [{ "$ref": "stage-output-common.schema.json" }],
+  "properties": {
+    "visual_reference_selection": {
+      "type": "object",
+      "properties": {
+        "primary_reference": { "type": "object" },
+        "secondary_references": { "type": "array", "default": [] },
+        "rejected_references": { "type": "array", "default": [] }
+      },
+      "additionalProperties": true
+    },
+    "visual_reference_refs": { "type": "array", "default": [] },
+    "design_system_alignment": {
+      "type": "object",
+      "properties": {
+        "aligned": { "type": "boolean", "default": false },
+        "alignment_notes": { "type": "array", "default": [] },
+        "intentional_deviations": { "type": "array", "default": [] }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

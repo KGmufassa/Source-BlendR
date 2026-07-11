@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stage-5-output.schema.json",
+  "title": "Stage 5 Output",
+  "allOf": [{ "$ref": "stage-output-common.schema.json" }],
+  "properties": {
+    "visual_reference_inputs": { "type": "object", "default": {} },
+    "visual_reference_refs": { "type": "array", "default": [] },
+    "ticket_visual_reference_assignments": { "type": "array", "default": [] },
+    "visual_reference_handoff_packages": { "type": "array", "default": [] }
+  },
+  "additionalProperties": true
+}
