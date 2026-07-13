@@ -1,0 +1,393 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "primary_users": [
+    {
+      "user_id": "USER-001",
+      "role": "Workspace Owner / Catalog Manager",
+      "description": "Primary operator who owns the workspace, configures vendors, runs imports, reviews Discovery Sessions, curates the catalog, and controls what enters inventory.",
+      "motivations": [
+        "Unify vendor product and service data into one owned catalog",
+        "Stop manual copy/paste between vendor pages and internal systems",
+        "Control what enters inventory with review before import",
+        "Use AI without being locked to a single provider"
+      ],
+      "success_criteria": [
+        "Can import from website, PDF, and manual entry with one workflow",
+        "Can curate and edit catalog items fully after import",
+        "Can produce flyers and quotes from owned catalog data",
+        "Can switch AI providers without losing catalog data"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-003",
+        "WORKFLOW-007"
+      ]
+    }
+  ],
+  "secondary_users": [
+    {
+      "user_id": "USER-002",
+      "role": "Team Member (future)",
+      "description": "Future user invited to a workspace to collaborate on catalog, discovery, and outputs once team support ships.",
+      "motivations": [
+        "Collaborate on catalog curation",
+        "Run their own discovery sessions"
+      ],
+      "success_criteria": [
+        "Can work within an invited workspace",
+        "Actions are attributable"
+      ],
+      "workflow_ids": []
+    },
+    {
+      "user_id": "USER-003",
+      "role": "AI Provider Administrator (workspace-level)",
+      "description": "Configures workspace-level AI settings (API keys, provider selection, capability routing) and monitors provider health.",
+      "motivations": [
+        "Connect one or more AI providers",
+        "Route AI capabilities to the best or cheapest provider",
+        "Keep provider configuration isolated from business logic"
+      ],
+      "success_criteria": [
+        "Can register and swap providers via adapter configuration",
+        "Can route capabilities (catalogExtraction, semanticSearch, etc.) without code changes",
+        "Can run the platform with zero providers configured"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ]
+    }
+  ],
+  "user_goals": [
+    {
+      "goal_id": "GOAL-001",
+      "user_id": "USER-001",
+      "goal": "Aggregate vendor products and services into one curated catalog",
+      "priority": "must",
+      "feature_ids": [
+        "FEATURE-001",
+        "FEATURE-002",
+        "FEATURE-003",
+        "FEATURE-005"
+      ]
+    },
+    {
+      "goal_id": "GOAL-002",
+      "user_id": "USER-001",
+      "goal": "Review imported candidates before they become catalog items",
+      "priority": "must",
+      "feature_ids": [
+        "FEATURE-004"
+      ]
+    },
+    {
+      "goal_id": "GOAL-003",
+      "user_id": "USER-001",
+      "goal": "Produce business outputs (flyers and quotes) from owned catalog data",
+      "priority": "should",
+      "feature_ids": [
+        "FEATURE-008",
+        "FEATURE-009"
+      ]
+    },
+    {
+      "goal_id": "GOAL-004",
+      "user_id": "USER-001",
+      "goal": "Track vendor and document changes across imports over time",
+      "priority": "should",
+      "feature_ids": [
+        "FEATURE-011",
+        "FEATURE-012"
+      ]
+    },
+    {
+      "goal_id": "GOAL-005",
+      "user_id": "USER-001",
+      "goal": "Use any AI provider interchangeably for enrichment and extraction",
+      "priority": "must",
+      "feature_ids": [
+        "FEATURE-010"
+      ]
+    },
+    {
+      "goal_id": "GOAL-006",
+      "user_id": "USER-003",
+      "goal": "Configure AI provider adapters and capability routing at workspace level",
+      "priority": "must",
+      "feature_ids": [
+        "FEATURE-010"
+      ]
+    }
+  ],
+  "user_needs": [
+    {
+      "need_id": "NEED-001",
+      "user_id": "USER-001",
+      "need": "Fast, searchable, keyboard-friendly catalog browsing",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#User Experience"
+      ]
+    },
+    {
+      "need_id": "NEED-002",
+      "user_id": "USER-001",
+      "need": "Bulk actions for discovery and catalog editing",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#User Experience"
+      ]
+    },
+    {
+      "need_id": "NEED-003",
+      "user_id": "USER-001",
+      "need": "Responsive UI that does not block during long scraping or AI jobs",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Technical Decisions (Locked)"
+      ]
+    },
+    {
+      "need_id": "NEED-004",
+      "user_id": "USER-001",
+      "need": "Manual entry that is as capable as automated import",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Core Product Principles"
+      ]
+    },
+    {
+      "need_id": "NEED-005",
+      "user_id": "USER-001",
+      "need": "Transparent vendor change history (price, description, new/removed items)",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Vendor Memory"
+      ]
+    },
+    {
+      "need_id": "NEED-006",
+      "user_id": "USER-003",
+      "need": "Provider health and failover controls",
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#Future Expansion"
+      ]
+    }
+  ],
+  "user_system_relationships": [
+    {
+      "relationship_id": "REL-001",
+      "user_id": "USER-001",
+      "system_component": "Discovery Sessions",
+      "relationship": "Reviews candidate items, edits before import, ignores or archives candidates",
+      "workflow_ids": [
+        "WORKFLOW-003"
+      ]
+    },
+    {
+      "relationship_id": "REL-002",
+      "user_id": "USER-001",
+      "system_component": "Universal Catalog",
+      "relationship": "Owns, edits, and curates catalog items after import",
+      "workflow_ids": [
+        "WORKFLOW-007"
+      ]
+    },
+    {
+      "relationship_id": "REL-003",
+      "user_id": "USER-001",
+      "system_component": "Flyer Builder / Quote Builder",
+      "relationship": "Produces business outputs from owned catalog data",
+      "workflow_ids": [
+        "WORKFLOW-009",
+        "WORKFLOW-010"
+      ]
+    },
+    {
+      "relationship_id": "REL-004",
+      "user_id": "USER-003",
+      "system_component": "AI Engine (Provider Registry + Capability Router)",
+      "relationship": "Configures providers and capability routing; monitors health",
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ]
+    },
+    {
+      "relationship_id": "REL-005",
+      "user_id": "USER-001",
+      "system_component": "Import Connectors (Playwright, PDF, Manual)",
+      "relationship": "Triggers imports and reviews sync history",
+      "workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-002"
+      ]
+    }
+  ],
+  "role_or_permission_hints": [
+    {
+      "role_hint": "workspace_owner",
+      "permissions": [
+        "manage_workspace",
+        "manage_vendors",
+        "manage_ai_settings",
+        "run_imports",
+        "review_discovery",
+        "manage_catalog",
+        "manage_collections",
+        "manage_flyers",
+        "manage_quotes",
+        "view_analytics"
+      ],
+      "notes": "V1 likely ships single-role workspace owner until team support is added."
+    },
+    {
+      "role_hint": "team_member",
+      "permissions": [
+        "run_imports",
+        "review_discovery",
+        "manage_catalog",
+        "manage_collections",
+        "manage_flyers",
+        "manage_quotes"
+      ],
+      "notes": "Future; no team workflow target in MVP."
+    },
+    {
+      "role_hint": "ai_admin",
+      "permissions": [
+        "manage_ai_settings"
+      ],
+      "notes": "May overlap with workspace_owner in V1."
+    }
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Workspace Management",
+        "Vendor Management",
+        "Import Methods",
+        "Discovery Sessions",
+        "Catalog",
+        "AI Features",
+        "User Experience"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "Provider Registry",
+        "Capability Router",
+        "Future Expansion"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}

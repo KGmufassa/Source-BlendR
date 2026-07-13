@@ -1,0 +1,256 @@
+{
+  "stage": "Stage 2",
+  "status": "approved",
+  "source_trace": [
+    "Build-Plans/Stage-1/10-success-framework.json",
+    "System-References/PRD Docs/Source Blender PRD.md",
+    "System-References/PRD Docs/Inference Layer summary.md",
+    "System-References/PRD Docs/Playwright Feature.md"
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EVID-AKENEO-001",
+      "source_type": "external_web",
+      "source": "Akeneo - What is a PIM?",
+      "url_or_path": "https://www.akeneo.com/what-is-a-pim/",
+      "freshness": "current web fetch 2026-07-11",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "PIM systems are positioned as central sources of truth for collecting, managing, enriching, and distributing product information; benefits include reduced manual work, accuracy, consistency, and faster time-to-market.",
+      "confidence_effect": "supports market need for centralized product/catalog management",
+      "confidence_delta": 0.12,
+      "inference_flag": false,
+      "limitations": "General PIM source; does not validate Source BlendR-specific scraping, AI-provider agnosticism, or willingness to pay."
+    },
+    {
+      "evidence_id": "EVID-PLYTIX-001",
+      "source_type": "external_web",
+      "source": "Plytix PIM page",
+      "url_or_path": "https://www.plytix.com/what-is-pim",
+      "freshness": "current web fetch 2026-07-11",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "Plytix positions PIM as a central product database with import options, validation, bulk editing, product data transformation, catalogs, AI product-description generation, and DAM support.",
+      "confidence_effect": "supports competitive category and validates product-data management pain; shows AI exists in competing PIMs but often as product-copy assistance rather than provider-agnostic ingestion.",
+      "confidence_delta": 0.1,
+      "inference_flag": false,
+      "limitations": "General PIM competitor source; product-centric and not focused on vendor website/PDF discovery staging."
+    },
+    {
+      "evidence_id": "EVID-COMMONSKU-001",
+      "source_type": "external_web",
+      "source": "commonsku homepage",
+      "url_or_path": "https://commonsku.com/",
+      "freshness": "current web fetch 2026-07-11",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "commonsku targets promotional products distributors with connected workflow, product search, presentations, portals, shops, CRM, suppliers, reports/analytics, integrations, and customer claims of operational time savings.",
+      "confidence_effect": "supports existence of promo-distributor workflow market and validates adjacent demand for supplier/product workflow software.",
+      "confidence_delta": 0.12,
+      "inference_flag": false,
+      "limitations": "Competitor positioning only; does not validate Source BlendR differentiation or pricing."
+    },
+    {
+      "evidence_id": "EVID-PLAYWRIGHT-001",
+      "source_type": "official_docs",
+      "source": "Playwright docs via Context7 (/microsoft/playwright)",
+      "url_or_path": "https://github.com/microsoft/playwright/docs",
+      "freshness": "Context7 current docs query 2026-07-11",
+      "evidence_quality": "medium",
+      "finding_type": "evidence-backed finding",
+      "summary": "Playwright supports navigation, clicking with auto-waiting, waiting for URL/load state, managing multiple pages and browser contexts, and capturing new pages/popups.",
+      "confidence_effect": "supports feasibility of JS-rendered navigation and category traversal; does not guarantee reliability across arbitrary vendor sites.",
+      "confidence_delta": 0.15,
+      "inference_flag": false,
+      "limitations": "Capability evidence only; no representative vendor-site test run was performed."
+    },
+    {
+      "evidence_id": "EVID-LOCAL-PRD",
+      "source_type": "local_prd",
+      "source": "Source Blender PRD",
+      "url_or_path": "System-References/PRD Docs/Source Blender PRD.md",
+      "freshness": "local project artifact",
+      "evidence_quality": "high",
+      "finding_type": "evidence-backed finding",
+      "summary": "Locks discovery-before-import, user-owned catalog, manual entry, PDF parity, background processing, AI-provider agnosticism, and Universal Catalog Items.",
+      "confidence_effect": "supports product intent but not external validation.",
+      "confidence_delta": 0.0,
+      "inference_flag": false,
+      "limitations": "Internal product artifact; not market evidence."
+    },
+    {
+      "evidence_id": "EVID-LOCAL-AI-ADR",
+      "source_type": "local_adr",
+      "source": "Inference Layer summary",
+      "url_or_path": "System-References/PRD Docs/Inference Layer summary.md",
+      "freshness": "local project artifact",
+      "evidence_quality": "high",
+      "finding_type": "evidence-backed finding",
+      "summary": "Defines AI as an implementation detail behind adapters, provider registry, capability router, ingestion engine, and deterministic validation.",
+      "confidence_effect": "supports architecture intent but not external user demand.",
+      "confidence_delta": 0.0,
+      "inference_flag": false,
+      "limitations": "Internal architecture artifact."
+    },
+    {
+      "evidence_id": "EVID-LOCAL-PLAYWRIGHT-PRD",
+      "source_type": "local_architecture_note",
+      "source": "Playwright Feature doc",
+      "url_or_path": "System-References/PRD Docs/Playwright Feature.md",
+      "freshness": "local project artifact",
+      "evidence_quality": "high",
+      "finding_type": "evidence-backed finding",
+      "summary": "Defines category-first strategy, lazy scraping, parallel category jobs, cached category trees, AI classification, and normalization.",
+      "confidence_effect": "supports intended technical approach but not real-world reliability.",
+      "confidence_delta": 0.0,
+      "inference_flag": false,
+      "limitations": "Internal architecture artifact; no executed test evidence."
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-2-001",
+    "stage": "Stage 2",
+    "brief_path": "Build-Plans/Stage-2/00-stage-decision-brief.md",
+    "recommended_direction": "Proceed to Stage 3 architecture with explicit architecture guidance and carried risks. Market and technical validation support the product direction at medium confidence, while willingness-to-pay, legal scraping posture, and real vendor-site reliability remain open validation items.",
+    "alternatives_considered": [
+      "Proceed directly to architecture with open risks carried forward",
+      "Run deeper validation before architecture",
+      "Revise product assumptions around scraping and AI-provider agnosticism",
+      "Block progression until vendor-site testing and customer interviews are complete"
+    ],
+    "key_decisions": [
+      "PIM/catalog market problem is evidence-backed by Akeneo and Plytix PIM sources",
+      "Promo-distributor workflow market exists, supported by commonsku positioning and customer proof",
+      "Source BlendR remains differentiated by discovery-before-import, vendor-source ingestion, universal catalog items, and AI-provider agnosticism",
+      "Architecture may proceed if Stage 3 treats Playwright reliability, tenant isolation, validation engine, AI adapter contracts, and queue strategy as first-class decisions"
+    ],
+    "assumptions": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "ASSUMPTION-SEED-003",
+      "ASSUMPTION-SEED-004",
+      "ASSUMPTION-SEED-005"
+    ],
+    "risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010",
+      "RISK-012",
+      "RISK-015"
+    ],
+    "downstream_impact": [
+      "Stage 3 must design the scraping queue, retry, and observability model around unproven vendor-site variability",
+      "Stage 3 must isolate AI providers behind stable adapters and capability routing",
+      "Stage 3 must enforce deterministic validation before catalog writes",
+      "Stage 3 must include multi-tenant data and credential isolation as security-critical architecture"
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T17:52:36.982856+00:00",
+    "revision_notes": [],
+    "approved_decision": "Proceed to architecture with carried risks accepted"
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-2-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-2/01-market-analysis.json",
+      "Build-Plans/Stage-2/02-competitive-landscape.json",
+      "Build-Plans/Stage-2/03-technical-feasibility.json",
+      "Build-Plans/Stage-2/04-business-viability.json",
+      "Build-Plans/Stage-2/05-risk-validation.json",
+      "Build-Plans/Stage-2/06-strategic-positioning.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T17:52:36.982856+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "FEATURE-001",
+      "FEATURE-010",
+      "RISK-001",
+      "RISK-005",
+      "RISK-010"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": true,
+    "accepted_risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010"
+    ],
+    "ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json"
+  },
+  "revision_loops": [],
+  "competitive_landscape": {
+    "direct_or_adjacent_competitors": [
+      {
+        "name": "Akeneo",
+        "category": "Enterprise PIM/PXM",
+        "evidence_ref": "EVID-AKENEO-001",
+        "strengths": [
+          "centralized product information",
+          "supplier onboarding",
+          "syndication",
+          "enterprise ecosystem"
+        ],
+        "source_blendr_gap_or_opportunity": "Source BlendR can focus on vendor-source discovery, Discovery Sessions, AI-provider independence, and smaller workflow breadth."
+      },
+      {
+        "name": "Plytix",
+        "category": "SMB PIM/DAM",
+        "evidence_ref": "EVID-PLYTIX-001",
+        "strengths": [
+          "central product database",
+          "DAM",
+          "bulk editing",
+          "catalog creation",
+          "OpenAI-powered descriptions"
+        ],
+        "source_blendr_gap_or_opportunity": "Plytix validates PIM demand; Source BlendR differentiates by extracting from vendor websites/PDFs into a user-owned catalog before syndication."
+      },
+      {
+        "name": "commonsku",
+        "category": "Promotional-products connected workflow",
+        "evidence_ref": "EVID-COMMONSKU-001",
+        "strengths": [
+          "industry workflow",
+          "supplier integrations",
+          "presentations",
+          "portals",
+          "CRM",
+          "reports"
+        ],
+        "source_blendr_gap_or_opportunity": "Strong adjacent competitor in promo distribution; Source BlendR can avoid order-management breadth and focus on vendor intelligence/catalog ingestion."
+      }
+    ],
+    "positioning": "Source BlendR is best positioned as vendor intelligence plus catalog ingestion, not as full PIM, ERP, order-management, or promo distributor OS.",
+    "differentiation_confidence": 0.7,
+    "saturation_risk": "medium"
+  },
+  "confidence_scores": {
+    "market": 0.68,
+    "user": 0.66,
+    "competitive": 0.72,
+    "technical": 0.74,
+    "operational": 0.72,
+    "business": 0.6,
+    "scalability": 0.7,
+    "architecture_readiness": 0.72
+  }
+}

@@ -1,0 +1,499 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "dependencies": [
+    {
+      "dependency_id": "DEP-001",
+      "name": "Playwright",
+      "type": "infrastructure",
+      "description": "Locked web discovery engine for JS rendering, infinite scroll, pagination, and category traversal across vendor sites.",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-001"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Technical Decisions (Locked)",
+        "System-References/PRD Docs/Playwright Feature.md#Responsibilities"
+      ]
+    },
+    {
+      "dependency_id": "DEP-002",
+      "name": "Background Job Queue",
+      "type": "infrastructure",
+      "description": "Queue required for scraping and AI processing jobs; per-category parallel jobs that retry or resume independently.",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-013",
+        "FEATURE-001",
+        "FEATURE-003"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Technical Decisions (Locked)",
+        "System-References/PRD Docs/Playwright Feature.md#Parallel Job Processing"
+      ]
+    },
+    {
+      "dependency_id": "DEP-003",
+      "name": "AI Provider Adapter Implementations",
+      "type": "external",
+      "description": "At least one adapter (e.g., OpenAI-compatible) needed for AI features; graceful degradation when zero configured.",
+      "criticality": "medium",
+      "affects_feature_ids": [
+        "FEATURE-010"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#AI Provider Adapter Pattern"
+      ]
+    },
+    {
+      "dependency_id": "DEP-004",
+      "name": "OCR Engine",
+      "type": "external",
+      "description": "OCR for scanned vendor PDFs before AI extraction.",
+      "criticality": "medium",
+      "affects_feature_ids": [
+        "FEATURE-003"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#PDF Catalog Import"
+      ]
+    },
+    {
+      "dependency_id": "DEP-005",
+      "name": "Object Storage",
+      "type": "infrastructure",
+      "description": "Storage for uploaded PDFs, cached rendered DOM, and generated export artifacts (PDFs/PNGs).",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-003",
+        "FEATURE-008",
+        "FEATURE-009",
+        "FEATURE-011"
+      ]
+    },
+    {
+      "dependency_id": "DEP-006",
+      "name": "Database",
+      "type": "infrastructure",
+      "description": "Persistence for workspaces, vendors, catalog, discovery sessions, vendor and document memory timelines, pricing, collections, and analytics.",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-002",
+        "FEATURE-005",
+        "FEATURE-011",
+        "FEATURE-012",
+        "FEATURE-014"
+      ]
+    },
+    {
+      "dependency_id": "DEP-007",
+      "name": "Authentication",
+      "type": "infrastructure",
+      "description": "Workspace-level authentication so catalog data is workspace-scoped.",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-014"
+      ]
+    },
+    {
+      "dependency_id": "DEP-008",
+      "name": "Multi-tenancy Layer",
+      "type": "infrastructure",
+      "description": "Tenant isolation across workspaces for catalog, AI provider credentials, and storage.",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-014"
+      ]
+    },
+    {
+      "dependency_id": "DEP-009",
+      "name": "Validation Engine",
+      "type": "system",
+      "description": "Deterministic validation of AI and import outputs: missing fields, duplicates, SKU, price, category, business rules, inventory conflicts.",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-004",
+        "FEATURE-005"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#Validation Engine"
+      ]
+    },
+    {
+      "dependency_id": "DEP-010",
+      "name": "Capability Router",
+      "type": "system",
+      "description": "Routes AI requests by capability to a configured provider.",
+      "criticality": "medium",
+      "affects_feature_ids": [
+        "FEATURE-010"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#Capability Router"
+      ]
+    },
+    {
+      "dependency_id": "DEP-011",
+      "name": "Ingestion / Normalization Engine",
+      "type": "system",
+      "description": "Parses, normalizes, cleans, and transforms raw imports into Source BlendR normalized JSON before AI enrichment.",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-001",
+        "FEATURE-003"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#Ingestion Engine"
+      ]
+    },
+    {
+      "dependency_id": "DEP-012",
+      "name": "PDF Generation Library",
+      "type": "external",
+      "description": "Library for generating PDF and PNG exports for flyers and quotes.",
+      "criticality": "medium",
+      "affects_feature_ids": [
+        "FEATURE-008",
+        "FEATURE-009"
+      ]
+    },
+    {
+      "dependency_id": "DEP-013",
+      "name": "Search Index",
+      "type": "infrastructure",
+      "description": "Index for global search, vendor/category/item-type filters, tags, and favorites across catalog and discovery.",
+      "criticality": "high",
+      "affects_feature_ids": [
+        "FEATURE-015"
+      ]
+    }
+  ],
+  "dependency_relationships": [
+    {
+      "relationship_id": "DREL-001",
+      "source_dependency_id": "DEP-001",
+      "depends_on_dependency_id": "DEP-002",
+      "relationship": "Playwright scraping jobs must run on the background queue."
+    },
+    {
+      "relationship_id": "DREL-002",
+      "source_dependency_id": "DEP-001",
+      "depends_on_dependency_id": "DEP-011",
+      "relationship": "Scraped raw output is normalized by the ingestion engine."
+    },
+    {
+      "relationship_id": "DREL-003",
+      "source_dependency_id": "DEP-011",
+      "depends_on_dependency_id": "DEP-003",
+      "relationship": "Normalized JSON feeds into AI enrichment via adapters; degrades gracefully if no providers."
+    },
+    {
+      "relationship_id": "DREL-004",
+      "source_dependency_id": "DEP-003",
+      "depends_on_dependency_id": "DEP-010",
+      "relationship": "AI requests routed by capability router."
+    },
+    {
+      "relationship_id": "DREL-005",
+      "source_dependency_id": "DEP-009",
+      "depends_on_dependency_id": "DEP-011",
+      "relationship": "Validation operates on normalized output."
+    },
+    {
+      "relationship_id": "DREL-006",
+      "source_dependency_id": "DEP-004",
+      "depends_on_dependency_id": "DEP-003",
+      "relationship": "PDF OCR passes content through AI extraction."
+    },
+    {
+      "relationship_id": "DREL-007",
+      "source_dependency_id": "DEP-008",
+      "depends_on_dependency_id": "DEP-007",
+      "relationship": "Multi-tenancy builds on workspace authentication."
+    },
+    {
+      "relationship_id": "DREL-008",
+      "source_dependency_id": "DEP-006",
+      "depends_on_dependency_id": "DEP-008",
+      "relationship": "Database schema enforces tenant isolation."
+    },
+    {
+      "relationship_id": "DREL-009",
+      "source_dependency_id": "DEP-013",
+      "depends_on_dependency_id": "DEP-006",
+      "relationship": "Search index is built from catalog data."
+    }
+  ],
+  "missing_systems": [
+    {
+      "missing_system_id": "MISS-001",
+      "system": "Scheduled sync orchestrator",
+      "needed_for": "Scheduled sync feature (future); not MVP-blocking",
+      "priority": "defer"
+    },
+    {
+      "missing_system_id": "MISS-002",
+      "system": "Team membership management and role assignment",
+      "needed_for": "Team support (future); V1 ships single workspace owner role",
+      "priority": "defer"
+    },
+    {
+      "missing_system_id": "MISS-003",
+      "system": "Public catalog surface with access control",
+      "needed_for": "Public catalog (future); not MVP-blocking",
+      "priority": "defer"
+    },
+    {
+      "missing_system_id": "MISS-004",
+      "system": "E-commerce checkout and payments",
+      "needed_for": "Quote-to-order workflow; not in MVP scope",
+      "priority": "out_of_scope"
+    },
+    {
+      "missing_system_id": "MISS-005",
+      "system": "Provider health monitoring and automatic failover",
+      "needed_for": "Future AI expansion; V1 should manually reconfigure providers",
+      "priority": "defer"
+    },
+    {
+      "missing_system_id": "MISS-006",
+      "system": "Formula pricing rules engine",
+      "needed_for": "Formula pricing (future); MVP ships fixed, percentage, manual only",
+      "priority": "defer"
+    },
+    {
+      "missing_system_id": "MISS-007",
+      "system": "Vector embedding store for semantic search",
+      "needed_for": "Semantic search (future)",
+      "priority": "defer"
+    }
+  ],
+  "external_dependency_candidates": [
+    {
+      "candidate_id": "EXT-001",
+      "candidate": "OpenAI-compatible API (e.g., OpenAI or LiteLLM)",
+      "use": "Default recommended catalogExtraction, semanticSearch (future), and flyer/quote assistance capability",
+      "risk": "External rate limits and pricing variability."
+    },
+    {
+      "candidate_id": "EXT-002",
+      "candidate": "Anthropic API",
+      "use": "Optional catalogExtraction or vision capabilities",
+      "risk": "External rate limits."
+    },
+    {
+      "candidate_id": "EXT-003",
+      "candidate": "Google Gemini API",
+      "use": "Optional vision and search capabilities",
+      "risk": "External availability and pricing."
+    },
+    {
+      "candidate_id": "EXT-004",
+      "candidate": "Ollama / LM Studio / local models",
+      "use": "Optional on-prem AI for sensitive data; no external rate limits but operational cost.",
+      "risk": "Operational complexity; self-hosted."
+    },
+    {
+      "candidate_id": "EXT-005",
+      "candidate": "Tesseract OCR or cloud OCR",
+      "use": "OCR for scanned PDFs",
+      "risk": "OCR quality varies by source."
+    },
+    {
+      "candidate_id": "EXT-006",
+      "candidate": "Cloud object storage (S3, R2, GCS)",
+      "use": "Store PDFs, rendered DOM, export artifacts",
+      "risk": "Vendor lock-in risk if not abstracted."
+    },
+    {
+      "candidate_id": "EXT-007",
+      "candidate": "Cloud queue (SQS, BullMQ, Temporal)",
+      "use": "Background job queue for scraping/AI work",
+      "risk": "Choice affects retry/backoff semantics."
+    }
+  ],
+  "architecture_sensitive_dependencies": [
+    {
+      "dep_id": "DEP-002",
+      "note": "Background queue semantics and retry model affect scraping job throughput and UI responsiveness."
+    },
+    {
+      "dep_id": "DEP-006",
+      "note": "Single Universal Catalog Item schema shapes the entire persistence and validation architecture."
+    },
+    {
+      "dep_id": "DEP-008",
+      "note": "Multi-tenancy enforcement percolates across database schema, storage, search index, and AI provider credential isolation."
+    },
+    {
+      "dep_id": "DEP-011",
+      "note": "Normalization contract is the boundary every future connector must satisfy."
+    },
+    {
+      "dep_id": "DEP-009",
+      "note": "Validation engine contract is the gate between AI output and inventory."
+    },
+    {
+      "dep_id": "DEP-010",
+      "note": "Capability router contract must remain stable across provider swaps."
+    }
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Workspace Management",
+        "Vendor Management",
+        "Import Methods",
+        "Discovery Sessions",
+        "Catalog",
+        "Pricing Engine",
+        "AI Features",
+        "Document Memory",
+        "Vendor Memory",
+        "Synchronization",
+        "Technical Decisions (Locked)",
+        "Future Features"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "Universal Import Pipeline",
+        "Import Connectors",
+        "Ingestion Engine",
+        "AI Engine",
+        "AI Provider Adapter Pattern",
+        "Provider Registry",
+        "Capability Router",
+        "Validation Engine",
+        "Future Expansion",
+        "Out of Scope (Version 1)"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Playwright Feature.md",
+      "sections": [
+        "Parallel Job Processing",
+        "Lazy Scraping",
+        "Category-First Strategy"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json",
+      "Build-Plans/Stage-1/05-feature-structure.json",
+      "Build-Plans/Stage-1/06-product-boundaries.json",
+      "Build-Plans/Stage-1/07-dependency-map.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}

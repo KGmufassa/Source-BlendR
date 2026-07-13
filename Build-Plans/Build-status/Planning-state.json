@@ -1,37 +1,797 @@
 {
   "stage": "Stage 1",
   "command": "Stage-1-product-initialization",
-  "status": "not_started",
-  "product_identity": {},
-  "strategic_intent": {},
-  "user_profiles": {},
-  "recommendations": [],
-  "confidence_scores": {},
-  "missing_information": [],
-  "workflows": {},
-  "capabilities": {},
-  "feature_groups": {},
-  "operational_boundaries": {},
-  "workflow_relationships": {},
-  "dependencies": {},
-  "technical_risks": [],
-  "business_risks": [],
-  "compliance_risks": [],
-  "operational_risks": [],
-  "risk_severity": {},
-  "mvp_scope": {},
-  "feature_priorities": {},
-  "deferred_features": [],
-  "implementation_phases": {},
-  "optimization_recommendations": [],
+  "status": "ready_for_stage_2",
+  "product_identity": {
+    "product_id": "PROD-SOURCE-BLENDR",
+    "product_name": "Source BlendR",
+    "product_type": "B2B SaaS platform",
+    "category": "Vendor Intelligence and Catalog Management"
+  },
+  "strategic_intent": {
+    "strategic_intent_id": "STRAT-001",
+    "primary_objective": "Be the single owned catalog that businesses use to unify vendor product and service data with provider-agnostic AI."
+  },
+  "user_profiles": {
+    "primary_ids": [
+      "USER-001"
+    ],
+    "secondary_ids": [
+      "USER-002",
+      "USER-003"
+    ]
+  },
+  "recommendations": [
+    "Validate Playwright reliability across >= 5 diverse vendor sites in Stage 2",
+    "Validate Universal Catalog Item schema against real-world sample data",
+    "Stage 3 must lock adapter interface, capability router, validation engine, multi-tenancy, and queue/timeout contracts",
+    "Stage 4 must validate Discovery Session UX flow"
+  ],
+  "confidence_scores": {
+    "product_identity": 0.85,
+    "primary_user": 0.8,
+    "primary_outcome": 0.8,
+    "mvp_scope": 0.7,
+    "playwright_reliability_across_vendors": 0.55
+  },
+  "missing_information": [
+    "Target market size and willingness to pay",
+    "Legal/compliance posture for scraping vendor sites",
+    "Real-world sample of vendor catalogs",
+    "Concurrent job limits and queue/timeout strategy",
+    "Provider health monitoring posture"
+  ],
+  "workflows": {
+    "count": 14,
+    "ids": [
+      "WORKFLOW-001",
+      "WORKFLOW-014"
+    ]
+  },
+  "capabilities": {
+    "count": 22,
+    "ids": [
+      "CAP-001",
+      "CAP-022"
+    ]
+  },
+  "feature_groups": {
+    "count": 7,
+    "ids": [
+      "FG-IMPORT",
+      "FG-CATALOG",
+      "FG-VENDOR",
+      "FG-OUTPUT",
+      "FG-AI",
+      "FG-MEMORY",
+      "FG-PLATFORM"
+    ]
+  },
+  "operational_boundaries": {
+    "count": 5,
+    "ids": [
+      "OB-001",
+      "OB-005"
+    ]
+  },
+  "workflow_relationships": {
+    "count": 11,
+    "ids": [
+      "WREL-001",
+      "WREL-011"
+    ]
+  },
+  "dependencies": {
+    "count": 13,
+    "ids": [
+      "DEP-001",
+      "DEP-013"
+    ]
+  },
+  "technical_risks": [
+    {
+      "risk_id": "RISK-001",
+      "severity": "high",
+      "domain": "technical",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-002",
+      "severity": "medium",
+      "domain": "technical",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-003",
+      "severity": "medium",
+      "domain": "technical",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-004",
+      "severity": "medium",
+      "domain": "technical",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-005",
+      "severity": "high",
+      "domain": "technical",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-006",
+      "severity": "medium",
+      "domain": "technical",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-007",
+      "severity": "low",
+      "domain": "technical",
+      "status": "open"
+    }
+  ],
+  "business_risks": [
+    {
+      "risk_id": "RISK-008",
+      "severity": "medium",
+      "domain": "business",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-009",
+      "severity": "medium",
+      "domain": "business",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-010",
+      "severity": "high",
+      "domain": "business",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-011",
+      "severity": "low",
+      "domain": "business",
+      "status": "open"
+    }
+  ],
+  "compliance_risks": [
+    {
+      "risk_id": "RISK-012",
+      "severity": "medium",
+      "domain": "compliance",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-013",
+      "severity": "medium",
+      "domain": "compliance",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-014",
+      "severity": "medium",
+      "domain": "compliance",
+      "status": "open"
+    }
+  ],
+  "operational_risks": [
+    {
+      "risk_id": "RISK-015",
+      "severity": "medium",
+      "domain": "operational",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-016",
+      "severity": "low",
+      "domain": "operational",
+      "status": "open"
+    },
+    {
+      "risk_id": "RISK-017",
+      "severity": "medium",
+      "domain": "operational",
+      "status": "open"
+    }
+  ],
+  "risk_severity": {
+    "high": 3,
+    "medium": 11,
+    "low": 3,
+    "critical": 0
+  },
+  "mvp_scope": {
+    "mvp_scope_id": "MVP-001",
+    "must_count": 9,
+    "should_count": 6,
+    "could_count": 2,
+    "defer_count": 17
+  },
+  "feature_priorities": {
+    "must": [
+      "FEATURE-001",
+      "FEATURE-002",
+      "FEATURE-003",
+      "FEATURE-004",
+      "FEATURE-005",
+      "FEATURE-010",
+      "FEATURE-013",
+      "FEATURE-014",
+      "FEATURE-015"
+    ],
+    "should": [
+      "FEATURE-008",
+      "FEATURE-009",
+      "FEATURE-011",
+      "FEATURE-012",
+      "FEATURE-016",
+      "FEATURE-018"
+    ],
+    "could": [
+      "FEATURE-007",
+      "FEATURE-017"
+    ]
+  },
+  "deferred_features": [
+    "FEATURE-006",
+    "FEATURE-011",
+    "FEATURE-012",
+    "FEATURE-017",
+    "FEATURE-018",
+    "FEATURE-019",
+    "FEATURE-020",
+    "FEATURE-021",
+    "FEATURE-022",
+    "FEATURE-023",
+    "FEATURE-024",
+    "FEATURE-025",
+    "FEATURE-026",
+    "FEATURE-027",
+    "FEATURE-028",
+    "FEATURE-029",
+    "FEATURE-030"
+  ],
+  "implementation_phases": {
+    "phase_1_foundation": [
+      "FEATURE-014",
+      "FEATURE-013",
+      "FEATURE-002"
+    ],
+    "phase_2_import_and_ai": [
+      "FEATURE-001",
+      "FEATURE-003",
+      "FEATURE-010",
+      "FEATURE-004"
+    ],
+    "phase_3_catalog_and_pricing": [
+      "FEATURE-005",
+      "FEATURE-015",
+      "FEATURE-016"
+    ],
+    "phase_4_business_outputs": [
+      "FEATURE-008",
+      "FEATURE-009"
+    ]
+  },
+  "optimization_recommendations": [
+    "Ship single AIProvider interface plus one OpenAI-compatible and Ollama adapter; add others post-launch",
+    "Ship fixed, percentage, manual pricing only; defer formula pricing",
+    "Ship manual sync only; defer scheduled sync",
+    "Treat Flyer/Quote Builders as should-have; trim or defer if MVP risk grows",
+    "Ship minimal analytics (vendor spend + catalog growth) only"
+  ],
   "interactive_guidance": {
     "open_questions": [],
-    "answered_questions": [],
-    "assumptions_made": [],
+    "answered_questions": [
+      {
+        "question_id": "Q-INIT-001",
+        "question": "What app do you want to build?",
+        "answer": "Source BlendR — AI-agnostic Vendor Intelligence Platform"
+      },
+      {
+        "question_id": "Q-INIT-002",
+        "question": "Who is the app for?",
+        "answer": "Businesses that aggregate multi-vendor product/service catalogs (workspace owners)."
+      },
+      {
+        "question_id": "Q-INIT-003",
+        "question": "What features or capabilities do you already know you want included?",
+        "answer": "Provided in System-References/PRD Docs/Source Blender PRD.md, Inference Layer summary.md, and Playwright Feature.md."
+      }
+    ],
+    "assumptions_made": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites.",
+        "reason": "No real-world sample collected yet; inferred from the Playwright Feature doc."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data.",
+        "reason": "No market research yet; inferred from Inference Layer summary philosophy statements."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors.",
+        "reason": "Locked PRD principle; no usability validation yet."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture.",
+        "reason": "Locked PRD decision; no real-world sample yet."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI.",
+        "reason": "Locked PRD decision; queue/timeout strategy not yet defined."
+      }
+    ],
     "blocked_decisions": [],
-    "user_confirmations": [],
-    "confidence_gaps": []
+    "user_confirmations": [
+      {
+        "confirmation_id": "CONFIRM-STAGE-1-001",
+        "confirmed_by": "user",
+        "confirmed_at": "2026-07-11T16:34:03.166771+00:00",
+        "decision": "Approve direction",
+        "brief_id": "BRIEF-STAGE-1-001"
+      }
+    ],
+    "confidence_gaps": [
+      "Market validation of differentiation hypotheses (DIFF-001, DIFF-002, DIFF-003, DIFF-004)",
+      "Playwright reliability across diverse vendor sites",
+      "Universal Catalog Item schema against real-world sample data",
+      "Willingness to pay for a curated vendor catalog tool"
+    ]
   },
-  "final_outputs": {},
-  "completion_status": {}
+  "final_outputs": {
+    "directory": "Build-Plans/Stage-1/",
+    "files": [
+      "01-product-foundation.json",
+      "02-user-system-map.json",
+      "03-workflow-architecture.json",
+      "04-product-capabilities.json",
+      "05-feature-structure.json",
+      "06-product-boundaries.json",
+      "07-dependency-map.json",
+      "08-mvp-operational-model.json",
+      "09-risk-and-constraints.json",
+      "10-success-framework.json"
+    ]
+  },
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_2",
+    "global_status": "ready_for_next_stage",
+    "reason": "Stage 1 decision brief approved and Stage 1 artifacts are ready for Stage 2 validation.",
+    "blocking_items": [],
+    "next_actions": [
+      "Run Stage 2 research and validation."
+    ],
+    "ready_for": "Stage 2 (Research and Validation)"
+  },
+  "stage_contract_profile": {
+    "profile_id": "PROFILE-SOURCE-BLENDR",
+    "profile_name": "ai-heavy-app",
+    "app_type": "B2B SaaS — Vendor Intelligence Platform",
+    "complexity_level": "high",
+    "guidance_depth": "standard",
+    "required_stage_depth": {
+      "stage_1": "standard",
+      "stage_2": "standard",
+      "stage_3": "detailed",
+      "stage_4": "standard",
+      "stage_5": "standard",
+      "stage_6": "detailed",
+      "stage_7": "standard",
+      "stage_8": "minimal"
+    },
+    "required_validation_layers": [
+      "schema",
+      "reference_integrity"
+    ],
+    "optional_outputs": [
+      "Analytics",
+      "Collections"
+    ],
+    "required_outputs": [
+      "01-product-foundation.json",
+      "02-user-system-map.json",
+      "03-workflow-architecture.json",
+      "04-product-capabilities.json",
+      "05-feature-structure.json",
+      "06-product-boundaries.json",
+      "07-dependency-map.json",
+      "08-mvp-operational-model.json",
+      "09-risk-and-constraints.json",
+      "10-success-framework.json"
+    ],
+    "skip_allowed_outputs": [],
+    "approval_gates": [
+      "stage_decision_brief"
+    ]
+  },
+  "guidance_policy": {
+    "complexity_level": "high",
+    "guidance_depth": "standard",
+    "ask_threshold": "material_decisions",
+    "default_inference_allowed": true,
+    "approval_required_for": [
+      "stage_decision_brief"
+    ],
+    "max_questions_per_turn": 3
+  },
+  "launch_critical_systems": [
+    "SYS-001",
+    "SYS-010"
+  ],
+  "assumption_seed_registry": [
+    {
+      "assumption_id": "ASSUMPTION-SEED-001",
+      "confidence": 0.6,
+      "status": "active"
+    },
+    {
+      "assumption_id": "ASSUMPTION-SEED-002",
+      "confidence": 0.65,
+      "status": "active"
+    },
+    {
+      "assumption_id": "ASSUMPTION-SEED-003",
+      "confidence": 0.7,
+      "status": "active"
+    },
+    {
+      "assumption_id": "ASSUMPTION-SEED-004",
+      "confidence": 0.7,
+      "status": "active"
+    },
+    {
+      "assumption_id": "ASSUMPTION-SEED-005",
+      "confidence": 0.8,
+      "status": "active"
+    }
+  ],
+  "stage_2_handoff": {
+    "source_stage": "Stage 1",
+    "target_stage": "Stage 2",
+    "stage_1_output_directory": "Build-Plans/Stage-1/",
+    "required_files": [
+      "01-product-foundation.json",
+      "02-user-system-map.json",
+      "03-workflow-architecture.json",
+      "04-product-capabilities.json",
+      "05-feature-structure.json",
+      "06-product-boundaries.json",
+      "07-dependency-map.json",
+      "08-mvp-operational-model.json",
+      "09-risk-and-constraints.json",
+      "10-success-framework.json"
+    ],
+    "validation_seed_assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites.",
+        "kind": "technical",
+        "feature_ids": [
+          "FEATURE-001"
+        ]
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data.",
+        "kind": "market",
+        "feature_ids": [
+          "FEATURE-010"
+        ]
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors.",
+        "kind": "usability",
+        "feature_ids": [
+          "FEATURE-004"
+        ]
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture.",
+        "kind": "market",
+        "feature_ids": [
+          "FEATURE-005"
+        ]
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI job durations without a streaming UI.",
+        "kind": "technical",
+        "feature_ids": [
+          "FEATURE-013"
+        ]
+      }
+    ],
+    "high_risk_assumption_candidates": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "risk_if_false": "If Playwright+AI cannot traverse common vendor sites, the core import workflow fails.",
+        "risk_id": "RISK-001"
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "risk_if_false": "If item types diverge too much from a single entity, per-type schemas are required mid-build.",
+        "risk_id": "RISK-006"
+      }
+    ],
+    "architecture_critical_assumption_candidates": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "impact": "Affects queue/timeout/architecture decisions in Stage 3."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "impact": "Affects whether the AI adapter architecture is worth its complexity."
+      }
+    ],
+    "market_validation_targets": [
+      {
+        "target_id": "MVT-001",
+        "target": "Differentiation hypothesis DIFF-001 (AI-provider agnosticism)",
+        "feature_ids": [
+          "FEATURE-010"
+        ]
+      },
+      {
+        "target_id": "MVT-002",
+        "target": "Differentiation hypothesis DIFF-003 (Universal Catalog Items coverage)",
+        "feature_ids": [
+          "FEATURE-005"
+        ]
+      },
+      {
+        "target_id": "MVT-003",
+        "target": "Willingness to pay for a curated vendor catalog tool",
+        "feature_ids": []
+      }
+    ],
+    "technical_validation_targets": [
+      {
+        "target_id": "TVT-001",
+        "target": "Playwright reliability across >= 5 diverse vendor sites",
+        "feature_ids": [
+          "FEATURE-001"
+        ],
+        "risk_ids": [
+          "RISK-001"
+        ]
+      },
+      {
+        "target_id": "TVT-002",
+        "target": "Background queue timeout and retry strategy",
+        "feature_ids": [
+          "FEATURE-013"
+        ],
+        "risk_ids": [
+          "RISK-002"
+        ]
+      },
+      {
+        "target_id": "TVT-003",
+        "target": "OCR/AI extraction quality on scanned PDFs",
+        "feature_ids": [
+          "FEATURE-003"
+        ],
+        "risk_ids": [
+          "RISK-004"
+        ]
+      },
+      {
+        "target_id": "TVT-004",
+        "target": "Universal Catalog Item schema against real-world sample data",
+        "feature_ids": [
+          "FEATURE-005"
+        ],
+        "risk_ids": [
+          "RISK-006"
+        ]
+      }
+    ],
+    "business_validation_targets": [
+      {
+        "target_id": "BVT-001",
+        "target": "Demand for a curated multi-vendor catalog tool",
+        "feature_ids": [],
+        "risk_ids": [
+          "RISK-010"
+        ]
+      },
+      {
+        "target_id": "BVT-002",
+        "target": "Friction tolerance for Discovery Session review",
+        "feature_ids": [
+          "FEATURE-004"
+        ],
+        "risk_ids": [
+          "RISK-009"
+        ]
+      }
+    ],
+    "operational_validation_targets": [
+      {
+        "target_id": "OVT-001",
+        "target": "Job observability and recovery for long scraping/AI jobs",
+        "feature_ids": [
+          "FEATURE-013"
+        ],
+        "risk_ids": [
+          "RISK-015"
+        ]
+      }
+    ],
+    "scalability_validation_targets": [
+      {
+        "target_id": "SVT-001",
+        "target": "Search index performance as catalog grows beyond 10k items",
+        "feature_ids": [
+          "FEATURE-015"
+        ]
+      }
+    ],
+    "known_planning_gaps": [
+      "Target market size and willingness to pay not yet validated",
+      "Legal/compliance posture for scraping vendor sites not yet validated",
+      "Real-world sample of vendor catalogs not yet collected",
+      "Concurrent job limits and queue/timeout strategy not yet defined",
+      "Provider health monitoring deferred; failover posture unvalidated"
+    ],
+    "recorded_assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "confidence": 0.6,
+        "status": "active"
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "confidence": 0.65,
+        "status": "active"
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "confidence": 0.7,
+        "status": "active"
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "confidence": 0.7,
+        "status": "active"
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "confidence": 0.8,
+        "status": "active"
+      }
+    ],
+    "completion_status": {
+      "stage_specific_status": "needs_user_decision_brief_approval",
+      "global_status": "needs_current_stage_revision",
+      "reason": "All 10 Stage 1 output files and stage_2_handoff are produced and internally consistent. Stage 1 is awaiting user approval of 00-stage-decision-brief.md before ready_for_stage_2 may be set.",
+      "blocking_items": [
+        "Stage 1 decision brief approval pending"
+      ],
+      "next_actions": [
+        "User reviews Build-Plans/Stage-1/00-stage-decision-brief.md",
+        "User approves direction (or requests revisions)",
+        "On approval, set stage_decision_brief.approval_status=approved and re-run readiness audit",
+        "If audit passes, set completion_status to ready_for_stage_2"
+      ],
+      "ready_for": "Stage 2 (Research and Validation)"
+    },
+    "ready": false,
+    "blocking_items_explicit": [
+      "Stage 1 decision brief approval pending"
+    ],
+    "accepted_risks": [],
+    "traceability_refs": [
+      "USER-001 -> WORKFLOW-001 -> CAP-001 -> FEATURE-001 -> MVP-001 -> RISK-001",
+      "USER-001 -> WORKFLOW-003 -> CAP-004 -> FEATURE-004 -> MVP-001 -> RISK-009",
+      "USER-003 -> WORKFLOW-006 -> CAP-008 -> FEATURE-010 -> MVP-001 -> RISK-008"
+    ]
+  },
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform per the PRD docs.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected)",
+      "Auto-import without Discovery Sessions (rejected)",
+      "Product-only catalog (rejected)",
+      "Marketplace/POS-first (rejected)",
+      "Plug-in marketplace architecture (rejected)"
+    ],
+    "key_decisions": [
+      "Playwright locked web discovery engine",
+      "AI provider-agnostic via adapter architecture",
+      "Discovery Sessions gate imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry first-class; platform runs with zero AI providers",
+      "Background workers handle scraping/AI processing",
+      "Flyer/Quote Builders are should-have"
+    ],
+    "assumptions": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "ASSUMPTION-SEED-003",
+      "ASSUMPTION-SEED-004",
+      "ASSUMPTION-SEED-005"
+    ],
+    "risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010"
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions",
+      "Stage 3 must lock adapter interface, capability router, validation engine, multi-tenancy isolation, and queue/timeout strategy",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX"
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "traceability": {
+    "chains": [
+      "USER-001 -> WORKFLOW-001 -> CAP-001 -> FEATURE-001 -> MVP-001 -> RISK-001",
+      "USER-001 -> WORKFLOW-003 -> CAP-004 -> FEATURE-004 -> MVP-001 -> RISK-009",
+      "USER-003 -> WORKFLOW-006 -> CAP-008 -> FEATURE-010 -> MVP-001 -> RISK-008"
+    ]
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json",
+      "Build-Plans/Stage-1/05-feature-structure.json",
+      "Build-Plans/Stage-1/06-product-boundaries.json",
+      "Build-Plans/Stage-1/07-dependency-map.json",
+      "Build-Plans/Stage-1/08-mvp-operational-model.json",
+      "Build-Plans/Stage-1/09-risk-and-constraints.json",
+      "Build-Plans/Stage-1/10-success-framework.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
 }

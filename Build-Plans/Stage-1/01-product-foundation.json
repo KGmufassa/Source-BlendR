@@ -1,0 +1,234 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "product_identity": {
+    "product_id": "PROD-SOURCE-BLENDR",
+    "product_name": "Source BlendR",
+    "product_type": "B2B SaaS platform",
+    "category": "Vendor Intelligence and Catalog Management",
+    "short_description": "AI-agnostic vendor intelligence platform that aggregates products and services from multiple vendors into a single curated catalog with selective discovery, user-owned data, and flexible AI integration.",
+    "core_value_proposition": "One curated catalog assembled from many vendor sources — website, PDF, manual, and future connectors — with AI enrichment that is provider-agnostic and always validated before import.",
+    "long_description": "Source BlendR lets businesses pull products and services from multiple vendors into a single owned catalog. It emphasizes discovery before import, keeps catalog items as the primary entity, treats manual entry as a first-class workflow, runs all scraping and AI work in background workers, and keeps AI providers swappable via an adapter architecture. The platform is intentionally modular and extensible to support future connectors, vendors, and AI providers without redesign."
+  },
+  "strategic_intent": {
+    "strategic_intent_id": "STRAT-001",
+    "primary_objective": "Be the single owned catalog that businesses use to unify vendor product and service data across many sources, with AI assistance that never locks them to a single provider.",
+    "secondary_objectives": [
+      "Eliminate manual copy/paste vendor aggregation by automating discovery and normalization",
+      "Make AI an implementation detail that can be swapped without business-logic changes",
+      "Give users control over what enters their catalog via discovery sessions and user review",
+      "Enable downstream business outputs (flyers, quotes, collections, analytics) from one owned catalog"
+    ],
+    "business_model_hint": "B2B subscription SaaS with multi-tenant workspaces; potential per-seat or per-workspace pricing; future team and marketplace features",
+    "competitive_positioning": "Vendor-agnostic and AI-provider-agnostic catalog platform; not an AI platform, not a marketplace, not a POS, not an ERP"
+  },
+  "problem_framing": {
+    "problem_id": "PROB-001",
+    "core_problem": "Businesses maintain product and service data across many vendors using manual, fragmented, and inconsistent processes. Catalogs drift, copy/paste errors propagate, and there is no single owned source of truth that works with any AI provider.",
+    "problems_addressed": [
+      "Vendor product data is scattered across websites, PDFs, and manual knowledge",
+      "Manual copy/paste import is slow, error-prone, and not scalable",
+      "Existing tools lock users to a single vendor or a single AI provider",
+      "No safe staging area exists between discovery and catalog import",
+      "Pricing, margin, and catalog structure differ across vendors with no normalization",
+      "Business outputs (flyers, quotes, collections) must be rebuilt from scratch each time"
+    ],
+    "primary_outcome": "A single curated, user-owned catalog enriched by swappable AI from many vendor sources, with deterministic validation and user review before anything enters inventory."
+  },
+  "business_direction": {
+    "direction_id": "BIZDIR-001",
+    "primary_revenue_hint": "B2B SaaS subscription per workspace; future team seats, advanced AI usage, and marketplace integrations",
+    "target_market_hint": "Promotional products, distributors, retailers, service aggregators, and businesses that resell or repackage multiple vendors' offerings",
+    "launch_focus": "Single-tenant workspaces with core import-to-catalog workflows; multi-tenant foundation; future team support",
+    "deferred_business_areas": [
+      "Marketplace integrations",
+      "Public catalogs",
+      "ERP integrations (future)",
+      "Mobile application (future)"
+    ]
+  },
+  "differentiation_hypotheses": [
+    {
+      "hypothesis_id": "DIFF-001",
+      "hypothesis": "AI-provider agnosticism is a meaningful differentiator because users distrust being locked to a single AI vendor for business-critical catalog operations.",
+      "confidence": 0.7,
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md"
+      ]
+    },
+    {
+      "hypothesis_id": "DIFF-002",
+      "hypothesis": "Discovery Sessions (staging before import) reduce data quality risk and are not common in competitor tools.",
+      "confidence": 0.6,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md"
+      ]
+    },
+    {
+      "hypothesis_id": "DIFF-003",
+      "hypothesis": "Universal Catalog Items (products, services, rentals, labor, manufacturing, installation) under one entity are a differentiator because most competitors are product-only.",
+      "confidence": 0.65,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md"
+      ]
+    },
+    {
+      "hypothesis_id": "DIFF-004",
+      "hypothesis": "Document Memory and Vendor Memory (versioned change tracking across imports) create switching costs and retention.",
+      "confidence": 0.55,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md"
+      ]
+    }
+  ],
+  "known_constraints": [
+    "AI is optional; a user must be able to run the platform without configuring any AI provider",
+    "No automatic imports — Discovery Sessions always gate catalog entry",
+    "Manual entry must remain a first-class workflow alongside automated import",
+    "PDF imports are equal in status to website imports",
+    "Background workers must handle scraping and AI processing so the UI stays responsive",
+    "Playwright is the locked web discovery engine",
+    "Catalog Items replace any Product-only architecture"
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Product Overview",
+        "Core Product Principles",
+        "Technical Decisions (Locked)",
+        "Future Features"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "Vision",
+        "Core Principles",
+        "High Level Architecture",
+        "Out of Scope (Version 1)",
+        "Guiding Principles"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Playwright Feature.md",
+      "sections": [
+        "Guiding Principle",
+        "Category-First Strategy",
+        "Lazy Scraping",
+        "Parallel Job Processing",
+        "Responsibilities"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}

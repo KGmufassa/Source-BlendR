@@ -1,0 +1,97 @@
+{
+  "stage": "Stage 1",
+  "command": "global-stage-readiness-audit",
+  "audit_status": "passed",
+  "global_workflow_contract": "System-References/Docs/Global-Stage-Workflow-Contract.md",
+  "required_files_present": true,
+  "schemas_valid": true,
+  "completion_status_present": true,
+  "global_status_mapped": true,
+  "handoff_present": true,
+  "handoff_usable": true,
+  "risks_recorded": true,
+  "assumptions_recorded": true,
+  "traceability_present": true,
+  "artifacts_recorded": true,
+  "stage_contract_profile": {
+    "profile_id": "PROFILE-SOURCE-BLENDR",
+    "profile_requirements_checked": true,
+    "missing_profile_requirements": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json",
+      "Build-Plans/Stage-1/05-feature-structure.json",
+      "Build-Plans/Stage-1/06-product-boundaries.json",
+      "Build-Plans/Stage-1/07-dependency-map.json",
+      "Build-Plans/Stage-1/08-mvp-operational-model.json",
+      "Build-Plans/Stage-1/09-risk-and-constraints.json",
+      "Build-Plans/Stage-1/10-success-framework.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "artifact_evidence_registry": {
+    "registry_path": "Build-Plans/Build-status/Artifact-evidence-registry.json",
+    "required": true,
+    "required_artifacts_present": true,
+    "missing_artifacts": []
+  },
+  "risk_acceptance_ledger": {
+    "ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json",
+    "required": false,
+    "accepted_risks_present": true,
+    "missing_risk_acceptance_entries": [],
+    "expired_or_unowned_risks": []
+  },
+  "revision_loops": [],
+  "visual_design_continuity": {
+    "required": false,
+    "ui_blueprint_refs_present": false,
+    "visual_spec_refs_present": false,
+    "design_system_refs_present": false,
+    "visual_acceptance_criteria_mapped": false,
+    "preview_or_visual_qa_evidence_present": false,
+    "design_system_compliance_recorded": false,
+    "visual_drift_status_recorded": false,
+    "blocking_visual_gaps": []
+  },
+  "blocking_gaps": [],
+  "warnings": [
+    "AI-provider-agnostic differentiation (DIFF-001) is unvalidated; route to Stage 2.",
+    "Playwright reliability across diverse vendor sites (RISK-001) is unvalidated; route to Stage 2.",
+    "Universal Catalog Item schema coverage (ASSUMPTION-SEED-004) is unvalidated; route to Stage 2.",
+    "Market demand and willingness to pay (RISK-010) is unvalidated; route to Stage 2."
+  ],
+  "next_actions": [
+    "Start Stage 2 research and validation using Build-Plans/Stage-1/10-success-framework.json stage_2_handoff."
+  ],
+  "ready_for_next_stage": true
+}

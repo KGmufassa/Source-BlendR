@@ -1,0 +1,614 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "capabilities": [
+    {
+      "capability_id": "CAP-001",
+      "name": "Website Discovery",
+      "description": "Category-first Playwright-driven discovery of vendor websites with JS rendering, infinite scroll, pagination, and category traversal.",
+      "feature_ids": [
+        "FEATURE-001",
+        "FEATURE-013"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001"
+      ],
+      "operational_domain_id": "DOMAIN-IMPORT"
+    },
+    {
+      "capability_id": "CAP-002",
+      "name": "PDF Catalog Extraction",
+      "description": "Upload vendor PDFs; OCR; AI extraction of clickable catalog items into a Discovery Session.",
+      "feature_ids": [
+        "FEATURE-003",
+        "FEATURE-013"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-002"
+      ],
+      "operational_domain_id": "DOMAIN-IMPORT"
+    },
+    {
+      "capability_id": "CAP-003",
+      "name": "Manual Catalog Entry",
+      "description": "First-class manual creation of all supported Universal Catalog Item types without AI.",
+      "feature_ids": [
+        "FEATURE-005"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-014"
+      ],
+      "operational_domain_id": "DOMAIN-CATALOG"
+    },
+    {
+      "capability_id": "CAP-004",
+      "name": "Discovery Session Staging",
+      "description": "Temporary staging area with candidate states, search, filter, multi-select, preview, edit, bulk import, ignore, and archive before any catalog creation.",
+      "feature_ids": [
+        "FEATURE-004"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-003"
+      ],
+      "operational_domain_id": "DOMAIN-IMPORT"
+    },
+    {
+      "capability_id": "CAP-005",
+      "name": "Universal Catalog Management",
+      "description": "Owned catalog of products, services, rentals, labor, manufacturing, and installation with full CRUD, search, filtering, tags, favorites, and bulk actions.",
+      "feature_ids": [
+        "FEATURE-005",
+        "FEATURE-015"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-007"
+      ],
+      "operational_domain_id": "DOMAIN-CATALOG"
+    },
+    {
+      "capability_id": "CAP-006",
+      "name": "Vendor Management",
+      "description": "Create, edit, archive vendors; manage contacts, notes, categories, and sync history.",
+      "feature_ids": [
+        "FEATURE-002"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-004"
+      ],
+      "operational_domain_id": "DOMAIN-VENDOR"
+    },
+    {
+      "capability_id": "CAP-007",
+      "name": "Workspace Management",
+      "description": "Multi-tenant workspaces with AI settings and branding; future team support.",
+      "feature_ids": [
+        "FEATURE-014",
+        "FEATURE-010"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-005"
+      ],
+      "operational_domain_id": "DOMAIN-PLATFORM"
+    },
+    {
+      "capability_id": "CAP-008",
+      "name": "AI Provider Adapter Architecture",
+      "description": "Pluggable AI providers via adapter interface; provider registry; capability router; retries, fallbacks, and health checks; degrades gracefully with zero providers.",
+      "feature_ids": [
+        "FEATURE-010"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ],
+      "operational_domain_id": "DOMAIN-AI"
+    },
+    {
+      "capability_id": "CAP-009",
+      "name": "AI Capability Routing",
+      "description": "Route AI requests by capability (catalogExtraction, semanticSearch, etc.) instead of by provider; provider selected by router configuration.",
+      "feature_ids": [
+        "FEATURE-010"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ],
+      "operational_domain_id": "DOMAIN-AI"
+    },
+    {
+      "capability_id": "CAP-010",
+      "name": "AI Extraction and Enrichment",
+      "description": "AI capabilities for product extraction, service extraction, PDF extraction, categorization, data normalization, and duplicate detection.",
+      "feature_ids": [
+        "FEATURE-010"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-003"
+      ],
+      "operational_domain_id": "DOMAIN-AI"
+    },
+    {
+      "capability_id": "CAP-011",
+      "name": "Validation Engine",
+      "description": "Deterministic validation of AI-extracted and imported items: missing fields, duplicates, SKU, price, category, business rules, inventory conflicts. AI never writes directly to inventory.",
+      "feature_ids": [
+        "FEATURE-002",
+        "FEATURE-005"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-003"
+      ],
+      "operational_domain_id": "DOMAIN-CATALOG"
+    },
+    {
+      "capability_id": "CAP-012",
+      "name": "Pricing Engine",
+      "description": "Apply fixed, percentage markup, or manual pricing; compute margins. Formula pricing deferred to future.",
+      "feature_ids": [
+        "FEATURE-016"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-008"
+      ],
+      "operational_domain_id": "DOMAIN-CATALOG"
+    },
+    {
+      "capability_id": "CAP-013",
+      "name": "Collections",
+      "description": "Mixed item collections, reusable packages, bulk editing, and export support.",
+      "feature_ids": [
+        "FEATURE-007"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-011"
+      ],
+      "operational_domain_id": "DOMAIN-CATALOG"
+    },
+    {
+      "capability_id": "CAP-014",
+      "name": "Flyer Builder",
+      "description": "Drag-and-drop editor producing PDF/PNG flyers from owned catalog items with branding and templates.",
+      "feature_ids": [
+        "FEATURE-008"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-009"
+      ],
+      "operational_domain_id": "DOMAIN-OUTPUT"
+    },
+    {
+      "capability_id": "CAP-015",
+      "name": "Quote Builder",
+      "description": "Compose mixed catalog items with quantities, taxes, discounts, and shipping into a quote PDF.",
+      "feature_ids": [
+        "FEATURE-009"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-010"
+      ],
+      "operational_domain_id": "DOMAIN-OUTPUT"
+    },
+    {
+      "capability_id": "CAP-016",
+      "name": "Analytics",
+      "description": "Vendor spend, monthly spend, margin, top vendors, category, quote, and catalog growth dashboards.",
+      "feature_ids": [
+        "FEATURE-017"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-012"
+      ],
+      "operational_domain_id": "DOMAIN-OUTPUT"
+    },
+    {
+      "capability_id": "CAP-017",
+      "name": "Document Memory",
+      "description": "Version uploaded PDFs; detect new, removed, price-changed, and description-changed items; review before applying.",
+      "feature_ids": [
+        "FEATURE-011"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-013"
+      ],
+      "operational_domain_id": "DOMAIN-MEMORY"
+    },
+    {
+      "capability_id": "CAP-018",
+      "name": "Vendor Memory",
+      "description": "Track changes across website, PDF, and future imports with timeline of catalog versions, price history, new/removed offerings.",
+      "feature_ids": [
+        "FEATURE-012"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-013"
+      ],
+      "operational_domain_id": "DOMAIN-MEMORY"
+    },
+    {
+      "capability_id": "CAP-019",
+      "name": "Synchronization",
+      "description": "Manual sync now; incremental updates; review before applying changes. Scheduled sync deferred to future.",
+      "feature_ids": [
+        "FEATURE-018"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-013"
+      ],
+      "operational_domain_id": "DOMAIN-MEMORY"
+    },
+    {
+      "capability_id": "CAP-020",
+      "name": "Search and Filtering",
+      "description": "Global search; vendor, category, item-type filters; tags; favorites across catalog and discovery.",
+      "feature_ids": [
+        "FEATURE-015"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-003",
+        "WORKFLOW-007"
+      ],
+      "operational_domain_id": "DOMAIN-CATALOG"
+    },
+    {
+      "capability_id": "CAP-021",
+      "name": "Background Job Processing",
+      "description": "Background workers handle scraping and AI processing without blocking the UI; per-category scrolly/pagination jobs run independently and can be retried or resumed.",
+      "feature_ids": [
+        "FEATURE-013"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-006"
+      ],
+      "operational_domain_id": "DOMAIN-PLATFORM"
+    },
+    {
+      "capability_id": "CAP-022",
+      "name": "Normalization",
+      "description": "Convert vendor-specific terminology and structures into Source BlendR's unified schema before AI enrichment.",
+      "feature_ids": [
+        "FEATURE-010"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-002"
+      ],
+      "operational_domain_id": "DOMAIN-PLATFORM"
+    }
+  ],
+  "capability_groups": [
+    {
+      "group_id": "CAPGROUP-001",
+      "name": "Import and Discovery",
+      "capability_ids": [
+        "CAP-001",
+        "CAP-002",
+        "CAP-004",
+        "CAP-021",
+        "CAP-022"
+      ]
+    },
+    {
+      "group_id": "CAPGROUP-002",
+      "name": "Catalog and Vendor",
+      "capability_ids": [
+        "CAP-003",
+        "CAP-005",
+        "CAP-006",
+        "CAP-011",
+        "CAP-012",
+        "CAP-013",
+        "CAP-020"
+      ]
+    },
+    {
+      "group_id": "CAPGROUP-003",
+      "name": "AI Engine",
+      "capability_ids": [
+        "CAP-008",
+        "CAP-009",
+        "CAP-010"
+      ]
+    },
+    {
+      "group_id": "CAPGROUP-004",
+      "name": "Business Outputs",
+      "capability_ids": [
+        "CAP-014",
+        "CAP-015",
+        "CAP-016"
+      ]
+    },
+    {
+      "group_id": "CAPGROUP-005",
+      "name": "Memory and Sync",
+      "capability_ids": [
+        "CAP-017",
+        "CAP-018",
+        "CAP-019"
+      ]
+    },
+    {
+      "group_id": "CAPGROUP-006",
+      "name": "Platform Foundations",
+      "capability_ids": [
+        "CAP-007",
+        "CAP-021"
+      ]
+    }
+  ],
+  "operational_domains": [
+    {
+      "domain_id": "DOMAIN-IMPORT",
+      "name": "Import and Discovery",
+      "description": "Everything that brings external vendor data into Discovery Sessions."
+    },
+    {
+      "domain_id": "DOMAIN-CATALOG",
+      "name": "Catalog",
+      "description": "The owned catalog of Universal Catalog Items and its validation, pricing, and search."
+    },
+    {
+      "domain_id": "DOMAIN-VENDOR",
+      "name": "Vendor",
+      "description": "Vendor records, contacts, notes, categories, and sync history."
+    },
+    {
+      "domain_id": "DOMAIN-PLATFORM",
+      "name": "Platform",
+      "description": "Workspaces, background job processing, and normalization."
+    },
+    {
+      "domain_id": "DOMAIN-AI",
+      "name": "AI Engine",
+      "description": "Provider adapters, capability routing, AI extraction, enrichment, normalization, duplicate detection."
+    },
+    {
+      "domain_id": "DOMAIN-OUTPUT",
+      "name": "Business Outputs",
+      "description": "Flyers, quotes, analytics generated from catalog data."
+    },
+    {
+      "domain_id": "DOMAIN-MEMORY",
+      "name": "Memory and Sync",
+      "description": "Document Memory, Vendor Memory, and synchronization across imports."
+    }
+  ],
+  "capability_dependencies": [
+    {
+      "dependency_id": "CDEP-001",
+      "source_capability_id": "CAP-001",
+      "depends_on_capability_id": "CAP-008",
+      "relationship": "Website discovery leans on AI provider registry for AI-assisted site analysis and extraction; degrades gracefully with no provider."
+    },
+    {
+      "dependency_id": "CDEP-002",
+      "source_capability_id": "CAP-002",
+      "depends_on_capability_id": "CAP-008",
+      "relationship": "PDF extraction leans on AI provider registry for AI extraction and OCR cleanup; degrades gracefully with no provider."
+    },
+    {
+      "dependency_id": "CDEP-003",
+      "source_capability_id": "CAP-010",
+      "depends_on_capability_id": "CAP-009",
+      "relationship": "AI extraction capabilities are routed by the capability router."
+    },
+    {
+      "dependency_id": "CDEP-004",
+      "source_capability_id": "CAP-011",
+      "depends_on_capability_id": "CAP-010",
+      "relationship": "Validation operates on AI-enriched normalized output."
+    },
+    {
+      "dependency_id": "CDEP-005",
+      "source_capability_id": "CAP-001",
+      "depends_on_capability_id": "CAP-021",
+      "relationship": "Website discovery requires background job processing."
+    },
+    {
+      "dependency_id": "CDEP-006",
+      "source_capability_id": "CAP-002",
+      "depends_on_capability_id": "CAP-021",
+      "relationship": "PDF extraction uses background job processing for long AI/OCR work."
+    },
+    {
+      "dependency_id": "CDEP-007",
+      "source_capability_id": "CAP-014",
+      "depends_on_capability_id": "CAP-005",
+      "relationship": "Flyer builder reads catalog items."
+    },
+    {
+      "dependency_id": "CDEP-008",
+      "source_capability_id": "CAP-015",
+      "depends_on_capability_id": "CAP-005",
+      "relationship": "Quote builder reads catalog items."
+    },
+    {
+      "dependency_id": "CDEP-009",
+      "source_capability_id": "CAP-016",
+      "depends_on_capability_id": "CAP-005",
+      "relationship": "Analytics Aggregates catalog data."
+    },
+    {
+      "dependency_id": "CDEP-010",
+      "source_capability_id": "CAP-017",
+      "depends_on_capability_id": "CAP-002",
+      "relationship": "Document Memory compares against prior PDF imports."
+    },
+    {
+      "dependency_id": "CDEP-011",
+      "source_capability_id": "CAP-018",
+      "depends_on_capability_id": "CAP-001",
+      "relationship": "Vendor Memory compares against prior website imports."
+    },
+    {
+      "dependency_id": "CDEP-012",
+      "source_capability_id": "CAP-013",
+      "depends_on_capability_id": "CAP-005",
+      "relationship": "Collections group catalog items."
+    }
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Core Features",
+        "Discovery Sessions",
+        "Catalog",
+        "Pricing Engine",
+        "Collections",
+        "Flyer Builder",
+        "Quote Builder",
+        "Analytics",
+        "AI Features",
+        "Document Memory",
+        "Vendor Memory",
+        "Synchronization",
+        "Search & Filtering"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "AI Engine",
+        "AI Provider Adapter Pattern",
+        "Provider Registry",
+        "Capability Router",
+        "Validation Engine",
+        "Ingestion Engine",
+        "Import Connectors"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Playwright Feature.md",
+      "sections": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4",
+        "Phase 5",
+        "Phase 6",
+        "Phase 7",
+        "Phase 8",
+        "Category-First Strategy",
+        "Lazy Scraping",
+        "Parallel Job Processing"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}

@@ -1,41 +1,678 @@
 {
   "stage": "Stage 2",
   "command": "stage-2-research-and-validation",
-  "status": "not_started",
-  "stage_1_inputs": {},
-  "preflight": {},
-  "assumptions": [],
-  "validation_targets": [],
-  "assumption_registry": [],
-  "confidence_scores": {
-    "market": 0.0,
-    "user": 0.0,
-    "competitive": 0.0,
-    "technical": 0.0,
-    "operational": 0.0,
-    "business": 0.0,
-    "scalability": 0.0,
-    "architecture_readiness": 0.0
+  "status": "ready_for_stage_3",
+  "stage_1_inputs": {
+    "required_files": [
+      "01-product-foundation.json",
+      "02-user-system-map.json",
+      "03-workflow-architecture.json",
+      "04-product-capabilities.json",
+      "05-feature-structure.json",
+      "06-product-boundaries.json",
+      "07-dependency-map.json",
+      "08-mvp-operational-model.json",
+      "09-risk-and-constraints.json",
+      "10-success-framework.json"
+    ],
+    "missing_stage_1_files": [],
+    "source_directory": "Build-Plans/Stage-1/"
   },
-  "market_validation": {},
-  "competitive_landscape": {},
-  "user_validation": {},
-  "technical_validation": {},
-  "operational_validation": {},
-  "business_validation": {},
-  "scalability_analysis": {},
-  "critical_unknowns": [],
-  "contradictions": [],
-  "risk_registry": [],
-  "recommendations": [],
+  "preflight": {
+    "stage_1_output_directory_exists": true,
+    "minimum_viable_inputs_present": true,
+    "stage_1_ready_for_stage_2": true,
+    "can_continue": true
+  },
+  "assumptions": [
+    {
+      "id": "ASSUMPTION-SEED-001",
+      "assumption": "Playwright with AI-assisted site analysis can handle the majority of promotional/vendor websites, including JS-heavy, infinite scroll, and paginated sites.",
+      "domain": "technical",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "Core website import workflow fails or requires alternate connector strategy.",
+      "architecture_critical": true,
+      "status": "weakened",
+      "confidence": 0.68,
+      "evidence_quality": "medium",
+      "evidence": [
+        "EVID-PLAYWRIGHT-001",
+        "EVID-LOCAL-PLAYWRIGHT-PRD"
+      ],
+      "contradictions": [],
+      "next_action": "Stage 3 must design a resilient scraping job architecture; Stage 6 must test representative vendor sites."
+    },
+    {
+      "id": "ASSUMPTION-SEED-002",
+      "assumption": "Target users value provider independence and owned catalog data.",
+      "domain": "market",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "AI-agnostic architecture adds complexity without market value.",
+      "architecture_critical": true,
+      "status": "weakened",
+      "confidence": 0.62,
+      "evidence_quality": "low",
+      "evidence": [
+        "EVID-LOCAL-AI-ADR",
+        "EVID-PLYTIX-001",
+        "EVID-AKENEO-001"
+      ],
+      "contradictions": [
+        "Evidence supports centralized product data, not specifically AI-provider independence."
+      ],
+      "next_action": "Stage 2 follow-up or post-Stage-3 discovery should interview target users on AI-provider preferences."
+    },
+    {
+      "id": "ASSUMPTION-SEED-003",
+      "assumption": "Discovery Sessions are accepted as useful review friction compared with auto-import competitors.",
+      "domain": "user",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "Review staging slows onboarding and reduces import conversion.",
+      "architecture_critical": false,
+      "status": "weakened",
+      "confidence": 0.66,
+      "evidence_quality": "low",
+      "evidence": [
+        "EVID-AKENEO-001",
+        "EVID-PLYTIX-001",
+        "EVID-LOCAL-PRD"
+      ],
+      "contradictions": [
+        "External PIM evidence supports validation workflows but not Source BlendR-specific Discovery Session UX."
+      ],
+      "next_action": "Stage 4 must usability-test Discovery Session review speed and bulk actions."
+    },
+    {
+      "id": "ASSUMPTION-SEED-004",
+      "assumption": "Universal Catalog Items cover products, services, rentals, labor, manufacturing, and installation without forcing partial re-architecture.",
+      "domain": "market",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "Catalog schema fragments into per-type models.",
+      "architecture_critical": true,
+      "status": "weakened",
+      "confidence": 0.64,
+      "evidence_quality": "low",
+      "evidence": [
+        "EVID-PLYTIX-001",
+        "EVID-AKENEO-001",
+        "EVID-COMMONSKU-001"
+      ],
+      "contradictions": [
+        "External PIM evidence is product-centered; commonsku supports services/workflows but not universal item schema."
+      ],
+      "next_action": "Stage 3 should use a base catalog item plus type-specific attributes extension model."
+    },
+    {
+      "id": "ASSUMPTION-SEED-005",
+      "assumption": "Background workers can keep the UI responsive for expected scrape and AI job durations without a streaming UI.",
+      "domain": "operational",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "Users experience long-running imports as stalled or failed.",
+      "architecture_critical": true,
+      "status": "validated",
+      "confidence": 0.76,
+      "evidence_quality": "medium",
+      "evidence": [
+        "EVID-LOCAL-PLAYWRIGHT-PRD",
+        "EVID-PLAYWRIGHT-001"
+      ],
+      "contradictions": [],
+      "next_action": "Stage 3 must define queue, status, retry, resume, and idempotency contracts."
+    }
+  ],
+  "validation_targets": [
+    "MVT-001",
+    "MVT-002",
+    "MVT-003",
+    "TVT-001",
+    "TVT-002",
+    "TVT-003",
+    "TVT-004",
+    "BVT-001",
+    "BVT-002",
+    "OVT-001",
+    "SVT-001"
+  ],
+  "assumption_registry": [
+    {
+      "id": "ASSUMPTION-SEED-001",
+      "assumption": "Playwright with AI-assisted site analysis can handle the majority of promotional/vendor websites, including JS-heavy, infinite scroll, and paginated sites.",
+      "domain": "technical",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "Core website import workflow fails or requires alternate connector strategy.",
+      "architecture_critical": true,
+      "status": "weakened",
+      "confidence": 0.68,
+      "evidence_quality": "medium",
+      "evidence": [
+        "EVID-PLAYWRIGHT-001",
+        "EVID-LOCAL-PLAYWRIGHT-PRD"
+      ],
+      "contradictions": [],
+      "next_action": "Stage 3 must design a resilient scraping job architecture; Stage 6 must test representative vendor sites."
+    },
+    {
+      "id": "ASSUMPTION-SEED-002",
+      "assumption": "Target users value provider independence and owned catalog data.",
+      "domain": "market",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "AI-agnostic architecture adds complexity without market value.",
+      "architecture_critical": true,
+      "status": "weakened",
+      "confidence": 0.62,
+      "evidence_quality": "low",
+      "evidence": [
+        "EVID-LOCAL-AI-ADR",
+        "EVID-PLYTIX-001",
+        "EVID-AKENEO-001"
+      ],
+      "contradictions": [
+        "Evidence supports centralized product data, not specifically AI-provider independence."
+      ],
+      "next_action": "Stage 2 follow-up or post-Stage-3 discovery should interview target users on AI-provider preferences."
+    },
+    {
+      "id": "ASSUMPTION-SEED-003",
+      "assumption": "Discovery Sessions are accepted as useful review friction compared with auto-import competitors.",
+      "domain": "user",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "Review staging slows onboarding and reduces import conversion.",
+      "architecture_critical": false,
+      "status": "weakened",
+      "confidence": 0.66,
+      "evidence_quality": "low",
+      "evidence": [
+        "EVID-AKENEO-001",
+        "EVID-PLYTIX-001",
+        "EVID-LOCAL-PRD"
+      ],
+      "contradictions": [
+        "External PIM evidence supports validation workflows but not Source BlendR-specific Discovery Session UX."
+      ],
+      "next_action": "Stage 4 must usability-test Discovery Session review speed and bulk actions."
+    },
+    {
+      "id": "ASSUMPTION-SEED-004",
+      "assumption": "Universal Catalog Items cover products, services, rentals, labor, manufacturing, and installation without forcing partial re-architecture.",
+      "domain": "market",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "Catalog schema fragments into per-type models.",
+      "architecture_critical": true,
+      "status": "weakened",
+      "confidence": 0.64,
+      "evidence_quality": "low",
+      "evidence": [
+        "EVID-PLYTIX-001",
+        "EVID-AKENEO-001",
+        "EVID-COMMONSKU-001"
+      ],
+      "contradictions": [
+        "External PIM evidence is product-centered; commonsku supports services/workflows but not universal item schema."
+      ],
+      "next_action": "Stage 3 should use a base catalog item plus type-specific attributes extension model."
+    },
+    {
+      "id": "ASSUMPTION-SEED-005",
+      "assumption": "Background workers can keep the UI responsive for expected scrape and AI job durations without a streaming UI.",
+      "domain": "operational",
+      "source_stage_1_file": "10-success-framework.json",
+      "explicit_or_implicit": "explicit",
+      "risk_if_false": "Users experience long-running imports as stalled or failed.",
+      "architecture_critical": true,
+      "status": "validated",
+      "confidence": 0.76,
+      "evidence_quality": "medium",
+      "evidence": [
+        "EVID-LOCAL-PLAYWRIGHT-PRD",
+        "EVID-PLAYWRIGHT-001"
+      ],
+      "contradictions": [],
+      "next_action": "Stage 3 must define queue, status, retry, resume, and idempotency contracts."
+    }
+  ],
+  "confidence_scores": {
+    "market": 0.68,
+    "user": 0.66,
+    "competitive": 0.72,
+    "technical": 0.74,
+    "operational": 0.72,
+    "business": 0.6,
+    "scalability": 0.7,
+    "architecture_readiness": 0.72
+  },
+  "market_validation": {
+    "summary": "General PIM evidence validates a real product-data management problem: central source of truth, reduced manual work, better accuracy, and faster time-to-market. Promo-distributor evidence from commonsku validates an adjacent industry workflow market. Source BlendR-specific demand and willingness-to-pay are not directly validated.",
+    "validated_assumptions": [],
+    "weakened_assumptions": [
+      "ASSUMPTION-SEED-002",
+      "ASSUMPTION-SEED-003",
+      "ASSUMPTION-SEED-004"
+    ],
+    "unknown_assumptions": [
+      "willingness_to_pay",
+      "preferred_target_vertical"
+    ],
+    "confidence": 0.68,
+    "validation_targets": [
+      "MVT-001",
+      "MVT-002",
+      "MVT-003",
+      "BVT-001",
+      "BVT-002"
+    ]
+  },
+  "competitive_landscape": {
+    "direct_or_adjacent_competitors": [
+      {
+        "name": "Akeneo",
+        "category": "Enterprise PIM/PXM",
+        "evidence_ref": "EVID-AKENEO-001",
+        "strengths": [
+          "centralized product information",
+          "supplier onboarding",
+          "syndication",
+          "enterprise ecosystem"
+        ],
+        "source_blendr_gap_or_opportunity": "Source BlendR can focus on vendor-source discovery, Discovery Sessions, AI-provider independence, and smaller workflow breadth."
+      },
+      {
+        "name": "Plytix",
+        "category": "SMB PIM/DAM",
+        "evidence_ref": "EVID-PLYTIX-001",
+        "strengths": [
+          "central product database",
+          "DAM",
+          "bulk editing",
+          "catalog creation",
+          "OpenAI-powered descriptions"
+        ],
+        "source_blendr_gap_or_opportunity": "Plytix validates PIM demand; Source BlendR differentiates by extracting from vendor websites/PDFs into a user-owned catalog before syndication."
+      },
+      {
+        "name": "commonsku",
+        "category": "Promotional-products connected workflow",
+        "evidence_ref": "EVID-COMMONSKU-001",
+        "strengths": [
+          "industry workflow",
+          "supplier integrations",
+          "presentations",
+          "portals",
+          "CRM",
+          "reports"
+        ],
+        "source_blendr_gap_or_opportunity": "Strong adjacent competitor in promo distribution; Source BlendR can avoid order-management breadth and focus on vendor intelligence/catalog ingestion."
+      }
+    ],
+    "positioning": "Source BlendR is best positioned as vendor intelligence plus catalog ingestion, not as full PIM, ERP, order-management, or promo distributor OS.",
+    "differentiation_confidence": 0.7,
+    "saturation_risk": "medium"
+  },
+  "user_validation": {
+    "summary": "Target users are plausible based on PIM and promo-distributor competitor positioning. Direct user interviews are still needed to validate friction tolerance and top workflows.",
+    "confidence": 0.66,
+    "evidence_refs": [
+      "EVID-AKENEO-001",
+      "EVID-PLYTIX-001",
+      "EVID-COMMONSKU-001"
+    ]
+  },
+  "technical_validation": {
+    "summary": "Playwright official docs support the browser automation primitives needed for rendering, navigation, waiting, clicking, and multi-page contexts. This validates technical feasibility at capability level, not reliability against arbitrary vendor websites. AI adapter architecture is internally coherent and should proceed to Stage 3 with stable interface constraints.",
+    "validated_assumptions": [
+      "ASSUMPTION-SEED-005"
+    ],
+    "weakened_assumptions": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "ASSUMPTION-SEED-004"
+    ],
+    "architecture_critical_assumptions_below_threshold": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "ASSUMPTION-SEED-004"
+    ],
+    "feasibility_confidence": 0.74,
+    "stage_3_required_architecture_decisions": [
+      "Playwright job orchestration, crawl limits, retries, and failure modes",
+      "Normalized import schema and validation gate",
+      "Universal Catalog Item base model plus type-specific attributes",
+      "AI provider interface, adapter lifecycle, capability router, provider health contract",
+      "Tenant isolation across database, storage, queue, search, and AI credentials"
+    ]
+  },
+  "operational_validation": {
+    "summary": "Background workers are feasible and necessary. Operational readiness depends on explicit job observability, retry/resume, idempotency, and user-visible status.",
+    "confidence": 0.72,
+    "risk_ids": [
+      "RISK-015"
+    ]
+  },
+  "business_validation": {
+    "summary": "External evidence validates that businesses pay for product-data management and promo workflow platforms. Source BlendR-specific pricing and willingness-to-pay remain unvalidated. Business viability is plausible but below readiness threshold until customer discovery or pricing tests are run.",
+    "validated_assumptions": [],
+    "weakened_assumptions": [
+      "ASSUMPTION-SEED-002"
+    ],
+    "unknown_assumptions": [
+      "pricing_model",
+      "willingness_to_pay",
+      "buyer_budget_owner"
+    ],
+    "confidence": 0.6,
+    "recommended_pricing_tests": [
+      "workspace subscription interview test",
+      "usage-based AI/import cost sensitivity test",
+      "promo-distributor pilot willingness-to-pay test"
+    ]
+  },
+  "scalability_analysis": {
+    "ai_cost_sustainability": "unknown_until_provider_usage_and_import_volume_are_measured",
+    "infrastructure_cost_risk": "medium",
+    "retention_hypothesis": "Vendor/document memory and owned catalog data can increase retention, but this is not validated."
+  },
+  "critical_unknowns": [
+    {
+      "id": "UNKNOWN-001",
+      "unknown": "Actual Playwright success rate on representative vendor websites.",
+      "next_action": "Stage 6 test suite with target vendor sample."
+    },
+    {
+      "id": "UNKNOWN-002",
+      "unknown": "Willingness to pay and buyer budget owner.",
+      "next_action": "Run customer interviews and pricing tests."
+    },
+    {
+      "id": "UNKNOWN-003",
+      "unknown": "Legal/ToS posture for scraping vendor websites.",
+      "next_action": "Stage 3 policy and Stage 7 legal launch review."
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "CONTRADICTION-001",
+      "assumption_ids": [
+        "ASSUMPTION-SEED-002"
+      ],
+      "description": "PIM evidence validates centralized catalog pain but not AI-provider agnosticism as a buyer priority.",
+      "severity": "medium",
+      "impact": "Differentiation may be weaker than assumed.",
+      "resolution_path": "Customer interviews or pilot testing.",
+      "status": "open"
+    },
+    {
+      "id": "CONTRADICTION-002",
+      "assumption_ids": [
+        "ASSUMPTION-SEED-004"
+      ],
+      "description": "PIM evidence is product-centric while Source BlendR includes services, rentals, labor, manufacturing, and installation.",
+      "severity": "medium",
+      "impact": "Universal schema may need extension model.",
+      "resolution_path": "Stage 3 architecture should use base item with type-specific attributes.",
+      "status": "mitigated"
+    }
+  ],
+  "risk_registry": [
+    {
+      "id": "RISK-001",
+      "risk": "Vendor-site scraping reliability remains unproven across representative websites.",
+      "domain": "technical",
+      "severity": "high",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "ASSUMPTION-SEED-001"
+      ],
+      "mitigation": "Stage 3 designs resilient crawler/queue; Stage 6 runs representative vendor-site tests.",
+      "owner_stage": "Stage 3"
+    },
+    {
+      "id": "RISK-005",
+      "risk": "Multi-tenant isolation and AI credential isolation are security-critical.",
+      "domain": "technical/security",
+      "severity": "high",
+      "likelihood": "low",
+      "affected_assumptions": [],
+      "mitigation": "Stage 3 defines tenant boundaries, storage isolation, and credential handling; Stage 6 security tests.",
+      "owner_stage": "Stage 3"
+    },
+    {
+      "id": "RISK-010",
+      "risk": "Willingness to pay is not directly validated.",
+      "domain": "business",
+      "severity": "high",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "ASSUMPTION-SEED-002"
+      ],
+      "mitigation": "Run customer interviews and pricing tests before launch.",
+      "owner_stage": "Stage 2/8"
+    },
+    {
+      "id": "RISK-012",
+      "risk": "Scraping legal/ToS posture is unresolved.",
+      "domain": "compliance",
+      "severity": "medium",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "ASSUMPTION-SEED-001"
+      ],
+      "mitigation": "Stage 3 includes robots/ToS policy and manual opt-in controls; legal review before launch.",
+      "owner_stage": "Stage 3/7"
+    },
+    {
+      "id": "RISK-015",
+      "risk": "Long-running background jobs can silently stall without observability.",
+      "domain": "operational",
+      "severity": "medium",
+      "likelihood": "medium",
+      "affected_assumptions": [
+        "ASSUMPTION-SEED-005"
+      ],
+      "mitigation": "Stage 3 defines job status, retry/resume, idempotency, and operational telemetry.",
+      "owner_stage": "Stage 3"
+    }
+  ],
+  "recommendations": [
+    "Proceed to Stage 3 only if carried risks are accepted in the Stage 2 decision brief.",
+    "Run customer interviews and pricing tests before launch.",
+    "Run representative vendor-site Playwright tests in Stage 6.",
+    "Perform legal/ToS review before launch readiness."
+  ],
   "interactive_guidance": {
     "open_questions": [],
     "answered_questions": [],
-    "assumptions_made": [],
+    "assumptions_made": [
+      {
+        "assumption_id": "STAGE2-INFERENCE-001",
+        "assumption": "External PIM and promo workflow evidence is sufficient for medium-confidence category validation but not for Source BlendR-specific willingness-to-pay.",
+        "confidence": 0.68
+      }
+    ],
     "blocked_decisions": [],
-    "user_confirmations": [],
-    "validation_confidence_gaps": []
+    "user_confirmations": [
+      {
+        "confirmation_id": "CONFIRM-STAGE-2-001",
+        "confirmed_by": "user",
+        "confirmed_at": "2026-07-11T17:52:36.982856+00:00",
+        "decision": "Proceed to architecture with carried risks accepted",
+        "brief_id": "BRIEF-STAGE-2-001"
+      }
+    ],
+    "validation_confidence_gaps": [
+      "willingness_to_pay",
+      "vendor_site_reliability",
+      "scraping_legal_posture",
+      "direct_user_interviews"
+    ]
   },
-  "architecture_readiness": {},
-  "completion_status": {}
+  "architecture_readiness": {
+    "status": "ready_with_accepted_risks",
+    "score": 0.72,
+    "threshold": 0.75,
+    "below_threshold_reasons": [
+      "architecture-critical assumptions ASSUMPTION-SEED-001, ASSUMPTION-SEED-002, and ASSUMPTION-SEED-004 remain weakened"
+    ],
+    "can_proceed_if": "User approves Stage 2 decision brief and accepts explicit Stage 3 architecture constraints.",
+    "accepted_risk_ids": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010"
+    ]
+  },
+  "stage_3_handoff": {
+    "source_stage": "Stage 2",
+    "target_stage": "Stage 3",
+    "source_output_directory": "Build-Plans/Stage-2/",
+    "required_files": [
+      "01-market-analysis.json",
+      "02-competitive-landscape.json",
+      "03-technical-feasibility.json",
+      "04-business-viability.json",
+      "05-risk-validation.json",
+      "06-strategic-positioning.json"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010"
+    ],
+    "traceability_refs": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "ASSUMPTION-SEED-004",
+      "ASSUMPTION-SEED-005",
+      "RISK-001",
+      "RISK-005",
+      "RISK-010",
+      "RISK-012",
+      "RISK-015"
+    ],
+    "completion_status": {
+      "stage_specific_status": "ready_for_stage_3",
+      "global_status": "ready_for_next_stage",
+      "reason": "Stage 2 decision brief approved. Architecture readiness shortfall is explicitly accepted as carried risk with mitigation paths and downstream visibility.",
+      "blocking_items": [],
+      "next_actions": [
+        "Start Stage 3 system architecture using Stage 2 stage_3_handoff and accepted risk ledger entries."
+      ],
+      "ready_for": "Stage 3 (System Architecture)"
+    },
+    "architecture_guidance": [
+      "Treat scraping as best-effort, bounded, observable background jobs, not a guaranteed full-site crawler.",
+      "Design Universal Catalog Item as base entity plus typed attributes/extensions.",
+      "Keep AI provider adapters behind a stable minimal interface and route by capability.",
+      "Make deterministic validation the write gate from Discovery Session to catalog.",
+      "Enforce tenant isolation across every persistence and background-processing boundary."
+    ]
+  },
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-2-001",
+    "stage": "Stage 2",
+    "brief_path": "Build-Plans/Stage-2/00-stage-decision-brief.md",
+    "recommended_direction": "Proceed to Stage 3 architecture with explicit architecture guidance and carried risks. Market and technical validation support the product direction at medium confidence, while willingness-to-pay, legal scraping posture, and real vendor-site reliability remain open validation items.",
+    "alternatives_considered": [
+      "Proceed directly to architecture with open risks carried forward",
+      "Run deeper validation before architecture",
+      "Revise product assumptions around scraping and AI-provider agnosticism",
+      "Block progression until vendor-site testing and customer interviews are complete"
+    ],
+    "key_decisions": [
+      "PIM/catalog market problem is evidence-backed by Akeneo and Plytix PIM sources",
+      "Promo-distributor workflow market exists, supported by commonsku positioning and customer proof",
+      "Source BlendR remains differentiated by discovery-before-import, vendor-source ingestion, universal catalog items, and AI-provider agnosticism",
+      "Architecture may proceed if Stage 3 treats Playwright reliability, tenant isolation, validation engine, AI adapter contracts, and queue strategy as first-class decisions"
+    ],
+    "assumptions": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "ASSUMPTION-SEED-003",
+      "ASSUMPTION-SEED-004",
+      "ASSUMPTION-SEED-005"
+    ],
+    "risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010",
+      "RISK-012",
+      "RISK-015"
+    ],
+    "downstream_impact": [
+      "Stage 3 must design the scraping queue, retry, and observability model around unproven vendor-site variability",
+      "Stage 3 must isolate AI providers behind stable adapters and capability routing",
+      "Stage 3 must enforce deterministic validation before catalog writes",
+      "Stage 3 must include multi-tenant data and credential isolation as security-critical architecture"
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T17:52:36.982856+00:00",
+    "revision_notes": [],
+    "approved_decision": "Proceed to architecture with carried risks accepted"
+  },
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_3",
+    "global_status": "ready_for_next_stage",
+    "reason": "Stage 2 decision brief approved. Architecture readiness shortfall is explicitly accepted as carried risk with mitigation paths and downstream visibility.",
+    "blocking_items": [],
+    "next_actions": [
+      "Start Stage 3 system architecture using Stage 2 stage_3_handoff and accepted risk ledger entries."
+    ],
+    "ready_for": "Stage 3 (System Architecture)"
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-2-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-2/01-market-analysis.json",
+      "Build-Plans/Stage-2/02-competitive-landscape.json",
+      "Build-Plans/Stage-2/03-technical-feasibility.json",
+      "Build-Plans/Stage-2/04-business-viability.json",
+      "Build-Plans/Stage-2/05-risk-validation.json",
+      "Build-Plans/Stage-2/06-strategic-positioning.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T17:52:36.982856+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "FEATURE-001",
+      "FEATURE-010",
+      "RISK-001",
+      "RISK-005",
+      "RISK-010"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": true,
+    "accepted_risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010"
+    ],
+    "ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json"
+  },
+  "revision_loops": []
 }

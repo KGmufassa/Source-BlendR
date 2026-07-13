@@ -1,0 +1,710 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "workflows": [
+    {
+      "workflow_id": "WORKFLOW-001",
+      "name": "Website Discovery Import",
+      "description": "Category-first Playwright discovery of a vendor website: render homepage -> AI site analysis -> category tree cache -> user category selection -> recursive scraping per selected node -> AI classification and extraction -> normalization -> minimal product picker -> Discovery Session.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-001",
+        "FEATURE-002",
+        "FEATURE-004",
+        "FEATURE-013"
+      ],
+      "start_state": "Vendor added with website URL; no cached category tree",
+      "success_state": "Discovery Session populated with normalized candidate items extracted from selected vendor categories.",
+      "system_actions": [
+        "Playwright launch and render",
+        "Send rendered DOM to AI extraction capability",
+        "Build and cache category tree",
+        "Queue independent per-category scraping jobs",
+        "AI page classification and structured extraction",
+        "Normalize vendor terminology into unified schema",
+        "Collect candidate items into Discovery Session"
+      ],
+      "user_actions": [
+        "Add vendor with website URL",
+        "View cached category tree",
+        "Select categories and subcategories to import",
+        "Monitor scraping job progress",
+        "Review minimal product picker candidates"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Playwright Feature.md",
+        "System-References/PRD Docs/Source Blender PRD.md#Import Methods"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-002",
+      "name": "PDF Catalog Import",
+      "description": "Upload a vendor PDF catalog -> OCR -> AI extraction of clickable items -> normalization -> Discovery Session.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-003",
+        "FEATURE-004",
+        "FEATURE-013"
+      ],
+      "start_state": "Vendor exists; PDF catalog file available",
+      "success_state": "Discovery Session populated with clickable catalog items extracted from the PDF.",
+      "system_actions": [
+        "Receive PDF upload",
+        "OCR if needed",
+        "Send structured content to AI extraction capability",
+        "Normalize",
+        "Create Discovery Session candidates"
+      ],
+      "user_actions": [
+        "Upload vendor PDF",
+        "Review extracted candidate items in Discovery Session"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#PDF Catalog Import"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-003",
+      "name": "Discovery Session Review and Import",
+      "description": "Staging review of candidate items with search, filtering, multi-select, preview, edit, bulk import, ignore, and archive before any item becomes a catalog item.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-004",
+        "FEATURE-005"
+      ],
+      "start_state": "Discovery Session contains candidate items (New, Updated, Ignored, Archived states)",
+      "success_state": "Selected candidates become fully editable Universal Catalog Items; ignored items are archived.",
+      "system_actions": [
+        "Maintain candidate states (New, Imported, Updated, Ignored, Archived)",
+        "Apply deterministic validation before import",
+        "Detect duplicates and conflicts against existing catalog",
+        "Create Universal Catalog Items on import"
+      ],
+      "user_actions": [
+        "Search and filter candidates",
+        "Multi-select candidates",
+        "Preview and edit before import",
+        "Bulk import or ignore",
+        "Archive candidates"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Discovery Sessions"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-004",
+      "name": "Vendor Management",
+      "description": "Create, edit, archive vendors; manage vendor website, contacts, notes, categories, and sync history.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-002"
+      ],
+      "start_state": "No vendor record exists",
+      "success_state": "Vendor record exists and is available as an import source and catalog attribution.",
+      "system_actions": [
+        "Persist vendor record",
+        "Track sync history per vendor"
+      ],
+      "user_actions": [
+        "Create vendor",
+        "Edit vendor",
+        "Archive vendor",
+        "Track sync history"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Vendor Management"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-005",
+      "name": "Workspace Management",
+      "description": "Manage multi-tenant workspace settings including AI settings and branding.",
+      "user_ids": [
+        "USER-001",
+        "USER-003"
+      ],
+      "feature_ids": [
+        "FEATURE-014",
+        "FEATURE-010"
+      ],
+      "start_state": "No workspace exists",
+      "success_state": "Workspace is configured, can host vendors, catalog, and AI provider settings.",
+      "system_actions": [
+        "Provision workspace",
+        "Store workspace AI settings",
+        "Apply branding"
+      ],
+      "user_actions": [
+        "Create workspace",
+        "Configure AI settings",
+        "Apply branding"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Workspace Management"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-006",
+      "name": "AI Provider Configuration and Capability Routing",
+      "description": "Register AI provider adapters (OpenAI, Anthropic, Gemini, Ollama, LiteLLM, LM Studio, local models, custom endpoints); route AI capabilities to providers without changing business logic; monitor provider health; handle retries and fallbacks.",
+      "user_ids": [
+        "USER-003"
+      ],
+      "feature_ids": [
+        "FEATURE-010"
+      ],
+      "start_state": "Workspace exists with no AI providers configured",
+      "success_state": "AI capabilities route to configured providers; platform runs if zero providers are configured (AI features degrade gracefully).",
+      "system_actions": [
+        "Register and store providers via adapter architecture",
+        "Route AI requests by capability (catalogExtraction, semanticSearch, etc.)",
+        "Manage retries, fallbacks, and health checks",
+        "Degrade gracefully when no providers configured"
+      ],
+      "user_actions": [
+        "Add provider with credentials",
+        "Edit capability routing",
+        "Run health checks",
+        "Swap providers"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#AI Provider Adapter Pattern",
+        "System-References/PRD Docs/Inference Layer summary.md#Capability Router",
+        "System-References/PRD Docs/Source Blender PRD.md#AI Features"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-007",
+      "name": "Universal Catalog Management",
+      "description": "Manage Universal Catalog Items (products, services, rentals, labor, manufacturing, installation) with manual entry, editing, search, filtering, and bulk actions.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-005",
+        "FEATURE-015"
+      ],
+      "start_state": "Workspace exists with empty or partial catalog",
+      "success_state": "Catalog contains curated, edited Universal Catalog Items.",
+      "system_actions": [
+        "Validate catalog items",
+        "Index for search and filtering",
+        "Enforce Universal Catalog Item schema"
+      ],
+      "user_actions": [
+        "Create item manually",
+        "Edit item",
+        "Search and filter catalog",
+        "Bulk edit",
+        "Favorite/tag items"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Catalog",
+        "System-References/PRD Docs/Source Blender PRD.md#Search & Filtering"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-008",
+      "name": "Pricing Engine Application",
+      "description": "Apply fixed pricing, percentage markup, or manual pricing to catalog items; formula pricing deferred to future.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-016"
+      ],
+      "start_state": "Catalog items have a vendor cost but no selling price or margin",
+      "success_state": "Catalog items have a selling price and margin computed via the selected pricing mode.",
+      "system_actions": [
+        "Apply pricing mode",
+        "Compute margin",
+        "Validate pricing"
+      ],
+      "user_actions": [
+        "Select pricing mode per item or in bulk",
+        "Override with manual pricing"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Pricing Engine"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-009",
+      "name": "Flyer Builder",
+      "description": "Drag-and-drop editor composing products and services into a flyer with branding and templates; export to PDF or PNG.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-008"
+      ],
+      "start_state": "Catalog contains items usable in a flyer",
+      "success_state": "Flyer PDF or PNG exported using owned catalog data and workspace branding.",
+      "system_actions": [
+        "Render editor",
+        "Apply templates",
+        "Generate PDF/PNG exports"
+      ],
+      "user_actions": [
+        "Drag items into flyer",
+        "Apply branding",
+        "Choose template",
+        "Export"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Flyer Builder"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-010",
+      "name": "Quote Builder",
+      "description": "Compose mixed catalog items into a quote with quantities, taxes, discounts, and shipping; export as PDF.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-009"
+      ],
+      "start_state": "Catalog contains items usable in a quote",
+      "success_state": "Quote PDF exported using owned catalog data.",
+      "system_actions": [
+        "Compute totals with taxes, discounts, shipping",
+        "Generate quote PDF"
+      ],
+      "user_actions": [
+        "Add items and quantities",
+        "Apply taxes/discounts/shipping",
+        "Export PDF"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Quote Builder"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-011",
+      "name": "Collections Management",
+      "description": "Create mixed item collections, reusable packages, bulk editing, and export support.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-007"
+      ],
+      "start_state": "Catalog contains items",
+      "success_state": "Collection of mixed items created, optionally reused across flyers and quotes.",
+      "system_actions": [
+        "Persist collection relationships",
+        "Support bulk edits"
+      ],
+      "user_actions": [
+        "Create collection",
+        "Add items",
+        "Bulk edit",
+        "Export collection"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Collections"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-012",
+      "name": "Analytics Review",
+      "description": "View vendor spend, monthly spend, margin, top vendors, category, quote, and catalog growth analytics.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-017"
+      ],
+      "start_state": "Catalog and quotes have data",
+      "success_state": "User reviews actionable analytics dashboards.",
+      "system_actions": [
+        "Aggregate and compute analytics",
+        "Render dashboards"
+      ],
+      "user_actions": [
+        "Open analytics",
+        "Filter insights"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Analytics"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-013",
+      "name": "Vendor and Document Memory Sync",
+      "description": "Re-import a source and detect new, removed, price-changed, and description-changed items; review before applying changes; maintain synced version history per vendor and document.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-011",
+        "FEATURE-012",
+        "FEATURE-018"
+      ],
+      "start_state": "Vendor or document already imported at least once",
+      "success_state": "Changes detected, reviewed, and applied; vendor/document version history updated.",
+      "system_actions": [
+        "Compare current import against prior version",
+        "Diff new, removed, price-changed, description-changed items",
+        "Write vendor/document memory timeline entries",
+        "Keep changes pending until reviewed"
+      ],
+      "user_actions": [
+        "Trigger manual sync",
+        "Review change diff",
+        "Accept or reject changes"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Document Memory",
+        "System-References/PRD Docs/Source Blender PRD.md#Vendor Memory",
+        "System-References/PRD Docs/Source Blender PRD.md#Synchronization"
+      ]
+    },
+    {
+      "workflow_id": "WORKFLOW-014",
+      "name": "Manual Entry",
+      "description": "First-class manual creation of products, services, rentals, labor, manufacturing, and installation without any automated source or AI provider.",
+      "user_ids": [
+        "USER-001"
+      ],
+      "feature_ids": [
+        "FEATURE-005"
+      ],
+      "start_state": "Workspace exists; no source available (or user chooses manual entry)",
+      "success_state": "Universal Catalog Item created and added to the catalog with full editability.",
+      "system_actions": [
+        "Validate item",
+        "Index for search"
+      ],
+      "user_actions": [
+        "Create item manually",
+        "Select item type",
+        "Fill fields",
+        "Save"
+      ],
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Manual Entry",
+        "System-References/PRD Docs/Source Blender PRD.md#Core Product Principles"
+      ]
+    }
+  ],
+  "workflow_relationships": [
+    {
+      "relationship_id": "WREL-001",
+      "source_workflow_id": "WORKFLOW-001",
+      "target_workflow_id": "WORKFLOW-003",
+      "relationship": "Produces candidate items for Discovery Session review"
+    },
+    {
+      "relationship_id": "WREL-002",
+      "source_workflow_id": "WORKFLOW-002",
+      "target_workflow_id": "WORKFLOW-003",
+      "relationship": "Produces candidate items for Discovery Session review"
+    },
+    {
+      "relationship_id": "WREL-003",
+      "source_workflow_id": "WORKFLOW-003",
+      "target_workflow_id": "WORKFLOW-007",
+      "relationship": "Approved candidates become Universal Catalog Items"
+    },
+    {
+      "relationship_id": "WREL-004",
+      "source_workflow_id": "WORKFLOW-014",
+      "target_workflow_id": "WORKFLOW-007",
+      "relationship": "Manually created items enter the catalog directly"
+    },
+    {
+      "relationship_id": "WREL-005",
+      "source_workflow_id": "WORKFLOW-001",
+      "target_workflow_id": "WORKFLOW-013",
+      "relationship": "Website imports feed Vendor Memory on subsequent syncs"
+    },
+    {
+      "relationship_id": "WREL-006",
+      "source_workflow_id": "WORKFLOW-002",
+      "target_workflow_id": "WORKFLOW-013",
+      "relationship": "PDF imports feed Document Memory on subsequent uploads"
+    },
+    {
+      "relationship_id": "WREL-007",
+      "source_workflow_id": "WORKFLOW-006",
+      "target_workflow_id": "WORKFLOW-001",
+      "relationship": "AI provider configuration gates AI-assisted scraping/extraction quality"
+    },
+    {
+      "relationship_id": "WREL-008",
+      "source_workflow_id": "WORKFLOW-006",
+      "target_workflow_id": "WORKFLOW-002",
+      "relationship": "AI provider configuration gates AI extraction from PDFs"
+    },
+    {
+      "relationship_id": "WREL-009",
+      "source_workflow_id": "WORKFLOW-007",
+      "target_workflow_id": "WORKFLOW-009",
+      "relationship": "Catalog items feed the Flyer Builder"
+    },
+    {
+      "relationship_id": "WREL-010",
+      "source_workflow_id": "WORKFLOW-007",
+      "target_workflow_id": "WORKFLOW-010",
+      "relationship": "Catalog items feed the Quote Builder"
+    },
+    {
+      "relationship_id": "WREL-011",
+      "source_workflow_id": "WORKFLOW-007",
+      "target_workflow_id": "WORKFLOW-012",
+      "relationship": "Catalog data feeds Analytics"
+    }
+  ],
+  "start_states": [
+    {
+      "state_id": "STATE-START-001",
+      "workflow_id": "WORKFLOW-001",
+      "description": "Vendor added with website URL; no cached category tree"
+    },
+    {
+      "state_id": "STATE-START-002",
+      "workflow_id": "WORKFLOW-002",
+      "description": "Vendor exists; PDF catalog file available"
+    },
+    {
+      "state_id": "STATE-START-003",
+      "workflow_id": "WORKFLOW-003",
+      "description": "Discovery Session contains candidate items"
+    },
+    {
+      "state_id": "STATE-START-004",
+      "workflow_id": "WORKFLOW-014",
+      "description": "Workspace exists; no source available or manual entry selected"
+    }
+  ],
+  "success_states": [
+    {
+      "state_id": "STATE-SUCCESS-001",
+      "workflow_id": "WORKFLOW-001",
+      "description": "Discovery Session populated with normalized candidate items from selected vendor categories"
+    },
+    {
+      "state_id": "STATE-SUCCESS-002",
+      "workflow_id": "WORKFLOW-002",
+      "description": "Discovery Session populated with clickable extracted PDF items"
+    },
+    {
+      "state_id": "STATE-SUCCESS-003",
+      "workflow_id": "WORKFLOW-003",
+      "description": "Selected candidates become editable Universal Catalog Items; ignored items archived"
+    },
+    {
+      "state_id": "STATE-SUCCESS-004",
+      "workflow_id": "WORKFLOW-014",
+      "description": "Manual Universal Catalog Item created and added"
+    }
+  ],
+  "failure_or_recovery_hints": [
+    {
+      "hint_id": "HINT-001",
+      "workflow_id": "WORKFLOW-001",
+      "failure": "Playwright cannot render or traverse vendor site",
+      "recovery": "Log site into vendor memory as unscrapeable; offer manual entry fallback; flag for Stage 2 technical validation."
+    },
+    {
+      "hint_id": "HINT-002",
+      "workflow_id": "WORKFLOW-001",
+      "failure": "AI extraction misclassifies pages",
+      "recovery": "Allow user correction of category tree; fall back to minimal product picker with editable candidates."
+    },
+    {
+      "hint_id": "HINT-003",
+      "workflow_id": "WORKFLOW-002",
+      "failure": "PDF not parseable",
+      "recovery": "Notify user; request OCR pass or manual entry; record as sync history failure."
+    },
+    {
+      "hint_id": "HINT-004",
+      "workflow_id": "WORKFLOW-006",
+      "failure": "No AI providers configured but AI capability requested",
+      "recovery": "Degrade gracefully; skip AI enrichment; allow manual-only workflow."
+    },
+    {
+      "hint_id": "HINT-005",
+      "workflow_id": "WORKFLOW-006",
+      "failure": "Provider unhealthy or rate-limited",
+      "recovery": "Use configured fallback provider; surface health in UI; queue retries."
+    },
+    {
+      "hint_id": "HINT-006",
+      "workflow_id": "WORKFLOW-003",
+      "failure": "Duplicate or conflict detected during validation",
+      "recovery": "Surface to user in Discovery Session; allow merge or ignore; record conflict in sync history."
+    }
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Workspace Management",
+        "Vendor Management",
+        "Import Methods",
+        "Discovery Sessions",
+        "Catalog",
+        "Collections",
+        "Flyer Builder",
+        "Quote Builder",
+        "Analytics",
+        "AI Features",
+        "Document Memory",
+        "Vendor Memory",
+        "Synchronization",
+        "Search & Filtering",
+        "User Experience"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "AI Provider Adapter Pattern",
+        "Provider Registry",
+        "Capability Router",
+        "Validation Engine",
+        "AI Workflow"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Playwright Feature.md",
+      "sections": [
+        "Phase 1",
+        "Phase 2",
+        "Phase 3",
+        "Phase 4",
+        "Phase 5",
+        "Phase 6",
+        "Phase 7",
+        "Phase 8",
+        "Category-First Strategy",
+        "Lazy Scraping",
+        "Parallel Job Processing"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}

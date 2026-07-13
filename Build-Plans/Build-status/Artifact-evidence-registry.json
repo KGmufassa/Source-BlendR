@@ -1,4 +1,142 @@
 {
   "registry_version": "1.0.0",
-  "artifacts": []
+  "artifacts": [
+    {
+      "artifact_id": "ARTIFACT-001",
+      "type": "screenshot",
+      "related_stage": "Stage 1",
+      "related_stage_output": "01-product-foundation.json",
+      "path_or_url": "System-References/PRD Docs/Source Blender PRD.md",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "Stage-1-product-initialization",
+      "created_at": "",
+      "notes": "Primary PRD used as raw product intent."
+    },
+    {
+      "artifact_id": "ARTIFACT-002",
+      "type": "screenshot",
+      "related_stage": "Stage 1",
+      "related_stage_output": "07-dependency-map.json",
+      "path_or_url": "System-References/PRD Docs/Inference Layer summary.md",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "Stage-1-product-initialization",
+      "created_at": "",
+      "notes": "Architecture decision record used for AI engine and adapter architecture."
+    },
+    {
+      "artifact_id": "ARTIFACT-003",
+      "type": "screenshot",
+      "related_stage": "Stage 1",
+      "related_stage_output": "03-workflow-architecture.json",
+      "path_or_url": "System-References/PRD Docs/Playwright Feature.md",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "Stage-1-product-initialization",
+      "created_at": "",
+      "notes": "Playwright scraping architecture used for website discovery workflow and background job design."
+    },
+    {
+      "artifact_id": "ARTIFACT-004",
+      "type": "validation_report",
+      "related_stage": "Stage 2",
+      "related_stage_output": "01-market-analysis.json",
+      "related_ticket_ids": [],
+      "related_validation_ids": [
+        "MVT-001",
+        "MVT-002",
+        "MVT-003"
+      ],
+      "related_agent_ids": [],
+      "path_or_url": "https://www.akeneo.com/what-is-a-pim/",
+      "status": "passed",
+      "confidence": "medium",
+      "created_by": "stage-2-research-and-validation",
+      "created_at": "2026-07-11T16:47:50.630416+00:00",
+      "notes": "External PIM evidence for centralized product information market."
+    },
+    {
+      "artifact_id": "ARTIFACT-005",
+      "type": "validation_report",
+      "related_stage": "Stage 2",
+      "related_stage_output": "02-competitive-landscape.json",
+      "related_ticket_ids": [],
+      "related_validation_ids": [
+        "MVT-001",
+        "MVT-002"
+      ],
+      "related_agent_ids": [],
+      "path_or_url": "https://www.plytix.com/what-is-pim",
+      "status": "passed",
+      "confidence": "medium",
+      "created_by": "stage-2-research-and-validation",
+      "created_at": "2026-07-11T16:47:50.630416+00:00",
+      "notes": "External PIM competitor evidence."
+    },
+    {
+      "artifact_id": "ARTIFACT-006",
+      "type": "validation_report",
+      "related_stage": "Stage 2",
+      "related_stage_output": "02-competitive-landscape.json",
+      "related_ticket_ids": [],
+      "related_validation_ids": [
+        "BVT-001"
+      ],
+      "related_agent_ids": [],
+      "path_or_url": "https://commonsku.com/",
+      "status": "passed",
+      "confidence": "medium",
+      "created_by": "stage-2-research-and-validation",
+      "created_at": "2026-07-11T16:47:50.630416+00:00",
+      "notes": "External promo-distributor workflow competitor evidence."
+    },
+    {
+      "artifact_id": "ARTIFACT-007",
+      "type": "validation_report",
+      "related_stage": "Stage 2",
+      "related_stage_output": "03-technical-feasibility.json",
+      "related_ticket_ids": [],
+      "related_validation_ids": [
+        "TVT-001"
+      ],
+      "related_agent_ids": [],
+      "path_or_url": "Context7 /microsoft/playwright query",
+      "status": "passed",
+      "confidence": "medium",
+      "created_by": "stage-2-research-and-validation",
+      "created_at": "2026-07-11T16:47:50.630416+00:00",
+      "notes": "Official Playwright capability evidence for navigation/click/wait/context primitives."
+    },
+    {
+      "artifact_id": "ARTIFACT-008",
+      "type": "validation_report",
+      "related_stage": "Stage 3",
+      "related_stage_output": "00-stage-decision-brief.md",
+      "related_ticket_ids": [],
+      "related_validation_ids": [],
+      "related_agent_ids": [],
+      "path_or_url": "Build-Plans/Stage-3/00-stage-decision-brief.md",
+      "status": "passed",
+      "confidence": "medium",
+      "created_by": "stage-3-system-architecture",
+      "created_at": "2026-07-11T22:14:26.875337+00:00",
+      "notes": "Concrete stack decision brief approved by user."
+    },
+    {
+      "artifact_id": "ARTIFACT-009",
+      "type": "validation_report",
+      "related_stage": "Stage 3",
+      "related_stage_output": "01-system-topology.json",
+      "related_ticket_ids": [],
+      "related_validation_ids": [],
+      "related_agent_ids": [],
+      "path_or_url": "Build-Plans/Stage-3/01-system-topology.json",
+      "status": "passed",
+      "confidence": "medium",
+      "created_by": "stage-3-system-architecture",
+      "created_at": "2026-07-11T22:14:26.875337+00:00",
+      "notes": "System topology architecture artifact."
+    }
+  ]
 }

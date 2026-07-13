@@ -1,4 +1,68 @@
 {
   "ledger_version": "1.0.0",
-  "accepted_risks": []
+  "accepted_risks": [
+    {
+      "risk_id": "RISK-001",
+      "source_stage": "Stage 2",
+      "source_output": "Build-Plans/Stage-2/05-risk-validation.json",
+      "risk": "Vendor-site scraping reliability remains unproven across representative websites.",
+      "severity": "high",
+      "accepted_by": "user",
+      "accepted_at": "2026-07-11T17:52:36.982856+00:00",
+      "acceptance_reason": "User approved Stage 2 decision brief to proceed to architecture with carried risks.",
+      "mitigation": "Stage 3 designs bounded, observable, retryable scraping jobs; Stage 6 runs representative vendor-site tests.",
+      "owner_stage": "Stage 3 / Stage 6",
+      "downstream_visibility": [
+        "Stage 3",
+        "Stage 5",
+        "Stage 6",
+        "Stage 7"
+      ],
+      "revisit_trigger": "Before implementation validation of website import or if representative vendor-site tests fail.",
+      "expires_or_recheck_at": "Before Stage 6 completion",
+      "status": "active"
+    },
+    {
+      "risk_id": "RISK-005",
+      "source_stage": "Stage 2",
+      "source_output": "Build-Plans/Stage-2/05-risk-validation.json",
+      "risk": "Multi-tenant isolation and AI credential isolation are security-critical.",
+      "severity": "high",
+      "accepted_by": "user",
+      "accepted_at": "2026-07-11T17:52:36.982856+00:00",
+      "acceptance_reason": "User approved Stage 2 decision brief to proceed to architecture with carried risks.",
+      "mitigation": "Stage 3 defines tenant boundaries and credential handling; Stage 6 includes security tests.",
+      "owner_stage": "Stage 3 / Stage 6",
+      "downstream_visibility": [
+        "Stage 3",
+        "Stage 5",
+        "Stage 6",
+        "Stage 7"
+      ],
+      "revisit_trigger": "Before Stage 3 architecture approval and before Stage 6 implementation validation.",
+      "expires_or_recheck_at": "Before Stage 6 completion",
+      "status": "active"
+    },
+    {
+      "risk_id": "RISK-010",
+      "source_stage": "Stage 2",
+      "source_output": "Build-Plans/Stage-2/05-risk-validation.json",
+      "risk": "Willingness to pay is not directly validated.",
+      "severity": "high",
+      "accepted_by": "user",
+      "accepted_at": "2026-07-11T17:52:36.982856+00:00",
+      "acceptance_reason": "User approved Stage 2 decision brief to proceed to architecture with carried risks.",
+      "mitigation": "Run customer interviews and pricing tests before launch; keep Stage 3 architecture modular enough to adjust scope.",
+      "owner_stage": "Stage 2 / Stage 7 / Stage 8",
+      "downstream_visibility": [
+        "Stage 3",
+        "Stage 5",
+        "Stage 7",
+        "Stage 8"
+      ],
+      "revisit_trigger": "Before launch readiness or when pricing/business model is finalized.",
+      "expires_or_recheck_at": "Before Stage 7 launch readiness",
+      "status": "active"
+    }
+  ]
 }

@@ -1,0 +1,535 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "technical_risks": [
+    {
+      "risk_id": "RISK-001",
+      "risk": "Playwright + AI-assisted site analysis cannot reliably traverse JS-heavy, infinite-scroll, or aggressively paginated vendor websites across the diverse target market.",
+      "domain": "technical",
+      "severity": "high",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-001",
+        "WORKFLOW-001"
+      ],
+      "mitigation": "Validate Playwright reliability against a representative sample of vendor sites in Stage 2; offer manual entry fallback; flag unscrapeable vendors.",
+      "owner_stage": "Stage 2 / Stage 6",
+      "evidence_refs": [
+        "System-References/PRD Docs/Playwright Feature.md"
+      ],
+      "next_action": "Stage 2 technical validation against >= 5 diverse vendor sites."
+    },
+    {
+      "risk_id": "RISK-002",
+      "risk": "Background queue exceeds expected job durations and the UI appears stale for long scraping/AI sessions.",
+      "domain": "technical",
+      "severity": "medium",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-013",
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-006"
+      ],
+      "mitigation": "Use retry/resume independent jobs; surface job progress in UI; design jobs to be idempotent.",
+      "owner_stage": "Stage 3 / Stage 6",
+      "next_action": "Stage 3 architecture defines queue/timeout strategy."
+    },
+    {
+      "risk_id": "RISK-003",
+      "risk": "AI extraction quality varies across providers and produces inconsistent catalog data.",
+      "domain": "technical",
+      "severity": "medium",
+      "likelihood": "high",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-010",
+        "WORKFLOW-001",
+        "WORKFLOW-002"
+      ],
+      "mitigation": "Deterministic validation engine gates writes; Discovery Session review catches mistakes; capability router allows per-capability provider selection.",
+      "owner_stage": "Stage 3 / Stage 6",
+      "next_action": "Stage 6 acceptance criteria include AI extraction-quality tests per capability."
+    },
+    {
+      "risk_id": "RISK-004",
+      "risk": "PDF parsing and OCR quality is insufficient for scanned vendor catalogs.",
+      "domain": "technical",
+      "severity": "medium",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-003"
+      ],
+      "mitigation": "Detect poor OCR confidence; flag candidates for manual edit in Discovery Session; offer manual entry fallback.",
+      "owner_stage": "Stage 6",
+      "next_action": "Stage 6 acceptance criteria include OCR quality bar."
+    },
+    {
+      "risk_id": "RISK-005",
+      "risk": "Multi-tenancy isolation in database, storage, search, and AI credentials has a security gap that leaks data across workspaces.",
+      "domain": "technical",
+      "severity": "high",
+      "likelihood": "low",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-014"
+      ],
+      "mitigation": "Enforce tenant isolation at the data layer; security review in Stage 3 and Stage 6.",
+      "owner_stage": "Stage 3 / Stage 6",
+      "next_action": "Stage 3 architecture defines isolation boundary; Stage 6 includes security tests."
+    },
+    {
+      "risk_id": "RISK-006",
+      "risk": "Universal Catalog Item schema does not accommodate real-world variants of rentals, labor, manufacturing, and installation, forcing per-type schemas mid-build.",
+      "domain": "technical",
+      "severity": "medium",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-005"
+      ],
+      "mitigation": "Validate the universal schema against target-market sample data in Stage 2; keep schema flexible enough for type-specific attributes.",
+      "owner_stage": "Stage 2 / Stage 3",
+      "next_action": "Stage 2 includes real-world catalog sample review."
+    },
+    {
+      "risk_id": "RISK-007",
+      "risk": "Capability router contract changes frequently and forces adapter rewrites whenever a new provider is added.",
+      "domain": "technical",
+      "severity": "low",
+      "likelihood": "low",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-010"
+      ],
+      "mitigation": "Lock the AIProvider interface contract in Stage 3; adapters only implement the stable interface.",
+      "owner_stage": "Stage 3",
+      "next_action": "Stage 3 locks the adapter interface."
+    }
+  ],
+  "business_risks": [
+    {
+      "risk_id": "RISK-008",
+      "risk": "Users do not value AI-provider agnosticism enough to justify the adapter architecture's complexity.",
+      "domain": "business",
+      "severity": "medium",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "DIFF-001",
+        "FEATURE-010"
+      ],
+      "mitigation": "Stage 2 market validation of differentiation hypothesis DIFF-001; the architecture stays simple if only one provider is configured.",
+      "owner_stage": "Stage 2",
+      "next_action": "Stage 2 interviews/surveys with target users."
+    },
+    {
+      "risk_id": "RISK-009",
+      "risk": "Discovery Session review creates friction that reduces onboarding conversion vs auto-import competitors.",
+      "domain": "business",
+      "severity": "medium",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-004",
+        "WORKFLOW-003"
+      ],
+      "mitigation": "Stage 4 UX validation of Discovery Session flow; make bulk import and quick review paths efficient.",
+      "owner_stage": "Stage 2 / Stage 4",
+      "next_action": "Stage 4 usability testing of Discovery Session flow."
+    },
+    {
+      "risk_id": "RISK-010",
+      "risk": "Target market is too small or insufficiently motivated to pay for a curated catalog tool.",
+      "domain": "business",
+      "severity": "high",
+      "likelihood": "low",
+      "status": "open",
+      "affected_ids": [
+        "PROD-SOURCE-BLENDR"
+      ],
+      "mitigation": "Stage 2 market validation of demand and willingness to pay.",
+      "owner_stage": "Stage 2",
+      "next_action": "Stage 2 market research."
+    },
+    {
+      "risk_id": "RISK-011",
+      "risk": "Flyer and Quote Builders' value is not enough to justify their complexity for MVP and they delay launch.",
+      "domain": "business",
+      "severity": "low",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-008",
+        "FEATURE-009"
+      ],
+      "mitigation": "Treat Flyer/Quote Builders as should-have; defer if MVP risk grows.",
+      "owner_stage": "Stage 1 / Stage 5",
+      "next_action": "Stage 1 MVP boundary already classifies as should-have."
+    }
+  ],
+  "compliance_risks": [
+    {
+      "risk_id": "RISK-012",
+      "risk": "Scraping vendor websites may violate terms of service or robots.txt directives for some vendors.",
+      "domain": "compliance",
+      "severity": "medium",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-001"
+      ],
+      "mitigation": "Respect robots.txt; manual sync only; surface vendor terms in the UI; legal review.",
+      "owner_stage": "Stage 2 / Stage 3",
+      "next_action": "Stage 2 legal review of scraping posture."
+    },
+    {
+      "risk_id": "RISK-013",
+      "risk": "Storing vendor product data raises data ownership and licensing concerns (e.g., reproduction, attribution).",
+      "domain": "compliance",
+      "severity": "medium",
+      "likelihood": "low",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-005"
+      ],
+      "mitigation": "Treat catalog data as user-owned; require users to accept responsibility for imports; legal review.",
+      "owner_stage": "Stage 2 / Stage 3",
+      "next_action": "Stage 2 legal review."
+    },
+    {
+      "risk_id": "RISK-014",
+      "risk": "AI provider credentials and usage may fall under different regional data-protection rules.",
+      "domain": "compliance",
+      "severity": "medium",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-010"
+      ],
+      "mitigation": "Workspace-scoped credentials; allow local models (Ollama) for sensitive data; document data flow per provider.",
+      "owner_stage": "Stage 3",
+      "next_action": "Stage 3 architecture records data flow per provider."
+    }
+  ],
+  "operational_risks": [
+    {
+      "risk_id": "RISK-015",
+      "risk": "Background worker failures during long scraping/AI jobs surface as silent stalls for users.",
+      "domain": "operational",
+      "severity": "medium",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-013"
+      ],
+      "mitigation": "Visible job status, retry/resume per category, alerting, and manual recovery.",
+      "owner_stage": "Stage 3 / Stage 6 / Stage 7",
+      "next_action": "Stage 3 defines job observability; Stage 7 monitors jobs."
+    },
+    {
+      "risk_id": "RISK-016",
+      "risk": "No on-call or support path exists yet; long-running import failures go unhandled.",
+      "domain": "operational",
+      "severity": "low",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-013"
+      ],
+      "mitigation": "Define support process in Stage 7.",
+      "owner_stage": "Stage 7",
+      "next_action": "Stage 7 operational readiness."
+    },
+    {
+      "risk_id": "RISK-017",
+      "risk": "User-managed AI provider credentials become stale or rate-limited, causing silent AI feature failure.",
+      "domain": "operational",
+      "severity": "medium",
+      "likelihood": "high",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-010"
+      ],
+      "mitigation": "Surface provider health in the UI; degrade gracefully to manual workflow; future health monitoring.",
+      "owner_stage": "Stage 6 / Stage 7",
+      "next_action": "Stage 6 surfaces provider health."
+    }
+  ],
+  "risk_severity": {
+    "high_count": 3,
+    "medium_count": 11,
+    "low_count": 3,
+    "critical_count": 0,
+    "summary": "Three high-severity risks (Playwright reliability, multi-tenancy isolation, market demand); the rest are medium or low and have proposed mitigations."
+  },
+  "constraints": [
+    {
+      "constraint_id": "CON-001",
+      "constraint": "AI is optional; the platform must operate fully with zero AI providers configured.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#AI Features"
+      ]
+    },
+    {
+      "constraint_id": "CON-002",
+      "constraint": "Discovery Sessions gate all imports; no direct auto-import to catalog.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Discovery Sessions"
+      ]
+    },
+    {
+      "constraint_id": "CON-003",
+      "constraint": "Playwright is the locked web discovery engine.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Technical Decisions (Locked)"
+      ]
+    },
+    {
+      "constraint_id": "CON-004",
+      "constraint": "Catalog Items are the primary entity; Product-only architecture is replaced.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Technical Decisions (Locked)"
+      ]
+    },
+    {
+      "constraint_id": "CON-005",
+      "constraint": "Manual entry is a first-class workflow.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Core Product Principles"
+      ]
+    },
+    {
+      "constraint_id": "CON-006",
+      "constraint": "PDF imports are equal in status to website imports.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Technical Decisions (Locked)"
+      ]
+    },
+    {
+      "constraint_id": "CON-007",
+      "constraint": "Background workers handle scraping and AI processing.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Technical Decisions (Locked)"
+      ]
+    },
+    {
+      "constraint_id": "CON-008",
+      "constraint": "AI never writes directly to inventory; deterministic validation decides.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#Validation Engine"
+      ]
+    },
+    {
+      "constraint_id": "CON-009",
+      "constraint": "Connectors only collect raw data; AI only enriches normalized data; the two are decoupled.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#Import Connectors",
+        "System-References/PRD Docs/Playwright Feature.md#Guiding Principle"
+      ]
+    },
+    {
+      "constraint_id": "CON-010",
+      "constraint": "No AI plug-in marketplace, runtime plug-in discovery, dynamic module loading, manifest files, complex DI, or AI agent frameworks in V1.",
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md#Out of Scope (Version 1)"
+      ]
+    }
+  ],
+  "mitigation_hints": [
+    {
+      "hint_id": "MIT-001",
+      "for_risk_ids": [
+        "RISK-001"
+      ],
+      "hint": "Build a Stage 2 validation panel of >= 5 representative vendor sites."
+    },
+    {
+      "hint_id": "MIT-002",
+      "for_risk_ids": [
+        "RISK-005"
+      ],
+      "hint": "Centralize tenant isolation in the data layer with enforced tenant_id on every query."
+    },
+    {
+      "hint_id": "MIT-003",
+      "for_risk_ids": [
+        "RISK-008",
+        "RISK-009",
+        "RISK-010"
+      ],
+      "hint": "Stage 2 should prioritize market validation of differentiation hypotheses."
+    },
+    {
+      "hint_id": "MIT-004",
+      "for_risk_ids": [
+        "RISK-012",
+        "RISK-013"
+      ],
+      "hint": "Legal review in Stage 2 covers scraping posture and data ownership."
+    },
+    {
+      "hint_id": "MIT-005",
+      "for_risk_ids": [
+        "RISK-015",
+        "RISK-017"
+      ],
+      "hint": "Surfaces job and provider health in the UI as Stage 6 acceptance criteria."
+    }
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Core Product Principles",
+        "Import Methods",
+        "Discovery Sessions",
+        "Catalog",
+        "AI Features",
+        "Technical Decisions (Locked)",
+        "Future Features"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "Vision",
+        "Import Connectors",
+        "AI Engine",
+        "Validation Engine",
+        "Out of Scope (Version 1)",
+        "Future Expansion"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Playwright Feature.md",
+      "sections": [
+        "Guiding Principle",
+        "Category-First Strategy",
+        "Lazy Scraping",
+        "Parallel Job Processing"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json",
+      "Build-Plans/Stage-1/05-feature-structure.json",
+      "Build-Plans/Stage-1/06-product-boundaries.json",
+      "Build-Plans/Stage-1/07-dependency-map.json",
+      "Build-Plans/Stage-1/08-mvp-operational-model.json",
+      "Build-Plans/Stage-1/09-risk-and-constraints.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}

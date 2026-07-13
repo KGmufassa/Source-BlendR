@@ -1,0 +1,531 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "mvp_scope": {
+    "mvp_scope_id": "MVP-001",
+    "name": "Source BlendR Launch MVP",
+    "definition": "A single workspace owner can discover and import products and services from vendor websites and PDF catalogs into a Discovery Session, review and import them into a Universal Catalog, search and filter that catalog, swap AI providers via adapter configuration, and use basic business outputs (flyer and quote PDFs) if time permits. Background workers keep the UI responsive. The platform fully operates with zero AI providers configured.",
+    "included_features": [
+      "FEATURE-001",
+      "FEATURE-002",
+      "FEATURE-003",
+      "FEATURE-004",
+      "FEATURE-005",
+      "FEATURE-010",
+      "FEATURE-013",
+      "FEATURE-014",
+      "FEATURE-015",
+      "FEATURE-016",
+      "FEATURE-008",
+      "FEATURE-009"
+    ],
+    "excluded_features_deferred": [
+      "FEATURE-006",
+      "FEATURE-007",
+      "FEATURE-011",
+      "FEATURE-012",
+      "FEATURE-017",
+      "FEATURE-018",
+      "FEATURE-019",
+      "FEATURE-020",
+      "FEATURE-021",
+      "FEATURE-022",
+      "FEATURE-023",
+      "FEATURE-024",
+      "FEATURE-025",
+      "FEATURE-026",
+      "FEATURE-027",
+      "FEATURE-028",
+      "FEATURE-029",
+      "FEATURE-030"
+    ],
+    "rationale": "Import-to-catalog flow, provider-agnostic AI, background processing, search/filtering, and simple pricing are the core differentiation. Flyer and Quote Builders are should-have and may be trimmed to MVP-minimal or deferred if risk grows. Analytics, memory, sync, integrations, and team features are deferred to future releases."
+  },
+  "launch_critical_workflows": [
+    {
+      "workflow_id": "WORKFLOW-001",
+      "name": "Website Discovery Import",
+      "rationale": "Core differentiator Playwright-driven discovery; without this, the platform has no automated website import."
+    },
+    {
+      "workflow_id": "WORKFLOW-002",
+      "name": "PDF Catalog Import",
+      "rationale": "PDF imports are equal in status to website imports per locked PRD decision."
+    },
+    {
+      "workflow_id": "WORKFLOW-003",
+      "name": "Discovery Session Review and Import",
+      "rationale": "Gates all imports; locked principle; prevents auto-import risk."
+    },
+    {
+      "workflow_id": "WORKFLOW-007",
+      "name": "Universal Catalog Management",
+      "rationale": "Owned catalog is the platform's primary asset."
+    },
+    {
+      "workflow_id": "WORKFLOW-006",
+      "name": "AI Provider Configuration and Capability Routing",
+      "rationale": "Provider-agnostic architecture is locked; required even though AI is optional."
+    },
+    {
+      "workflow_id": "WORKFLOW-014",
+      "name": "Manual Entry",
+      "rationale": "First-class workflow; validates that the platform runs with zero AI providers."
+    }
+  ],
+  "launch_critical_systems": [
+    {
+      "system_id": "SYS-001",
+      "system": "Playwright scraping engine with category tree, lazy scraping, parallel jobs, retry/resume per category",
+      "feature_ids": [
+        "FEATURE-001"
+      ]
+    },
+    {
+      "system_id": "SYS-002",
+      "system": "Background job queue with idempotent retries",
+      "feature_ids": [
+        "FEATURE-013",
+        "FEATURE-001",
+        "FEATURE-003"
+      ]
+    },
+    {
+      "system_id": "SYS-003",
+      "system": "Ingestion and normalization engine producing Source BlendR normalized JSON",
+      "feature_ids": [
+        "FEATURE-001",
+        "FEATURE-003"
+      ]
+    },
+    {
+      "system_id": "SYS-004",
+      "system": "AI provider adapter architecture + provider registry + capability router with graceful degradation",
+      "feature_ids": [
+        "FEATURE-010"
+      ]
+    },
+    {
+      "system_id": "SYS-005",
+      "system": "Validation Engine gating Discovery Session imports to catalog",
+      "feature_ids": [
+        "FEATURE-004",
+        "FEATURE-005"
+      ]
+    },
+    {
+      "system_id": "SYS-006",
+      "system": "Universal Catalog with Universal Catalog Items (products, services, rentals, labor, manufacturing, installation)",
+      "feature_ids": [
+        "FEATURE-005"
+      ]
+    },
+    {
+      "system_id": "SYS-007",
+      "system": "Vendor management with sync history",
+      "feature_ids": [
+        "FEATURE-002"
+      ]
+    },
+    {
+      "system_id": "SYS-008",
+      "system": "Multi-tenant workspace with AI settings and branding",
+      "feature_ids": [
+        "FEATURE-014"
+      ]
+    },
+    {
+      "system_id": "SYS-009",
+      "system": "Search index (global, vendor, category, item type, tags, favorites)",
+      "feature_ids": [
+        "FEATURE-015"
+      ]
+    },
+    {
+      "system_id": "SYS-010",
+      "system": "Pricing engine (fixed, percentage markup, manual)",
+      "feature_ids": [
+        "FEATURE-016"
+      ]
+    }
+  ],
+  "feature_priorities": {
+    "must": [
+      "FEATURE-001",
+      "FEATURE-002",
+      "FEATURE-003",
+      "FEATURE-004",
+      "FEATURE-005",
+      "FEATURE-010",
+      "FEATURE-013",
+      "FEATURE-014",
+      "FEATURE-015"
+    ],
+    "should": [
+      "FEATURE-008",
+      "FEATURE-009",
+      "FEATURE-011",
+      "FEATURE-012",
+      "FEATURE-016",
+      "FEATURE-018"
+    ],
+    "could": [
+      "FEATURE-007",
+      "FEATURE-017"
+    ],
+    "defer": [
+      "FEATURE-006",
+      "FEATURE-019",
+      "FEATURE-020",
+      "FEATURE-021",
+      "FEATURE-022",
+      "FEATURE-023",
+      "FEATURE-024",
+      "FEATURE-025",
+      "FEATURE-026",
+      "FEATURE-027",
+      "FEATURE-028",
+      "FEATURE-029",
+      "FEATURE-030"
+    ]
+  },
+  "deferred_features": [
+    {
+      "feature_id": "FEATURE-006",
+      "name": "CSV Import (future)",
+      "revisit_trigger": "When requests for bulk tabular import exceed threshold."
+    },
+    {
+      "feature_id": "FEATURE-007",
+      "name": "Collections (should)",
+      "revisit_trigger": "When catalog size makes manual grouping painful."
+    },
+    {
+      "feature_id": "FEATURE-011",
+      "name": "Document Memory (should)",
+      "revisit_trigger": "When repeat-PDF imports become common."
+    },
+    {
+      "feature_id": "FEATURE-012",
+      "name": "Vendor Memory (should)",
+      "revisit_trigger": "When repeat website imports become common."
+    },
+    {
+      "feature_id": "FEATURE-017",
+      "name": "Analytics (could)",
+      "revisit_trigger": "When catalog and quote volume justifies dashboards."
+    },
+    {
+      "feature_id": "FEATURE-018",
+      "name": "Synchronization manual sync (should)",
+      "revisit_trigger": "When repeat imports occur."
+    },
+    {
+      "feature_id": "FEATURE-019",
+      "name": "Team Support (defer)",
+      "revisit_trigger": "When multi-user collaboration is requested."
+    },
+    {
+      "feature_id": "FEATURE-020",
+      "name": "Inventory Management (defer)",
+      "revisit_trigger": "When customers request stock-level tracking."
+    },
+    {
+      "feature_id": "FEATURE-021",
+      "name": "Purchase Orders (defer)",
+      "revisit_trigger": "When customers request procurement workflow."
+    },
+    {
+      "feature_id": "FEATURE-022",
+      "name": "Customer Portals (defer)",
+      "revisit_trigger": "When B2B customers request external access."
+    },
+    {
+      "feature_id": "FEATURE-023",
+      "name": "Public Catalogs (defer)",
+      "revisit_trigger": "When marketing requests public catalog surface."
+    },
+    {
+      "feature_id": "FEATURE-024",
+      "name": "Vendor Comparison (defer)",
+      "revisit_trigger": "When sourcing decisions require side-by-side."
+    },
+    {
+      "feature_id": "FEATURE-025",
+      "name": "Mobile App (defer)",
+      "revisit_trigger": "When field sales request mobile access."
+    },
+    {
+      "feature_id": "FEATURE-026",
+      "name": "ERP Integrations (defer)",
+      "revisit_trigger": "When enterprise customers require ERP sync."
+    },
+    {
+      "feature_id": "FEATURE-027",
+      "name": "Marketplace Integrations (defer)",
+      "revisit_trigger": "When marketplace channel becomes strategic."
+    },
+    {
+      "feature_id": "FEATURE-028",
+      "name": "Vector / Semantic Search (defer)",
+      "revisit_trigger": "When catalog size makes keyword search insufficient."
+    },
+    {
+      "feature_id": "FEATURE-029",
+      "name": "Collection Suggestions (defer)",
+      "revisit_trigger": "When AI-driven bundling shows validated value."
+    },
+    {
+      "feature_id": "FEATURE-030",
+      "name": "Formula Pricing (defer)",
+      "revisit_trigger": "When pricing rules exceed fixed/percentage/manual."
+    }
+  ],
+  "implementation_phases": {
+    "phase_1_foundation": {
+      "name": "Foundation",
+      "features": [
+        "FEATURE-014",
+        "FEATURE-013",
+        "FEATURE-002"
+      ],
+      "description": "Multi-tenant workspace, background queue, vendor records, sync history scaffolding."
+    },
+    "phase_2_import_and_ai": {
+      "name": "Import and AI",
+      "features": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-010",
+        "FEATURE-004"
+      ],
+      "description": "Playwright website discovery, PDF import, AI adapter architecture + provider registry + capability router, Discovery Session staging."
+    },
+    "phase_3_catalog_and_pricing": {
+      "name": "Catalog and Pricing",
+      "features": [
+        "FEATURE-005",
+        "FEATURE-015",
+        "FEATURE-016"
+      ],
+      "description": "Universal Catalog Items, search/filtering/tags/favorites, pricing modes (fixed, percentage, manual)."
+    },
+    "phase_4_business_outputs": {
+      "name": "Business Outputs (should-have)",
+      "features": [
+        "FEATURE-008",
+        "FEATURE-009"
+      ],
+      "description": "Minimal Flyer Builder and Quote Builder with PDF export. Defer if MVP risk grows."
+    }
+  },
+  "manual_workaround_candidates": [
+    {
+      "workaround_id": "WORKAROUND-001",
+      "feature_id": "FEATURE-010",
+      "manual_workaround": "If no AI providers are configured, all AI-extraction workflows degrade to manual entry. This is the required graceful degradation behavior."
+    },
+    {
+      "workaround_id": "WORKAROUND-002",
+      "feature_id": "FEATURE-011",
+      "manual_workaround": "If Document Memory is deferred, users can re-import a PDF and manually compare to the prior catalog using vendor sync history notes."
+    },
+    {
+      "workaround_id": "WORKAROUND-003",
+      "feature_id": "FEATURE-012",
+      "manual_workaround": "If Vendor Memory is deferred, users re-run website discovery and manually diff in the Discovery Session."
+    },
+    {
+      "workaround_id": "WORKAROUND-004",
+      "feature_id": "FEATURE-017",
+      "manual_workaround": "If Analytics is deferred, users export the catalog and use external tools."
+    },
+    {
+      "workaround_id": "WORKAROUND-005",
+      "feature_id": "FEATURE-018",
+      "manual_workaround": "If manual sync is deferred, users re-run discovery manually."
+    }
+  ],
+  "complexity_reductions": [
+    {
+      "reduction_id": "REDUCE-001",
+      "area": "AI Adapter Architecture",
+      "reduction": "Ship V1 with a single AIProvider interface and one built-in adapter (e.g., OpenAI-compatible) plus Ollama for local. Other adapters can be added post-launch without redesign.",
+      "tradeoff": "Slightly fewer launch providers; acceptable because the adapter contract is stable."
+    },
+    {
+      "reduction_id": "REDUCE-002",
+      "area": "Pricing Engine",
+      "reduction": "Ship fixed, percentage, and manual only; defer formula pricing.",
+      "tradeoff": "No rule-based prices at launch; manual override is available."
+    },
+    {
+      "reduction_id": "REDUCE-003",
+      "area": "Collections",
+      "reduction": "Ship basic collections if budget allows; otherwise defer.",
+      "tradeoff": "Users can group items via tags/manual workaround initially."
+    },
+    {
+      "reduction_id": "REDUCE-004",
+      "area": "Analytics",
+      "reduction": "Ship vendor spend and catalog growth only; defer the rest.",
+      "tradeoff": "Limited dashboards at launch."
+    },
+    {
+      "reduction_id": "REDUCE-005",
+      "area": "Synchronization",
+      "reduction": "Ship manual sync only; defer scheduled sync.",
+      "tradeoff": "Users trigger syncs manually."
+    },
+    {
+      "reduction_id": "REDUCE-006",
+      "area": "Flyer/Quote Builders",
+      "reduction": "Ship minimal MVP-capable versions or defer to phase 4 if MVP risk grows.",
+      "tradeoff": "Lower launch polish on outputs."
+    }
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Core Features",
+        "Technical Decisions (Locked)",
+        "Future Features"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "Out of Scope (Version 1)",
+        "Future Expansion",
+        "Guiding Principles",
+        "Architecture Philosophy"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Playwright Feature.md",
+      "sections": [
+        "Category-First Strategy",
+        "Lazy Scraping",
+        "Parallel Job Processing"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json",
+      "Build-Plans/Stage-1/05-feature-structure.json",
+      "Build-Plans/Stage-1/06-product-boundaries.json",
+      "Build-Plans/Stage-1/07-dependency-map.json",
+      "Build-Plans/Stage-1/08-mvp-operational-model.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}

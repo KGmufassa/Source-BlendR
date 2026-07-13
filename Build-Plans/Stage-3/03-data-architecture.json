@@ -1,0 +1,611 @@
+{
+  "stage": "Stage 3",
+  "status": "approved",
+  "related_stage_1_files": [
+    "Build-Plans/Stage-1/01-product-foundation.json",
+    "Build-Plans/Stage-1/02-user-system-map.json",
+    "Build-Plans/Stage-1/03-workflow-architecture.json",
+    "Build-Plans/Stage-1/04-product-capabilities.json",
+    "Build-Plans/Stage-1/05-feature-structure.json",
+    "Build-Plans/Stage-1/06-product-boundaries.json",
+    "Build-Plans/Stage-1/07-dependency-map.json",
+    "Build-Plans/Stage-1/08-mvp-operational-model.json",
+    "Build-Plans/Stage-1/09-risk-and-constraints.json",
+    "Build-Plans/Stage-1/10-success-framework.json"
+  ],
+  "related_stage_2_files": [
+    "Build-Plans/Stage-2/01-market-analysis.json",
+    "Build-Plans/Stage-2/02-competitive-landscape.json",
+    "Build-Plans/Stage-2/03-technical-feasibility.json",
+    "Build-Plans/Stage-2/04-business-viability.json",
+    "Build-Plans/Stage-2/05-risk-validation.json",
+    "Build-Plans/Stage-2/06-strategic-positioning.json"
+  ],
+  "related_assumption_ids": [
+    "ASSUMPTION-SEED-001",
+    "ASSUMPTION-SEED-002",
+    "ASSUMPTION-SEED-004",
+    "ASSUMPTION-SEED-005"
+  ],
+  "architecture_decisions": [
+    {
+      "decision_id": "ADR-001",
+      "decision": "Use Next.js full-stack monorepo plus separate TypeScript BullMQ worker; do not introduce a separate backend framework.",
+      "rationale": "Simplifies MVP while preserving independent scaling for long-running Playwright/OCR/AI jobs.",
+      "affected_ids": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-013"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-002",
+      "decision": "Use BullMQ/Redis for all long-running tasks, including scraping, OCR, AI enrichment, export generation, sync, retries, and re-enrichment jobs.",
+      "rationale": "Accepted risks require retryable, resumable, observable background jobs.",
+      "affected_ids": [
+        "RISK-001",
+        "RISK-015"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-003",
+      "decision": "Use UniversalCatalogItem base table plus type-specific JSON attributes and normalized first-class fields.",
+      "rationale": "Mitigates universal item schema risk without premature per-type table explosion.",
+      "affected_ids": [
+        "ASSUMPTION-SEED-004",
+        "FEATURE-005"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-004",
+      "decision": "Preserve AI Capability Router plus Provider Adapter architecture as the stable interface for all AI integrations.",
+      "rationale": "Business workflows call AI capabilities and never provider SDKs directly.",
+      "affected_ids": [
+        "FEATURE-010"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-005",
+      "decision": "All catalog writes go through deterministic validation from Discovery Session candidate to Catalog Item.",
+      "rationale": "AI never writes directly to inventory/catalog.",
+      "affected_ids": [
+        "FEATURE-004",
+        "FEATURE-005"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-006",
+      "decision": "Tenant isolation is enforced at application query boundaries and database constraints using tenant_id/workspace_id on tenant-owned records.",
+      "rationale": "Accepted security risk requires explicit tenant boundary.",
+      "affected_ids": [
+        "RISK-005",
+        "FEATURE-014"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-007",
+      "decision": "PostgreSQL full-text search is MVP search; external search is deferred.",
+      "rationale": "Avoid unnecessary infrastructure until catalog size proves need.",
+      "affected_ids": [
+        "FEATURE-015"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-008",
+      "decision": "Centralize business logic in shared Domain Services using Route Handler -> Service -> Repository -> Prisma and Worker -> Service -> Repository -> Prisma flows.",
+      "rationale": "Keeps route handlers, server actions, and worker processors thin while sharing business logic across web and worker.",
+      "affected_ids": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-004",
+        "FEATURE-005",
+        "FEATURE-010"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-009",
+      "decision": "Organize implementation as a pnpm monorepo with apps/web, apps/worker, and shared packages: domain, ai, scrapers, shared, validation, types.",
+      "rationale": "Supports shared types and domain logic across the web app and worker without duplicating business rules.",
+      "affected_ids": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-004",
+        "FEATURE-005",
+        "FEATURE-010",
+        "FEATURE-013"
+      ],
+      "status": "proposed"
+    },
+    {
+      "decision_id": "ADR-010",
+      "decision": "Treat scraping and AI enrichment as independent pipelines; persist normalized source records so enrichment can be rerun without re-scraping.",
+      "rationale": "Allows provider swaps, prompt/capability changes, validation improvements, and re-enrichment without repeating fragile scraping work.",
+      "affected_ids": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-010",
+        "RISK-001"
+      ],
+      "status": "proposed"
+    }
+  ],
+  "risks_and_constraints": [
+    {
+      "risk_id": "ARCH-RISK-001",
+      "risk": "Playwright jobs may be blocked or rate-limited by vendor anti-bot controls.",
+      "severity": "high",
+      "likelihood": "medium",
+      "affected_ids": [
+        "RISK-001",
+        "FEATURE-001"
+      ],
+      "mitigation": "Bounded crawling, per-vendor throttles, manual fallback, failure states, and Stage 6 representative tests.",
+      "owner_stage": "Stage 3 / Stage 6"
+    },
+    {
+      "risk_id": "ARCH-RISK-002",
+      "risk": "Tenant isolation bug could expose catalog data or AI credentials across workspaces.",
+      "severity": "high",
+      "likelihood": "low",
+      "affected_ids": [
+        "RISK-005",
+        "FEATURE-014"
+      ],
+      "mitigation": "Tenant_id on all tenant tables, service-level authorization guards, integration tests, credential encryption.",
+      "owner_stage": "Stage 3 / Stage 6"
+    },
+    {
+      "risk_id": "ARCH-RISK-003",
+      "risk": "Universal Catalog Item JSON attributes become unqueryable if too much domain data is pushed into unstructured fields.",
+      "severity": "medium",
+      "likelihood": "medium",
+      "affected_ids": [
+        "ASSUMPTION-SEED-004",
+        "FEATURE-005"
+      ],
+      "mitigation": "Keep common searchable fields normalized; reserve JSON attributes for type-specific optional fields.",
+      "owner_stage": "Stage 3"
+    },
+    {
+      "risk_id": "ARCH-RISK-004",
+      "risk": "Queue observability is insufficient for users to understand import state.",
+      "severity": "medium",
+      "likelihood": "medium",
+      "affected_ids": [
+        "RISK-015",
+        "FEATURE-013"
+      ],
+      "mitigation": "ImportJob and ImportJobEvent entities; user-visible statuses; Sentry/log metrics.",
+      "owner_stage": "Stage 3 / Stage 4 / Stage 6"
+    },
+    {
+      "risk_id": "ARCH-RISK-005",
+      "risk": "Cloud AI provider costs vary with extraction volume.",
+      "severity": "medium",
+      "likelihood": "medium",
+      "affected_ids": [
+        "RISK-010",
+        "FEATURE-010"
+      ],
+      "mitigation": "Per-workspace provider credentials, job cost logging, provider routing, local Ollama option.",
+      "owner_stage": "Stage 3 / Stage 7"
+    }
+  ],
+  "unresolved_questions": [
+    "Stage 3 stack approval pending"
+  ],
+  "selected_stack": {
+    "stack_decision_id": "STACK-003",
+    "frontend": {
+      "framework": "Next.js App Router",
+      "language": "TypeScript",
+      "ui_runtime": "React",
+      "styling": "Tailwind CSS with shadcn/ui-compatible component primitives",
+      "state": "Server Components and server actions for standard flows; client state only for interactive discovery/catalog workflows"
+    },
+    "backend": {
+      "framework": "Next.js route handlers and server actions",
+      "runtime": "Node.js LTS",
+      "language": "TypeScript",
+      "api_style": "Route Handler -> Domain Service -> Repository -> Prisma for REST-style JSON endpoints and app-owned mutations",
+      "background_jobs": "Separate TypeScript BullMQ worker on Redis for all long-running tasks"
+    },
+    "monorepo": {
+      "workspace_tooling": "pnpm workspaces",
+      "apps": [
+        "apps/web",
+        "apps/worker"
+      ],
+      "packages": {
+        "packages/domain": "Domain services, use cases, orchestration, business logic, and service interfaces consumed by web and worker.",
+        "packages/ai": "AI Capability Router, provider adapter interfaces, provider implementations, request/response normalization, and provider health checks.",
+        "packages/scrapers": "Playwright website discovery, navigation tree extraction, PDF/OCR import connectors, and raw artifact collection.",
+        "packages/shared": "Shared utilities, config helpers, logging, errors, constants, and cross-cutting primitives.",
+        "packages/validation": "Deterministic validation rules, duplicate checks, SKU/price/category rules, and candidate-to-catalog import gates.",
+        "packages/types": "Shared TypeScript types, DTOs, schemas, queue payloads, and API contracts."
+      }
+    },
+    "domain_service_layer": {
+      "request_flow": "Route Handler / Server Action -> Domain Service -> Repository -> Prisma -> PostgreSQL",
+      "worker_flow": "BullMQ Processor -> Domain Service -> Repository -> Prisma -> PostgreSQL",
+      "rule": "Business logic lives in domain services and validation package, not directly inside route handlers, server actions, or queue processors."
+    },
+    "database": {
+      "primary": "PostgreSQL",
+      "orm_or_query_layer": "Prisma",
+      "search": "PostgreSQL full-text search for MVP; external search deferred until scale evidence exists",
+      "migration_strategy": "Prisma migrations"
+    },
+    "storage": {
+      "provider": "Backblaze B2",
+      "usage": "PDF uploads, generated PDFs/PNGs, import snapshots, rendered DOM snapshots when retained"
+    },
+    "authentication": {
+      "provider_or_strategy": "Clerk Organizations",
+      "tenant_model": "Workspace maps to Clerk organization and application workspace_id",
+      "authorization": "Application-enforced RBAC with workspace_owner for MVP"
+    },
+    "hosting_and_deployment": {
+      "web_and_api": "Vercel",
+      "workers": "Fly.io TypeScript worker service with Playwright runtime",
+      "database": "Neon PostgreSQL",
+      "redis": "Upstash Redis",
+      "object_storage": "Backblaze B2",
+      "observability": "Sentry plus structured logs and queue/job metrics"
+    },
+    "testing_stack": {
+      "unit": "Vitest",
+      "route_integration": "Vitest against route handlers/server actions through domain services",
+      "worker_integration": "Vitest against BullMQ processors through domain services",
+      "e2e": "Playwright",
+      "database": "Prisma test database migrations",
+      "security": "tenant-isolation integration tests and credential handling checks"
+    },
+    "package_manager": "pnpm",
+    "ai_and_external_services": [
+      {
+        "service": "AI Capability Router",
+        "status": "stable interface for all AI integrations"
+      },
+      {
+        "service": "OpenAI-compatible provider adapter",
+        "status": "MVP default adapter"
+      },
+      {
+        "service": "Ollama provider adapter",
+        "status": "local model option"
+      },
+      {
+        "service": "Anthropic provider adapter",
+        "status": "post-MVP adapter unless required earlier"
+      },
+      {
+        "service": "Google/Gemini provider adapter",
+        "status": "post-MVP adapter unless required earlier"
+      },
+      {
+        "service": "Tesseract OCR",
+        "status": "MVP OCR fallback for PDFs"
+      }
+    ],
+    "pipeline_architecture": {
+      "scraping_pipeline": "External source -> connector/scraper -> raw import artifact -> normalized source record -> Discovery Session candidate seed",
+      "ai_enrichment_pipeline": "Normalized source record or catalog candidate -> AI Capability Router -> Provider Adapter -> enrichment result -> validation -> candidate/catalog update",
+      "separation_rule": "Scraping collects and normalizes source data; AI enrichment is independently repeatable and can re-enrich stored normalized source records without re-scraping.",
+      "re_enrichment_support": "Persist normalized source records and import artifacts with version/source hashes so users can rerun enrichment after changing provider, prompt, capability route, or validation rules."
+    },
+    "rationale": "A Next.js full-stack monorepo with a separate BullMQ worker is the simplest scalable architecture: route handlers and server actions stay thin, all business logic is centralized in shared domain services, workers reuse the same domain services, scraping and AI enrichment remain independent pipelines, and the AI Capability Router/Provider Adapter interface remains stable for all AI integrations.",
+    "rejected_alternatives": [
+      {
+        "alternative": "Next.js-only including long-running workers",
+        "reason": "Too risky for Playwright/OCR/AI jobs; workers must scale and run independently."
+      },
+      {
+        "alternative": "Python/FastAPI backend",
+        "reason": "Adds a second language while frontend, Playwright, and worker ecosystem remain TypeScript-heavy."
+      },
+      {
+        "alternative": "Microservices from day one",
+        "reason": "Over-engineered before scale evidence; monorepo packages plus separate worker are enough."
+      },
+      {
+        "alternative": "External search service for MVP",
+        "reason": "Unnecessary until catalog scale proves PostgreSQL full-text insufficient."
+      }
+    ],
+    "risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010",
+      "RISK-012",
+      "RISK-015",
+      "ARCH-RISK-001",
+      "ARCH-RISK-002"
+    ]
+  },
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-3-001",
+    "stage": "Stage 3",
+    "brief_path": "Build-Plans/Stage-3/00-stage-decision-brief.md",
+    "recommended_direction": "Approve the simplified scalable monorepo architecture: Next.js full-stack app, separate BullMQ worker for all long-running tasks, shared Domain Service layer, shared packages, AI Capability Router/Provider Adapter interface, and independent scraping/enrichment pipelines.",
+    "alternatives_considered": [
+      {
+        "alternative": "Next.js-only including long-running workers",
+        "reason": "Too risky for Playwright/OCR/AI jobs; workers must scale and run independently."
+      },
+      {
+        "alternative": "Python/FastAPI backend",
+        "reason": "Adds a second language while frontend, Playwright, and worker ecosystem remain TypeScript-heavy."
+      },
+      {
+        "alternative": "Microservices from day one",
+        "reason": "Over-engineered before scale evidence; monorepo packages plus separate worker are enough."
+      },
+      {
+        "alternative": "External search service for MVP",
+        "reason": "Unnecessary until catalog scale proves PostgreSQL full-text insufficient."
+      }
+    ],
+    "key_decisions": [
+      "ADR-001",
+      "ADR-002",
+      "ADR-003",
+      "ADR-004",
+      "ADR-005",
+      "ADR-006",
+      "ADR-007",
+      "ADR-008",
+      "ADR-009",
+      "ADR-010"
+    ],
+    "assumptions": [
+      "ASSUMPTION-SEED-001",
+      "ASSUMPTION-SEED-002",
+      "ASSUMPTION-SEED-004",
+      "ASSUMPTION-SEED-005"
+    ],
+    "risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010",
+      "RISK-012",
+      "RISK-015",
+      "ARCH-RISK-001",
+      "ARCH-RISK-002"
+    ],
+    "downstream_impact": [
+      "Stage 4 can design UX around asynchronous import jobs, Discovery Sessions, catalog review, and provider settings.",
+      "Stage 5 can create implementation slices around workspace/auth, vendors, import jobs, discovery sessions, catalog, AI adapters, and exports.",
+      "Stage 6 must include representative Playwright import tests, tenant-isolation tests, queue retry/resume tests, and validation gate tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-13T04:54:03.245720+00:00",
+    "revision_notes": [
+      "User requested explicit constraints: no separate backend framework, BullMQ worker retained, shared domain service layer, monorepo packages, AI router/adapters preserved, and scraping/enrichment separated."
+    ],
+    "approved_decision": "Approve tech stack"
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-3-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-3/01-system-topology.json",
+      "Build-Plans/Stage-3/02-service-architecture.json",
+      "Build-Plans/Stage-3/03-data-architecture.json",
+      "Build-Plans/Stage-3/04-api-architecture.json",
+      "Build-Plans/Stage-3/05-integration-architecture.json",
+      "Build-Plans/Stage-3/06-security-foundations.json",
+      "Build-Plans/Stage-3/07-infrastructure-model.json",
+      "Build-Plans/Stage-3/08-scalability-framework.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-13T04:54:03.245720+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "ASSUMPTION-SEED-001",
+      "FEATURE-001",
+      "WORKFLOW-001",
+      "RISK-001",
+      "ADR-001",
+      "STACK-003"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": true,
+    "accepted_risks": [
+      "RISK-001",
+      "RISK-005",
+      "RISK-010"
+    ],
+    "ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json"
+  },
+  "revision_loops": [],
+  "data_architecture": {
+    "database": {
+      "primary": "PostgreSQL",
+      "orm_or_query_layer": "Prisma",
+      "search": "PostgreSQL full-text search for MVP; OpenSearch/Meilisearch deferred until scale evidence exists",
+      "migration_strategy": "Prisma migrations"
+    },
+    "core_entities": [
+      {
+        "entity_id": "ENTITY-WORKSPACE",
+        "name": "Workspace",
+        "owner": "SERVICE-WORKSPACE",
+        "tenant_scoped": false,
+        "notes": "Top-level tenant boundary"
+      },
+      {
+        "entity_id": "ENTITY-AI-CREDENTIAL",
+        "name": "AIProviderCredential",
+        "owner": "SERVICE-WORKSPACE",
+        "tenant_scoped": true,
+        "notes": "Encrypted; never exposed after write"
+      },
+      {
+        "entity_id": "ENTITY-VENDOR",
+        "name": "Vendor",
+        "owner": "SERVICE-VENDOR",
+        "tenant_scoped": true,
+        "notes": "Source attribution for imports and catalog items"
+      },
+      {
+        "entity_id": "ENTITY-IMPORT-JOB",
+        "name": "ImportJob",
+        "owner": "SERVICE-IMPORT",
+        "tenant_scoped": true,
+        "notes": "Website/PDF/sync/import/export job lifecycle"
+      },
+      {
+        "entity_id": "ENTITY-NAV-TREE",
+        "name": "NavigationTree",
+        "owner": "SERVICE-IMPORT",
+        "tenant_scoped": true,
+        "notes": "Cached vendor website category tree"
+      },
+      {
+        "entity_id": "ENTITY-DISCOVERY-SESSION",
+        "name": "DiscoverySession",
+        "owner": "SERVICE-DISCOVERY",
+        "tenant_scoped": true,
+        "notes": "Staging area before catalog writes"
+      },
+      {
+        "entity_id": "ENTITY-CANDIDATE",
+        "name": "CandidateItem",
+        "owner": "SERVICE-DISCOVERY",
+        "tenant_scoped": true,
+        "notes": "New/imported/updated/ignored/archived states"
+      },
+      {
+        "entity_id": "ENTITY-CATALOG-ITEM",
+        "name": "CatalogItem",
+        "owner": "SERVICE-CATALOG",
+        "tenant_scoped": true,
+        "notes": "Universal base item with normalized searchable fields"
+      },
+      {
+        "entity_id": "ENTITY-CATALOG-ATTR",
+        "name": "CatalogItemAttribute",
+        "owner": "SERVICE-CATALOG",
+        "tenant_scoped": true,
+        "notes": "Type-specific attributes/JSON"
+      },
+      {
+        "entity_id": "ENTITY-PRICE-RULE",
+        "name": "PriceRule",
+        "owner": "SERVICE-CATALOG",
+        "tenant_scoped": true,
+        "notes": "Fixed/percentage/manual pricing"
+      },
+      {
+        "entity_id": "ENTITY-FLYER",
+        "name": "Flyer",
+        "owner": "SERVICE-OUTPUTS",
+        "tenant_scoped": true,
+        "notes": "Output artifact composed from catalog items"
+      },
+      {
+        "entity_id": "ENTITY-QUOTE",
+        "name": "Quote",
+        "owner": "SERVICE-OUTPUTS",
+        "tenant_scoped": true,
+        "notes": "Quote document with quantities/taxes/discount/shipping"
+      },
+      {
+        "entity_id": "ENTITY-AUDIT",
+        "name": "AuditEvent",
+        "owner": "SERVICE-WORKSPACE",
+        "tenant_scoped": true,
+        "notes": "Security and data-change traceability"
+      },
+      {
+        "entity_id": "ENTITY-NORMALIZED-SOURCE",
+        "name": "NormalizedSourceRecord",
+        "owner": "SERVICE-IMPORT",
+        "tenant_scoped": true,
+        "notes": "Persisted normalized data that can be enriched repeatedly without re-scraping"
+      },
+      {
+        "entity_id": "ENTITY-ENRICHMENT",
+        "name": "EnrichmentResult",
+        "owner": "SERVICE-AI",
+        "tenant_scoped": true,
+        "notes": "Versioned AI enrichment output tied to provider/capability/prompt and normalized source record"
+      }
+    ],
+    "ownership_rules": [
+      "Every tenant-owned table has workspace_id/tenant_id",
+      "Catalog writes require ValidationResult pass",
+      "AI credentials are encrypted and workspace-scoped",
+      "Raw imports are retained by reference to object storage when large",
+      "NormalizedSourceRecord is the boundary between scraping and AI enrichment pipelines.",
+      "EnrichmentResult versions can be regenerated without changing RawImportArtifact or NormalizedSourceRecord."
+    ],
+    "catalog_model": {
+      "base_fields": [
+        "id",
+        "workspace_id",
+        "vendor_id",
+        "type",
+        "name",
+        "description",
+        "sku",
+        "category_id",
+        "tags",
+        "vendor_cost",
+        "selling_price",
+        "margin",
+        "availability",
+        "notes",
+        "source_candidate_id"
+      ],
+      "type_specific_attributes": "CatalogItemAttribute JSON for service/rental/labor/manufacturing/installation-specific fields"
+    },
+    "candidate_states": [
+      "new",
+      "imported",
+      "updated",
+      "ignored",
+      "archived"
+    ],
+    "data_retention_notes": [
+      "Generated exports stored in Backblaze B2",
+      "Rendered DOM snapshots retained only when needed for debugging/audit",
+      "AI request logs redact credentials and avoid raw secrets"
+    ],
+    "source_record_model": {
+      "raw_import_artifact": "Immutable source artifact reference from scraping/PDF/OCR collection",
+      "normalized_source_record": "Structured, provider-independent source data persisted before AI enrichment",
+      "enrichment_result": "Versioned AI output tied to normalized_source_record, capability route, provider, prompt/version, and validation result",
+      "re_enrichment_rule": "New enrichment results can be created from existing normalized_source_record without creating a new scrape/import job."
+    }
+  },
+  "api_exposure_risks": [
+    "Tenant-scoped query omissions",
+    "Credential leakage",
+    "Overexposing raw imported/vendor data"
+  ]
+}

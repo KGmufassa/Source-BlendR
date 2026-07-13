@@ -1,0 +1,991 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "features": [
+    {
+      "feature_id": "FEATURE-001",
+      "name": "Website Import (Playwright)",
+      "description": "Playwright-based web discovery with JS rendering, infinite scrolling, pagination, category traversal, lazy scraping, parallel jobs, and minimal product picker.",
+      "capability_ids": [
+        "CAP-001"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Playwright Feature.md",
+        "System-References/PRD Docs/Source Blender PRD.md#Import Methods"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-002",
+      "name": "Vendor Management",
+      "description": "Create, edit, archive vendors; vendor website, contacts, notes, categories, sync history; validation against vendor catalog.",
+      "capability_ids": [
+        "CAP-006",
+        "CAP-011"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-004"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Vendor Management"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-003",
+      "name": "PDF Catalog Import",
+      "description": "Upload vendor PDFs; OCR; AI extraction; clickable discovery items.",
+      "capability_ids": [
+        "CAP-002"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-002"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#PDF Catalog Import"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-004",
+      "name": "Discovery Sessions",
+      "description": "Temporary staging area with candidate states (New, Imported, Updated, Ignored, Archived), search, filtering, multi-select, preview, edit, bulk import, ignore, archive.",
+      "capability_ids": [
+        "CAP-004"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-003"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Discovery Sessions"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-005",
+      "name": "Universal Catalog Items",
+      "description": "Catalog items support products, services, rentals, labor, manufacturing, installation with manual entry as a first-class workflow.",
+      "capability_ids": [
+        "CAP-003",
+        "CAP-005",
+        "CAP-011"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-007",
+        "WORKFLOW-014"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Catalog",
+        "System-References/PRD Docs/Source Blender PRD.md#Manual Entry"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-006",
+      "name": "CSV Import (future)",
+      "description": "CSV import connector for vendor catalogs.",
+      "capability_ids": [
+        "CAP-001"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-007",
+      "name": "Collections",
+      "description": "Mixed item collections, reusable packages, bulk editing, export support.",
+      "capability_ids": [
+        "CAP-013"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-011"
+      ],
+      "launch_critical": false,
+      "priority": "should",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Collections"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-008",
+      "name": "Flyer Builder",
+      "description": "Drag-and-drop editor; products and services; branding; templates; PDF/PNG export.",
+      "capability_ids": [
+        "CAP-014"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-009"
+      ],
+      "launch_critical": false,
+      "priority": "should",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Flyer Builder"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-009",
+      "name": "Quote Builder",
+      "description": "Mixed catalog items, quantities, taxes, discounts, shipping, PDF export.",
+      "capability_ids": [
+        "CAP-015"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-010"
+      ],
+      "launch_critical": false,
+      "priority": "should",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Quote Builder"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-010",
+      "name": "AI Provider Adapter Architecture",
+      "description": "Pluggable AI providers (OpenAI-compatible, Anthropic, Google, Ollama, LM Studio, LiteLLM, local models, custom endpoints); capability router; provider registry; retries, fallbacks, health checks; degrades gracefully with zero providers.",
+      "capability_ids": [
+        "CAP-008",
+        "CAP-009",
+        "CAP-010"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Inference Layer summary.md",
+        "System-References/PRD Docs/Source Blender PRD.md#AI Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-011",
+      "name": "Document Memory",
+      "description": "Version uploaded PDFs; detect new, removed, price-changed, description-changed items; review before applying.",
+      "capability_ids": [
+        "CAP-017"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-013"
+      ],
+      "launch_critical": false,
+      "priority": "should",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Document Memory"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-012",
+      "name": "Vendor Memory",
+      "description": "Track changes across website, PDF, and future imports with timeline of catalog versions, price history, new/removed offerings.",
+      "capability_ids": [
+        "CAP-018"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-013"
+      ],
+      "launch_critical": false,
+      "priority": "should",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Vendor Memory"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-013",
+      "name": "Background Workers",
+      "description": "Background workers handle scraping and AI processing; per-category jobs run independently and can be retried or resumed; UI stays responsive.",
+      "capability_ids": [
+        "CAP-021"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-006"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Technical Decisions (Locked)",
+        "System-References/PRD Docs/Playwright Feature.md#Parallel Job Processing"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-014",
+      "name": "Workspace Management",
+      "description": "Multi-tenant workspaces with AI settings and workspace branding; team support deferred to future.",
+      "capability_ids": [
+        "CAP-007"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-005"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Workspace Management"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-015",
+      "name": "Search and Filtering",
+      "description": "Global search; vendor, category, item-type filters; tags; favorites across catalog and discovery.",
+      "capability_ids": [
+        "CAP-020"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-003",
+        "WORKFLOW-007"
+      ],
+      "launch_critical": true,
+      "priority": "must",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Search & Filtering"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-016",
+      "name": "Pricing Engine",
+      "description": "Fixed pricing, percentage markup, manual pricing; formula pricing deferred to future.",
+      "capability_ids": [
+        "CAP-012"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-008"
+      ],
+      "launch_critical": false,
+      "priority": "should",
+      "deferred": false,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Pricing Engine"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-017",
+      "name": "Analytics",
+      "description": "Vendor spend, monthly spend, margin, top vendors, category, quote, catalog growth dashboards.",
+      "capability_ids": [
+        "CAP-016"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-012"
+      ],
+      "launch_critical": false,
+      "priority": "could",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Analytics"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-018",
+      "name": "Synchronization (manual)",
+      "description": "Manual sync with incremental updates and review before applying changes. Scheduled sync deferred to future.",
+      "capability_ids": [
+        "CAP-019"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-013"
+      ],
+      "launch_critical": false,
+      "priority": "should",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Synchronization"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-019",
+      "name": "Team Support (future)",
+      "description": "Invite team members into a workspace with role-based permissions.",
+      "capability_ids": [
+        "CAP-007"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-005"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Workspace Management"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-020",
+      "name": "Inventory Management (future)",
+      "description": "Inventory-level management of catalog items.",
+      "capability_ids": [
+        "CAP-005"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-007"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-021",
+      "name": "Purchase Orders (future)",
+      "description": "Create and track purchase orders.",
+      "capability_ids": [
+        "CAP-015"
+      ],
+      "workflow_ids": [],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-022",
+      "name": "Customer Portals (future)",
+      "description": "External customer portal access to catalog and quotes.",
+      "capability_ids": [
+        "CAP-015"
+      ],
+      "workflow_ids": [],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-023",
+      "name": "Public Catalogs (future)",
+      "description": "Publicly accessible catalog surfaces.",
+      "capability_ids": [
+        "CAP-005"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-007"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-024",
+      "name": "Vendor Comparison (future)",
+      "description": "Compare vendors side-by-side.",
+      "capability_ids": [
+        "CAP-006"
+      ],
+      "workflow_ids": [],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-025",
+      "name": "Mobile App (future)",
+      "description": "Mobile application for catalog, discovery, and outputs.",
+      "capability_ids": [
+        "CAP-005"
+      ],
+      "workflow_ids": [],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-026",
+      "name": "ERP Integrations (future)",
+      "description": "Vendor API and ERP integrations.",
+      "capability_ids": [
+        "CAP-001"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-027",
+      "name": "Marketplace Integrations (future)",
+      "description": "Marketplace integrations and connectors (Shopify, etc.).",
+      "capability_ids": [
+        "CAP-001"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-001"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Future Features",
+        "System-References/PRD Docs/Inference Layer summary.md#Future Expansion"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-028",
+      "name": "Vector / Semantic Search (future)",
+      "description": "Semantic search across catalog using provider embedding capabilities.",
+      "capability_ids": [
+        "CAP-009"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-006"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#AI Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-029",
+      "name": "Collection Suggestions (future)",
+      "description": "AI suggestions for collections and bundles.",
+      "capability_ids": [
+        "CAP-010",
+        "CAP-013"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-011"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#AI Features"
+      ]
+    },
+    {
+      "feature_id": "FEATURE-030",
+      "name": "Formula Pricing (future)",
+      "description": "Formula-based pricing rules in the pricing engine.",
+      "capability_ids": [
+        "CAP-012"
+      ],
+      "workflow_ids": [
+        "WORKFLOW-008"
+      ],
+      "launch_critical": false,
+      "priority": "defer",
+      "deferred": true,
+      "evidence_refs": [
+        "System-References/PRD Docs/Source Blender PRD.md#Pricing Engine"
+      ]
+    }
+  ],
+  "feature_groups": [
+    {
+      "group_id": "FG-IMPORT",
+      "name": "Import and Discovery",
+      "feature_ids": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-004",
+        "FEATURE-006",
+        "FEATURE-026",
+        "FEATURE-027"
+      ]
+    },
+    {
+      "group_id": "FG-CATALOG",
+      "name": "Catalog",
+      "feature_ids": [
+        "FEATURE-005",
+        "FEATURE-015",
+        "FEATURE-016",
+        "FEATURE-020",
+        "FEATURE-023",
+        "FEATURE-028",
+        "FEATURE-030"
+      ]
+    },
+    {
+      "group_id": "FG-VENDOR",
+      "name": "Vendor",
+      "feature_ids": [
+        "FEATURE-002",
+        "FEATURE-024"
+      ]
+    },
+    {
+      "group_id": "FG-OUTPUT",
+      "name": "Business Outputs",
+      "feature_ids": [
+        "FEATURE-007",
+        "FEATURE-008",
+        "FEATURE-009",
+        "FEATURE-017",
+        "FEATURE-021",
+        "FEATURE-022",
+        "FEATURE-029"
+      ]
+    },
+    {
+      "group_id": "FG-AI",
+      "name": "AI Engine",
+      "feature_ids": [
+        "FEATURE-010"
+      ]
+    },
+    {
+      "group_id": "FG-MEMORY",
+      "name": "Memory and Sync",
+      "feature_ids": [
+        "FEATURE-011",
+        "FEATURE-012",
+        "FEATURE-018"
+      ]
+    },
+    {
+      "group_id": "FG-PLATFORM",
+      "name": "Platform Foundations",
+      "feature_ids": [
+        "FEATURE-013",
+        "FEATURE-014",
+        "FEATURE-019",
+        "FEATURE-025"
+      ]
+    }
+  ],
+  "feature_relationships": [
+    {
+      "relationship_id": "FREL-001",
+      "source_feature_id": "FEATURE-001",
+      "target_feature_id": "FEATURE-004",
+      "relationship": "Produces candidates into Discovery Sessions"
+    },
+    {
+      "relationship_id": "FREL-002",
+      "source_feature_id": "FEATURE-003",
+      "target_feature_id": "FEATURE-004",
+      "relationship": "Produces candidates into Discovery Sessions"
+    },
+    {
+      "relationship_id": "FREL-003",
+      "source_feature_id": "FEATURE-004",
+      "target_feature_id": "FEATURE-005",
+      "relationship": "Approved candidates become Universal Catalog Items"
+    },
+    {
+      "relationship_id": "FREL-004",
+      "source_feature_id": "FEATURE-005",
+      "target_feature_id": "FEATURE-008",
+      "relationship": "Catalog items feed the Flyer Builder"
+    },
+    {
+      "relationship_id": "FREL-005",
+      "source_feature_id": "FEATURE-005",
+      "target_feature_id": "FEATURE-009",
+      "relationship": "Catalog items feed the Quote Builder"
+    },
+    {
+      "relationship_id": "FREL-006",
+      "source_feature_id": "FEATURE-005",
+      "target_feature_id": "FEATURE-017",
+      "relationship": "Catalog data feeds analytics"
+    },
+    {
+      "relationship_id": "FREL-007",
+      "source_feature_id": "FEATURE-010",
+      "target_feature_id": "FEATURE-001",
+      "relationship": "AI provider architecture enables AI-assisted website extraction (degrades gracefully)"
+    },
+    {
+      "relationship_id": "FREL-008",
+      "source_feature_id": "FEATURE-010",
+      "target_feature_id": "FEATURE-003",
+      "relationship": "AI provider architecture enables PDF extraction (degrades gracefully)"
+    },
+    {
+      "relationship_id": "FREL-009",
+      "source_feature_id": "FEATURE-013",
+      "target_feature_id": "FEATURE-001",
+      "relationship": "Background workers required for responsive website scraping"
+    },
+    {
+      "relationship_id": "FREL-010",
+      "source_feature_id": "FEATURE-013",
+      "target_feature_id": "FEATURE-003",
+      "relationship": "Background workers required for responsive PDF processing"
+    }
+  ],
+  "capability_feature_map": [
+    {
+      "capability_id": "CAP-001",
+      "feature_ids": [
+        "FEATURE-001",
+        "FEATURE-006",
+        "FEATURE-026",
+        "FEATURE-027"
+      ]
+    },
+    {
+      "capability_id": "CAP-002",
+      "feature_ids": [
+        "FEATURE-003"
+      ]
+    },
+    {
+      "capability_id": "CAP-003",
+      "feature_ids": [
+        "FEATURE-005"
+      ]
+    },
+    {
+      "capability_id": "CAP-004",
+      "feature_ids": [
+        "FEATURE-004"
+      ]
+    },
+    {
+      "capability_id": "CAP-005",
+      "feature_ids": [
+        "FEATURE-005",
+        "FEATURE-020",
+        "FEATURE-023"
+      ]
+    },
+    {
+      "capability_id": "CAP-006",
+      "feature_ids": [
+        "FEATURE-002",
+        "FEATURE-024"
+      ]
+    },
+    {
+      "capability_id": "CAP-007",
+      "feature_ids": [
+        "FEATURE-014",
+        "FEATURE-019"
+      ]
+    },
+    {
+      "capability_id": "CAP-008",
+      "feature_ids": [
+        "FEATURE-010"
+      ]
+    },
+    {
+      "capability_id": "CAP-009",
+      "feature_ids": [
+        "FEATURE-010",
+        "FEATURE-028"
+      ]
+    },
+    {
+      "capability_id": "CAP-010",
+      "feature_ids": [
+        "FEATURE-010",
+        "FEATURE-029"
+      ]
+    },
+    {
+      "capability_id": "CAP-011",
+      "feature_ids": [
+        "FEATURE-002",
+        "FEATURE-005"
+      ]
+    },
+    {
+      "capability_id": "CAP-012",
+      "feature_ids": [
+        "FEATURE-016",
+        "FEATURE-030"
+      ]
+    },
+    {
+      "capability_id": "CAP-013",
+      "feature_ids": [
+        "FEATURE-007",
+        "FEATURE-029"
+      ]
+    },
+    {
+      "capability_id": "CAP-014",
+      "feature_ids": [
+        "FEATURE-008"
+      ]
+    },
+    {
+      "capability_id": "CAP-015",
+      "feature_ids": [
+        "FEATURE-009",
+        "FEATURE-021",
+        "FEATURE-022"
+      ]
+    },
+    {
+      "capability_id": "CAP-016",
+      "feature_ids": [
+        "FEATURE-017"
+      ]
+    },
+    {
+      "capability_id": "CAP-017",
+      "feature_ids": [
+        "FEATURE-011"
+      ]
+    },
+    {
+      "capability_id": "CAP-018",
+      "feature_ids": [
+        "FEATURE-012"
+      ]
+    },
+    {
+      "capability_id": "CAP-019",
+      "feature_ids": [
+        "FEATURE-018"
+      ]
+    },
+    {
+      "capability_id": "CAP-020",
+      "feature_ids": [
+        "FEATURE-015"
+      ]
+    },
+    {
+      "capability_id": "CAP-021",
+      "feature_ids": [
+        "FEATURE-013"
+      ]
+    },
+    {
+      "capability_id": "CAP-022",
+      "feature_ids": [
+        "FEATURE-010"
+      ]
+    }
+  ],
+  "launch_critical_features": [
+    "FEATURE-001",
+    "FEATURE-002",
+    "FEATURE-003",
+    "FEATURE-004",
+    "FEATURE-005",
+    "FEATURE-010",
+    "FEATURE-013",
+    "FEATURE-014",
+    "FEATURE-015"
+  ],
+  "deferred_features": [
+    "FEATURE-006",
+    "FEATURE-011",
+    "FEATURE-012",
+    "FEATURE-017",
+    "FEATURE-018",
+    "FEATURE-019",
+    "FEATURE-020",
+    "FEATURE-021",
+    "FEATURE-022",
+    "FEATURE-023",
+    "FEATURE-024",
+    "FEATURE-025",
+    "FEATURE-026",
+    "FEATURE-027",
+    "FEATURE-028",
+    "FEATURE-029",
+    "FEATURE-030"
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Core Features",
+        "Discovery Sessions",
+        "Catalog",
+        "Pricing Engine",
+        "Collections",
+        "Flyer Builder",
+        "Quote Builder",
+        "Analytics",
+        "AI Features",
+        "Document Memory",
+        "Vendor Memory",
+        "Synchronization",
+        "Search & Filtering",
+        "Future Features",
+        "Technical Decisions (Locked)"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "AI Provider Adapter Pattern",
+        "Provider Registry",
+        "Capability Router",
+        "Future Expansion",
+        "Out of Scope (Version 1)"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Playwright Feature.md",
+      "sections": [
+        "Parallel Job Processing",
+        "Lazy Scraping",
+        "Category-First Strategy"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json",
+      "Build-Plans/Stage-1/05-feature-structure.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}

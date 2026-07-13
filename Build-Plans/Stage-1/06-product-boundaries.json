@@ -1,0 +1,286 @@
+{
+  "stage": "Stage 1",
+  "status": "approved",
+  "mvp_boundaries": [
+    {
+      "boundary_id": "BOUNDARY-001",
+      "boundary": "Single workspace owner role in V1; no team members or finer-grained permissions.",
+      "rationale": "Team support is a future feature and should not block launch."
+    },
+    {
+      "boundary_id": "BOUNDARY-002",
+      "boundary": "Manual and scheduled sync deferrals: only manual sync with review is launch-critical; scheduled sync is deferred.",
+      "rationale": "Scheduled sync is a future feature per the PRD."
+    },
+    {
+      "boundary_id": "BOUNDARY-003",
+      "boundary": "Formula pricing deferred; only fixed, percentage markup, and manual pricing ship in MVP.",
+      "rationale": "Formula pricing is explicitly future in the PRD."
+    },
+    {
+      "boundary_id": "BOUNDARY-004",
+      "boundary": "No live marketplace, ERP, Shopify, WooCommerce, PromoStandards, or CSV integrations at launch.",
+      "rationale": "All listed as future in the PRD; not launch-critical."
+    },
+    {
+      "boundary_id": "BOUNDARY-005",
+      "boundary": "No semantic search or collection suggestions in MVP; standard search and filtering only.",
+      "rationale": "Both listed as future AI features."
+    },
+    {
+      "boundary_id": "BOUNDARY-006",
+      "boundary": "Analytics dashboards are valuable but not launch-blocking; ship a must-have subset (vendor spend, catalog growth) and defer the rest.",
+      "rationale": "Analytics is a should/could rather than must."
+    },
+    {
+      "boundary_id": "BOUNDARY-007",
+      "boundary": "Flyer and Quote Builders are should-have; ship minimal MVP-capable versions if time permits, otherwise defer.",
+      "rationale": "Core differentiation is the import-to-catalog flow; downstream builders compound value but are not launch-blocking."
+    },
+    {
+      "boundary_id": "BOUNDARY-008",
+      "boundary": "Document Memory and Vendor Memory are should-have; defer beyond basic version history if MVP risk grows.",
+      "rationale": "PRD lists them as core platform features but they add backend complexity; ship minimal version history or defer."
+    },
+    {
+      "boundary_id": "BOUNDARY-009",
+      "boundary": "No AI plug-in marketplace, runtime plug-in discovery, dynamic module loading, manifest files, complex dependency injection, or AI agent frameworks in V1.",
+      "rationale": "Explicitly out of scope in the Inference Layer summary."
+    },
+    {
+      "boundary_id": "BOUNDARY-010",
+      "boundary": "AI is optional and may be absent; manual entry and Discovery Session review must fully operate without any provider configured.",
+      "rationale": "Locked PRD principle."
+    }
+  ],
+  "operational_boundaries": [
+    {
+      "boundary_id": "OB-001",
+      "boundary": "All imports — website, PDF, future connectors — go through the same Universal Import Pipeline and must land in a Discovery Session before reaching the catalog.",
+      "rationale": "Locked principle: discovery before import."
+    },
+    {
+      "boundary_id": "OB-002",
+      "boundary": "AI never writes directly to inventory; deterministic validation gates all catalog writes.",
+      "rationale": "Locked principle in the Inference Layer summary."
+    },
+    {
+      "boundary_id": "OB-003",
+      "boundary": "Background workers must handle scraping and AI processing; the UI never blocks on long jobs.",
+      "rationale": "Locked PRD decision."
+    },
+    {
+      "boundary_id": "OB-004",
+      "boundary": "Connectors only collect raw data; AI only enriches normalized structured data; the two are decoupled.",
+      "rationale": "Locked architecture in both Inference Layer summary and Playwright Feature docs."
+    },
+    {
+      "boundary_id": "OB-005",
+      "boundary": "Catalog Items are the primary entity; no Product-only objects remain.",
+      "rationale": "Locked PRD decision."
+    }
+  ],
+  "system_boundaries": [
+    {
+      "boundary_id": "SB-001",
+      "boundary": "Source BlendR is not an AI platform; AI is an implementation detail behind adapters.",
+      "rationale": "Architectural philosophy from the Inference Layer summary."
+    },
+    {
+      "boundary_id": "SB-002",
+      "boundary": "Source BlendR is not a marketplace, POS, ERP, or DAM.",
+      "rationale": "These are all future or out-of-scope per the PRD."
+    },
+    {
+      "boundary_id": "SB-003",
+      "boundary": "Source BlendR does not store vendor-side business logic (e.g., vendor ERPs, vendor order management).",
+      "rationale": "Source BlendR owns its catalog; vendors own their systems."
+    },
+    {
+      "boundary_id": "SB-004",
+      "boundary": "Source BlendR does not broker transactions between buyers and vendors in V1.",
+      "rationale": "Quotes and flyers are outputs only; no e-commerce checkout in MVP."
+    }
+  ],
+  "ownership_boundaries": [
+    {
+      "boundary_id": "OWN-001",
+      "boundary": "Catalog data is user-owned; the platform does not resell or expose user catalog data publicly in V1.",
+      "rationale": "User-owned catalog is a core principle."
+    },
+    {
+      "boundary_id": "OWN-002",
+      "boundary": "AI provider credentials are workspace-scoped and never shared across workspaces.",
+      "rationale": "Multi-tenant workspace isolation."
+    },
+    {
+      "boundary_id": "OWN-003",
+      "boundary": "Vendor data imported into Source BlendR becomes the user's owned catalog data; the vendor retains the source site.",
+      "rationale": "Per the import pipeline contract."
+    }
+  ],
+  "out_of_scope_items": [
+    "Plugin marketplace and runtime plug-in discovery",
+    "Dynamic module loading",
+    "Third-party extension systems",
+    "Manifest files and complex dependency injection",
+    "AI agent frameworks",
+    "Scheduled sync (future)",
+    "Team support (future)",
+    "Inventory management (future)",
+    "Purchase orders (future)",
+    "Customer portals (future)",
+    "Public catalogs (future)",
+    "Vendor comparison (future)",
+    "Formula pricing (future)",
+    "Semantic search (future)",
+    "Collection suggestions (future)",
+    "Mobile application (future)",
+    "ERP integrations (future)",
+    "Marketplace integrations (future)",
+    "Cost-based routing, user-selected providers, automatic failover, MCP integration (future AI expansions)",
+    "E-commerce checkout"
+  ],
+  "source_trace": [
+    {
+      "source": "System-References/PRD Docs/Source Blender PRD.md",
+      "sections": [
+        "Core Product Principles",
+        "Technical Decisions (Locked)",
+        "Future Features"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Inference Layer summary.md",
+      "sections": [
+        "Vision",
+        "Core Principles",
+        "Out of Scope (Version 1)",
+        "Future Expansion",
+        "Architecture Philosophy"
+      ]
+    },
+    {
+      "source": "System-References/PRD Docs/Playwright Feature.md",
+      "sections": [
+        "Guiding Principle",
+        "Responsibilities"
+      ]
+    }
+  ],
+  "stage_decision_brief": {
+    "brief_id": "BRIEF-STAGE-1-001",
+    "stage": "Stage 1",
+    "brief_path": "Build-Plans/Stage-1/00-stage-decision-brief.md",
+    "recommended_direction": "Build Source BlendR as an AI-agnostic Vendor Intelligence Platform: multi-tenant workspaces, Playwright-first website discovery, PDF catalog extraction, Discovery Session staging before import, Universal Catalog Items (products, services, rentals, labor, manufacturing, installation), AI Provider Adapter Architecture with capability routing, background workers, and deferred future features per the PRD.",
+    "alternatives_considered": [
+      "Single AI provider only (rejected: violates AI-agnostic locked principle)",
+      "Auto-import without Discovery Sessions (rejected: violates discovery-before-import locked principle)",
+      "Product-only catalog (rejected: violates Universal Catalog Items locked decision)",
+      "Marketplace/POS-first (rejected: future-only per PRD)",
+      "Plug-in marketplace architecture (rejected: explicitly out of scope in Inference Layer summary)"
+    ],
+    "key_decisions": [
+      "Playwright is the locked web discovery engine",
+      "AI is provider-agnostic via adapter architecture and capability router",
+      "Discovery Sessions always gate catalog imports",
+      "Universal Catalog Items replace Product-only schema",
+      "Manual entry is a first-class workflow; platform runs with zero AI providers",
+      "Background workers handle scraping and AI processing",
+      "PDF imports are equal in status to website imports",
+      "Flyer and Quote Builders are should-have; may be trimmed or deferred to protect MVP risk"
+    ],
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMPTION-SEED-001",
+        "assumption": "Playwright + AI-assisted site analysis handles the majority of target-market vendor sites."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-002",
+        "assumption": "Target users value provider independence and owned catalog data."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-003",
+        "assumption": "Discovery Sessions are accepted as friction-positive vs auto-import competitors."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-004",
+        "assumption": "Universal Catalog Items cover the target market without forcing partial re-architecture."
+      },
+      {
+        "assumption_id": "ASSUMPTION-SEED-005",
+        "assumption": "Background workers keep the UI responsive for expected scrape/AI durations without a streaming UI."
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "RISK-001",
+        "severity": "high",
+        "description": "Playwright reliability across diverse vendor sites"
+      },
+      {
+        "risk_id": "RISK-005",
+        "severity": "high",
+        "description": "Multi-tenancy isolation security gap"
+      },
+      {
+        "risk_id": "RISK-010",
+        "severity": "high",
+        "description": "Target market too small or unwilling to pay"
+      }
+    ],
+    "downstream_impact": [
+      "Stage 2 must validate differentiation hypotheses, market demand, and technical assumptions (Playwright reliability, OCR/AI extraction quality, Universal Catalog schema coverage).",
+      "Stage 3 must lock adapter interface, capability router contract, validation engine contract, multi-tenancy isolation boundary, and queue/timeout strategy.",
+      "Stage 4 must validate Discovery Session UX and catalog browsing UX.",
+      "Stage 5 slices import-to-catalog flow, adapter architecture, and catalog as launch-critical; flyer/quote as should-have.",
+      "Stage 6 acceptance criteria must include AI extraction-quality tests per capability and validation engine tests."
+    ],
+    "user_decision_required": true,
+    "approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-11T16:34:03.166771+00:00",
+    "revision_notes": []
+  },
+  "schema_validation": {
+    "schema_refs": [
+      "System-References/Schemas/stage-1-output.schema.json",
+      "System-References/Schemas/stage-output-common.schema.json"
+    ],
+    "validated_files": [
+      "Build-Plans/Stage-1/01-product-foundation.json",
+      "Build-Plans/Stage-1/02-user-system-map.json",
+      "Build-Plans/Stage-1/03-workflow-architecture.json",
+      "Build-Plans/Stage-1/04-product-capabilities.json",
+      "Build-Plans/Stage-1/05-feature-structure.json",
+      "Build-Plans/Stage-1/06-product-boundaries.json"
+    ],
+    "schema_errors": [],
+    "schemas_valid": true,
+    "validated_at": "2026-07-11T16:34:03.166771+00:00",
+    "validator": "python-json-minimal-common-stage-output-check",
+    "blocking": false
+  },
+  "reference_integrity": {
+    "checked_refs": [
+      "USER-001",
+      "WORKFLOW-001",
+      "CAP-001",
+      "FEATURE-001",
+      "MVP-001",
+      "RISK-001",
+      "ASSUMPTION-SEED-001"
+    ],
+    "missing_refs": [],
+    "orphaned_refs": [],
+    "stale_refs": [],
+    "duplicate_ids": [],
+    "integrity_status": "passed",
+    "blocking_ref_errors": []
+  },
+  "risk_acceptance_ledger": {
+    "required": false,
+    "missing_entries": []
+  },
+  "revision_loops": []
+}
