@@ -1,0 +1,254 @@
+{
+  "stage": "Stage 4",
+  "status": "ready_for_stage_5",
+  "design_system": {
+    "design_system_id": "DESIGN-SYSTEM-001",
+    "product_visual_personality": "Precise, calm, trustworthy operations workspace",
+    "design_style": "Utilitarian with Bento modular grouping",
+    "color_tokens": {
+      "canvas": "#F7F6F2",
+      "surface": "#FFFFFF",
+      "surface_subtle": "#ECEBE6",
+      "text": "#1F2421",
+      "text_muted": "#68716B",
+      "border": "#D7D9D2",
+      "action": "#A85E2A",
+      "action_text": "#FFFFFF",
+      "success": "#2F6B4F",
+      "warning": "#8A651D",
+      "danger": "#A43D35",
+      "focus": "#155E75"
+    },
+    "typography_tokens": {
+      "font_family": "system sans",
+      "body": "14px/1.45",
+      "label": "12px/1.3 medium",
+      "heading": "20-28px semibold",
+      "data": "tabular-nums"
+    },
+    "spacing_scale": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32
+    ],
+    "radius_rules": {
+      "default": "6px",
+      "pill": "999px",
+      "avoid": "large decorative radii"
+    },
+    "elevation_rules": {
+      "default": "border only",
+      "drawer": "0 12px 32px rgba(31,36,33,.14)"
+    },
+    "icon_rules": "Use simple outlined icons with text labels for consequential actions",
+    "component_style_rules": {
+      "buttons": "solid primary, outlined secondary, destructive text-plus-icon",
+      "cards": "flat bordered modules",
+      "forms": "labeled two-column desktop, single-column mobile",
+      "tables": "sticky header, compact rows, visible selection",
+      "modals": "confirmation only; keep forms in pages/drawers",
+      "drawers": "candidate preview/edit with explicit save/cancel",
+      "navigation": "persistent sidebar with active route"
+    },
+    "responsive_breakpoints": {
+      "desktop": ">= 1200px",
+      "tablet": "768-1199px",
+      "mobile": "< 768px",
+      "collapse_rules": [
+        "Sidebar collapses",
+        "Tables stack into labeled records",
+        "Two-column forms become one column"
+      ],
+      "mobile_priority_content": [
+        "current status",
+        "primary action",
+        "candidate identity",
+        "validation errors"
+      ]
+    },
+    "visual_references": [
+      "REF-UTILITARIAN",
+      "REF-BENTO-MODIFIER"
+    ],
+    "visual_reference_selection": {
+      "primary_reference": {
+        "name": "Utilitarian",
+        "path": ".opencode/Skills/design-system-foundation/references/Utilitarian.md",
+        "selected_because": [
+          "Fits high-frequency operations and dense catalog/discovery work",
+          "Supports trust, clarity, keyboard use, and status visibility"
+        ],
+        "applicable_surfaces": [
+          "workspace shell",
+          "tables",
+          "forms",
+          "job status",
+          "settings"
+        ],
+        "token_implications": [
+          "high contrast",
+          "flat surfaces",
+          "compact spacing"
+        ],
+        "component_implications": [
+          "tables, forms, status badges, explicit actions"
+        ],
+        "accessibility_risks": [
+          "Avoid excessive density; preserve readable line height and responsive stacking"
+        ]
+      },
+      "secondary_references": [
+        {
+          "name": "Bento Grid Tech Minimalist",
+          "path": ".opencode/Skills/design-system-foundation/references/Bento Grid Tech Minimalist.md",
+          "selected_because": [
+            "Adds modular grouping for overview and status panels without changing utility-first behavior"
+          ],
+          "applicable_surfaces": [
+            "overview cards",
+            "import method chooser"
+          ]
+        }
+      ],
+      "rejected_references": [
+        {
+          "name": "Glassmorphism",
+          "reason": "Potential contrast and status legibility issues for operational screens"
+        },
+        {
+          "name": "Aurora",
+          "reason": "Atmospheric treatment would compete with dense workflows"
+        }
+      ]
+    },
+    "liked_patterns": [
+      "Strong alignment",
+      "Explicit status",
+      "Modular summary panels",
+      "Compact data tables"
+    ],
+    "disliked_patterns": [
+      "Decorative gradients",
+      "Hidden actions",
+      "Color-only status",
+      "Large marketing hero treatment"
+    ],
+    "accessibility_constraints": [
+      "AA contrast for text and controls",
+      "Respect reduced motion",
+      "Do not communicate job state by animation alone",
+      "Responsive layouts preserve task order"
+    ],
+    "design_do_rules": [
+      "Use one primary action per page",
+      "Make workflow status visible at a glance",
+      "Keep data labels explicit"
+    ],
+    "design_dont_rules": [
+      "Do not hide validation conflicts in tooltips",
+      "Do not use animation as the only progress signal"
+    ],
+    "design_approval_status": "approved",
+    "approved_by": "user",
+    "approved_at": "2026-07-14T03:54:34.812187+00:00"
+  },
+  "ui_blueprint_alignment": [
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-001",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-002",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-003",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-004",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-005",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-006",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-007",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-008",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-009",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    },
+    {
+      "ui_blueprint_id": "UI-BLUEPRINT-SCREEN-010",
+      "design_system_id": "DESIGN-SYSTEM-001"
+    }
+  ],
+  "stage_5_handoff": {
+    "source_stage": "Stage 4",
+    "target_stage": "Stage 5",
+    "source_output_directory": "Build-Plans/Stage-4",
+    "required_files": [
+      "Build-Plans/Stage-4/00-stage-decision-brief.md",
+      "Build-Plans/Stage-4/01-user-journeys.json",
+      "Build-Plans/Stage-4/02-interaction-architecture.json",
+      "Build-Plans/Stage-4/03-screen-system.json",
+      "Build-Plans/Stage-4/04-feature-behaviors.json",
+      "Build-Plans/Stage-4/05-state-transition-map.json",
+      "Build-Plans/Stage-4/06-accessibility-framework.json",
+      "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
+      "Build-Plans/Stage-4/08-design-system-foundation.json",
+      "Build-Plans/Stage-4/09-complete-app-blueprint.md"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [
+      "UX-RISK-001",
+      "UX-RISK-002",
+      "UX-RISK-003"
+    ],
+    "traceability_refs": [
+      "JOURNEY-",
+      "SCREEN-",
+      "UI-BLUEPRINT-",
+      "DESIGN-SYSTEM-001",
+      "WORKFLOW-",
+      "FEATURE-"
+    ],
+    "completion_status": {
+      "stage_specific_status": "ready_for_stage_5",
+      "global_status": "ready_for_next_stage",
+      "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
+      "blocking_items": [],
+      "next_actions": [
+        "Run Stage 5 development orchestration."
+      ],
+      "ready_for": "stage_5"
+    }
+  },
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_5",
+    "global_status": "ready_for_next_stage",
+    "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
+    "blocking_items": [],
+    "next_actions": [
+      "Run Stage 5 development orchestration."
+    ],
+    "ready_for": "stage_5"
+  },
+  "assumptions": [],
+  "risks": []
+}

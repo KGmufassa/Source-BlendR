@@ -1,0 +1,247 @@
+{
+  "stage": "Stage 4",
+  "status": "ready_for_stage_5",
+  "feature_behaviors": {
+    "rules": [
+      {
+        "feature_id": "FEATURE-001",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      },
+      {
+        "feature_id": "FEATURE-002",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      },
+      {
+        "feature_id": "FEATURE-003",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      },
+      {
+        "feature_id": "FEATURE-004",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      },
+      {
+        "feature_id": "FEATURE-005",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      },
+      {
+        "feature_id": "FEATURE-010",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      },
+      {
+        "feature_id": "FEATURE-013",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      },
+      {
+        "feature_id": "FEATURE-014",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      },
+      {
+        "feature_id": "FEATURE-015",
+        "trigger": "User action through owning screen",
+        "response": "Validate, authorize in workspace context, mutate or enqueue job, return explicit status",
+        "states": [
+          "idle",
+          "loading",
+          "empty",
+          "success",
+          "error",
+          "permission_denied"
+        ],
+        "recovery": "Retry where idempotent; preserve user input; offer manual fallback when AI/import unavailable"
+      }
+    ],
+    "validation_rules": [
+      "Required common catalog fields are validated deterministically",
+      "SKU uniqueness is checked within workspace",
+      "Price is numeric and non-negative",
+      "AI output stays candidate-scoped until explicit user import",
+      "Bulk actions are idempotent and return per-record outcomes"
+    ],
+    "permission_behaviors": [
+      "All launch features require authenticated workspace_owner",
+      "Provider credentials are server-side only",
+      "No cross-workspace identifiers are accepted without scope check"
+    ],
+    "error_behaviors": [
+      "Async failures show failed step, reason, retry, and manual fallback",
+      "Partial bulk failure keeps successful records committed and exposes failed records",
+      "Empty states explain next action"
+    ]
+  },
+  "feature_ids": [
+    "FEATURE-001",
+    "FEATURE-002",
+    "FEATURE-003",
+    "FEATURE-004",
+    "FEATURE-005",
+    "FEATURE-010",
+    "FEATURE-013",
+    "FEATURE-014",
+    "FEATURE-015"
+  ],
+  "workflow_ids": [
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-007",
+    "WORKFLOW-006",
+    "WORKFLOW-014"
+  ],
+  "ux_risks": [
+    "ARCH-RISK-001: scraper failure can interrupt import",
+    "ARCH-RISK-004: insufficient queue observability can hide state"
+  ],
+  "related_stage_1_features": [
+    "FEATURE-001",
+    "FEATURE-002",
+    "FEATURE-003",
+    "FEATURE-004",
+    "FEATURE-005",
+    "FEATURE-010",
+    "FEATURE-013",
+    "FEATURE-014",
+    "FEATURE-015"
+  ],
+  "related_stage_3_architecture_constraints": [
+    "Deterministic validation gate",
+    "Route Handler -> Domain Service -> Repository",
+    "BullMQ for long-running work"
+  ],
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_5",
+    "global_status": "ready_for_next_stage",
+    "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
+    "blocking_items": [],
+    "next_actions": [
+      "Run Stage 5 development orchestration."
+    ],
+    "ready_for": "stage_5"
+  },
+  "stage_5_handoff": {
+    "source_stage": "Stage 4",
+    "target_stage": "Stage 5",
+    "source_output_directory": "Build-Plans/Stage-4",
+    "required_files": [
+      "Build-Plans/Stage-4/00-stage-decision-brief.md",
+      "Build-Plans/Stage-4/01-user-journeys.json",
+      "Build-Plans/Stage-4/02-interaction-architecture.json",
+      "Build-Plans/Stage-4/03-screen-system.json",
+      "Build-Plans/Stage-4/04-feature-behaviors.json",
+      "Build-Plans/Stage-4/05-state-transition-map.json",
+      "Build-Plans/Stage-4/06-accessibility-framework.json",
+      "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
+      "Build-Plans/Stage-4/08-design-system-foundation.json",
+      "Build-Plans/Stage-4/09-complete-app-blueprint.md"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [
+      "UX-RISK-001",
+      "UX-RISK-002",
+      "UX-RISK-003"
+    ],
+    "traceability_refs": [
+      "JOURNEY-",
+      "SCREEN-",
+      "UI-BLUEPRINT-",
+      "DESIGN-SYSTEM-001",
+      "WORKFLOW-",
+      "FEATURE-"
+    ],
+    "completion_status": {
+      "stage_specific_status": "ready_for_stage_5",
+      "global_status": "ready_for_next_stage",
+      "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
+      "blocking_items": [],
+      "next_actions": [
+        "Run Stage 5 development orchestration."
+      ],
+      "ready_for": "stage_5"
+    }
+  },
+  "assumptions": [],
+  "risks": [
+    "ARCH-RISK-001: scraper failure can interrupt import",
+    "ARCH-RISK-004: insufficient queue observability can hide state"
+  ]
+}

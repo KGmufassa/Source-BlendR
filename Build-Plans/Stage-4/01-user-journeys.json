@@ -1,0 +1,245 @@
+{
+  "stage": "Stage 4",
+  "status": "ready_for_stage_5",
+  "user_journeys": [
+    {
+      "journey_id": "JOURNEY-001",
+      "name": "Import vendor website into reviewed catalog",
+      "primary_user_id": "USER-001",
+      "workflow_ids": [
+        "WORKFLOW-001",
+        "WORKFLOW-003"
+      ],
+      "entry_points": [
+        "/app/imports",
+        "/app/vendors/:vendorId"
+      ],
+      "steps": [
+        "Choose or create vendor",
+        "Start website discovery",
+        "Review cached category tree",
+        "Select categories",
+        "Monitor queued jobs",
+        "Open Discovery Session",
+        "Search/filter/select candidates",
+        "Edit and validate",
+        "Bulk import or ignore"
+      ],
+      "success_state": "Selected validated candidates become editable catalog items",
+      "failure_states": [
+        "Vendor blocks traversal",
+        "AI classification is unavailable",
+        "One or more category jobs fail",
+        "Validation conflict or duplicate"
+      ],
+      "recovery_paths": [
+        "Retry failed job",
+        "Correct category tree",
+        "Use manual entry",
+        "Edit, merge, or ignore candidate"
+      ],
+      "mvp": true
+    },
+    {
+      "journey_id": "JOURNEY-002",
+      "name": "Import and review a PDF catalog",
+      "primary_user_id": "USER-001",
+      "workflow_ids": [
+        "WORKFLOW-002",
+        "WORKFLOW-003"
+      ],
+      "entry_points": [
+        "/app/imports"
+      ],
+      "steps": [
+        "Choose vendor",
+        "Upload PDF",
+        "Monitor OCR/extraction",
+        "Review Discovery Session candidates",
+        "Validate and import selected items"
+      ],
+      "success_state": "Validated PDF candidates are promoted to catalog",
+      "failure_states": [
+        "Unreadable PDF",
+        "OCR/extraction failure",
+        "Duplicate/conflict"
+      ],
+      "recovery_paths": [
+        "Retry OCR",
+        "Upload a replacement",
+        "Use manual entry",
+        "Edit or ignore candidate"
+      ],
+      "mvp": true
+    },
+    {
+      "journey_id": "JOURNEY-003",
+      "name": "Curate catalog manually",
+      "primary_user_id": "USER-001",
+      "workflow_ids": [
+        "WORKFLOW-014",
+        "WORKFLOW-007"
+      ],
+      "entry_points": [
+        "/app/catalog",
+        "/app/catalog/new"
+      ],
+      "steps": [
+        "Choose item type",
+        "Enter normalized fields",
+        "Set pricing/tags",
+        "Validate",
+        "Save",
+        "Search and edit later"
+      ],
+      "success_state": "A fully editable searchable catalog item exists",
+      "failure_states": [
+        "Required field missing",
+        "Invalid price",
+        "Duplicate SKU"
+      ],
+      "recovery_paths": [
+        "Inline correction",
+        "Save draft locally in form state",
+        "Cancel without mutation"
+      ],
+      "mvp": true
+    },
+    {
+      "journey_id": "JOURNEY-004",
+      "name": "Configure AI provider routing",
+      "primary_user_id": "USER-003",
+      "workflow_ids": [
+        "WORKFLOW-006",
+        "WORKFLOW-005"
+      ],
+      "entry_points": [
+        "/app/settings/ai"
+      ],
+      "steps": [
+        "Open AI settings",
+        "Add provider credentials",
+        "Run health check",
+        "Assign capability route",
+        "Save",
+        "Review provider status"
+      ],
+      "success_state": "Capabilities route to a healthy configured provider",
+      "failure_states": [
+        "No provider configured",
+        "Credential rejected",
+        "Provider unhealthy/rate limited"
+      ],
+      "recovery_paths": [
+        "Use fallback provider",
+        "Retry health check",
+        "Keep manual-only workflows available"
+      ],
+      "mvp": true
+    }
+  ],
+  "related_stage_1_workflows": [
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-007",
+    "WORKFLOW-006",
+    "WORKFLOW-014"
+  ],
+  "related_stage_2_context": [
+    "01-market-analysis.json",
+    "05-risk-validation.json",
+    "06-strategic-positioning.json"
+  ],
+  "ux_decisions": [
+    {
+      "assumption_id": "ASSUMPTION-UX-001",
+      "decision": "Workspace owner is the only MVP interactive role; AI admin permissions are represented as a workspace settings capability.",
+      "reason": "Stage 1 explicitly defers team support."
+    },
+    {
+      "assumption_id": "ASSUMPTION-UX-002",
+      "decision": "Long-running imports use a persistent job status surface and can be left and resumed.",
+      "reason": "Stage 3 requires BullMQ jobs and user-visible status."
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "UX-RISK-001",
+      "severity": "high",
+      "risk": "Users cannot understand long-running import progress",
+      "mitigation": "Persistent job detail, step timeline, event log, retry/cancel, and partial-result access",
+      "owner": "Stage 4 / Stage 6"
+    },
+    {
+      "risk_id": "UX-RISK-002",
+      "severity": "high",
+      "risk": "AI extraction creates unsafe or duplicate catalog records",
+      "mitigation": "Discovery Session review gate, deterministic validation, explicit conflict states, no direct AI catalog writes",
+      "owner": "Stage 4 / Stage 6"
+    },
+    {
+      "risk_id": "UX-RISK-003",
+      "severity": "medium",
+      "risk": "Dense tables reduce mobile and assistive-technology usability",
+      "mitigation": "Responsive stacked records, semantic table headers, keyboard selection, live announcements",
+      "owner": "Stage 4 / Stage 6"
+    }
+  ],
+  "unresolved_questions": [
+    "Stage 4 decision brief approval"
+  ],
+  "stage_5_handoff": {
+    "source_stage": "Stage 4",
+    "target_stage": "Stage 5",
+    "source_output_directory": "Build-Plans/Stage-4",
+    "required_files": [
+      "Build-Plans/Stage-4/00-stage-decision-brief.md",
+      "Build-Plans/Stage-4/01-user-journeys.json",
+      "Build-Plans/Stage-4/02-interaction-architecture.json",
+      "Build-Plans/Stage-4/03-screen-system.json",
+      "Build-Plans/Stage-4/04-feature-behaviors.json",
+      "Build-Plans/Stage-4/05-state-transition-map.json",
+      "Build-Plans/Stage-4/06-accessibility-framework.json",
+      "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
+      "Build-Plans/Stage-4/08-design-system-foundation.json",
+      "Build-Plans/Stage-4/09-complete-app-blueprint.md"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [
+      "UX-RISK-001",
+      "UX-RISK-002",
+      "UX-RISK-003"
+    ],
+    "traceability_refs": [
+      "JOURNEY-",
+      "SCREEN-",
+      "UI-BLUEPRINT-",
+      "DESIGN-SYSTEM-001",
+      "WORKFLOW-",
+      "FEATURE-"
+    ],
+    "completion_status": {
+      "stage_specific_status": "ready_for_stage_5",
+      "global_status": "ready_for_next_stage",
+      "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
+      "blocking_items": [],
+      "next_actions": [
+        "Run Stage 5 development orchestration."
+      ],
+      "ready_for": "stage_5"
+    }
+  },
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_5",
+    "global_status": "ready_for_next_stage",
+    "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
+    "blocking_items": [],
+    "next_actions": [
+      "Run Stage 5 development orchestration."
+    ],
+    "ready_for": "stage_5"
+  },
+  "assumptions": []
+}

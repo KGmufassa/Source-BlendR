@@ -137,6 +137,1127 @@
       "created_by": "stage-3-system-architecture",
       "created_at": "2026-07-11T22:14:26.875337+00:00",
       "notes": "System topology architecture artifact."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-001-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-001"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FOUNDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444394+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-001-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-001"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FOUNDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444403+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-002-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-002"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FOUNDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444406+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-002-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-002"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FOUNDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444408+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-003-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-003"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FOUNDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444411+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-003-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-003"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FOUNDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444413+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-004-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-004"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FOUNDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444415+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-004-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-004"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FOUNDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444418+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-005-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-005"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444420+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-005-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-005"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444422+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-006-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-006"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444425+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-006-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-006"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444427+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-007-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-007"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444429+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-007-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-007"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444431+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-008-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-008"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444434+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-008-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-008"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444436+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-009-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-009"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444438+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-009-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-009"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444440+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-009-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-009"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444442+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-009-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-009"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444444+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-010-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-010"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444446+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-010-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-010"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444448+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-011-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-011"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444451+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-011-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-011"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444453+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-011-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-011"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444457+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-011-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-011"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444459+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-012-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-012"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444461+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-012-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-012"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444463+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-013-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-013"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444466+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-013-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-013"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444468+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-013-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-013"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444470+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-013-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-013"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444472+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-014-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-014"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444474+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-014-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-014"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444476+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-015-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-015"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444479+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-015-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-015"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444481+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-015-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-015"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444483+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-015-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-015"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444485+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-016-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-016"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444487+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-016-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-016"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444489+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-016-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-016"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444491+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-016-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-016"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444493+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-017-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-017"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444495+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-017-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-017"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444497+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-017-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-017"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444499+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-017-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-017"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444501+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-018-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-018"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444504+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-018-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-018"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444506+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-018-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-018"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444508+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-018-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-018"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444511+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-019-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-019"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444514+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-019-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-019"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444516+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-020-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-020"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444518+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-020-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-020"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444520+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-020-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-020"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444522+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-020-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-020"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444524+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-021-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-021"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444527+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-021-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-021"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444528+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-021-BUILD",
+      "type": "build_log",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-021"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-development-orchestration",
+      "created_at": "2026-07-14T05:13:55.444530+00:00",
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
     }
   ]
 }

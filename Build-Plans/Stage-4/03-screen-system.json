@@ -1,0 +1,1531 @@
+{
+  "stage": "Stage 4",
+  "status": "ready_for_stage_5",
+  "screen_groups": [
+    {
+      "group_id": "GROUP-IMPORT",
+      "name": "Import and Discovery",
+      "screen_ids": [
+        "SCREEN-001",
+        "SCREEN-002",
+        "SCREEN-003",
+        "SCREEN-004",
+        "SCREEN-005",
+        "SCREEN-006"
+      ]
+    },
+    {
+      "group_id": "GROUP-CATALOG",
+      "name": "Catalog and Vendors",
+      "screen_ids": [
+        "SCREEN-007",
+        "SCREEN-008",
+        "SCREEN-009"
+      ]
+    },
+    {
+      "group_id": "GROUP-PLATFORM",
+      "name": "Workspace Settings",
+      "screen_ids": [
+        "SCREEN-001",
+        "SCREEN-010"
+      ]
+    }
+  ],
+  "screen_inventory": [
+    {
+      "screen_id": "SCREEN-001",
+      "name": "Workspace Overview",
+      "route": "/app",
+      "type": "Dashboard",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-001",
+        "JOURNEY-003",
+        "JOURNEY-004"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-OV-001",
+          "element_type": "button",
+          "label": "Start import",
+          "route_target": "/app/imports",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/imports",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "QuickActions",
+          "owning_section": "Actions"
+        },
+        {
+          "element_id": "EL-OV-002",
+          "element_type": "link",
+          "label": "Open catalog",
+          "route_target": "/app/catalog",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/catalog",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "QuickActions",
+          "owning_section": "Actions"
+        },
+        {
+          "element_id": "EL-OV-003",
+          "element_type": "link",
+          "label": "View active jobs",
+          "route_target": "/app/imports/jobs",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/imports/jobs",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "JobStatus",
+          "owning_section": "Active Jobs"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-002",
+      "name": "Imports Workspace",
+      "route": "/app/imports",
+      "type": "List",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-001",
+        "JOURNEY-002"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-IM-001",
+          "element_type": "button",
+          "label": "Website import",
+          "route_target": "/app/imports/website",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/imports/website",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "ImportMethods",
+          "owning_section": "Start Import"
+        },
+        {
+          "element_id": "EL-IM-002",
+          "element_type": "button",
+          "label": "PDF import",
+          "route_target": "/app/imports/pdf",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/imports/pdf",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "ImportMethods",
+          "owning_section": "Start Import"
+        },
+        {
+          "element_id": "EL-IM-003",
+          "element_type": "link",
+          "label": "Open job",
+          "route_target": "/app/imports/jobs/:jobId",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/imports/jobs/:jobId",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "JobTable",
+          "owning_section": "Recent Jobs"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-003",
+      "name": "Website Import Wizard",
+      "route": "/app/imports/website",
+      "type": "Wizard",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-001"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-WEB-001",
+          "element_type": "select",
+          "label": "Vendor",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "submit",
+          "behavior_target": "vendor_id",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "SourceForm",
+          "owning_section": "Source"
+        },
+        {
+          "element_id": "EL-WEB-002",
+          "element_type": "text_input",
+          "label": "Website URL",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "submit",
+          "behavior_target": "website_url",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "SourceForm",
+          "owning_section": "Source"
+        },
+        {
+          "element_id": "EL-WEB-003",
+          "element_type": "button",
+          "label": "Analyze website",
+          "route_target": "",
+          "action_id": "ACTION-START-WEBSITE",
+          "behavior": "submit",
+          "behavior_target": "start_website_discovery",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "SourceForm",
+          "owning_section": "Source"
+        },
+        {
+          "element_id": "EL-WEB-004",
+          "element_type": "checkbox",
+          "label": "Category",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "toggle",
+          "behavior_target": "category_selection",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CategoryTree",
+          "owning_section": "Categories"
+        },
+        {
+          "element_id": "EL-WEB-005",
+          "element_type": "button",
+          "label": "Start selected categories",
+          "route_target": "",
+          "action_id": "ACTION-QUEUE-CATEGORIES",
+          "behavior": "trigger_action",
+          "behavior_target": "enqueue_selected_categories",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CategoryTree",
+          "owning_section": "Categories"
+        },
+        {
+          "element_id": "EL-WEB-006",
+          "element_type": "link",
+          "label": "Open job",
+          "route_target": "/app/imports/jobs/:jobId",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/imports/jobs/:jobId",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "JobResult",
+          "owning_section": "Result"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-004",
+      "name": "PDF Import",
+      "route": "/app/imports/pdf",
+      "type": "Form",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-002"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-PDF-001",
+          "element_type": "select",
+          "label": "Vendor",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "submit",
+          "behavior_target": "vendor_id",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "PdfForm",
+          "owning_section": "Upload"
+        },
+        {
+          "element_id": "EL-PDF-002",
+          "element_type": "file_upload",
+          "label": "PDF catalog",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "submit",
+          "behavior_target": "pdf_file",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "PdfForm",
+          "owning_section": "Upload"
+        },
+        {
+          "element_id": "EL-PDF-003",
+          "element_type": "button",
+          "label": "Start PDF extraction",
+          "route_target": "",
+          "action_id": "ACTION-START-PDF",
+          "behavior": "submit",
+          "behavior_target": "start_pdf_import",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "PdfForm",
+          "owning_section": "Upload"
+        },
+        {
+          "element_id": "EL-PDF-004",
+          "element_type": "link",
+          "label": "Open job",
+          "route_target": "/app/imports/jobs/:jobId",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/imports/jobs/:jobId",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "JobResult",
+          "owning_section": "Result"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-005",
+      "name": "Import Job Detail",
+      "route": "/app/imports/jobs/:jobId",
+      "type": "Detail View",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-001",
+        "JOURNEY-002"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-JOB-001",
+          "element_type": "button",
+          "label": "Retry failed work",
+          "route_target": "",
+          "action_id": "ACTION-RETRY-JOB",
+          "behavior": "trigger_action",
+          "behavior_target": "retry_job",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "JobActions",
+          "owning_section": "Actions"
+        },
+        {
+          "element_id": "EL-JOB-002",
+          "element_type": "button",
+          "label": "Cancel job",
+          "route_target": "",
+          "action_id": "ACTION-CANCEL-JOB",
+          "behavior": "trigger_action",
+          "behavior_target": "cancel_job",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "JobActions",
+          "owning_section": "Actions"
+        },
+        {
+          "element_id": "EL-JOB-003",
+          "element_type": "link",
+          "label": "Open Discovery Session",
+          "route_target": "/app/discovery/:sessionId",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/discovery/:sessionId",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "JobActions",
+          "owning_section": "Actions"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-006",
+      "name": "Discovery Session",
+      "route": "/app/discovery/:sessionId",
+      "type": "List",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-001",
+        "JOURNEY-002"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-DIS-001",
+          "element_type": "search_input",
+          "label": "Search candidates",
+          "route_target": "",
+          "action_id": "ACTION-SEARCH-CANDIDATES",
+          "behavior": "call_api",
+          "behavior_target": "candidate_search",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CandidateTable",
+          "owning_section": "Candidates"
+        },
+        {
+          "element_id": "EL-DIS-002",
+          "element_type": "select",
+          "label": "Status filter",
+          "route_target": "",
+          "action_id": "ACTION-FILTER-CANDIDATES",
+          "behavior": "call_api",
+          "behavior_target": "candidate_status_filter",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CandidateTable",
+          "owning_section": "Candidates"
+        },
+        {
+          "element_id": "EL-DIS-003",
+          "element_type": "checkbox",
+          "label": "Select candidate",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "toggle",
+          "behavior_target": "candidate_selection",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CandidateTable",
+          "owning_section": "Candidates"
+        },
+        {
+          "element_id": "EL-DIS-004",
+          "element_type": "button",
+          "label": "Preview candidate",
+          "route_target": "",
+          "action_id": "ACTION-PREVIEW-CANDIDATE",
+          "behavior": "open_drawer",
+          "behavior_target": "candidate_preview",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CandidateTable",
+          "owning_section": "Candidates"
+        },
+        {
+          "element_id": "EL-DIS-005",
+          "element_type": "button",
+          "label": "Import selected",
+          "route_target": "",
+          "action_id": "ACTION-BULK-IMPORT",
+          "behavior": "trigger_action",
+          "behavior_target": "bulk_import",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "BulkToolbar",
+          "owning_section": "Bulk Actions"
+        },
+        {
+          "element_id": "EL-DIS-006",
+          "element_type": "button",
+          "label": "Ignore selected",
+          "route_target": "",
+          "action_id": "ACTION-BULK-IGNORE",
+          "behavior": "trigger_action",
+          "behavior_target": "bulk_ignore",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "BulkToolbar",
+          "owning_section": "Bulk Actions"
+        },
+        {
+          "element_id": "EL-DIS-007",
+          "element_type": "button",
+          "label": "Archive selected",
+          "route_target": "",
+          "action_id": "ACTION-BULK-ARCHIVE",
+          "behavior": "trigger_action",
+          "behavior_target": "bulk_archive",
+          "permission_required": "workspace_owner",
+          "confirmation_required": true,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "BulkToolbar",
+          "owning_section": "Bulk Actions"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-007",
+      "name": "Catalog",
+      "route": "/app/catalog",
+      "type": "List",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-003"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-CAT-001",
+          "element_type": "search_input",
+          "label": "Search catalog",
+          "route_target": "",
+          "action_id": "ACTION-SEARCH-CATALOG",
+          "behavior": "call_api",
+          "behavior_target": "catalog_search",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogTable",
+          "owning_section": "Catalog"
+        },
+        {
+          "element_id": "EL-CAT-002",
+          "element_type": "select",
+          "label": "Type filter",
+          "route_target": "",
+          "action_id": "ACTION-FILTER-CATALOG",
+          "behavior": "call_api",
+          "behavior_target": "catalog_type_filter",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogTable",
+          "owning_section": "Catalog"
+        },
+        {
+          "element_id": "EL-CAT-003",
+          "element_type": "button",
+          "label": "New catalog item",
+          "route_target": "/app/catalog/new",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/catalog/new",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogHeader",
+          "owning_section": "Actions"
+        },
+        {
+          "element_id": "EL-CAT-004",
+          "element_type": "link",
+          "label": "Open item",
+          "route_target": "/app/catalog/:itemId",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/catalog/:itemId",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogTable",
+          "owning_section": "Catalog"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-008",
+      "name": "Catalog Item Form",
+      "route": "/app/catalog/new",
+      "type": "Form",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-003"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-FORM-001",
+          "element_type": "select",
+          "label": "Item type",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "toggle",
+          "behavior_target": "item_type",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogForm",
+          "owning_section": "Item Details"
+        },
+        {
+          "element_id": "EL-FORM-002",
+          "element_type": "text_input",
+          "label": "Name",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "submit",
+          "behavior_target": "name",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogForm",
+          "owning_section": "Item Details"
+        },
+        {
+          "element_id": "EL-FORM-003",
+          "element_type": "text_input",
+          "label": "SKU",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "submit",
+          "behavior_target": "sku",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogForm",
+          "owning_section": "Item Details"
+        },
+        {
+          "element_id": "EL-FORM-004",
+          "element_type": "text_input",
+          "label": "Price",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "submit",
+          "behavior_target": "price",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogForm",
+          "owning_section": "Pricing"
+        },
+        {
+          "element_id": "EL-FORM-005",
+          "element_type": "button",
+          "label": "Save item",
+          "route_target": "",
+          "action_id": "ACTION-SAVE-ITEM",
+          "behavior": "submit",
+          "behavior_target": "create_catalog_item",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogForm",
+          "owning_section": "Actions"
+        },
+        {
+          "element_id": "EL-FORM-006",
+          "element_type": "button",
+          "label": "Cancel",
+          "route_target": "/app/catalog",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/catalog",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "CatalogForm",
+          "owning_section": "Actions"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-009",
+      "name": "Vendors",
+      "route": "/app/vendors",
+      "type": "List",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-001",
+        "JOURNEY-002"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-VEN-001",
+          "element_type": "button",
+          "label": "New vendor",
+          "route_target": "/app/vendors/new",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/vendors/new",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "VendorHeader",
+          "owning_section": "Actions"
+        },
+        {
+          "element_id": "EL-VEN-002",
+          "element_type": "link",
+          "label": "Open vendor",
+          "route_target": "/app/vendors/:vendorId",
+          "action_id": "",
+          "behavior": "navigate",
+          "behavior_target": "/app/vendors/:vendorId",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "VendorTable",
+          "owning_section": "Vendors"
+        }
+      ]
+    },
+    {
+      "screen_id": "SCREEN-010",
+      "name": "AI Provider Settings",
+      "route": "/app/settings/ai",
+      "type": "Settings",
+      "launch_critical": true,
+      "journey_ids": [
+        "JOURNEY-004"
+      ],
+      "interactive_elements": [
+        {
+          "element_id": "EL-AI-001",
+          "element_type": "button",
+          "label": "Add provider",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "open_modal",
+          "behavior_target": "provider_form",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "ProviderList",
+          "owning_section": "Providers"
+        },
+        {
+          "element_id": "EL-AI-002",
+          "element_type": "button",
+          "label": "Run health check",
+          "route_target": "",
+          "action_id": "ACTION-HEALTH-CHECK",
+          "behavior": "trigger_action",
+          "behavior_target": "health_check",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "ProviderList",
+          "owning_section": "Providers"
+        },
+        {
+          "element_id": "EL-AI-003",
+          "element_type": "select",
+          "label": "Capability route",
+          "route_target": "",
+          "action_id": "",
+          "behavior": "submit",
+          "behavior_target": "capability_route",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "RoutingTable",
+          "owning_section": "Capability Routing"
+        },
+        {
+          "element_id": "EL-AI-004",
+          "element_type": "button",
+          "label": "Save routing",
+          "route_target": "",
+          "action_id": "ACTION-SAVE-AI",
+          "behavior": "submit",
+          "behavior_target": "save_ai_settings",
+          "permission_required": "workspace_owner",
+          "confirmation_required": false,
+          "states": {
+            "disabled_when": [
+              "request_pending"
+            ],
+            "feedback": "inline status plus toast"
+          },
+          "owning_component": "RoutingTable",
+          "owning_section": "Capability Routing"
+        }
+      ]
+    }
+  ],
+  "navigation_structure": {
+    "model": "Persistent workspace sidebar with task-oriented groups; contextual breadcrumbs and command-style actions inside work areas",
+    "items": [
+      {
+        "label": "Overview",
+        "route_target": "/app"
+      },
+      {
+        "label": "Imports",
+        "route_target": "/app/imports"
+      },
+      {
+        "label": "Discovery",
+        "route_target": "/app/discovery"
+      },
+      {
+        "label": "Catalog",
+        "route_target": "/app/catalog"
+      },
+      {
+        "label": "Vendors",
+        "route_target": "/app/vendors"
+      },
+      {
+        "label": "Settings",
+        "route_target": "/app/settings"
+      }
+    ],
+    "rules": [
+      "Preserve job status access globally",
+      "Keep primary task action in page header",
+      "Use drawers for candidate preview/edit to preserve list context"
+    ]
+  },
+  "route_inventory": [
+    {
+      "route_id": "ROUTE-001",
+      "path": "/app",
+      "owner_page_id": "SCREEN-001"
+    },
+    {
+      "route_id": "ROUTE-002",
+      "path": "/app/catalog",
+      "owner_page_id": "SCREEN-007"
+    },
+    {
+      "route_id": "ROUTE-003",
+      "path": "/app/catalog/:itemId",
+      "owner_page_id": "SCREEN-001"
+    },
+    {
+      "route_id": "ROUTE-004",
+      "path": "/app/catalog/new",
+      "owner_page_id": "SCREEN-008"
+    },
+    {
+      "route_id": "ROUTE-005",
+      "path": "/app/discovery",
+      "owner_page_id": "SCREEN-001"
+    },
+    {
+      "route_id": "ROUTE-006",
+      "path": "/app/discovery/:sessionId",
+      "owner_page_id": "SCREEN-006"
+    },
+    {
+      "route_id": "ROUTE-007",
+      "path": "/app/imports",
+      "owner_page_id": "SCREEN-002"
+    },
+    {
+      "route_id": "ROUTE-008",
+      "path": "/app/imports/jobs",
+      "owner_page_id": "SCREEN-001"
+    },
+    {
+      "route_id": "ROUTE-009",
+      "path": "/app/imports/jobs/:jobId",
+      "owner_page_id": "SCREEN-005"
+    },
+    {
+      "route_id": "ROUTE-010",
+      "path": "/app/imports/pdf",
+      "owner_page_id": "SCREEN-004"
+    },
+    {
+      "route_id": "ROUTE-011",
+      "path": "/app/imports/website",
+      "owner_page_id": "SCREEN-003"
+    },
+    {
+      "route_id": "ROUTE-012",
+      "path": "/app/settings",
+      "owner_page_id": "SCREEN-001"
+    },
+    {
+      "route_id": "ROUTE-013",
+      "path": "/app/settings/ai",
+      "owner_page_id": "SCREEN-010"
+    },
+    {
+      "route_id": "ROUTE-014",
+      "path": "/app/vendors",
+      "owner_page_id": "SCREEN-009"
+    },
+    {
+      "route_id": "ROUTE-015",
+      "path": "/app/vendors/:vendorId",
+      "owner_page_id": "SCREEN-001"
+    },
+    {
+      "route_id": "ROUTE-016",
+      "path": "/app/vendors/new",
+      "owner_page_id": "SCREEN-001"
+    }
+  ],
+  "action_inventory": [
+    {
+      "action_id": "EL-OV-001",
+      "owning_page_id": "SCREEN-001",
+      "owning_component": "QuickActions",
+      "element_id": "EL-OV-001",
+      "behavior": "navigate",
+      "route_target": "/app/imports",
+      "behavior_target": "/app/imports",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-OV-002",
+      "owning_page_id": "SCREEN-001",
+      "owning_component": "QuickActions",
+      "element_id": "EL-OV-002",
+      "behavior": "navigate",
+      "route_target": "/app/catalog",
+      "behavior_target": "/app/catalog",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-OV-003",
+      "owning_page_id": "SCREEN-001",
+      "owning_component": "JobStatus",
+      "element_id": "EL-OV-003",
+      "behavior": "navigate",
+      "route_target": "/app/imports/jobs",
+      "behavior_target": "/app/imports/jobs",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-IM-001",
+      "owning_page_id": "SCREEN-002",
+      "owning_component": "ImportMethods",
+      "element_id": "EL-IM-001",
+      "behavior": "navigate",
+      "route_target": "/app/imports/website",
+      "behavior_target": "/app/imports/website",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-IM-002",
+      "owning_page_id": "SCREEN-002",
+      "owning_component": "ImportMethods",
+      "element_id": "EL-IM-002",
+      "behavior": "navigate",
+      "route_target": "/app/imports/pdf",
+      "behavior_target": "/app/imports/pdf",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-IM-003",
+      "owning_page_id": "SCREEN-002",
+      "owning_component": "JobTable",
+      "element_id": "EL-IM-003",
+      "behavior": "navigate",
+      "route_target": "/app/imports/jobs/:jobId",
+      "behavior_target": "/app/imports/jobs/:jobId",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-WEB-001",
+      "owning_page_id": "SCREEN-003",
+      "owning_component": "SourceForm",
+      "element_id": "EL-WEB-001",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "vendor_id",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-WEB-002",
+      "owning_page_id": "SCREEN-003",
+      "owning_component": "SourceForm",
+      "element_id": "EL-WEB-002",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "website_url",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-START-WEBSITE",
+      "owning_page_id": "SCREEN-003",
+      "owning_component": "SourceForm",
+      "element_id": "EL-WEB-003",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "start_website_discovery",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-WEB-004",
+      "owning_page_id": "SCREEN-003",
+      "owning_component": "CategoryTree",
+      "element_id": "EL-WEB-004",
+      "behavior": "toggle",
+      "route_target": "",
+      "behavior_target": "category_selection",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-QUEUE-CATEGORIES",
+      "owning_page_id": "SCREEN-003",
+      "owning_component": "CategoryTree",
+      "element_id": "EL-WEB-005",
+      "behavior": "trigger_action",
+      "route_target": "",
+      "behavior_target": "enqueue_selected_categories",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-WEB-006",
+      "owning_page_id": "SCREEN-003",
+      "owning_component": "JobResult",
+      "element_id": "EL-WEB-006",
+      "behavior": "navigate",
+      "route_target": "/app/imports/jobs/:jobId",
+      "behavior_target": "/app/imports/jobs/:jobId",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-PDF-001",
+      "owning_page_id": "SCREEN-004",
+      "owning_component": "PdfForm",
+      "element_id": "EL-PDF-001",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "vendor_id",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-PDF-002",
+      "owning_page_id": "SCREEN-004",
+      "owning_component": "PdfForm",
+      "element_id": "EL-PDF-002",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "pdf_file",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-START-PDF",
+      "owning_page_id": "SCREEN-004",
+      "owning_component": "PdfForm",
+      "element_id": "EL-PDF-003",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "start_pdf_import",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-PDF-004",
+      "owning_page_id": "SCREEN-004",
+      "owning_component": "JobResult",
+      "element_id": "EL-PDF-004",
+      "behavior": "navigate",
+      "route_target": "/app/imports/jobs/:jobId",
+      "behavior_target": "/app/imports/jobs/:jobId",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-RETRY-JOB",
+      "owning_page_id": "SCREEN-005",
+      "owning_component": "JobActions",
+      "element_id": "EL-JOB-001",
+      "behavior": "trigger_action",
+      "route_target": "",
+      "behavior_target": "retry_job",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-CANCEL-JOB",
+      "owning_page_id": "SCREEN-005",
+      "owning_component": "JobActions",
+      "element_id": "EL-JOB-002",
+      "behavior": "trigger_action",
+      "route_target": "",
+      "behavior_target": "cancel_job",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-JOB-003",
+      "owning_page_id": "SCREEN-005",
+      "owning_component": "JobActions",
+      "element_id": "EL-JOB-003",
+      "behavior": "navigate",
+      "route_target": "/app/discovery/:sessionId",
+      "behavior_target": "/app/discovery/:sessionId",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-SEARCH-CANDIDATES",
+      "owning_page_id": "SCREEN-006",
+      "owning_component": "CandidateTable",
+      "element_id": "EL-DIS-001",
+      "behavior": "call_api",
+      "route_target": "",
+      "behavior_target": "candidate_search",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-FILTER-CANDIDATES",
+      "owning_page_id": "SCREEN-006",
+      "owning_component": "CandidateTable",
+      "element_id": "EL-DIS-002",
+      "behavior": "call_api",
+      "route_target": "",
+      "behavior_target": "candidate_status_filter",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-DIS-003",
+      "owning_page_id": "SCREEN-006",
+      "owning_component": "CandidateTable",
+      "element_id": "EL-DIS-003",
+      "behavior": "toggle",
+      "route_target": "",
+      "behavior_target": "candidate_selection",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-PREVIEW-CANDIDATE",
+      "owning_page_id": "SCREEN-006",
+      "owning_component": "CandidateTable",
+      "element_id": "EL-DIS-004",
+      "behavior": "open_drawer",
+      "route_target": "",
+      "behavior_target": "candidate_preview",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-BULK-IMPORT",
+      "owning_page_id": "SCREEN-006",
+      "owning_component": "BulkToolbar",
+      "element_id": "EL-DIS-005",
+      "behavior": "trigger_action",
+      "route_target": "",
+      "behavior_target": "bulk_import",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-BULK-IGNORE",
+      "owning_page_id": "SCREEN-006",
+      "owning_component": "BulkToolbar",
+      "element_id": "EL-DIS-006",
+      "behavior": "trigger_action",
+      "route_target": "",
+      "behavior_target": "bulk_ignore",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-BULK-ARCHIVE",
+      "owning_page_id": "SCREEN-006",
+      "owning_component": "BulkToolbar",
+      "element_id": "EL-DIS-007",
+      "behavior": "trigger_action",
+      "route_target": "",
+      "behavior_target": "bulk_archive",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-SEARCH-CATALOG",
+      "owning_page_id": "SCREEN-007",
+      "owning_component": "CatalogTable",
+      "element_id": "EL-CAT-001",
+      "behavior": "call_api",
+      "route_target": "",
+      "behavior_target": "catalog_search",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-FILTER-CATALOG",
+      "owning_page_id": "SCREEN-007",
+      "owning_component": "CatalogTable",
+      "element_id": "EL-CAT-002",
+      "behavior": "call_api",
+      "route_target": "",
+      "behavior_target": "catalog_type_filter",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-CAT-003",
+      "owning_page_id": "SCREEN-007",
+      "owning_component": "CatalogHeader",
+      "element_id": "EL-CAT-003",
+      "behavior": "navigate",
+      "route_target": "/app/catalog/new",
+      "behavior_target": "/app/catalog/new",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-CAT-004",
+      "owning_page_id": "SCREEN-007",
+      "owning_component": "CatalogTable",
+      "element_id": "EL-CAT-004",
+      "behavior": "navigate",
+      "route_target": "/app/catalog/:itemId",
+      "behavior_target": "/app/catalog/:itemId",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-FORM-001",
+      "owning_page_id": "SCREEN-008",
+      "owning_component": "CatalogForm",
+      "element_id": "EL-FORM-001",
+      "behavior": "toggle",
+      "route_target": "",
+      "behavior_target": "item_type",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-FORM-002",
+      "owning_page_id": "SCREEN-008",
+      "owning_component": "CatalogForm",
+      "element_id": "EL-FORM-002",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "name",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-FORM-003",
+      "owning_page_id": "SCREEN-008",
+      "owning_component": "CatalogForm",
+      "element_id": "EL-FORM-003",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "sku",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-FORM-004",
+      "owning_page_id": "SCREEN-008",
+      "owning_component": "CatalogForm",
+      "element_id": "EL-FORM-004",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "price",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-SAVE-ITEM",
+      "owning_page_id": "SCREEN-008",
+      "owning_component": "CatalogForm",
+      "element_id": "EL-FORM-005",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "create_catalog_item",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-FORM-006",
+      "owning_page_id": "SCREEN-008",
+      "owning_component": "CatalogForm",
+      "element_id": "EL-FORM-006",
+      "behavior": "navigate",
+      "route_target": "/app/catalog",
+      "behavior_target": "/app/catalog",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-VEN-001",
+      "owning_page_id": "SCREEN-009",
+      "owning_component": "VendorHeader",
+      "element_id": "EL-VEN-001",
+      "behavior": "navigate",
+      "route_target": "/app/vendors/new",
+      "behavior_target": "/app/vendors/new",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-VEN-002",
+      "owning_page_id": "SCREEN-009",
+      "owning_component": "VendorTable",
+      "element_id": "EL-VEN-002",
+      "behavior": "navigate",
+      "route_target": "/app/vendors/:vendorId",
+      "behavior_target": "/app/vendors/:vendorId",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-AI-001",
+      "owning_page_id": "SCREEN-010",
+      "owning_component": "ProviderList",
+      "element_id": "EL-AI-001",
+      "behavior": "open_modal",
+      "route_target": "",
+      "behavior_target": "provider_form",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-HEALTH-CHECK",
+      "owning_page_id": "SCREEN-010",
+      "owning_component": "ProviderList",
+      "element_id": "EL-AI-002",
+      "behavior": "trigger_action",
+      "route_target": "",
+      "behavior_target": "health_check",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "EL-AI-003",
+      "owning_page_id": "SCREEN-010",
+      "owning_component": "RoutingTable",
+      "element_id": "EL-AI-003",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "capability_route",
+      "recovery": "Inline error and retry where server-backed"
+    },
+    {
+      "action_id": "ACTION-SAVE-AI",
+      "owning_page_id": "SCREEN-010",
+      "owning_component": "RoutingTable",
+      "element_id": "EL-AI-004",
+      "behavior": "submit",
+      "route_target": "",
+      "behavior_target": "save_ai_settings",
+      "recovery": "Inline error and retry where server-backed"
+    }
+  ],
+  "risks": [
+    "Import job status must remain reachable after leaving wizard",
+    "Dense candidate tables need mobile stacked fallback"
+  ],
+  "related_stage_1_workflows": [
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-007",
+    "WORKFLOW-006",
+    "WORKFLOW-014"
+  ],
+  "related_stage_3_constraints": [
+    "Async jobs return job IDs",
+    "Authenticated workspace context required",
+    "Bulk actions idempotent"
+  ],
+  "completion_status": {
+    "stage_specific_status": "ready_for_stage_5",
+    "global_status": "ready_for_next_stage",
+    "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
+    "blocking_items": [],
+    "next_actions": [
+      "Run Stage 5 development orchestration."
+    ],
+    "ready_for": "stage_5"
+  },
+  "stage_5_handoff": {
+    "source_stage": "Stage 4",
+    "target_stage": "Stage 5",
+    "source_output_directory": "Build-Plans/Stage-4",
+    "required_files": [
+      "Build-Plans/Stage-4/00-stage-decision-brief.md",
+      "Build-Plans/Stage-4/01-user-journeys.json",
+      "Build-Plans/Stage-4/02-interaction-architecture.json",
+      "Build-Plans/Stage-4/03-screen-system.json",
+      "Build-Plans/Stage-4/04-feature-behaviors.json",
+      "Build-Plans/Stage-4/05-state-transition-map.json",
+      "Build-Plans/Stage-4/06-accessibility-framework.json",
+      "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
+      "Build-Plans/Stage-4/08-design-system-foundation.json",
+      "Build-Plans/Stage-4/09-complete-app-blueprint.md"
+    ],
+    "ready": true,
+    "blocking_items": [],
+    "accepted_risks": [
+      "UX-RISK-001",
+      "UX-RISK-002",
+      "UX-RISK-003"
+    ],
+    "traceability_refs": [
+      "JOURNEY-",
+      "SCREEN-",
+      "UI-BLUEPRINT-",
+      "DESIGN-SYSTEM-001",
+      "WORKFLOW-",
+      "FEATURE-"
+    ],
+    "completion_status": {
+      "stage_specific_status": "ready_for_stage_5",
+      "global_status": "ready_for_next_stage",
+      "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
+      "blocking_items": [],
+      "next_actions": [
+        "Run Stage 5 development orchestration."
+      ],
+      "ready_for": "stage_5"
+    }
+  },
+  "assumptions": []
+}

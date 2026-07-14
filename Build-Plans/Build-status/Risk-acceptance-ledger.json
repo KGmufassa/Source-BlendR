@@ -63,6 +63,46 @@
       "revisit_trigger": "Before launch readiness or when pricing/business model is finalized.",
       "expires_or_recheck_at": "Before Stage 7 launch readiness",
       "status": "active"
+    },
+    {
+      "risk_id": "UX-RISK-001",
+      "source_stage": "Stage 4",
+      "source_output": "Build-Plans/Stage-4/00-stage-decision-brief.md",
+      "risk": "Users cannot understand long-running import progress",
+      "severity": "high",
+      "accepted_by": "user",
+      "accepted_at": "2026-07-14T03:55:52.942375+00:00",
+      "acceptance_reason": "User approved the Stage 4 UX/UI direction and accepted documented UX risks with mitigation paths.",
+      "mitigation": "Persistent job detail, step timeline, event log, retry/cancel, and partial-result access",
+      "owner_stage": "Stage 4 / Stage 6",
+      "downstream_visibility": [
+        "Stage 5",
+        "Stage 6",
+        "Stage 7"
+      ],
+      "revisit_trigger": "Before Stage 6 implementation validation or if the mapped UX mitigation cannot be implemented.",
+      "expires_or_recheck_at": "Before Stage 6 completion",
+      "status": "active"
+    },
+    {
+      "risk_id": "UX-RISK-002",
+      "source_stage": "Stage 4",
+      "source_output": "Build-Plans/Stage-4/00-stage-decision-brief.md",
+      "risk": "AI extraction creates unsafe or duplicate catalog records",
+      "severity": "high",
+      "accepted_by": "user",
+      "accepted_at": "2026-07-14T03:55:52.942375+00:00",
+      "acceptance_reason": "User approved the Stage 4 UX/UI direction and accepted documented UX risks with mitigation paths.",
+      "mitigation": "Discovery Session review gate, deterministic validation, explicit conflict states, no direct AI catalog writes",
+      "owner_stage": "Stage 4 / Stage 6",
+      "downstream_visibility": [
+        "Stage 5",
+        "Stage 6",
+        "Stage 7"
+      ],
+      "revisit_trigger": "Before Stage 6 implementation validation or if the mapped UX mitigation cannot be implemented.",
+      "expires_or_recheck_at": "Before Stage 6 completion",
+      "status": "active"
     }
   ]
 }
