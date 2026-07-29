@@ -150,12 +150,13 @@
       "related_agent_ids": [
         "AGENT-FOUNDATION"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-001-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444394+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TDD red/green evidence for the pnpm workspace scaffold.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-001-VALIDATION",
@@ -169,12 +170,13 @@
       "related_agent_ids": [
         "AGENT-FOUNDATION"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-001-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444403+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "BATCH-001 pnpm install, test, typecheck, lint, and build validation passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-002-TEST",
@@ -184,16 +186,19 @@
       "related_ticket_ids": [
         "TICKET-002"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-002"
+      ],
       "related_agent_ids": [
         "AGENT-FOUNDATION"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-002-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444406+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-002 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-002-VALIDATION",
@@ -203,16 +208,19 @@
       "related_ticket_ids": [
         "TICKET-002"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-002"
+      ],
       "related_agent_ids": [
         "AGENT-FOUNDATION"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-002-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444408+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-002 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-003-TEST",
@@ -222,16 +230,19 @@
       "related_ticket_ids": [
         "TICKET-003"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-003"
+      ],
       "related_agent_ids": [
         "AGENT-FOUNDATION"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-003-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444411+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-003 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-003-VALIDATION",
@@ -241,16 +252,19 @@
       "related_ticket_ids": [
         "TICKET-003"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-003"
+      ],
       "related_agent_ids": [
         "AGENT-FOUNDATION"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-003-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444413+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-003 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-004-TEST",
@@ -260,16 +274,19 @@
       "related_ticket_ids": [
         "TICKET-004"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-004"
+      ],
       "related_agent_ids": [
         "AGENT-FOUNDATION"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-004-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444415+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-004 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-004-VALIDATION",
@@ -279,16 +296,19 @@
       "related_ticket_ids": [
         "TICKET-004"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-004"
+      ],
       "related_agent_ids": [
         "AGENT-FOUNDATION"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-004-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444418+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-004 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-005-TEST",
@@ -298,16 +318,19 @@
       "related_ticket_ids": [
         "TICKET-005"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-005"
+      ],
       "related_agent_ids": [
         "AGENT-WORKER"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-005-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444420+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-005 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-005-VALIDATION",
@@ -317,16 +340,19 @@
       "related_ticket_ids": [
         "TICKET-005"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-005"
+      ],
       "related_agent_ids": [
         "AGENT-WORKER"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-005-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444422+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-005 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-006-TEST",
@@ -336,16 +362,19 @@
       "related_ticket_ids": [
         "TICKET-006"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-006"
+      ],
       "related_agent_ids": [
         "AGENT-BACKEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-006-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444425+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-006 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-006-VALIDATION",
@@ -355,16 +384,19 @@
       "related_ticket_ids": [
         "TICKET-006"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-006"
+      ],
       "related_agent_ids": [
         "AGENT-BACKEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-006-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444427+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-006 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-007-TEST",
@@ -374,16 +406,19 @@
       "related_ticket_ids": [
         "TICKET-007"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-007"
+      ],
       "related_agent_ids": [
         "AGENT-BACKEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-007-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444429+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-007 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-007-VALIDATION",
@@ -393,16 +428,19 @@
       "related_ticket_ids": [
         "TICKET-007"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-007"
+      ],
       "related_agent_ids": [
         "AGENT-BACKEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-007-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444431+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-007 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-008-TEST",
@@ -412,16 +450,19 @@
       "related_ticket_ids": [
         "TICKET-008"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-008"
+      ],
       "related_agent_ids": [
         "AGENT-BACKEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-008-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444434+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-008 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-008-VALIDATION",
@@ -431,16 +472,19 @@
       "related_ticket_ids": [
         "TICKET-008"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-008"
+      ],
       "related_agent_ids": [
         "AGENT-BACKEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-008-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444436+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-008 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-009-TEST",
@@ -450,16 +494,19 @@
       "related_ticket_ids": [
         "TICKET-009"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-009"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-009-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444438+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-009 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-009-VALIDATION",
@@ -469,16 +516,19 @@
       "related_ticket_ids": [
         "TICKET-009"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-009"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-009-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444440+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-009 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-009-PREVIEW",
@@ -488,16 +538,19 @@
       "related_ticket_ids": [
         "TICKET-009"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-009"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "http://127.0.0.1:4174/catalog-preview.html",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444442+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-009 local preview returned HTTP 200.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-009-SCREENSHOT",
@@ -507,16 +560,19 @@
       "related_ticket_ids": [
         "TICKET-009"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-009"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/catalog-preview.html.png",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444444+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-009 screenshot captured from local static preview with qlmanage at 1440px.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-010-TEST",
@@ -526,16 +582,19 @@
       "related_ticket_ids": [
         "TICKET-010"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-010"
+      ],
       "related_agent_ids": [
         "AGENT-WORKER"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-010-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444446+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-010 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-010-VALIDATION",
@@ -545,16 +604,19 @@
       "related_ticket_ids": [
         "TICKET-010"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-010"
+      ],
       "related_agent_ids": [
         "AGENT-WORKER"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-010-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444448+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-010 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-011-TEST",
@@ -573,7 +635,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444451+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-011-VALIDATION",
@@ -592,7 +655,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444453+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-011-PREVIEW",
@@ -611,7 +675,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444457+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-011-SCREENSHOT",
@@ -630,7 +695,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444459+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-012-TEST",
@@ -640,16 +706,19 @@
       "related_ticket_ids": [
         "TICKET-012"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-012"
+      ],
       "related_agent_ids": [
         "AGENT-WORKER"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-012-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444461+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-012 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-012-VALIDATION",
@@ -659,16 +728,19 @@
       "related_ticket_ids": [
         "TICKET-012"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-012"
+      ],
       "related_agent_ids": [
         "AGENT-WORKER"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-012-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444463+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-012 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-013-TEST",
@@ -687,7 +759,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444466+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-013-VALIDATION",
@@ -706,7 +779,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444468+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-013-PREVIEW",
@@ -725,7 +799,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444470+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-013-SCREENSHOT",
@@ -744,7 +819,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444472+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-014-TEST",
@@ -754,16 +830,19 @@
       "related_ticket_ids": [
         "TICKET-014"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-014"
+      ],
       "related_agent_ids": [
         "AGENT-BACKEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-014-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444474+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-014 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-014-VALIDATION",
@@ -773,16 +852,19 @@
       "related_ticket_ids": [
         "TICKET-014"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-014"
+      ],
       "related_agent_ids": [
         "AGENT-BACKEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-014-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444476+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-014 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-015-TEST",
@@ -801,7 +883,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444479+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-015-VALIDATION",
@@ -820,7 +903,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444481+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-015-PREVIEW",
@@ -839,7 +923,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444483+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-015-SCREENSHOT",
@@ -858,7 +943,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444485+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-016-TEST",
@@ -868,16 +954,19 @@
       "related_ticket_ids": [
         "TICKET-016"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-016"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-016-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444487+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-016 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-016-VALIDATION",
@@ -887,16 +976,19 @@
       "related_ticket_ids": [
         "TICKET-016"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-016"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-016-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444489+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-016 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-016-PREVIEW",
@@ -906,16 +998,19 @@
       "related_ticket_ids": [
         "TICKET-016"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-016"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "http://127.0.0.1:4173/preview.html",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444491+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Local preview server returned HTTP 200 for the Stage 6 app shell preview.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-016-SCREENSHOT",
@@ -925,16 +1020,19 @@
       "related_ticket_ids": [
         "TICKET-016"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-016"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/preview.html.png",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444493+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Screenshot captured from local static preview with qlmanage at 1440px.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-017-TEST",
@@ -953,7 +1051,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444495+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-017-VALIDATION",
@@ -972,7 +1071,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444497+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-017-PREVIEW",
@@ -991,7 +1091,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444499+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-017-SCREENSHOT",
@@ -1010,7 +1111,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444501+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-018-TEST",
@@ -1020,16 +1122,19 @@
       "related_ticket_ids": [
         "TICKET-018"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-018"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-018-test-output.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444504+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-018 ticket-scoped and root validation tests passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-018-VALIDATION",
@@ -1039,16 +1144,19 @@
       "related_ticket_ids": [
         "TICKET-018"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-018"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/TICKET-018-validation-report.json",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444506+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-018 acceptance and validation gates passed.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-018-PREVIEW",
@@ -1058,16 +1166,19 @@
       "related_ticket_ids": [
         "TICKET-018"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-018"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "http://127.0.0.1:4174/ai-settings-preview.html",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444508+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-018 local preview returned HTTP 200.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-018-SCREENSHOT",
@@ -1077,16 +1188,19 @@
       "related_ticket_ids": [
         "TICKET-018"
       ],
-      "related_validation_ids": [],
+      "related_validation_ids": [
+        "VALIDATION-S6-018"
+      ],
       "related_agent_ids": [
         "AGENT-FRONTEND"
       ],
-      "path_or_url": "",
-      "status": "pending",
-      "confidence": "low",
-      "created_by": "stage-5-development-orchestration",
+      "path_or_url": "Build-Plans/Stage-6/evidence/ai-settings-preview.html.png",
+      "status": "passed",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
       "created_at": "2026-07-14T05:13:55.444511+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "TICKET-018 screenshot captured from local static preview with qlmanage at 1440px.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-019-TEST",
@@ -1105,7 +1219,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444514+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-019-VALIDATION",
@@ -1124,7 +1239,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444516+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-020-TEST",
@@ -1143,7 +1259,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444518+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-020-VALIDATION",
@@ -1162,7 +1279,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444520+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-020-PREVIEW",
@@ -1181,7 +1299,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444522+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-020-SCREENSHOT",
@@ -1200,7 +1319,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444524+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-021-TEST",
@@ -1219,7 +1339,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444527+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-021-VALIDATION",
@@ -1238,7 +1359,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444528+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     },
     {
       "artifact_id": "ARTIFACT-S5-021-BUILD",
@@ -1257,7 +1379,8 @@
       "confidence": "low",
       "created_by": "stage-5-development-orchestration",
       "created_at": "2026-07-14T05:13:55.444530+00:00",
-      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."
+      "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
+      "related_stage_data_path": "/data/tickets"
     }
   ]
 }

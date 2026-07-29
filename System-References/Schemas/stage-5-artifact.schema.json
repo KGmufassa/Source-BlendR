@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stage-5-artifact.schema.json",
+  "title": "Stage 5 Planning Artifact",
+  "type": "object",
+  "required": [
+    "format_version",
+    "artifact_id",
+    "artifact_type",
+    "stage",
+    "status",
+    "context_ref",
+    "traceability_refs",
+    "data"
+  ],
+  "properties": {
+    "format_version": { "const": "2.0" },
+    "artifact_id": { "type": "string", "pattern": "^ARTIFACT-S5-" },
+    "artifact_type": {
+      "enum": [
+        "development_roadmap",
+        "implementation_sequence",
+        "engineering_dependencies",
+        "testing_strategy",
+        "build_tickets",
+        "agent_assignment_plan",
+        "parallel_execution_plan",
+        "release_plan"
+      ]
+    },
+    "stage": { "const": "Stage 5" },
+    "status": { "type": "string" },
+    "context_ref": { "const": "Build-Plans/Stage-5/00-stage-context.json" },
+    "traceability_refs": { "type": "array", "items": { "type": "string" } },
+    "data": { "type": "object" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "artifact_type": { "const": "development_roadmap" } } },
+      "then": { "properties": { "data": { "required": ["development_roadmap", "workstreams", "milestones"] } } }
+    },
+    {
+      "if": { "properties": { "artifact_type": { "const": "implementation_sequence" } } },
+      "then": { "properties": { "data": { "required": ["implementation_sequence", "implementation_slices", "sequence_dependencies", "validation_checkpoints"] } } }
+    },
+    {
+      "if": { "properties": { "artifact_type": { "const": "engineering_dependencies" } } },
+      "then": { "properties": { "data": { "required": ["engineering_dependencies", "dependency_graph", "blocked_work"] } } }
+    },
+    {
+      "if": { "properties": { "artifact_type": { "const": "testing_strategy" } } },
+      "then": { "properties": { "data": { "required": ["testing_strategy"] } } }
+    },
+    {
+      "if": { "properties": { "artifact_type": { "const": "build_tickets" } } },
+      "then": { "properties": { "data": { "required": ["ticket_count", "tickets", "indexes", "execution_queue"] } } }
+    },
+    {
+      "if": { "properties": { "artifact_type": { "const": "agent_assignment_plan" } } },
+      "then": { "properties": { "data": { "required": ["assignment_plan", "agents", "ticket_assignments", "slice_assignments"] } } }
+    },
+    {
+      "if": { "properties": { "artifact_type": { "const": "parallel_execution_plan" } } },
+      "then": { "properties": { "data": { "required": ["parallel_execution_plan", "batches", "parallel_batch_ids", "serial_batch_ids"] } } }
+    },
+    {
+      "if": { "properties": { "artifact_type": { "const": "release_plan" } } },
+      "then": { "properties": { "data": { "required": ["release_plan"] } } }
+    }
+  ],
+  "additionalProperties": true
+}

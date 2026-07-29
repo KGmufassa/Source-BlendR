@@ -10,6 +10,19 @@ ROOT = Path(__file__).resolve().parents[4]
 STATUS = ROOT / "Build-Plans/Build-status"
 OUT = ROOT / "Build-Plans/Stage-5"
 AGENTS = ROOT / ".opencode/agents"
+FORMAT_VERSION = "2.0"
+CONTEXT_PATH = "Build-Plans/Stage-5/00-stage-context.json"
+MANIFEST_PATH = "Build-Plans/Stage-5/09-stage-manifest.json"
+ARTIFACT_SPECS = (
+    ("ARTIFACT-S5-ROADMAP", "development_roadmap", "01-development-roadmap.json", "development_roadmap"),
+    ("ARTIFACT-S5-SEQUENCE", "implementation_sequence", "02-implementation-sequence.json", "implementation_sequence"),
+    ("ARTIFACT-S5-DEPENDENCIES", "engineering_dependencies", "03-engineering-dependencies.json", "engineering_dependencies"),
+    ("ARTIFACT-S5-TESTING", "testing_strategy", "04-testing-strategy.json", "testing_strategy"),
+    ("ARTIFACT-S5-TICKETS", "build_tickets", "05-build-tickets.json", "tickets"),
+    ("ARTIFACT-S5-ASSIGNMENTS", "agent_assignment_plan", "06-agent-assignment-plan.json", "agents"),
+    ("ARTIFACT-S5-PARALLEL", "parallel_execution_plan", "07-parallel-execution-plan.json", "batches"),
+    ("ARTIFACT-S5-RELEASE", "release_plan", "08-release-plan.json", "release_plan"),
+)
 
 
 def read(path: Path) -> dict[str, Any]:
@@ -40,6 +53,142 @@ def unique(values: Iterable[str]) -> list[str]:
 
 def paths(stage: int, names: Sequence[str]) -> list[str]:
     return [f"Build-Plans/Stage-{stage}/{name}" for name in names]
+
+
+def reference_is_resolvable(reference: str, source_text: str) -> bool:
+    if "#/" in reference:
+        path_text, pointer = reference.split("#", 1)
+        path = ROOT / path_text
+        if not path.is_file():
+            return False
+        value: Any = read(path)
+        try:
+            for token in pointer.removeprefix("/").split("/"):
+                decoded = token.replace("~1", "/").replace("~0", "~")
+                value = value[int(decoded)] if isinstance(value, list) else value[decoded]
+        except (IndexError, KeyError, TypeError, ValueError):
+            return False
+        return True
+    if "/" in reference and (ROOT / reference).is_file():
+        return True
+    if reference.endswith(".visual_spec"):
+        return reference.removesuffix(".visual_spec") in source_text and '"visual_spec"' in source_text
+    return f'"{reference}"' in source_text
+
+
+def stage5_artifact(
+    artifact_id: str,
+    artifact_type: str,
+    data: dict[str, Any],
+    traceability_refs: Sequence[str],
+) -> dict[str, Any]:
+    return {
+        "$schema": "../../System-References/Schemas/stage-5-artifact.schema.json",
+        "format_version": FORMAT_VERSION,
+        "artifact_id": artifact_id,
+        "artifact_type": artifact_type,
+        "stage": "Stage 5",
+        "status": "ready_for_stage_6",
+        "context_ref": CONTEXT_PATH,
+        "traceability_refs": unique(traceability_refs),
+        "data": data,
+    }
+
+
+def validate_stage5_documents(
+    context: dict[str, Any],
+    artifacts: Sequence[dict[str, Any]],
+    manifest: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+    if context.get("format_version") != FORMAT_VERSION or context.get("artifact_type") != "stage_context":
+        errors.append("Stage context must declare the current format and stage_context artifact type")
+    if not isinstance(context.get("source_inputs"), dict):
+        errors.append("Stage context source_inputs must be an object")
+    if len(artifacts) != len(ARTIFACT_SPECS):
+        errors.append(f"Expected {len(ARTIFACT_SPECS)} Stage 5 artifacts")
+    expected = {
+        artifact_type: {
+            "artifact_id": artifact_id,
+            "path": f"Build-Plans/Stage-5/{filename}",
+            "required_key": required_key,
+        }
+        for artifact_id, artifact_type, filename, required_key in ARTIFACT_SPECS
+    }
+    risk_ids = {item.get("risk_id") for item in context.get("risks", []) if isinstance(item, dict)}
+    seen_ids: set[str] = set()
+    for artifact in artifacts:
+        artifact_id = artifact.get("artifact_id")
+        artifact_type = artifact.get("artifact_type")
+        if not isinstance(artifact_id, str) or artifact_id in seen_ids:
+            errors.append(f"Artifact ID is missing or duplicated: {artifact_id!r}")
+        else:
+            seen_ids.add(artifact_id)
+        if artifact.get("format_version") != FORMAT_VERSION:
+            errors.append(f"{artifact_id!r} has an unsupported format_version")
+        if artifact.get("context_ref") != CONTEXT_PATH:
+            errors.append(f"{artifact_id!r} does not reference the canonical Stage 5 context")
+        data = artifact.get("data")
+        specification = expected.get(artifact_type)
+        if specification is None:
+            errors.append(f"{artifact_id!r} has an unknown artifact_type: {artifact_type!r}")
+        elif artifact_id != specification["artifact_id"]:
+            errors.append(f"{artifact_type!r} has unexpected artifact ID {artifact_id!r}")
+        elif not isinstance(data, dict) or specification["required_key"] not in data:
+            errors.append(f"{artifact_id!r} data is missing {specification['required_key']!r}")
+        if isinstance(data, dict):
+            missing_risk_refs = set(data.get("risk_refs", [])) - risk_ids
+            if missing_risk_refs:
+                errors.append(f"{artifact_id!r} has unresolved risk refs: {sorted(missing_risk_refs)}")
+    if manifest.get("format_version") != FORMAT_VERSION or manifest.get("artifact_type") != "stage_manifest":
+        errors.append("Stage manifest must declare the current format and stage_manifest artifact type")
+    manifest_artifacts = manifest.get("artifacts")
+    if not isinstance(manifest_artifacts, list) or len(manifest_artifacts) != len(ARTIFACT_SPECS):
+        errors.append(f"Stage manifest must index {len(ARTIFACT_SPECS)} artifacts")
+    else:
+        indexed = {item.get("artifact_type"): item for item in manifest_artifacts if isinstance(item, dict)}
+        for artifact_type, specification in expected.items():
+            item = indexed.get(artifact_type)
+            if not isinstance(item, dict):
+                errors.append(f"Stage manifest does not index {artifact_type!r}")
+            elif item.get("artifact_id") != specification["artifact_id"] or item.get("path") != specification["path"]:
+                errors.append(f"Stage manifest entry for {artifact_type!r} does not match its artifact")
+    if not isinstance(manifest.get("stage_6_handoff"), dict):
+        errors.append("Stage manifest must contain the Stage 6 handoff")
+    if not isinstance(manifest.get("completion_status"), dict):
+        errors.append("Stage manifest must contain completion_status")
+    tickets_artifact = next((item for item in artifacts if item.get("artifact_type") == "build_tickets"), {})
+    batches_artifact = next((item for item in artifacts if item.get("artifact_type") == "parallel_execution_plan"), {})
+    ticket_items = tickets_artifact.get("data", {}).get("tickets", [])
+    batch_items = batches_artifact.get("data", {}).get("batches", [])
+    ticket_dependencies = {
+        item.get("ticket_id"): item.get("depends_on_tickets", [])
+        for item in ticket_items
+        if isinstance(item, dict)
+    }
+    for batch in batch_items:
+        if not isinstance(batch, dict) or not batch.get("can_run_in_parallel"):
+            continue
+        batch_tickets = batch.get("tickets", [])
+        same_batch_dependencies = {
+            ticket_id: [dependency for dependency in ticket_dependencies.get(ticket_id, []) if dependency in batch_tickets]
+            for ticket_id in batch_tickets
+        }
+        if not any(same_batch_dependencies.values()):
+            continue
+        waves = batch.get("execution_waves", [])
+        wave_by_ticket = {
+            ticket_id: wave_index
+            for wave_index, wave in enumerate(waves)
+            for ticket_id in wave
+        }
+        for ticket_id, dependencies in same_batch_dependencies.items():
+            for dependency in dependencies:
+                if wave_by_ticket.get(dependency, -1) >= wave_by_ticket.get(ticket_id, -1):
+                    errors.append(
+                        f"{batch.get('batch_id')!r} does not order {dependency!r} before {ticket_id!r}"
+                    )
+    return errors
 
 
 def risk(
@@ -291,8 +440,8 @@ def main() -> int:
         ("TICKET-002", "SLICE-002", "Implement Prisma workspace data foundation", "data", "critical", ["FEATURE-014", "FEATURE-002", "FEATURE-005"], ["ENTITY-WORKSPACE", "ENTITY-VENDOR", "ENTITY-CATALOG-ITEM", "ADR-003", "ADR-006"], [], [], ["backend-development", "Test-driven-development", "lazy-mode"], ["TICKET-001"]),
         ("TICKET-003", "SLICE-002", "Implement Clerk workspace authentication and tenant authorization", "security", "critical", ["FEATURE-014"], ["INTEGRATION-CLERK", "ADR-006"], ["SCREEN-001"], [], ["security-review", "backend-development", "Test-driven-development"], ["TICKET-001", "TICKET-002"]),
         ("TICKET-004", "SLICE-003", "Implement shared domain, repository, and deterministic validation contracts", "backend", "critical", ["FEATURE-004", "FEATURE-005"], ["SERVICE-VALIDATION", "SERVICE-CATALOG", "ADR-005", "ADR-008"], [], [], ["backend-development", "Test-driven-development", "lazy-mode"], ["TICKET-002"]),
-        ("TICKET-005", "SLICE-004", "Implement BullMQ worker and observable job contracts", "backend", "critical", ["FEATURE-013"], ["ENTITY-IMPORT-JOB", "ADR-002", "ADR-009"], ["STATE-JOB"], [], ["backend-development", "Test-driven-development", "systematic-debugger"], ["TICKET-001", "TICKET-002", "TICKET-004"]),
-        ("TICKET-006", "SLICE-004", "Implement import job status, retry, cancel, and event APIs", "backend", "high", ["FEATURE-013"], ["API-IMPORTS", "SERVICE-IMPORT", "ENTITY-IMPORT-JOB"], ["SCREEN-005", "STATE-JOB"], [], ["backend-development", "Test-driven-development", "security-review"], ["TICKET-003", "TICKET-005"]),
+        ("TICKET-005", "SLICE-004", "Implement BullMQ worker and observable job contracts", "backend", "critical", ["FEATURE-013"], ["ENTITY-IMPORT-JOB", "ADR-002", "ADR-009"], ["SCREEN-005"], [], ["backend-development", "Test-driven-development", "systematic-debugger"], ["TICKET-001", "TICKET-002", "TICKET-004"]),
+        ("TICKET-006", "SLICE-004", "Implement import job status, retry, cancel, and event APIs", "backend", "high", ["FEATURE-013"], ["API-IMPORTS", "SERVICE-IMPORT", "ENTITY-IMPORT-JOB"], ["SCREEN-005"], [], ["backend-development", "Test-driven-development", "security-review"], ["TICKET-003", "TICKET-005"]),
         ("TICKET-007", "SLICE-006", "Implement AI capability router, provider adapters, health checks, and manual fallback", "integration", "critical", ["FEATURE-010"], ["SERVICE-AI", "API-AI", "INTEGRATION-AI-OPENAI-COMPAT", "INTEGRATION-OLLAMA", "ADR-004"], ["SCREEN-010"], [], ["backend-development", "Test-driven-development", "security-review"], ["TICKET-003", "TICKET-004"]),
         ("TICKET-008", "SLICE-005", "Implement vendor, catalog, search, and pricing domain APIs", "backend", "critical", ["FEATURE-002", "FEATURE-005", "FEATURE-015", "FEATURE-016"], ["SERVICE-VENDOR", "SERVICE-CATALOG", "API-VENDORS", "API-CATALOG", "ADR-007"], ["SCREEN-007", "SCREEN-008", "SCREEN-009"], [], ["backend-development", "Test-driven-development", "security-review"], ["TICKET-003", "TICKET-004"]),
         ("TICKET-009", "SLICE-012", "Build vendor and catalog manual-management pages", "frontend", "high", ["FEATURE-002", "FEATURE-005", "FEATURE-015", "FEATURE-016"], ["API-VENDORS", "API-CATALOG"], ["SCREEN-007", "SCREEN-008", "SCREEN-009"], ["SCREEN-007", "SCREEN-008", "SCREEN-009"], ["frontend-design", "Test-driven-development", "ux-enforcement"], ["TICKET-008", "TICKET-016"]),
@@ -300,17 +449,18 @@ def main() -> int:
         ("TICKET-011", "SLICE-011", "Build website import wizard and category-job controls", "frontend", "critical", ["FEATURE-001", "FEATURE-013"], ["API-IMPORTS", "INTEGRATION-PLAYWRIGHT"], ["SCREEN-003", "SCREEN-005"], ["SCREEN-003"], ["frontend-design", "Test-driven-development", "ux-enforcement"], ["TICKET-006", "TICKET-010", "TICKET-016"]),
         ("TICKET-012", "SLICE-008", "Implement PDF upload, storage, OCR, and normalized-source pipeline", "integration", "critical", ["FEATURE-003", "FEATURE-013"], ["INTEGRATION-OCR", "INTEGRATION-B2", "SERVICE-IMPORT", "ENTITY-NORMALIZED-SOURCE", "ADR-010"], ["SCREEN-004", "SCREEN-005"], [], ["backend-development", "Test-driven-development", "security-review", "systematic-debugger"], ["TICKET-005", "TICKET-007", "TICKET-008"]),
         ("TICKET-013", "SLICE-011", "Build PDF import and recovery experience", "frontend", "critical", ["FEATURE-003", "FEATURE-013"], ["API-IMPORTS", "INTEGRATION-OCR", "INTEGRATION-B2"], ["SCREEN-004", "SCREEN-005"], ["SCREEN-004"], ["frontend-design", "Test-driven-development", "ux-enforcement"], ["TICKET-006", "TICKET-012", "TICKET-016"]),
-        ("TICKET-014", "SLICE-009", "Implement Discovery Session candidate, validation, and promotion APIs", "backend", "critical", ["FEATURE-004", "FEATURE-005", "FEATURE-015"], ["SERVICE-DISCOVERY", "SERVICE-VALIDATION", "API-DISCOVERY", "ADR-005"], ["SCREEN-006", "STATE-CANDIDATE"], [], ["backend-development", "Test-driven-development", "security-review"], ["TICKET-004", "TICKET-008"]),
-        ("TICKET-015", "SLICE-011", "Build Discovery Session table, drawer, and bulk actions", "frontend", "critical", ["FEATURE-004", "FEATURE-005", "FEATURE-015"], ["API-DISCOVERY", "SERVICE-VALIDATION"], ["SCREEN-006", "STATE-CANDIDATE"], ["SCREEN-006"], ["frontend-design", "Test-driven-development", "ux-enforcement"], ["TICKET-014", "TICKET-016"]),
+        ("TICKET-014", "SLICE-009", "Implement Discovery Session candidate, validation, and promotion APIs", "backend", "critical", ["FEATURE-004", "FEATURE-005", "FEATURE-015"], ["SERVICE-DISCOVERY", "SERVICE-VALIDATION", "API-DISCOVERY", "ADR-005"], ["SCREEN-006"], [], ["backend-development", "Test-driven-development", "security-review"], ["TICKET-004", "TICKET-008"]),
+        ("TICKET-015", "SLICE-011", "Build Discovery Session table, drawer, and bulk actions", "frontend", "critical", ["FEATURE-004", "FEATURE-005", "FEATURE-015"], ["API-DISCOVERY", "SERVICE-VALIDATION"], ["SCREEN-006"], ["SCREEN-006"], ["frontend-design", "Test-driven-development", "ux-enforcement"], ["TICKET-014", "TICKET-016"]),
         ("TICKET-016", "SLICE-010", "Build design system tokens, app shell, routes, and shared components", "frontend", "critical", ["FEATURE-014"], ["ADR-001", "ADR-009"], list(blueprints), list(blueprints), ["frontend-design", "Test-driven-development", "ux-enforcement", "lazy-mode"], ["TICKET-001", "TICKET-003"]),
         ("TICKET-017", "SLICE-011", "Build overview, import workspace, and job detail pages", "frontend", "high", ["FEATURE-001", "FEATURE-003", "FEATURE-013"], ["API-IMPORTS"], ["SCREEN-001", "SCREEN-002", "SCREEN-005"], ["SCREEN-001", "SCREEN-002", "SCREEN-005"], ["frontend-design", "Test-driven-development", "ux-enforcement"], ["TICKET-006", "TICKET-016"]),
         ("TICKET-018", "SLICE-012", "Build AI provider settings and health/routing states", "frontend", "high", ["FEATURE-010"], ["API-AI", "SERVICE-AI"], ["SCREEN-010"], ["SCREEN-010"], ["frontend-design", "Test-driven-development", "ux-enforcement", "security-review"], ["TICKET-007", "TICKET-016"]),
         ("TICKET-019", "SLICE-013", "Validate tenant isolation, credentials, uploads, and server authorization", "security", "critical", ["FEATURE-010", "FEATURE-014"], ["ADR-006", "INTEGRATION-CLERK", "INTEGRATION-B2"], list(blueprints), [], ["security-review", "Test-driven-development", "backend-development"], ["TICKET-003", "TICKET-007", "TICKET-008", "TICKET-010", "TICKET-012", "TICKET-014"]),
         ("TICKET-020", "SLICE-014", "Validate launch workflows, accessibility, responsive layouts, and visual continuity", "testing", "critical", launch_features, ["ADR-005", "ADR-006"], list(blueprints), list(blueprints), ["Test-driven-development", "ux-enforcement", "frontend-design", "systematic-debugger"], ["TICKET-009", "TICKET-011", "TICKET-013", "TICKET-015", "TICKET-017", "TICKET-018", "TICKET-019"]),
-        ("TICKET-021", "SLICE-015", "Configure deployment, observability, runbooks, and rollback evidence", "devops", "critical", ["FEATURE-001", "FEATURE-003", "FEATURE-013", "FEATURE-014"], ["INTEGRATION-SENTRY", "INFRA-WEB", "INFRA-WORKER", "INFRA-DB", "INFRA-REDIS"], ["SCREEN-005"], [], ["backend-development", "Test-driven-development", "security-review", "lazy-mode"], ["TICKET-005", "TICKET-019", "TICKET-020"]),
+        ("TICKET-021", "SLICE-015", "Configure deployment, observability, runbooks, and rollback evidence", "devops", "critical", ["FEATURE-001", "FEATURE-003", "FEATURE-013", "FEATURE-014"], ["INTEGRATION-SENTRY", "DEPLOY-WEB", "DEPLOY-WORKER", "DEPLOY-DB", "DEPLOY-REDIS"], ["SCREEN-005"], [], ["backend-development", "Test-driven-development", "security-review", "lazy-mode"], ["TICKET-005", "TICKET-019", "TICKET-020"]),
     ]
 
     route_by_page = {item["page_id"]: item for item in frontend_package["page_inventory"]}
+    blueprint_index_by_page = {item["page_id"]: index for index, item in enumerate(blueprint["ui_blueprints"])}
     tickets: list[dict[str, Any]] = []
     for ticket_id, slice_id, title, ticket_type, priority, feature_refs, architecture_refs, ux_refs, page_refs, skills, depends_on in ticket_specs:
         frontend = ticket_type == "frontend" or ticket_id == "TICKET-020"
@@ -351,7 +501,7 @@ def main() -> int:
             "frontend_task_hint": "; ".join(frontend_package["frontend_task_hints"]) if frontend else "not_applicable_non_frontend",
             "visual_requirements": visual_default if frontend else {"not_applicable_reason": "Non-frontend ticket"},
             "responsive_requirements": responsive_default if frontend else {"not_applicable_reason": "Non-frontend ticket"},
-            "visual_acceptance_criteria_refs": [f"VAC-{page_id}" for page_id in page_refs] if frontend else [],
+            "visual_acceptance_criteria_refs": [f"Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/{blueprint_index_by_page[page_id]}/visual_spec/visual_acceptance_criteria" for page_id in page_refs if page_id in blueprint_index_by_page] if frontend else [],
             "preview_required": frontend,
             "visual_qa_required": frontend,
             "design_system_compliance_required": frontend,
@@ -373,11 +523,11 @@ def main() -> int:
         tickets.append(ticket)
 
     agent_profiles = [
-        ("AGENT-FOUNDATION", "stage6-foundation-agent", "Foundation implementation agent", ["foundation", "data"], ["lazy-mode", "Test-driven-development", "backend-development", "security-review"], ["TICKET-001", "TICKET-002", "TICKET-003", "TICKET-004"], ["package.json", "pnpm-workspace.yaml", "apps/**", "packages/types/**", "packages/shared/**", "prisma/**"]),
+        ("AGENT-FOUNDATION", "stage6-foundation-agent", "Foundation implementation agent", ["foundation", "data"], ["lazy-mode", "Test-driven-development", "backend-development", "security-review"], ["TICKET-001", "TICKET-002", "TICKET-003", "TICKET-004"], ["package.json", "pnpm-workspace.yaml", "apps/**", "packages/types/**", "packages/shared/**", "packages/domain/**", "packages/validation/**", "prisma/**"]),
         ("AGENT-BACKEND", "stage6-backend-agent", "Domain and API implementation agent", ["backend", "integration"], ["backend-development", "Test-driven-development", "security-review", "lazy-mode"], ["TICKET-006", "TICKET-007", "TICKET-008", "TICKET-014"], ["apps/web/**", "packages/domain/**", "packages/ai/**", "packages/validation/**", "packages/types/**"]),
         ("AGENT-WORKER", "stage6-worker-agent", "Worker and ingestion implementation agent", ["backend", "integration"], ["backend-development", "Test-driven-development", "systematic-debugger", "security-review"], ["TICKET-005", "TICKET-010", "TICKET-012"], ["apps/worker/**", "packages/scrapers/**", "packages/ai/**", "packages/domain/**", "packages/types/**"]),
         ("AGENT-FRONTEND", "stage6-frontend-agent", "Frontend implementation agent", ["frontend"], ["frontend-design", "Test-driven-development", "ux-enforcement", "lazy-mode"], ["TICKET-009", "TICKET-011", "TICKET-013", "TICKET-015", "TICKET-016", "TICKET-017", "TICKET-018"], ["apps/web/**", "packages/types/**"]),
-        ("AGENT-VALIDATION", "stage6-validation-agent", "Validation and release-readiness agent", ["testing", "security", "devops"], ["Test-driven-development", "security-review", "ux-enforcement", "systematic-debugger"], ["TICKET-019", "TICKET-020", "TICKET-021"], ["tests/**", "apps/**/tests/**", "playwright.config.*", "vitest.config.*", "docs/**", "Build-Plans/Build-status/**"]),
+        ("AGENT-VALIDATION", "stage6-validation-agent", "Validation and release-readiness agent", ["testing", "security", "devops"], ["Test-driven-development", "security-review", "ux-enforcement", "systematic-debugger"], ["TICKET-019", "TICKET-020", "TICKET-021"], ["tests/**", "apps/**/tests/**", "apps/web/**", "apps/worker/**", ".github/workflows/**", "package.json", "playwright.config.*", "vitest.config.*", "fly.toml", "vercel.json", "sentry.*", "docs/**", "Build-Plans/Build-status/**"]),
     ]
     ticket_lookup = {item["ticket_id"]: item for item in tickets}
     assignments: list[dict[str, Any]] = []
@@ -398,7 +548,7 @@ def main() -> int:
             "ticket_skill_instructions": {ticket["ticket_id"]: ticket["agent_skill_instructions"] for ticket in assigned},
             "matched_skills": required_skills,
             "missing_skills": [],
-            "handoff_inputs": unique(["Build-Plans/Build-status/Development-state.json", "Build-Plans/Stage-5/05-build-tickets.json"] + (["Build-Plans/Stage-4/07-ui-blueprint-specification.json", "Build-Plans/Stage-4/08-design-system-foundation.json", "Build-Plans/Stage-4/09-complete-app-blueprint.md"] if frontend_agent else []) + (visual_paths if frontend_agent else [])),
+            "handoff_inputs": unique([MANIFEST_PATH, CONTEXT_PATH, "Build-Plans/Stage-5/05-build-tickets.json"] + (["Build-Plans/Stage-4/07-ui-blueprint-specification.json", "Build-Plans/Stage-4/08-design-system-foundation.json", "Build-Plans/Stage-4/09-complete-app-blueprint.md"] if frontend_agent else []) + (visual_paths if frontend_agent else [])),
             "ui_blueprint_refs": unique(ref for ticket in assigned for ref in ticket["ui_blueprint_refs"]),
             "visual_spec_refs": unique(ref for ticket in assigned for ref in ticket["visual_spec_refs"]),
             "visual_reference_refs": visual_paths if frontend_agent else [],
@@ -451,6 +601,10 @@ def main() -> int:
             "Use these handoff inputs:",
             *[f"- {path}" for path in assignment["handoff_inputs"]],
             "",
+            "Stage 5 format:",
+            "- Read shared context from `00-stage-context.json` and the Stage 6 handoff from `09-stage-manifest.json`.",
+            "- Read canonical tickets from `05-build-tickets.json.data.tickets` and canonical batches from `07-parallel-execution-plan.json.data.batches`.",
+            "",
             "Preserve these visual requirements when assigned frontend tickets:",
             f"- {visual_default['visual_style']}; {visual_default['density']}; {visual_default['color_direction']}",
             "- Preserve approved visual references, responsive behavior, visual acceptance criteria, and user approval status.",
@@ -489,7 +643,7 @@ def main() -> int:
 
     batches = [
         {"batch_id": "BATCH-001", "execution_order": 1, "can_run_in_parallel": False, "assigned_agents": ["AGENT-FOUNDATION"], "tickets": ["TICKET-001"], "blocked_by_batches": [], "file_ownership_boundaries": ["workspace manifests and initial app/package skeletons"], "shared_contracts": ["pnpm workspace layout", "TypeScript configuration"], "merge_strategy": "serial_merge_by_dependency", "batch_validation": ["pnpm install resolves", "workspace typecheck and test commands execute"], "risk_level": "high", "coordination_notes": ["Establish file ownership before parallel work"]},
-        {"batch_id": "BATCH-002", "execution_order": 2, "can_run_in_parallel": True, "assigned_agents": ["AGENT-FOUNDATION", "AGENT-FRONTEND"], "tickets": ["TICKET-002", "TICKET-003", "TICKET-004", "TICKET-016"], "blocked_by_batches": ["BATCH-001"], "file_ownership_boundaries": ["AGENT-FOUNDATION: prisma, packages/types, packages/shared", "AGENT-FRONTEND: apps/web UI shell only"], "shared_contracts": ["workspace context", "DTOs", "design tokens"], "merge_strategy": "contract_review_before_merge", "batch_validation": ["Prisma test migration", "tenant negative tests", "app shell preview", "shared type review"], "risk_level": "critical", "coordination_notes": ["Frontend uses fixtures until domain contracts merge"]},
+        {"batch_id": "BATCH-002", "execution_order": 2, "can_run_in_parallel": True, "execution_waves": [["TICKET-002"], ["TICKET-003", "TICKET-004"], ["TICKET-016"]], "assigned_agents": ["AGENT-FOUNDATION", "AGENT-FRONTEND"], "tickets": ["TICKET-002", "TICKET-003", "TICKET-004", "TICKET-016"], "blocked_by_batches": ["BATCH-001"], "file_ownership_boundaries": ["AGENT-FOUNDATION: prisma, packages/types, packages/shared, packages/domain, packages/validation", "AGENT-FRONTEND: apps/web UI shell only"], "shared_contracts": ["workspace context", "DTOs", "design tokens"], "merge_strategy": "contract_review_before_merge", "batch_validation": ["Prisma test migration", "tenant negative tests", "app shell preview", "shared type review"], "risk_level": "critical", "coordination_notes": ["Run execution waves in order; only TICKET-003 and TICKET-004 may run concurrently", "Frontend uses fixtures until foundation contracts merge"]},
         {"batch_id": "BATCH-003", "execution_order": 3, "can_run_in_parallel": True, "assigned_agents": ["AGENT-WORKER", "AGENT-BACKEND"], "tickets": ["TICKET-005", "TICKET-007", "TICKET-008"], "blocked_by_batches": ["BATCH-002"], "file_ownership_boundaries": ["AGENT-WORKER: worker and queue processors", "AGENT-BACKEND: domain/API/AI/catalog packages"], "shared_contracts": ["queue payloads", "repository interfaces", "provider capability contracts"], "merge_strategy": "contract_review_before_merge", "batch_validation": ["queue contract tests", "manual catalog E2E smoke", "zero-provider tests"], "risk_level": "critical", "coordination_notes": ["Shared types change only through contract review"]},
         {"batch_id": "BATCH-004", "execution_order": 4, "can_run_in_parallel": True, "assigned_agents": ["AGENT-WORKER", "AGENT-BACKEND", "AGENT-FRONTEND"], "tickets": ["TICKET-006", "TICKET-010", "TICKET-012", "TICKET-014", "TICKET-009", "TICKET-018"], "blocked_by_batches": ["BATCH-003"], "file_ownership_boundaries": ["Worker owns scraper/OCR processors", "Backend owns import/discovery APIs", "Frontend owns vendor/catalog/provider pages"], "shared_contracts": ["job status", "candidate DTO", "catalog mutation results"], "merge_strategy": "validate_each_then_merge_batch", "batch_validation": ["representative website fixture", "PDF/OCR fixture", "candidate promotion integration", "catalog/provider browser smoke"], "risk_level": "critical", "coordination_notes": ["Merge API contracts before frontend replaces fixtures"]},
         {"batch_id": "BATCH-005", "execution_order": 5, "can_run_in_parallel": False, "assigned_agents": ["AGENT-FRONTEND"], "tickets": ["TICKET-011", "TICKET-013", "TICKET-015", "TICKET-017"], "blocked_by_batches": ["BATCH-004"], "file_ownership_boundaries": ["apps/web import, job, and discovery routes/components"], "shared_contracts": ["approved Stage 4 blueprint and design system"], "merge_strategy": "serial_merge_by_dependency", "batch_validation": ["desktop/tablet/mobile previews", "keyboard paths", "route/action/state checks", "visual QA evidence"], "risk_level": "critical", "coordination_notes": ["Serialize shared DataTable/Drawer changes to prevent visual drift"]},
@@ -515,43 +669,106 @@ def main() -> int:
         "stage_7_handoff_notes": {"deployment_preparation": "Consume TICKET-021 build/deployment evidence; Stage 7 executes deployment and launch gates.", "monitoring": ["web errors", "worker errors", "queue latency/depth", "job completion/failure", "provider health"], "analytics": ["workflow completion", "manual fallback rate", "candidate-to-catalog conversion"], "support": ["stuck job recovery", "credential/provider failure", "scraper/PDF failure", "tenant access incident"]},
     }
 
-    required_files = [f"Build-Plans/Stage-5/{index:02d}-{name}.json" for index, name in enumerate(["development-roadmap", "implementation-sequence", "engineering-dependencies", "testing-strategy", "build-tickets", "agent-assignment-plan", "parallel-execution-plan", "release-plan"], 1)]
+    artifact_files = [f"Build-Plans/Stage-5/{filename}" for _, _, filename, _ in ARTIFACT_SPECS]
+    required_files = [CONTEXT_PATH, *artifact_files, MANIFEST_PATH]
     completion = {"stage_specific_status": "ready_for_stage_6", "global_status": "ready_for_next_stage", "reason": "All Stage 5 orchestration outputs, dependency-aware tickets, required skill chains, generated agent profiles, parallel batches, release gates, expected artifacts, and Stage 6 handoff are complete.", "blocking_items": [], "next_actions": ["Run Stage 6 implementation and validation using BATCH-001 through BATCH-007."], "ready_for": "Stage 6 (Implementation & Validation)"}
-    handoff = {"source_stage": "Stage 5", "target_stage": "Stage 6", "source_output_directory": "Build-Plans/Stage-5", "required_files": required_files, "ready": True, "blocking_items": [], "accepted_risks": unique(item.get("risk_id", "") for item in read(STATUS / "Risk-acceptance-ledger.json").get("accepted_risks", []) if item.get("status") == "active"), "traceability_refs": launch_features + launch_workflows + [item["slice_id"] for item in slices] + [item["ticket_id"] for item in tickets] + [item[0] for item in agent_profiles] + [item["batch_id"] for item in batches], "completion_status": completion, "execution_queue": [item["ticket_id"] for item in tickets], "batch_order": [item["batch_id"] for item in batches], "required_agent_files": generated_files}
-    common = {
+    handoff = {"source_stage": "Stage 5", "target_stage": "Stage 6", "source_output_directory": "Build-Plans/Stage-5", "manifest": MANIFEST_PATH, "context": CONTEXT_PATH, "required_files": required_files, "ready": True, "blocking_items": [], "accepted_risks": unique(item.get("risk_id", "") for item in read(STATUS / "Risk-acceptance-ledger.json").get("accepted_risks", []) if item.get("status") == "active"), "traceability_refs": launch_features + launch_workflows + [item["slice_id"] for item in slices] + [item["ticket_id"] for item in tickets] + [item[0] for item in agent_profiles] + [item["batch_id"] for item in batches], "completion_status": completion, "execution_queue": [item["ticket_id"] for item in tickets], "batch_order": [item["batch_id"] for item in batches], "required_agent_files": generated_files}
+    ticket_reference_refs = unique(
+        reference
+        for ticket in tickets
+        for key in (
+            "stage_1_feature_refs",
+            "stage_1_workflow_refs",
+            "stage_2_assumption_refs",
+            "stage_3_architecture_refs",
+            "stage_4_ux_refs",
+            "ui_blueprint_refs",
+            "visual_spec_refs",
+            "visual_reference_refs",
+            "design_system_refs",
+            "visual_acceptance_criteria_refs",
+        )
+        for reference in ticket.get(key, [])
+    )
+    source_reference_text = "\n".join(
+        (ROOT / path).read_text(encoding="utf-8")
+        for path in unique(
+            required["stage_1"]
+            + paths(2, ["03-technical-feasibility.json", "05-risk-validation.json", "06-strategic-positioning.json"])
+            + required["stage_3"]
+            + required["stage_4"]
+            + ["Build-Plans/Build-status/Architecture-state.json", "Build-Plans/Build-status/UX-state.json"]
+        )
+    )
+    missing_ticket_refs = [
+        reference
+        for reference in ticket_reference_refs
+        if not reference_is_resolvable(reference, source_reference_text)
+    ]
+    if missing_ticket_refs:
+        raise ValueError(f"Stage 5 ticket reference validation failed: {missing_ticket_refs}")
+    context = {
+        "$schema": "../../System-References/Schemas/stage-5-context.schema.json",
+        "format_version": FORMAT_VERSION,
+        "artifact_id": "ARTIFACT-S5-CONTEXT",
+        "artifact_type": "stage_context",
         "stage": "Stage 5",
         "status": "ready_for_stage_6",
         "selected_stack": selected_stack,
         "stage_contract_profile": stage_contract_profile,
         "guidance_policy": guidance_policy,
-        "related_stage_1_inputs": required["stage_1"],
-        "related_stage_3_inputs": required["stage_3"],
-        "related_stage_4_inputs": required["stage_4"],
-        "execution_decisions": assumptions,
+        "source_inputs": {
+            "stage_1": required["stage_1"],
+            "stage_2": paths(2, ["03-technical-feasibility.json", "05-risk-validation.json", "06-strategic-positioning.json"]),
+            "stage_3": required["stage_3"],
+            "stage_4": required["stage_4"],
+        },
+        "execution_decision_refs": [item["assumption_id"] for item in assumptions],
         "risks": risks,
         "assumptions": assumptions,
         "unresolved_questions": [],
-        "stage_6_handoff": handoff,
-        "completion_status": completion,
-        "schema_validation": {"schema_refs": ["System-References/Schemas/stage-5-output.schema.json"], "validated_files": required_files, "schema_errors": [], "schemas_valid": True, "validated_at": now(), "validator": "Draft 2020-12 structural validation (JSON parse plus required stage/status contract)", "blocking": True},
-        "reference_integrity": {"checked_refs": handoff["traceability_refs"], "missing_refs": [], "orphaned_refs": [], "stale_refs": [], "duplicate_ids": [], "integrity_status": "passed", "blocking_ref_errors": []},
+        "reference_integrity": {"scope": "handoff_and_ticket_reference_fields", "checked_refs": unique(handoff["traceability_refs"] + ticket_reference_refs), "missing_refs": [], "orphaned_refs": [], "stale_refs": [], "duplicate_ids": [], "integrity_status": "passed", "blocking_ref_errors": []},
         "risk_acceptance_ledger": {"ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json", "required": True, "accepted_risks_present": bool(handoff["accepted_risks"])},
         "revision_loops": [],
     }
+    risk_refs = [item["risk_id"] for item in risks]
     outputs = [
-        {**common, "development_roadmap": {"roadmap_id": "ROADMAP-S5-001", "strategy": "Foundation then demonstrable vertical slices, with risky integrations proven before release hardening.", "phases": phases, "mvp_features": [feature_id for feature_id in included_features if feature_id not in {"FEATURE-008", "FEATURE-009"}], "deferred_work": deferred_feature_ids}, "workstreams": workstreams, "milestones": milestones, "roadmap_risks": risks},
-        {**common, "implementation_sequence": {"sequence_id": "SEQUENCE-S5-001", "approach": "Foundation-first, then vertical slices with contract gates", "implementation_slices": slices, "validation_checkpoints": checkpoints, "queue": [item["slice_id"] for item in slices]}, "implementation_slices": slices, "sequence_dependencies": dependency_edges, "validation_checkpoints": checkpoints, "sequence_risks": risks},
-        {**common, "engineering_dependencies": dependencies, "dependency_graph": dependency_edges, "parallel_workstreams": dependencies["parallelizable_groups"], "blocked_work": [], "coordination_notes": dependencies["serial_constraints"], "dependency_risks": risks},
-        {**common, "testing_strategy": testing_strategy, "test_levels": testing_strategy["test_levels"], "acceptance_criteria": testing_strategy["workflow_acceptance"], "regression_strategy": testing_strategy["regression_strategy"], "testing_risks": [item for item in risks if item["domain"] in {"security", "frontend", "integration", "ai"}], "release_test_gates": testing_strategy["release_test_gates"]},
-        {**common, "build_tickets": {"ticket_count": len(tickets), "tickets": tickets}, "tickets": tickets, "ticket_groups": [{"slice_id": item["slice_id"], "ticket_ids": [ticket["ticket_id"] for ticket in tickets if ticket["slice_id"] == item["slice_id"]]} for item in slices], "ticket_dependency_graph": [{"ticket_id": ticket["ticket_id"], "depends_on_tickets": ticket["depends_on_tickets"]} for ticket in tickets], "ticket_skill_assignments": [{"ticket_id": ticket["ticket_id"], "primary_skill": ticket["primary_skill"], "recommended_skills": ticket["recommended_skills"], "score": ticket["skill_match"]["primary_skill_score"]} for ticket in tickets], "ticket_ui_blueprint_assignments": [{"ticket_id": ticket["ticket_id"], "ui_blueprint_refs": ticket["ui_blueprint_refs"]} for ticket in tickets if ticket["ticket_type"] == "frontend" or ticket["ticket_id"] == "TICKET-020"], "ticket_visual_spec_assignments": [{"ticket_id": ticket["ticket_id"], "visual_spec_refs": ticket["visual_spec_refs"]} for ticket in tickets if ticket["visual_spec_refs"]], "ticket_visual_reference_assignments": [{"ticket_id": ticket["ticket_id"], "visual_reference_refs": ticket["visual_reference_refs"]} for ticket in tickets if ticket["visual_reference_refs"]], "ticket_design_system_assignments": [{"ticket_id": ticket["ticket_id"], "design_system_refs": ticket["design_system_refs"]} for ticket in tickets if ticket["design_system_refs"]], "visual_acceptance_criteria_ticket_map": [{"ticket_id": ticket["ticket_id"], "criteria_refs": ticket["visual_acceptance_criteria_refs"]} for ticket in tickets if ticket["visual_acceptance_criteria_refs"]], "frontend_task_groups": [{"ticket_id": ticket["ticket_id"], "page_refs": ticket["page_refs"], "component_refs": ticket["component_refs"]} for ticket in tickets if ticket["ticket_type"] == "frontend"], "component_ticket_map": [{"component_ref": component, "ticket_ids": [ticket["ticket_id"] for ticket in tickets if component in ticket["component_refs"]]} for component in unique(component for ticket in tickets for component in ticket["component_refs"])], "ticket_risks": risks, "stage_6_execution_queue": [ticket["ticket_id"] for ticket in tickets]},
-        {**common, "agent_assignment_plan": {"inventory_sources": [".opencode/agents/", "System-References/agent-registry/agent-registry.json", "System-References/agents/available-agents.json", "Build-Plans/Stage-5/available-agents.json"], "scan_result": "No usable formal agent inventory existed; generated ticket-scoped profiles from required skill chains.", "agents": assignments}, "available_agents": [], "agents": assignments, "ticket_assignments": [{"ticket_id": ticket_id, "agent_id": agent_id} for agent_id, _, _, _, _, ticket_ids, _ in agent_profiles for ticket_id in ticket_ids], "slice_assignments": [{"slice_id": slice_id, "agent_ids": unique(assignment["agent_id"] for assignment in assignments if slice_id in assignment["assigned_slices"])} for slice_id in [item["slice_id"] for item in slices]], "unassigned_tickets": [], "generated_agents": [item[0] for item in agent_profiles], "generated_agent_files": generated_files, "agent_handoff_packages": assignments, "ui_blueprint_handoff_packages": [{"agent_id": item["agent_id"], "refs": item["ui_blueprint_refs"]} for item in assignments if item["ui_blueprint_refs"]], "visual_spec_handoff_packages": [{"agent_id": item["agent_id"], "refs": item["visual_spec_refs"]} for item in assignments if item["visual_spec_refs"]], "visual_reference_handoff_packages": [{"agent_id": item["agent_id"], "refs": item["visual_reference_refs"]} for item in assignments if item["visual_reference_refs"]], "design_system_handoff_packages": [{"agent_id": item["agent_id"], "refs": item["design_system_refs"]} for item in assignments if item["design_system_refs"]], "assignment_risks": [risks[1], risks[2], risks[3]]},
-        {**common, "parallel_execution_plan": {"plan_id": "PARALLEL-S5-001", "batches": batches, "workspace_plan": {"strategy": "Use isolated git worktrees for parallel batches", "recommended_worktrees": ["worktrees/foundation-agent", "worktrees/backend-agent", "worktrees/worker-agent", "worktrees/frontend-agent", "worktrees/validation-agent"]}, "merge_plan": {"default": "Validate each ticket, review shared contracts, merge in batch order", "rollback": "Revert batch merge or disable affected capability; never bypass a failed dependency gate"}}, "parallel_batches": [item for item in batches if item["can_run_in_parallel"]], "serial_batches": [item for item in batches if not item["can_run_in_parallel"]], "conflict_controls": dependencies["serial_constraints"], "workspace_plan": {"isolation": "git worktrees", "one_worktree_per_agent": True}, "merge_plan": {"order": [item["batch_id"] for item in batches], "shared_contract_review": True}, "batch_validation_gates": [{"batch_id": item["batch_id"], "checks": item["batch_validation"]} for item in batches], "parallel_execution_risks": [risks[1], risks[3]]},
-        {**common, "release_plan": release_plan, "release_phases": release_plan["release_phases"], "release_gates": release_plan["release_gates"], "rollback_requirements": release_plan["rollback_requirements"], "stage_7_handoff_notes": release_plan["stage_7_handoff_notes"], "release_risks": risks},
+        stage5_artifact("ARTIFACT-S5-ROADMAP", "development_roadmap", {"development_roadmap": {"roadmap_id": "ROADMAP-S5-001", "strategy": "Foundation then demonstrable vertical slices, with risky integrations proven before release hardening.", "phases": phases, "mvp_features": [feature_id for feature_id in included_features if feature_id not in {"FEATURE-008", "FEATURE-009"}], "deferred_work": deferred_feature_ids}, "workstreams": workstreams, "milestones": milestones, "risk_refs": risk_refs}, launch_features + launch_workflows),
+        stage5_artifact("ARTIFACT-S5-SEQUENCE", "implementation_sequence", {"implementation_sequence": {"sequence_id": "SEQUENCE-S5-001", "approach": "Foundation-first, then vertical slices with contract gates", "queue": [item["slice_id"] for item in slices]}, "implementation_slices": slices, "sequence_dependencies": dependency_edges, "validation_checkpoints": checkpoints, "risk_refs": risk_refs}, launch_features + launch_workflows + [item["slice_id"] for item in slices]),
+        stage5_artifact("ARTIFACT-S5-DEPENDENCIES", "engineering_dependencies", {"engineering_dependencies": {"plan_id": "DEPENDENCY-PLAN-S5-001", "technical_prerequisites": dependencies["technical_prerequisites"], "parallelizable_groups": dependencies["parallelizable_groups"], "serial_constraints": dependencies["serial_constraints"]}, "dependency_graph": dependency_edges, "blocked_work": dependencies["blocked_work"], "risk_refs": risk_refs}, [item["slice_id"] for item in slices]),
+        stage5_artifact("ARTIFACT-S5-TESTING", "testing_strategy", {"testing_strategy": testing_strategy, "risk_refs": [item["risk_id"] for item in risks if item["domain"] in {"security", "frontend", "integration", "ai"}]}, launch_features + launch_workflows),
+        stage5_artifact("ARTIFACT-S5-TICKETS", "build_tickets", {"ticket_count": len(tickets), "tickets": tickets, "indexes": {"tickets_by_slice": [{"slice_id": item["slice_id"], "ticket_ids": [ticket["ticket_id"] for ticket in tickets if ticket["slice_id"] == item["slice_id"]]} for item in slices], "components_to_tickets": [{"component_ref": component, "ticket_ids": [ticket["ticket_id"] for ticket in tickets if component in ticket["component_refs"]]} for component in unique(component for ticket in tickets for component in ticket["component_refs"])]}, "execution_queue": [ticket["ticket_id"] for ticket in tickets], "risk_refs": risk_refs}, [item["slice_id"] for item in slices] + [item["ticket_id"] for item in tickets]),
+        stage5_artifact("ARTIFACT-S5-ASSIGNMENTS", "agent_assignment_plan", {"assignment_plan": {"inventory_sources": [".opencode/agents/", "System-References/agent-registry/agent-registry.json", "System-References/agents/available-agents.json", "Build-Plans/Stage-5/available-agents.json"], "scan_result": "No usable formal agent inventory existed; generated ticket-scoped profiles from required skill chains."}, "available_agents": [], "agents": assignments, "ticket_assignments": [{"ticket_id": ticket_id, "agent_id": agent_id} for agent_id, _, _, _, _, ticket_ids, _ in agent_profiles for ticket_id in ticket_ids], "slice_assignments": [{"slice_id": slice_id, "agent_ids": unique(assignment["agent_id"] for assignment in assignments if slice_id in assignment["assigned_slices"])} for slice_id in [item["slice_id"] for item in slices]], "unassigned_tickets": [], "generated_agent_files": generated_files, "risk_refs": [risks[1]["risk_id"], risks[2]["risk_id"], risks[3]["risk_id"]]}, [item["ticket_id"] for item in tickets] + [item[0] for item in agent_profiles]),
+        stage5_artifact("ARTIFACT-S5-PARALLEL", "parallel_execution_plan", {"parallel_execution_plan": {"plan_id": "PARALLEL-S5-001", "workspace_plan": {"strategy": "Use isolated git worktrees for parallel batches", "recommended_worktrees": ["worktrees/foundation-agent", "worktrees/backend-agent", "worktrees/worker-agent", "worktrees/frontend-agent", "worktrees/validation-agent"]}, "merge_plan": {"default": "Validate each ticket, review shared contracts, merge in batch order", "rollback": "Revert batch merge or disable affected capability; never bypass a failed dependency gate"}}, "batches": batches, "parallel_batch_ids": [item["batch_id"] for item in batches if item["can_run_in_parallel"]], "serial_batch_ids": [item["batch_id"] for item in batches if not item["can_run_in_parallel"]], "conflict_controls": dependencies["serial_constraints"], "risk_refs": [risks[1]["risk_id"], risks[3]["risk_id"]]}, [item["ticket_id"] for item in tickets] + [item["batch_id"] for item in batches]),
+        stage5_artifact("ARTIFACT-S5-RELEASE", "release_plan", {"release_plan": release_plan, "risk_refs": risk_refs}, launch_features + launch_workflows + [item["batch_id"] for item in batches]),
     ]
+    manifest_artifacts = [
+        {"artifact_id": artifact_id, "artifact_type": artifact_type, "path": f"Build-Plans/Stage-5/{filename}", "data_path": f"/data/{required_key}", "schema_ref": "System-References/Schemas/stage-5-artifact.schema.json"}
+        for artifact_id, artifact_type, filename, required_key in ARTIFACT_SPECS
+    ]
+    manifest = {
+        "$schema": "../../System-References/Schemas/stage-5-manifest.schema.json",
+        "format_version": FORMAT_VERSION,
+        "artifact_id": "ARTIFACT-S5-MANIFEST",
+        "artifact_type": "stage_manifest",
+        "stage": "Stage 5",
+        "status": "ready_for_stage_6",
+        "context_ref": CONTEXT_PATH,
+        "artifacts": manifest_artifacts,
+        "stage_6_handoff": handoff,
+        "completion_status": completion,
+        "schema_validation": {},
+    }
+    validation_errors = validate_stage5_documents(context, outputs, manifest)
+    if validation_errors:
+        raise ValueError("Stage 5 v2 output validation failed: " + "; ".join(validation_errors))
+    validated_at = now()
+    manifest["schema_validation"] = {"schema_refs": ["System-References/Schemas/stage-5-context.schema.json", "System-References/Schemas/stage-5-artifact.schema.json", "System-References/Schemas/stage-5-manifest.schema.json"], "validated_files": required_files, "schema_errors": [], "schemas_valid": True, "validated_at": validated_at, "validator": "Stage 5 v2 structural validator", "blocking": True}
 
     progress_steps = ["development-roadmap-planning", "implementation-sequence-planning", "engineering-dependency-planning", "testing-strategy-planning", "build-ticket-generation", "agent-assignment-planning", "parallel-execution-planning", "release-plan-orchestration", "development-orchestration-synthesis"]
     state: dict[str, Any] = {
-        "stage": "Stage 5", "command": "stage-5-development-orchestration", "status": "in_progress",
+        "stage": "Stage 5", "command": "stage-5-development-orchestration", "status": "in_progress", "format_version": FORMAT_VERSION,
+        "output_contract": {"context": CONTEXT_PATH, "manifest": MANIFEST_PATH, "artifacts": artifact_files},
         "stage_1_inputs": {"required_files": required["stage_1"], "mvp_scope": mvp_model["mvp_scope"], "launch_critical_features": launch_features, "launch_critical_workflows": launch_workflows},
         "stage_2_inputs": {"required_files": paths(2, ["03-technical-feasibility.json", "05-risk-validation.json", "06-strategic-positioning.json"])},
         "stage_3_inputs": {"required_files": required["stage_3"], "selected_stack": selected_stack, "approval_status": stack_status},
@@ -568,13 +785,13 @@ def main() -> int:
         "stage_contract_profile": stage_contract_profile, "guidance_policy": guidance_policy, "stage_6_handoff": {}, "completion_status": {}, "orchestration_progress": [],
     }
     state_updates = [
-        {"development_roadmap": outputs[0]["development_roadmap"], "workstreams": workstreams, "milestones": milestones},
-        {"implementation_sequence": outputs[1]["implementation_sequence"], "engineering_dependencies": dependencies},
+        {"development_roadmap": outputs[0]["data"]["development_roadmap"], "workstreams": workstreams, "milestones": milestones},
+        {"implementation_sequence": outputs[1]["data"]["implementation_sequence"], "implementation_slices": slices, "engineering_dependencies": dependencies},
         {"engineering_dependencies": dependencies, "coordination_notes": dependencies["serial_constraints"]},
         {"testing_strategy": testing_strategy},
-        {"build_tickets": outputs[4]["build_tickets"], "stage_6_handoff": {"execution_queue": handoff["execution_queue"]}},
-        {"agent_assignment_plan": outputs[5]["agent_assignment_plan"], "stage_6_handoff": {**handoff, "ready": False}},
-        {"parallel_execution_plan": outputs[6]["parallel_execution_plan"]},
+        {"build_tickets": {"ticket_count": len(tickets), "tickets": tickets}, "stage_6_handoff": {"execution_queue": handoff["execution_queue"]}},
+        {"agent_assignment_plan": {"assignment_plan": outputs[5]["data"]["assignment_plan"], "agents": assignments}, "stage_6_handoff": {**handoff, "ready": False}},
+        {"parallel_execution_plan": outputs[6]["data"]["parallel_execution_plan"]},
         {"release_plan": release_plan},
         {"stage_6_handoff": handoff, "completion_status": completion, "status": "ready_for_stage_6"},
     ]
@@ -583,26 +800,35 @@ def main() -> int:
         state["orchestration_progress"].append({"skill": skill, "status": "completed", "persisted_at": now()})
         write_json(STATUS / "Development-state.json", state)
 
-    for path, output in zip(required_files, outputs):
+    write_json(ROOT / CONTEXT_PATH, context)
+    for path, output in zip(artifact_files, outputs):
         write_json(ROOT / path, output)
+    write_json(ROOT / MANIFEST_PATH, manifest)
 
     artifact_registry_path = STATUS / "Artifact-evidence-registry.json"
     artifact_registry = read(artifact_registry_path)
     artifacts = artifact_registry.setdefault("artifacts", [])
-    known_artifacts = {item.get("artifact_id") for item in artifacts}
+    artifacts_by_id = {item.get("artifact_id"): item for item in artifacts}
     for ticket in tickets:
         for item in ticket["expected_artifacts"]:
-            if item["artifact_id"] in known_artifacts:
+            if item["artifact_id"] in artifacts_by_id:
+                artifacts_by_id[item["artifact_id"]].update(
+                    {
+                        "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+                        "related_stage_data_path": "/data/tickets",
+                    }
+                )
                 continue
-            artifacts.append({"artifact_id": item["artifact_id"], "type": item["type"], "related_stage": "Stage 6", "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json", "related_ticket_ids": [ticket["ticket_id"]], "related_validation_ids": [], "related_agent_ids": [assignment["agent_id"] for assignment in assignments if ticket["ticket_id"] in assignment["assigned_tickets"]], "path_or_url": "", "status": "pending", "confidence": "low", "created_by": "stage-5-development-orchestration", "created_at": now(), "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."})
-            known_artifacts.add(item["artifact_id"])
+            artifact = {"artifact_id": item["artifact_id"], "type": item["type"], "related_stage": "Stage 6", "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json", "related_stage_data_path": "/data/tickets", "related_ticket_ids": [ticket["ticket_id"]], "related_validation_ids": [], "related_agent_ids": [assignment["agent_id"] for assignment in assignments if ticket["ticket_id"] in assignment["assigned_tickets"]], "path_or_url": "", "status": "pending", "confidence": "low", "created_by": "stage-5-development-orchestration", "created_at": now(), "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status."}
+            artifacts.append(artifact)
+            artifacts_by_id[item["artifact_id"]] = artifact
     write_json(artifact_registry_path, artifact_registry)
 
     audit = {
-        "stage": "Stage 5", "command": "global-stage-readiness-audit", "audit_status": "passed_with_warnings", "global_workflow_contract": "System-References/Docs/Global-Stage-Workflow-Contract.md",
+        "stage": "Stage 5", "format_version": FORMAT_VERSION, "command": "global-stage-readiness-audit", "audit_status": "passed_with_warnings", "global_workflow_contract": "System-References/Docs/Global-Stage-Workflow-Contract.md", "output_context": CONTEXT_PATH, "output_manifest": MANIFEST_PATH,
         "required_files_present": all((ROOT / path).is_file() for path in required_files), "schemas_valid": True, "completion_status_present": True, "global_status_mapped": True, "handoff_present": True, "handoff_usable": True, "risks_recorded": True, "assumptions_recorded": True, "traceability_present": True, "artifacts_recorded": True,
         "stage_contract_profile": {"profile_id": stage_contract_profile["profile_id"], "profile_requirements_checked": True, "missing_profile_requirements": []},
-        "schema_validation": {"schema_refs": ["System-References/Schemas/stage-5-output.schema.json"], "validated_files": required_files, "schema_errors": [], "schemas_valid": True, "validated_at": now(), "validator": "Draft 2020-12 structural validation (JSON parse plus required stage/status contract)", "blocking": True},
+        "schema_validation": manifest["schema_validation"],
         "reference_integrity": {"checked_refs": handoff["traceability_refs"], "missing_refs": [], "orphaned_refs": [], "stale_refs": [], "duplicate_ids": [], "integrity_status": "passed", "blocking_ref_errors": []},
         "artifact_evidence_registry": {"registry_path": "Build-Plans/Build-status/Artifact-evidence-registry.json", "required": True, "required_artifacts_present": True, "missing_artifacts": []},
         "risk_acceptance_ledger": {"ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json", "required": True, "accepted_risks_present": bool(handoff["accepted_risks"]), "missing_risk_acceptance_entries": [], "expired_or_unowned_risks": []},

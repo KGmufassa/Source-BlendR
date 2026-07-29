@@ -1,0 +1,18 @@
+{
+  "artifact_id": "ARTIFACT-S5-001-TEST",
+  "ticket_id": "TICKET-001",
+  "validation_id": "VALIDATION-S6-001",
+  "recorded_at": "2026-07-25T03:37:33Z",
+  "red": {
+    "command": "node --test apps/workspace-scaffold.test.mjs",
+    "status": "failed_as_expected",
+    "reason": "package.json did not exist"
+  },
+  "green": {
+    "command": "corepack pnpm test",
+    "status": "passed",
+    "tests": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "$schema": "../../System-References/Schemas/stage-7-output.schema.json",
+  "stage": "Stage 7",
+  "status": "needs_operational_revision",
+  "monitoring_systems": {
+    "status": "planned_not_wired",
+    "primary_integration_ref": "INTEGRATION-SENTRY",
+    "required_signal_groups": [
+      "availability",
+      "web errors",
+      "worker errors",
+      "queue health",
+      "job outcomes",
+      "provider health and cost",
+      "database and storage failures",
+      "security events"
+    ],
+    "alert_routing_owner": ""
+  },
+  "health_checks": [
+    {
+      "check_id": "HEALTH-S7-WEB",
+      "target": "hosted web",
+      "signal": "HTTP availability and authenticated shell smoke",
+      "expected": "2xx and usable authenticated navigation",
+      "status": "not_implemented"
+    },
+    {
+      "check_id": "HEALTH-S7-WORKER",
+      "target": "hosted worker",
+      "signal": "Worker heartbeat and job consumption",
+      "expected": "heartbeat current and probe job reaches terminal success",
+      "status": "not_implemented"
+    },
+    {
+      "check_id": "HEALTH-S7-DB",
+      "target": "PostgreSQL",
+      "signal": "Connectivity, migration version, and tenant-scoped read/write probe",
+      "expected": "current schema and isolated probe succeeds",
+      "status": "not_implemented"
+    },
+    {
+      "check_id": "HEALTH-S7-QUEUE",
+      "target": "Redis/BullMQ",
+      "signal": "Queue depth, oldest-job age, failures, retries, and dead-letter state",
+      "expected": "within private-alpha thresholds",
+      "status": "not_implemented"
+    },
+    {
+      "check_id": "HEALTH-S7-PROVIDER",
+      "target": "AI provider routing",
+      "signal": "Capability health, latency, error rate, and manual fallback availability",
+      "expected": "at least one healthy route or verified manual fallback",
+      "status": "not_implemented"
+    },
+    {
+      "check_id": "HEALTH-S7-STORAGE",
+      "target": "object storage",
+      "signal": "Tenant-scoped upload/read/delete probe",
+      "expected": "probe succeeds without cross-tenant access",
+      "status": "not_implemented"
+    }
+  ],
+  "alerts": [
+    {
+      "alert_id": "ALERT-S7-CRITICAL-SECURITY",
+      "severity": "critical",
+      "condition": "Any confirmed cross-tenant access, credential exposure, or unauthorized administrative action",
+      "owner": "Unassigned",
+      "response": "Disable affected path, preserve evidence, page release/security owner, and assess rollback.",
+      "proof_status": "not_tested"
+    },
+    {
+      "alert_id": "ALERT-S7-CRITICAL-AVAILABILITY",
+      "severity": "critical",
+      "condition": "Web or worker unavailable for two consecutive probes during launch window",
+      "owner": "Unassigned",
+      "response": "Open incident, pause rollout, inspect dependency health, and roll back if release-correlated.",
+      "proof_status": "not_tested"
+    },
+    {
+      "alert_id": "ALERT-S7-HIGH-JOBS",
+      "severity": "high",
+      "condition": "Terminal job failures or retry growth exceed the private-alpha baseline",
+      "owner": "Unassigned",
+      "response": "Pause queue intake when systemic, preserve artifacts, and use stuck-job runbook.",
+      "proof_status": "not_tested"
+    },
+    {
+      "alert_id": "ALERT-S7-HIGH-QUEUE",
+      "severity": "high",
+      "condition": "Oldest queued job or queue depth exceeds the agreed service target",
+      "owner": "Unassigned",
+      "response": "Check worker capacity, dependency failures, and poison jobs before scaling or replaying.",
+      "proof_status": "not_tested"
+    },
+    {
+      "alert_id": "ALERT-S7-MEDIUM-PROVIDER",
+      "severity": "medium",
+      "condition": "Provider unavailable, latency elevated, or spend anomaly detected",
+      "owner": "Unassigned",
+      "response": "Disable degraded route, use fallback/manual mode, and investigate cost or health.",
+      "proof_status": "not_tested"
+    }
+  ],
+  "incident_triggers": [
+    {
+      "trigger_id": "INCIDENT-S7-001",
+      "condition": "Critical security alert",
+      "incident_level": "SEV-1",
+      "escalation_path": [
+        "Operations owner",
+        "Security owner",
+        "Release approver"
+      ]
+    },
+    {
+      "trigger_id": "INCIDENT-S7-002",
+      "condition": "Critical availability alert or data integrity failure",
+      "incident_level": "SEV-1",
+      "escalation_path": [
+        "Operations owner",
+        "Release owner",
+        "Database or platform owner"
+      ]
+    },
+    {
+      "trigger_id": "INCIDENT-S7-003",
+      "condition": "Sustained job failure, queue growth, or provider outage",
+      "incident_level": "SEV-2",
+      "escalation_path": [
+        "Support owner",
+        "Worker owner",
+        "Operations owner"
+      ]
+    }
+  ],
+  "monitoring_risks": [
+    {
+      "risk_id": "RISK-S7-003",
+      "risk": "Monitoring exists only as a contract and cannot detect production failures.",
+      "domain": "monitoring",
+      "severity": "critical",
+      "likelihood": "high",
+      "status": "open",
+      "affected_ids": [
+        "INTEGRATION-SENTRY",
+        "LAUNCH-GATE-7-008"
+      ],
+      "mitigation": "Implement hosted probes, structured telemetry, alert routing, and synthetic alert tests before alpha.",
+      "owner_stage": "Stage 7",
+      "evidence_refs": [
+        "Build-Plans/Stage-6/evidence/TICKET-021-validation-report.json"
+      ],
+      "next_action": "Assign monitoring owner after the runtime is deployable."
+    }
+  ],
+  "assumptions": [
+    {
+      "assumption_id": "ASSUMPTION-S7-003",
+      "assumption": "Private-alpha thresholds will be established from staging load and the first controlled tenants.",
+      "status": "active",
+      "next_action": "Record initial thresholds before private alpha and recalibrate after observed traffic."
+    }
+  ],
+  "traceability_refs": [
+    "FEATURE-001",
+    "FEATURE-003",
+    "FEATURE-013",
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "INTEGRATION-SENTRY",
+    "LAUNCH-GATE-002"
+  ],
+  "artifact_refs": [
+    "ARTIFACT-S5-021-VALIDATION"
+  ]
+}

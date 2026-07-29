@@ -1,3 +1,9 @@
+---
+name: development-orchestration-synthesis
+description: Synthesize Stage 5 planning state into normalized versioned context, artifact, and manifest outputs and enforce the Stage 6 readiness gate.
+compatibility: opencode
+---
+
 # Skill — development-orchestration-synthesis
 
 # Purpose
@@ -194,6 +200,7 @@ Build-Plans/Build-status/Development-state.json
 Write or update:
 
 ```text
+Build-Plans/Stage-5/00-stage-context.json
 Build-Plans/Stage-5/01-development-roadmap.json
 Build-Plans/Stage-5/02-implementation-sequence.json
 Build-Plans/Stage-5/03-engineering-dependencies.json
@@ -202,17 +209,16 @@ Build-Plans/Stage-5/05-build-tickets.json
 Build-Plans/Stage-5/06-agent-assignment-plan.json
 Build-Plans/Stage-5/07-parallel-execution-plan.json
 Build-Plans/Stage-5/08-release-plan.json
+Build-Plans/Stage-5/09-stage-manifest.json
 ```
 
-Each output must include:
+Write shared Stage 5 context once to `00-stage-context.json`.
 
-* related Stage 1 scope or feature inputs
-* related Stage 3 architecture dependencies
-* related Stage 4 UX dependencies
-* execution decisions
-* risks and constraints
-* unresolved questions
-* Stage 6 handoff notes when relevant
+Write each numbered plan as a format `2.0` artifact envelope with `artifact_id`, `artifact_type`, `context_ref`, `traceability_refs`, and canonical `data`.
+
+Write completion status and the Stage 6 handoff once to `09-stage-manifest.json`.
+
+Do not repeat common context in numbered artifacts. Do not store the same canonical collection both inside a summary object and as a sibling field.
 
 The build ticket output must include:
 
@@ -259,6 +265,7 @@ The parallel execution output must include:
 * assigned agents per batch
 * tickets per batch
 * blocked-by relationships
+* execution waves for same-batch dependencies
 * file ownership boundaries
 * shared contracts
 * merge strategy
@@ -270,7 +277,7 @@ The parallel execution output must include:
 
 Stage 5 may complete only when:
 
-* all eight development orchestration outputs exist
+* the shared context, all eight development orchestration artifacts, and the stage manifest exist
 * development roadmap is defined
 * implementation sequence is dependency-aware
 * engineering dependencies are mapped

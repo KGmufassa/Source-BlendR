@@ -2405,6 +2405,46 @@ and return the specific questions or decisions required.
 
 # Final Stage 5 Outputs
 
+Stage 5 output format `2.0` is normalized:
+
+```text
+Build-Plans/Stage-5/00-stage-context.json
+Build-Plans/Stage-5/01-development-roadmap.json
+Build-Plans/Stage-5/02-implementation-sequence.json
+Build-Plans/Stage-5/03-engineering-dependencies.json
+Build-Plans/Stage-5/04-testing-strategy.json
+Build-Plans/Stage-5/05-build-tickets.json
+Build-Plans/Stage-5/06-agent-assignment-plan.json
+Build-Plans/Stage-5/07-parallel-execution-plan.json
+Build-Plans/Stage-5/08-release-plan.json
+Build-Plans/Stage-5/09-stage-manifest.json
+```
+
+`00-stage-context.json` is the single source for shared input paths, selected stack, contract profile, guidance policy, assumptions, risks, reference integrity, and revision loops.
+
+Numbered artifacts use a common envelope:
+
+```json
+{
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S5-*",
+  "artifact_type": "",
+  "stage": "Stage 5",
+  "status": "",
+  "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
+  "traceability_refs": [],
+  "data": {}
+}
+```
+
+`09-stage-manifest.json` is the single source for the artifact index, completion status, Stage 6 handoff, and schema-validation result.
+
+Store canonical collections once. Use ID-only indexes and risk references for secondary views.
+
+## Legacy v1 Output Examples
+
+The structures below document the pre-v2 self-contained format for archived-plan compatibility only. New Stage 5 runs must not emit them.
+
 Write or update:
 
 ```text
@@ -2669,7 +2709,7 @@ System-References/Docs/Global-Stage-Workflow-Contract.md
 
 Stage 5 may complete only when:
 
-* all eight development orchestration outputs exist
+* the shared context, all eight development orchestration artifacts, and the stage manifest exist
 * development roadmap is defined
 * implementation sequence is dependency-aware
 * engineering dependencies are mapped
@@ -2753,7 +2793,9 @@ completion_status.reason = "missing_or_unresolved_selected_stack"
 Stage 5 output validation should reference:
 
 ```text
-System-References/Schemas/stage-5-output.schema.json
+System-References/Schemas/stage-5-context.schema.json
+System-References/Schemas/stage-5-artifact.schema.json
+System-References/Schemas/stage-5-manifest.schema.json
 ```
 
 Build tickets must define `expected_artifacts` when validation, preview, visual QA, deployment proof, or launch readiness evidence will be required later.

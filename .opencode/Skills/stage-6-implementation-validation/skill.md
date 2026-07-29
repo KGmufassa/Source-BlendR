@@ -1,3 +1,9 @@
+---
+name: stage-6-implementation-validation
+description: Execute and validate Stage 6 tickets from versioned Stage 5 handoffs, including implementation, regression, visual QA, repair, and readiness evidence.
+compatibility: opencode
+---
+
 # Command — stage-6-implementation-validation
 
 # Purpose
@@ -171,6 +177,7 @@ Build-Plans/Stage-5/
 Required Stage 5 files:
 
 ```text
+00-stage-context.json
 01-development-roadmap.json
 02-implementation-sequence.json
 03-engineering-dependencies.json
@@ -179,6 +186,7 @@ Required Stage 5 files:
 06-agent-assignment-plan.json
 07-parallel-execution-plan.json
 08-release-plan.json
+09-stage-manifest.json
 ```
 
 Minimum viable input set:
@@ -198,6 +206,26 @@ If the minimum viable input set is missing, stop and set:
 completion_status.status = "blocked"
 completion_status.reason = "missing_implementation_inputs"
 ```
+
+For Stage 5 format `2.0`:
+
+* read shared stack, assumptions, risks, and upstream inputs from `00-stage-context.json`
+* read completion status and `stage_6_handoff` from `09-stage-manifest.json`
+* read each numbered artifact's canonical payload from `data`
+* read tickets from `05-build-tickets.json.data.tickets`
+* read agents from `06-agent-assignment-plan.json.data.agents`
+* read batches from `07-parallel-execution-plan.json.data.batches`
+* resolve artifact locations from the manifest rather than assuming additional files
+
+If any numbered artifact declares format `2.0`, treat `00-stage-context.json` and `09-stage-manifest.json` as required minimum inputs. A partial v2 handoff must block Stage 6 rather than falling back to legacy interpretation.
+
+To support an archived pre-v2 Stage 5 plan, use:
+
+```sh
+python3 .opencode/Skills/stage-5-development-orchestration/scripts/resolve_stage5.py --artifact build_tickets --with-context
+```
+
+The resolver returns normalized `data` for format `2.0` and the self-contained document for a legacy artifact. Do not require context or manifest files for a plan that does not declare `format_version = "2.0"`.
 
 ---
 

@@ -1,0 +1,242 @@
+{
+  "$schema": "../../System-References/Schemas/stage-7-output.schema.json",
+  "stage": "Stage 7",
+  "status": "needs_operational_revision",
+  "deployment_framework": {
+    "strategy": "Internal integration, private alpha, controlled beta, then public readiness.",
+    "release_owner": "",
+    "approval_status": "pending",
+    "build_command": "corepack pnpm build",
+    "deployment_command": "",
+    "rollback_command": "",
+    "setup_commands": [
+      "corepack pnpm install --frozen-lockfile",
+      "corepack pnpm test",
+      "corepack pnpm typecheck",
+      "corepack pnpm lint",
+      "corepack pnpm build"
+    ],
+    "required_environment_variables": [
+      "DATABASE_URL"
+    ],
+    "required_secrets": [
+      {
+        "name": "Production authentication credentials",
+        "value_recording": "forbidden",
+        "status": "unverified"
+      },
+      {
+        "name": "Object-storage credentials",
+        "value_recording": "forbidden",
+        "status": "unverified"
+      },
+      {
+        "name": "Redis connection credentials",
+        "value_recording": "forbidden",
+        "status": "unverified"
+      },
+      {
+        "name": "Sentry DSN and alert integration credentials",
+        "value_recording": "forbidden",
+        "status": "unverified"
+      },
+      {
+        "name": "Optional AI provider credentials",
+        "value_recording": "forbidden",
+        "status": "unverified"
+      }
+    ],
+    "deployment_artifacts": [],
+    "release_blockers": [
+      "LAUNCH-BLOCKER-001",
+      "LAUNCH-BLOCKER-003"
+    ]
+  },
+  "deployment_environments": [
+    {
+      "environment_id": "ENV-S7-LOCAL",
+      "name": "local",
+      "purpose": "Contract and component validation",
+      "status": "available",
+      "services": [
+        "Node.js 22",
+        "pnpm 10"
+      ]
+    },
+    {
+      "environment_id": "ENV-S7-STAGING",
+      "name": "staging",
+      "purpose": "Production-like integration, smoke, alert, migration, and rollback rehearsal",
+      "status": "unprovisioned",
+      "services": [
+        "Vercel web",
+        "Fly.io worker",
+        "Neon PostgreSQL",
+        "Upstash Redis",
+        "Object storage",
+        "Authentication",
+        "Sentry"
+      ]
+    },
+    {
+      "environment_id": "ENV-S7-PRODUCTION",
+      "name": "production",
+      "purpose": "Private alpha and controlled rollout",
+      "status": "unprovisioned",
+      "services": [
+        "Vercel web",
+        "Fly.io worker",
+        "Neon PostgreSQL",
+        "Upstash Redis",
+        "Object storage",
+        "Authentication",
+        "Sentry"
+      ]
+    }
+  ],
+  "deployment_checklist": [
+    {
+      "order": 1,
+      "action": "Complete the Stage 6 production-runtime revision and readiness audit.",
+      "status": "blocked"
+    },
+    {
+      "order": 2,
+      "action": "Confirm target platforms, release owner, approver, regions, and data residency.",
+      "status": "pending"
+    },
+    {
+      "order": 3,
+      "action": "Provision isolated staging services and inject secrets outside source control.",
+      "status": "pending"
+    },
+    {
+      "order": 4,
+      "action": "Run tests, type checks, lint, and a real production build.",
+      "status": "pending"
+    },
+    {
+      "order": 5,
+      "action": "Apply versioned staging migrations and verify tenant isolation.",
+      "status": "pending"
+    },
+    {
+      "order": 6,
+      "action": "Deploy web and worker release candidates and verify hosted health checks.",
+      "status": "pending"
+    },
+    {
+      "order": 7,
+      "action": "Execute website import, PDF import, manual entry, provider fallback, retry, cancel, and discovery-to-catalog smoke tests.",
+      "status": "pending"
+    },
+    {
+      "order": 8,
+      "action": "Trigger and acknowledge monitoring alerts.",
+      "status": "pending"
+    },
+    {
+      "order": 9,
+      "action": "Rehearse rollback, queue pause/replay, and migration recovery.",
+      "status": "pending"
+    },
+    {
+      "order": 10,
+      "action": "Record evidence and request private-alpha approval.",
+      "status": "pending"
+    }
+  ],
+  "rollback_plan": {
+    "status": "defined_not_rehearsed_in_environment",
+    "triggers": [
+      "Critical tenant-isolation or authentication failure",
+      "Sustained web or worker unavailability",
+      "Data corruption or failed migration",
+      "Queue failure causing unrecoverable jobs",
+      "Critical credential or storage exposure"
+    ],
+    "controls": [
+      "Rollback Vercel web deployment to the last verified release",
+      "Rollback or pause Fly.io workers",
+      "Pause queue intake while preserving job events and source artifacts",
+      "Disable a degraded provider/connector through configuration",
+      "Prefer a tested forward fix for database migrations unless rollback is proven"
+    ],
+    "owner": "",
+    "rehearsal_evidence": [],
+    "user_and_data_impact": "Imports may pause during recovery; source artifacts, candidates, and job history must remain replayable."
+  },
+  "migration_plan": {
+    "status": "blocked",
+    "strategy": "Versioned Prisma migrations with staging rehearsal and explicit forward-fix/rollback decision.",
+    "artifacts": [],
+    "blocker": "Only a schema contract exists; no migration history is present."
+  },
+  "seed_data_plan": {
+    "status": "pending",
+    "strategy": "Use synthetic tenant-scoped fixtures only; do not copy production customer data into staging."
+  },
+  "deployment_proof": {
+    "production_build_artifact": "",
+    "deployment_dry_run_result": {
+      "status": "stage_6_contract_only"
+    },
+    "smoke_test_results": [],
+    "rollback_test_result": {
+      "status": "not_run_in_target_environment"
+    },
+    "environment_verification": {
+      "status": "not_run"
+    },
+    "monitoring_alert_test": {
+      "status": "not_run"
+    },
+    "release_blockers": [
+      "LAUNCH-BLOCKER-001",
+      "LAUNCH-BLOCKER-003"
+    ],
+    "accepted_launch_risks": []
+  },
+  "deployment_risks": [
+    {
+      "risk_id": "RISK-S7-002",
+      "risk": "Target platforms and ownership are assumed from Stage 5 but not confirmed.",
+      "domain": "deployment",
+      "severity": "high",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "ENV-S7-STAGING",
+        "ENV-S7-PRODUCTION"
+      ],
+      "mitigation": "Confirm platform, region, owner, budget, and approval path before provisioning.",
+      "owner_stage": "Stage 7",
+      "evidence_refs": [
+        "Build-Plans/Stage-5/08-release-plan.json"
+      ],
+      "next_action": "Release owner confirms deployment decisions."
+    }
+  ],
+  "assumptions": [
+    {
+      "assumption_id": "ASSUMPTION-S7-002",
+      "assumption": "Private alpha is the next permitted release phase after staging evidence passes.",
+      "status": "active",
+      "next_action": "Use LAUNCH-GATE-001 as the approval boundary."
+    }
+  ],
+  "traceability_refs": [
+    "LAUNCH-GATE-001",
+    "LAUNCH-GATE-002",
+    "LAUNCH-GATE-003",
+    "DEPLOY-WEB",
+    "DEPLOY-WORKER",
+    "DEPLOY-DB",
+    "DEPLOY-REDIS",
+    "INTEGRATION-SENTRY"
+  ],
+  "artifact_refs": [
+    "ARTIFACT-S5-021-BUILD",
+    "ARTIFACT-S5-021-VALIDATION"
+  ]
+}

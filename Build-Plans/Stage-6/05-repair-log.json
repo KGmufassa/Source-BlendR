@@ -1,0 +1,63 @@
+{
+  "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
+  "stage": "Stage 6",
+  "status": "in_progress",
+  "repairs": [
+    {
+      "repair_id": "REPAIR-S6-002",
+      "ticket_id": "TICKET-001",
+      "batch_id": "BATCH-002",
+      "issue": "Workspace scaffold test asserted the original one-file test command exactly, blocking later Stage 6 test expansion.",
+      "fix": "Changed assertion to require node --test and continued inclusion of apps/workspace-scaffold.test.mjs.",
+      "status": "revalidated",
+      "revalidation": "corepack pnpm test passed"
+    },
+    {
+      "repair_id": "REPAIR-S6-004",
+      "ticket_id": "TICKET-012",
+      "batch_id": "BATCH-004",
+      "issue": "PDF normalized-source test exposed literal escaped newline handling in extracted text.",
+      "fix": "Normalize escaped \\n sequences before line splitting.",
+      "status": "revalidated",
+      "revalidation": "Focused BATCH-004 tests and root pnpm test passed"
+    }
+  ],
+  "remaining_defects": [],
+  "unresolved_repair_risks": [],
+  "artifact_refs": [
+    "ARTIFACT-S5-001-TEST",
+    "ARTIFACT-S5-001-VALIDATION",
+    "ARTIFACT-S5-002-TEST",
+    "ARTIFACT-S5-002-VALIDATION",
+    "ARTIFACT-S5-003-TEST",
+    "ARTIFACT-S5-003-VALIDATION",
+    "ARTIFACT-S5-004-TEST",
+    "ARTIFACT-S5-004-VALIDATION",
+    "ARTIFACT-S5-016-TEST",
+    "ARTIFACT-S5-016-VALIDATION",
+    "ARTIFACT-S5-016-PREVIEW",
+    "ARTIFACT-S5-016-SCREENSHOT",
+    "ARTIFACT-S5-005-TEST",
+    "ARTIFACT-S5-005-VALIDATION",
+    "ARTIFACT-S5-007-TEST",
+    "ARTIFACT-S5-007-VALIDATION",
+    "ARTIFACT-S5-008-TEST",
+    "ARTIFACT-S5-008-VALIDATION",
+    "ARTIFACT-S5-006-TEST",
+    "ARTIFACT-S5-006-VALIDATION",
+    "ARTIFACT-S5-010-TEST",
+    "ARTIFACT-S5-010-VALIDATION",
+    "ARTIFACT-S5-012-TEST",
+    "ARTIFACT-S5-012-VALIDATION",
+    "ARTIFACT-S5-014-TEST",
+    "ARTIFACT-S5-014-VALIDATION",
+    "ARTIFACT-S5-009-TEST",
+    "ARTIFACT-S5-009-VALIDATION",
+    "ARTIFACT-S5-009-PREVIEW",
+    "ARTIFACT-S5-009-SCREENSHOT",
+    "ARTIFACT-S5-018-TEST",
+    "ARTIFACT-S5-018-VALIDATION",
+    "ARTIFACT-S5-018-PREVIEW",
+    "ARTIFACT-S5-018-SCREENSHOT"
+  ]
+}

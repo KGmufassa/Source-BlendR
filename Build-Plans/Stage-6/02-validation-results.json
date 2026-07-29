@@ -1,0 +1,1321 @@
+{
+  "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
+  "stage": "Stage 6",
+  "status": "ready_for_stage_7",
+  "ticket_validation_results": [
+    {
+      "validation_id": "VALIDATION-S6-001",
+      "ticket_id": "TICKET-001",
+      "slice_id": "SLICE-001",
+      "agent_id": "AGENT-FOUNDATION",
+      "batch_id": "BATCH-001",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "validation_id": "VALIDATION-S6-002",
+      "ticket_id": "TICKET-002",
+      "slice_id": "SLICE-002",
+      "agent_id": "AGENT-FOUNDATION",
+      "batch_id": "BATCH-002",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4173/preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "validation_id": "VALIDATION-S6-003",
+      "ticket_id": "TICKET-003",
+      "slice_id": "SLICE-002",
+      "agent_id": "AGENT-FOUNDATION",
+      "batch_id": "BATCH-002",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4173/preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "validation_id": "VALIDATION-S6-004",
+      "ticket_id": "TICKET-004",
+      "slice_id": "SLICE-003",
+      "agent_id": "AGENT-FOUNDATION",
+      "batch_id": "BATCH-002",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4173/preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": []
+    },
+    {
+      "validation_id": "VALIDATION-S6-016",
+      "ticket_id": "TICKET-016",
+      "slice_id": "SLICE-010",
+      "agent_id": "AGENT-FRONTEND",
+      "batch_id": "BATCH-002",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4173/preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Mobile/tablet visual screenshots remain limited to code-level responsive checks in this environment."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-005",
+      "ticket_id": "TICKET-005",
+      "slice_id": "SLICE-004",
+      "agent_id": "AGENT-WORKER",
+      "batch_id": "BATCH-003",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; registry metadata lookup for pnpm update notice failed under restricted network, no dependency install required."
+        },
+        {
+          "command": "corepack pnpm exec node --test apps/worker/import-job-contracts.test.mjs packages/ai/ai-router.test.mjs packages/domain/catalog-api-contracts.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "17 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "git diff --check",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "BullMQ/Redis runtime integration is intentionally deferred; this batch freezes queue payload and observable job contracts."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-007",
+      "ticket_id": "TICKET-007",
+      "slice_id": "SLICE-006",
+      "agent_id": "AGENT-BACKEND",
+      "batch_id": "BATCH-003",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; registry metadata lookup for pnpm update notice failed under restricted network, no dependency install required."
+        },
+        {
+          "command": "corepack pnpm exec node --test apps/worker/import-job-contracts.test.mjs packages/ai/ai-router.test.mjs packages/domain/catalog-api-contracts.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "17 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "git diff --check",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Real provider SDK adapters and credential persistence are intentionally deferred; this batch freezes capability routing contracts."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-008",
+      "ticket_id": "TICKET-008",
+      "slice_id": "SLICE-005",
+      "agent_id": "AGENT-BACKEND",
+      "batch_id": "BATCH-003",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; registry metadata lookup for pnpm update notice failed under restricted network, no dependency install required."
+        },
+        {
+          "command": "corepack pnpm exec node --test apps/worker/import-job-contracts.test.mjs packages/ai/ai-router.test.mjs packages/domain/catalog-api-contracts.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "17 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "git diff --check",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "HTTP route handlers and Prisma-backed repositories are intentionally deferred; this batch freezes workspace-scoped domain API contracts."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-006",
+      "ticket_id": "TICKET-006",
+      "slice_id": "SLICE-004",
+      "agent_id": "AGENT-BACKEND",
+      "batch_id": "BATCH-004",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; pnpm update metadata lookup failed under restricted network, no external dependency added."
+        },
+        {
+          "command": "corepack pnpm exec node --test packages/domain/import-api-contracts.test.mjs packages/scrapers/normalized-source.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "25 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/catalog-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/ai-settings-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/catalog-preview.html apps/web/ai-settings-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Runtime integrations remain downstream; executable contract coverage is present."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-010",
+      "ticket_id": "TICKET-010",
+      "slice_id": "SLICE-007",
+      "agent_id": "AGENT-WORKER",
+      "batch_id": "BATCH-004",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; pnpm update metadata lookup failed under restricted network, no external dependency added."
+        },
+        {
+          "command": "corepack pnpm exec node --test packages/domain/import-api-contracts.test.mjs packages/scrapers/normalized-source.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "25 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/catalog-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/ai-settings-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/catalog-preview.html apps/web/ai-settings-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Runtime integrations remain downstream; executable contract coverage is present."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-012",
+      "ticket_id": "TICKET-012",
+      "slice_id": "SLICE-008",
+      "agent_id": "AGENT-WORKER",
+      "batch_id": "BATCH-004",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; pnpm update metadata lookup failed under restricted network, no external dependency added."
+        },
+        {
+          "command": "corepack pnpm exec node --test packages/domain/import-api-contracts.test.mjs packages/scrapers/normalized-source.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "25 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/catalog-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/ai-settings-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/catalog-preview.html apps/web/ai-settings-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Runtime integrations remain downstream; executable contract coverage is present."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-014",
+      "ticket_id": "TICKET-014",
+      "slice_id": "SLICE-009",
+      "agent_id": "AGENT-BACKEND",
+      "batch_id": "BATCH-004",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; pnpm update metadata lookup failed under restricted network, no external dependency added."
+        },
+        {
+          "command": "corepack pnpm exec node --test packages/domain/import-api-contracts.test.mjs packages/scrapers/normalized-source.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "25 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/catalog-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/ai-settings-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/catalog-preview.html apps/web/ai-settings-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Runtime integrations remain downstream; executable contract coverage is present."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-009",
+      "ticket_id": "TICKET-009",
+      "slice_id": "SLICE-012",
+      "agent_id": "AGENT-FRONTEND",
+      "batch_id": "BATCH-004",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; pnpm update metadata lookup failed under restricted network, no external dependency added."
+        },
+        {
+          "command": "corepack pnpm exec node --test packages/domain/import-api-contracts.test.mjs packages/scrapers/normalized-source.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "25 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/catalog-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/ai-settings-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/catalog-preview.html apps/web/ai-settings-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Runtime integrations remain downstream; executable contract coverage is present."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-018",
+      "ticket_id": "TICKET-018",
+      "slice_id": "SLICE-012",
+      "agent_id": "AGENT-FRONTEND",
+      "batch_id": "BATCH-004",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm install --lockfile-only",
+          "status": "passed_with_warning",
+          "notes": "Exit code 0; pnpm update metadata lookup failed under restricted network, no external dependency added."
+        },
+        {
+          "command": "corepack pnpm exec node --test packages/domain/import-api-contracts.test.mjs packages/scrapers/normalized-source.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "25 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/catalog-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4174/ai-settings-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/catalog-preview.html apps/web/ai-settings-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Runtime integrations remain downstream; executable contract coverage is present."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-011",
+      "ticket_id": "TICKET-011",
+      "slice_id": "SLICE-011",
+      "agent_id": "AGENT-FRONTEND",
+      "batch_id": "BATCH-005",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm exec node --test apps/web/import-workflows.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "30 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4175/website-import-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/website-import-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Static preview freezes route/action/state and visual contracts; production Next.js route handlers remain downstream runtime work."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-013",
+      "ticket_id": "TICKET-013",
+      "slice_id": "SLICE-011",
+      "agent_id": "AGENT-FRONTEND",
+      "batch_id": "BATCH-005",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm exec node --test apps/web/import-workflows.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "30 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4175/pdf-import-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/pdf-import-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Static preview freezes route/action/state and visual contracts; production Next.js route handlers remain downstream runtime work."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-015",
+      "ticket_id": "TICKET-015",
+      "slice_id": "SLICE-011",
+      "agent_id": "AGENT-FRONTEND",
+      "batch_id": "BATCH-005",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm exec node --test apps/web/import-workflows.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "30 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4175/discovery-session-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/discovery-session-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Static preview freezes route/action/state and visual contracts; production Next.js route handlers remain downstream runtime work."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-017",
+      "ticket_id": "TICKET-017",
+      "slice_id": "SLICE-011",
+      "agent_id": "AGENT-FRONTEND",
+      "batch_id": "BATCH-005",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm exec node --test apps/web/import-workflows.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "30 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4175/import-workspace-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/import-workspace-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Static preview freezes route/action/state and visual contracts; production Next.js route handlers remain downstream runtime work."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-019",
+      "ticket_id": "TICKET-019",
+      "slice_id": "SLICE-013",
+      "agent_id": "AGENT-VALIDATION",
+      "batch_id": "BATCH-006",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm exec node --test apps/validation/stage6-batch006-validation.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "32 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Security validation is contract-level; production middleware, storage ACLs, and runtime rate limiting remain downstream."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-020",
+      "ticket_id": "TICKET-020",
+      "slice_id": "SLICE-014",
+      "agent_id": "AGENT-VALIDATION",
+      "batch_id": "BATCH-006",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm exec node --test apps/validation/stage6-batch006-validation.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "32 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        },
+        {
+          "command": "curl -I http://127.0.0.1:4176/launch-validation-preview.html",
+          "status": "passed",
+          "evidence": "HTTP/1.0 200 OK"
+        },
+        {
+          "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/launch-validation-preview.html",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Real browser automation remains unavailable; checks use static executable contract validation plus Quick Look screenshot evidence."
+      ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-021",
+      "ticket_id": "TICKET-021",
+      "slice_id": "SLICE-015",
+      "agent_id": "AGENT-VALIDATION",
+      "batch_id": "BATCH-007",
+      "status": "passed",
+      "acceptance_criteria_status": "passed",
+      "checks": [
+        {
+          "command": "corepack pnpm exec node --test apps/ops/deployment-readiness.test.mjs",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm test",
+          "status": "passed",
+          "notes": "34 tests passed, 0 failed."
+        },
+        {
+          "command": "corepack pnpm typecheck",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm lint",
+          "status": "passed"
+        },
+        {
+          "command": "corepack pnpm build",
+          "status": "passed"
+        }
+      ],
+      "coverage_gaps": [
+        "Stage 6 records dry-run readiness only; Stage 7 owns production deployment execution, live credentials, hosted health endpoints, and live Sentry/project wiring."
+      ]
+    }
+  ],
+  "agent_validation_results": [
+    {
+      "agent_id": "AGENT-FOUNDATION",
+      "status": "passed",
+      "ticket_ids": [
+        "TICKET-001",
+        "TICKET-002",
+        "TICKET-003",
+        "TICKET-004"
+      ]
+    },
+    {
+      "agent_id": "AGENT-WORKER",
+      "status": "passed",
+      "ticket_ids": [
+        "TICKET-010",
+        "TICKET-012"
+      ]
+    },
+    {
+      "agent_id": "AGENT-BACKEND",
+      "status": "passed",
+      "ticket_ids": [
+        "TICKET-006",
+        "TICKET-014"
+      ]
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "status": "passed",
+      "ticket_ids": [
+        "TICKET-009",
+        "TICKET-018"
+      ]
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "status": "passed",
+      "ticket_ids": [
+        "TICKET-011",
+        "TICKET-013",
+        "TICKET-015",
+        "TICKET-017"
+      ]
+    },
+    {
+      "agent_id": "AGENT-VALIDATION",
+      "status": "passed",
+      "ticket_ids": [
+        "TICKET-019",
+        "TICKET-020"
+      ]
+    },
+    {
+      "agent_id": "AGENT-VALIDATION",
+      "status": "passed",
+      "ticket_ids": [
+        "TICKET-021"
+      ]
+    }
+  ],
+  "batch_validation_results": [
+    {
+      "batch_id": "BATCH-001",
+      "status": "passed",
+      "validation_gates": [
+        "pnpm install resolves",
+        "workspace typecheck and test commands execute"
+      ]
+    },
+    {
+      "batch_id": "BATCH-002",
+      "status": "passed",
+      "validation_gates": [
+        "Prisma test migration",
+        "tenant negative tests",
+        "app shell preview",
+        "shared type review"
+      ]
+    },
+    {
+      "batch_id": "BATCH-003",
+      "status": "passed",
+      "validation_gates": [
+        "queue contract tests",
+        "manual catalog E2E smoke",
+        "zero-provider tests"
+      ]
+    },
+    {
+      "batch_id": "BATCH-004",
+      "status": "passed",
+      "validation_gates": [
+        "representative website fixture",
+        "PDF/OCR fixture",
+        "candidate promotion integration",
+        "catalog/provider browser smoke"
+      ]
+    },
+    {
+      "batch_id": "BATCH-005",
+      "status": "passed",
+      "validation_gates": [
+        "desktop/tablet/mobile previews",
+        "keyboard paths",
+        "route/action/state checks",
+        "visual QA evidence"
+      ]
+    },
+    {
+      "batch_id": "BATCH-006",
+      "status": "passed",
+      "validation_gates": [
+        "No critical/high severity test failure",
+        "No cross-workspace access",
+        "No direct AI-to-catalog write",
+        "Zero-provider manual workflow passes",
+        "All required preview/visual QA artifacts registered",
+        "Idempotent retry and partial failure paths pass"
+      ]
+    },
+    {
+      "batch_id": "BATCH-007",
+      "status": "passed",
+      "validation_gates": [
+        "build/deploy checks",
+        "worker/web health",
+        "Sentry/log/queue signal checks",
+        "rollback rehearsal"
+      ]
+    }
+  ],
+  "failed_checks": [],
+  "coverage_gaps": [
+    "TICKET-016 mobile/tablet screenshot capture was not available through the browser plugin; responsive rules are present in code and visual screenshot exists for desktop shell.",
+    "BATCH-003 freezes contracts; runtime Redis/BullMQ, provider SDKs, route handlers, and Prisma repository implementations remain downstream.",
+    "BATCH-004 freezes contracts and previewable UI; production integrations remain downstream.",
+    "BATCH-005 freezes frontend workflow contracts and previewable UI; production route handlers and real browser automation remain downstream.",
+    "BATCH-006 is contract-level validation; real browser automation, production middleware, and deployed storage ACL validation remain downstream.",
+    "BATCH-007 is dry-run deployment readiness evidence; Stage 7 must verify real deployment, credentials, hosted health checks, monitoring alerts, and rollback in target environments."
+  ],
+  "visual_qa_results": [
+    {
+      "ticket_id": "TICKET-016",
+      "preview_url": "http://127.0.0.1:4173/preview.html",
+      "screenshot_path": "Build-Plans/Stage-6/evidence/preview.html.png",
+      "status": "passed_for_foundation_scope",
+      "visual_drift_status": "visual_match",
+      "visual_drift_source": "implementation_only_drift"
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "preview_url": "http://127.0.0.1:4174/catalog-preview.html",
+      "screenshot_path": "Build-Plans/Stage-6/evidence/catalog-preview.html.png",
+      "status": "passed_for_foundation_scope",
+      "visual_drift_status": "visual_match",
+      "visual_drift_source": "implementation_only_drift"
+    },
+    {
+      "ticket_id": "TICKET-018",
+      "preview_url": "http://127.0.0.1:4174/ai-settings-preview.html",
+      "screenshot_path": "Build-Plans/Stage-6/evidence/ai-settings-preview.html.png",
+      "status": "passed_for_foundation_scope",
+      "visual_drift_status": "visual_match",
+      "visual_drift_source": "implementation_only_drift"
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "preview_url": "http://127.0.0.1:4175/website-import-preview.html",
+      "screenshot_path": "Build-Plans/Stage-6/evidence/website-import-preview.html.png",
+      "status": "passed_for_foundation_scope",
+      "visual_drift_status": "visual_match",
+      "visual_drift_source": "implementation_only_drift"
+    },
+    {
+      "ticket_id": "TICKET-013",
+      "preview_url": "http://127.0.0.1:4175/pdf-import-preview.html",
+      "screenshot_path": "Build-Plans/Stage-6/evidence/pdf-import-preview.html.png",
+      "status": "passed_for_foundation_scope",
+      "visual_drift_status": "visual_match",
+      "visual_drift_source": "implementation_only_drift"
+    },
+    {
+      "ticket_id": "TICKET-015",
+      "preview_url": "http://127.0.0.1:4175/discovery-session-preview.html",
+      "screenshot_path": "Build-Plans/Stage-6/evidence/discovery-session-preview.html.png",
+      "status": "passed_for_foundation_scope",
+      "visual_drift_status": "visual_match",
+      "visual_drift_source": "implementation_only_drift"
+    },
+    {
+      "ticket_id": "TICKET-017",
+      "preview_url": "http://127.0.0.1:4175/import-workspace-preview.html",
+      "screenshot_path": "Build-Plans/Stage-6/evidence/import-workspace-preview.html.png",
+      "status": "passed_for_foundation_scope",
+      "visual_drift_status": "visual_match",
+      "visual_drift_source": "implementation_only_drift"
+    },
+    {
+      "ticket_id": "TICKET-020",
+      "preview_url": "http://127.0.0.1:4176/launch-validation-preview.html",
+      "screenshot_path": "Build-Plans/Stage-6/evidence/launch-validation-preview.html.png",
+      "status": "passed_for_validation_scope",
+      "visual_drift_status": "visual_match",
+      "visual_drift_source": "validation_coverage_snapshot"
+    }
+  ],
+  "responsive_validation_results": [
+    {
+      "ticket_id": "TICKET-016",
+      "status": "passed_with_limited_runtime_evidence",
+      "checks": [
+        "CSS mobile breakpoint collapses shell to one column",
+        "navigation remains labeled",
+        "focus-visible styles are defined"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-009",
+      "status": "passed_with_limited_runtime_evidence",
+      "checks": [
+        "CSS mobile breakpoint collapses shell",
+        "catalog table stacks into labeled records"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-018",
+      "status": "passed_with_limited_runtime_evidence",
+      "checks": [
+        "CSS mobile breakpoint collapses shell",
+        "provider status and actions remain visible"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-011",
+      "status": "passed_with_limited_runtime_evidence",
+      "checks": [
+        "CSS mobile breakpoint collapses shell to one column",
+        "focus-visible styles are defined",
+        "website import wizard, category controls, and job navigation"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-013",
+      "status": "passed_with_limited_runtime_evidence",
+      "checks": [
+        "CSS mobile breakpoint collapses shell to one column",
+        "focus-visible styles are defined",
+        "PDF upload, recovery state, and job navigation"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-015",
+      "status": "passed_with_limited_runtime_evidence",
+      "checks": [
+        "CSS mobile breakpoint collapses shell to one column",
+        "focus-visible styles are defined",
+        "discovery candidate table, drawer, and bulk actions"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-017",
+      "status": "passed_with_limited_runtime_evidence",
+      "checks": [
+        "CSS mobile breakpoint collapses shell to one column",
+        "focus-visible styles are defined",
+        "overview/import workspace/job detail route and recovery actions"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-020",
+      "status": "passed_with_limited_runtime_evidence",
+      "checks": [
+        "all launch routes represented",
+        "all required action/element refs represented",
+        "focus-visible styles present",
+        "stacked table and full-screen drawer contracts present"
+      ]
+    }
+  ],
+  "visual_reference_validation_results": [
+    {
+      "ticket_id": "TICKET-016",
+      "status": "passed",
+      "refs": [
+        "DESIGN-SYSTEM-001",
+        "REF-UTILITARIAN",
+        "REF-BENTO-MODIFIER"
+      ]
+    },
+    {
+      "ticket_id": "BATCH-005",
+      "status": "passed",
+      "refs": [
+        "DESIGN-SYSTEM-001",
+        "REF-UTILITARIAN",
+        "REF-BENTO-MODIFIER"
+      ]
+    },
+    {
+      "ticket_id": "TICKET-020",
+      "status": "passed",
+      "refs": [
+        "DESIGN-SYSTEM-001",
+        "REF-UTILITARIAN",
+        "REF-BENTO-MODIFIER"
+      ]
+    }
+  ],
+  "artifact_refs": [
+    "ARTIFACT-S5-001-TEST",
+    "ARTIFACT-S5-001-VALIDATION",
+    "ARTIFACT-S5-002-TEST",
+    "ARTIFACT-S5-002-VALIDATION",
+    "ARTIFACT-S5-003-TEST",
+    "ARTIFACT-S5-003-VALIDATION",
+    "ARTIFACT-S5-004-TEST",
+    "ARTIFACT-S5-004-VALIDATION",
+    "ARTIFACT-S5-016-TEST",
+    "ARTIFACT-S5-016-VALIDATION",
+    "ARTIFACT-S5-016-PREVIEW",
+    "ARTIFACT-S5-016-SCREENSHOT",
+    "ARTIFACT-S5-005-TEST",
+    "ARTIFACT-S5-005-VALIDATION",
+    "ARTIFACT-S5-007-TEST",
+    "ARTIFACT-S5-007-VALIDATION",
+    "ARTIFACT-S5-008-TEST",
+    "ARTIFACT-S5-008-VALIDATION",
+    "ARTIFACT-S5-006-TEST",
+    "ARTIFACT-S5-006-VALIDATION",
+    "ARTIFACT-S5-010-TEST",
+    "ARTIFACT-S5-010-VALIDATION",
+    "ARTIFACT-S5-012-TEST",
+    "ARTIFACT-S5-012-VALIDATION",
+    "ARTIFACT-S5-014-TEST",
+    "ARTIFACT-S5-014-VALIDATION",
+    "ARTIFACT-S5-009-TEST",
+    "ARTIFACT-S5-009-VALIDATION",
+    "ARTIFACT-S5-009-PREVIEW",
+    "ARTIFACT-S5-009-SCREENSHOT",
+    "ARTIFACT-S5-018-TEST",
+    "ARTIFACT-S5-018-VALIDATION",
+    "ARTIFACT-S5-018-PREVIEW",
+    "ARTIFACT-S5-018-SCREENSHOT",
+    "ARTIFACT-S5-011-TEST",
+    "ARTIFACT-S5-011-VALIDATION",
+    "ARTIFACT-S5-011-PREVIEW",
+    "ARTIFACT-S5-011-SCREENSHOT",
+    "ARTIFACT-S5-013-TEST",
+    "ARTIFACT-S5-013-VALIDATION",
+    "ARTIFACT-S5-013-PREVIEW",
+    "ARTIFACT-S5-013-SCREENSHOT",
+    "ARTIFACT-S5-015-TEST",
+    "ARTIFACT-S5-015-VALIDATION",
+    "ARTIFACT-S5-015-PREVIEW",
+    "ARTIFACT-S5-015-SCREENSHOT",
+    "ARTIFACT-S5-017-TEST",
+    "ARTIFACT-S5-017-VALIDATION",
+    "ARTIFACT-S5-017-PREVIEW",
+    "ARTIFACT-S5-017-SCREENSHOT",
+    "ARTIFACT-S5-019-TEST",
+    "ARTIFACT-S5-019-VALIDATION",
+    "ARTIFACT-S5-020-TEST",
+    "ARTIFACT-S5-020-VALIDATION",
+    "ARTIFACT-S5-020-PREVIEW",
+    "ARTIFACT-S5-020-SCREENSHOT",
+    "ARTIFACT-S5-021-TEST",
+    "ARTIFACT-S5-021-VALIDATION",
+    "ARTIFACT-S5-021-BUILD"
+  ]
+}

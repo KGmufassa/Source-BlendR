@@ -1,0 +1,61 @@
+{
+  "ticket_id": "TICKET-021",
+  "validation_id": "VALIDATION-S6-021",
+  "status": "passed",
+  "recorded_at": "2026-07-28T02:31:00Z",
+  "checks": [
+    {
+      "command": "corepack pnpm exec node --test apps/ops/deployment-readiness.test.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test",
+      "status": "passed",
+      "notes": "34 tests passed, 0 failed."
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm lint",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed"
+    }
+  ],
+  "deployment_readiness": {
+    "status": "passed_for_stage_6_dry_run",
+    "deployment_units": [
+      "DEPLOY-WEB",
+      "DEPLOY-WORKER",
+      "DEPLOY-DB",
+      "DEPLOY-REDIS"
+    ],
+    "observability_signals": [
+      "Sentry errors",
+      "structured API logs",
+      "worker/job event logs",
+      "job duration/failure metrics",
+      "provider request/cost logs"
+    ],
+    "rollback_controls": [
+      "Versioned Prisma migrations with tested rollback/forward-fix choice",
+      "Web deployment rollback to previous Vercel deployment",
+      "Worker deployment rollback on Fly.io",
+      "Pause queues without losing job records",
+      "Disable provider/connector capability through configuration",
+      "Preserve source artifacts and candidate data for replay"
+    ],
+    "runbooks": [
+      "RUNBOOK-STUCK-JOB",
+      "RUNBOOK-PROVIDER-DEGRADED",
+      "RUNBOOK-ROLLBACK"
+    ]
+  },
+  "coverage_gaps": [
+    "Stage 6 records dry-run readiness only; Stage 7 owns production deployment execution, real credentials, hosted health endpoints, and live Sentry/project wiring."
+  ]
+}

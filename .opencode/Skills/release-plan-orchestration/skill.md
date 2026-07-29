@@ -1,3 +1,9 @@
+---
+name: release-plan-orchestration
+description: Define the canonical Stage 5 release plan, rollout gates, rollback requirements, operational readiness, and Stage 7 handoff notes.
+compatibility: opencode
+---
+
 # Skill — release-plan-orchestration
 
 # Purpose
@@ -106,14 +112,19 @@ Pause for user input when release strategy changes implementation scope, testing
 
 ```json
 {
-  "release_plan": {},
-  "release_phases": [],
-  "release_gates": [],
-  "rollback_requirements": [],
-  "stage_7_handoff_notes": {},
-  "release_risks": []
+  "data": {
+    "release_plan": {
+      "release_phases": [],
+      "release_gates": [],
+      "rollback_requirements": [],
+      "stage_7_handoff_notes": {}
+    },
+    "risk_refs": []
+  }
 }
 ```
+
+Store release collections only inside `release_plan`. Use risk IDs instead of repeating full risk objects.
 
 ---
 

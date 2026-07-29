@@ -1,1163 +1,218 @@
 {
+  "$schema": "../../System-References/Schemas/stage-5-artifact.schema.json",
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S5-TESTING",
+  "artifact_type": "testing_strategy",
   "stage": "Stage 5",
   "status": "ready_for_stage_6",
-  "selected_stack": {
-    "stack_decision_id": "STACK-003",
-    "frontend": {
-      "framework": "Next.js App Router",
-      "language": "TypeScript",
-      "ui_runtime": "React",
-      "styling": "Tailwind CSS with shadcn/ui-compatible component primitives",
-      "state": "Server Components and server actions for standard flows; client state only for interactive discovery/catalog workflows"
-    },
-    "backend": {
-      "framework": "Next.js route handlers and server actions",
-      "runtime": "Node.js LTS",
-      "language": "TypeScript",
-      "api_style": "Route Handler -> Domain Service -> Repository -> Prisma for REST-style JSON endpoints and app-owned mutations",
-      "background_jobs": "Separate TypeScript BullMQ worker on Redis for all long-running tasks"
-    },
-    "monorepo": {
-      "workspace_tooling": "pnpm workspaces",
-      "apps": [
-        "apps/web",
-        "apps/worker"
+  "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
+  "traceability_refs": [
+    "FEATURE-001",
+    "FEATURE-002",
+    "FEATURE-003",
+    "FEATURE-004",
+    "FEATURE-005",
+    "FEATURE-010",
+    "FEATURE-013",
+    "FEATURE-014",
+    "FEATURE-015",
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-007",
+    "WORKFLOW-006",
+    "WORKFLOW-014"
+  ],
+  "data": {
+    "testing_strategy": {
+      "strategy": "Risk-weighted test pyramid with slice-local Vitest coverage, contract/integration checks at every merge gate, and Playwright launch-workflow validation before release.",
+      "test_levels": [
+        {
+          "level": "unit",
+          "tool": "Vitest",
+          "scope": [
+            "domain services",
+            "validation rules",
+            "AI adapters",
+            "queue processors",
+            "state helpers"
+          ],
+          "release_blocking": true
+        },
+        {
+          "level": "integration",
+          "tool": "Vitest plus Prisma test database and isolated Redis",
+          "scope": [
+            "route/server action to domain service",
+            "worker processor to domain service",
+            "tenant isolation",
+            "storage and provider adapters"
+          ],
+          "release_blocking": true
+        },
+        {
+          "level": "end_to_end",
+          "tool": "Playwright",
+          "scope": [
+            "WORKFLOW-001",
+            "WORKFLOW-002",
+            "WORKFLOW-003",
+            "WORKFLOW-007",
+            "WORKFLOW-006",
+            "WORKFLOW-014"
+          ],
+          "release_blocking": true
+        },
+        {
+          "level": "accessibility",
+          "tool": "Playwright keyboard/semantic checks plus manual screen-reader smoke",
+          "scope": [
+            "SCREEN-003",
+            "SCREEN-004",
+            "SCREEN-005",
+            "SCREEN-006",
+            "SCREEN-007",
+            "SCREEN-008",
+            "SCREEN-010"
+          ],
+          "release_blocking": true
+        },
+        {
+          "level": "security",
+          "tool": "Vitest integration plus security-review",
+          "scope": [
+            "tenant isolation",
+            "Clerk workspace binding",
+            "credential secrecy",
+            "file upload validation",
+            "server action authorization"
+          ],
+          "release_blocking": true
+        },
+        {
+          "level": "visual_responsive",
+          "tool": "Playwright screenshots and design-system checklist",
+          "scope": [
+            "SCREEN-001",
+            "SCREEN-002",
+            "SCREEN-003",
+            "SCREEN-004",
+            "SCREEN-005",
+            "SCREEN-006",
+            "SCREEN-007",
+            "SCREEN-008",
+            "SCREEN-009",
+            "SCREEN-010"
+          ],
+          "release_blocking": true
+        }
       ],
-      "packages": {
-        "packages/domain": "Domain services, use cases, orchestration, business logic, and service interfaces consumed by web and worker.",
-        "packages/ai": "AI Capability Router, provider adapter interfaces, provider implementations, request/response normalization, and provider health checks.",
-        "packages/scrapers": "Playwright website discovery, navigation tree extraction, PDF/OCR import connectors, and raw artifact collection.",
-        "packages/shared": "Shared utilities, config helpers, logging, errors, constants, and cross-cutting primitives.",
-        "packages/validation": "Deterministic validation rules, duplicate checks, SKU/price/category rules, and candidate-to-catalog import gates.",
-        "packages/types": "Shared TypeScript types, DTOs, schemas, queue payloads, and API contracts."
-      }
-    },
-    "domain_service_layer": {
-      "request_flow": "Route Handler / Server Action -> Domain Service -> Repository -> Prisma -> PostgreSQL",
-      "worker_flow": "BullMQ Processor -> Domain Service -> Repository -> Prisma -> PostgreSQL",
-      "rule": "Business logic lives in domain services and validation package, not directly inside route handlers, server actions, or queue processors."
-    },
-    "database": {
-      "primary": "PostgreSQL",
-      "orm_or_query_layer": "Prisma",
-      "search": "PostgreSQL full-text search for MVP; external search deferred until scale evidence exists",
-      "migration_strategy": "Prisma migrations"
-    },
-    "storage": {
-      "provider": "Backblaze B2",
-      "usage": "PDF uploads, generated PDFs/PNGs, import snapshots, rendered DOM snapshots when retained"
-    },
-    "authentication": {
-      "provider_or_strategy": "Clerk Organizations",
-      "tenant_model": "Workspace maps to Clerk organization and application workspace_id",
-      "authorization": "Application-enforced RBAC with workspace_owner for MVP"
-    },
-    "hosting_and_deployment": {
-      "web_and_api": "Vercel",
-      "workers": "Fly.io TypeScript worker service with Playwright runtime",
-      "database": "Neon PostgreSQL",
-      "redis": "Upstash Redis",
-      "object_storage": "Backblaze B2",
-      "observability": "Sentry plus structured logs and queue/job metrics"
-    },
-    "testing_stack": {
-      "unit": "Vitest",
-      "route_integration": "Vitest against route handlers/server actions through domain services",
-      "worker_integration": "Vitest against BullMQ processors through domain services",
-      "e2e": "Playwright",
-      "database": "Prisma test database migrations",
-      "security": "tenant-isolation integration tests and credential handling checks"
-    },
-    "package_manager": "pnpm",
-    "ai_and_external_services": [
-      {
-        "service": "AI Capability Router",
-        "status": "stable interface for all AI integrations"
+      "workflow_acceptance": [
+        {
+          "workflow_id": "WORKFLOW-001",
+          "validation_id": "VALIDATION-WORKFLOW-001",
+          "criteria": [
+            "Happy path completes",
+            "permission denial is safe",
+            "loading/error/retry states are explicit",
+            "workspace isolation holds",
+            "manual fallback remains available when relevant"
+          ]
+        },
+        {
+          "workflow_id": "WORKFLOW-002",
+          "validation_id": "VALIDATION-WORKFLOW-002",
+          "criteria": [
+            "Happy path completes",
+            "permission denial is safe",
+            "loading/error/retry states are explicit",
+            "workspace isolation holds",
+            "manual fallback remains available when relevant"
+          ]
+        },
+        {
+          "workflow_id": "WORKFLOW-003",
+          "validation_id": "VALIDATION-WORKFLOW-003",
+          "criteria": [
+            "Happy path completes",
+            "permission denial is safe",
+            "loading/error/retry states are explicit",
+            "workspace isolation holds",
+            "manual fallback remains available when relevant"
+          ]
+        },
+        {
+          "workflow_id": "WORKFLOW-007",
+          "validation_id": "VALIDATION-WORKFLOW-004",
+          "criteria": [
+            "Happy path completes",
+            "permission denial is safe",
+            "loading/error/retry states are explicit",
+            "workspace isolation holds",
+            "manual fallback remains available when relevant"
+          ]
+        },
+        {
+          "workflow_id": "WORKFLOW-006",
+          "validation_id": "VALIDATION-WORKFLOW-005",
+          "criteria": [
+            "Happy path completes",
+            "permission denial is safe",
+            "loading/error/retry states are explicit",
+            "workspace isolation holds",
+            "manual fallback remains available when relevant"
+          ]
+        },
+        {
+          "workflow_id": "WORKFLOW-014",
+          "validation_id": "VALIDATION-WORKFLOW-006",
+          "criteria": [
+            "Happy path completes",
+            "permission denial is safe",
+            "loading/error/retry states are explicit",
+            "workspace isolation holds",
+            "manual fallback remains available when relevant"
+          ]
+        }
+      ],
+      "regression_strategy": {
+        "per_ticket": [
+          "affected unit/integration tests",
+          "lint/typecheck",
+          "artifact registration"
+        ],
+        "per_batch": [
+          "shared contract tests",
+          "database migration test",
+          "targeted Playwright smoke"
+        ],
+        "release_candidate": [
+          "full unit/integration suite",
+          "all launch workflows",
+          "accessibility/keyboard suite",
+          "responsive screenshots",
+          "security regression",
+          "rollback rehearsal"
+        ]
       },
-      {
-        "service": "OpenAI-compatible provider adapter",
-        "status": "MVP default adapter"
-      },
-      {
-        "service": "Ollama provider adapter",
-        "status": "local model option"
-      },
-      {
-        "service": "Anthropic provider adapter",
-        "status": "post-MVP adapter unless required earlier"
-      },
-      {
-        "service": "Google/Gemini provider adapter",
-        "status": "post-MVP adapter unless required earlier"
-      },
-      {
-        "service": "Tesseract OCR",
-        "status": "MVP OCR fallback for PDFs"
-      }
-    ],
-    "pipeline_architecture": {
-      "scraping_pipeline": "External source -> connector/scraper -> raw import artifact -> normalized source record -> Discovery Session candidate seed",
-      "ai_enrichment_pipeline": "Normalized source record or catalog candidate -> AI Capability Router -> Provider Adapter -> enrichment result -> validation -> candidate/catalog update",
-      "separation_rule": "Scraping collects and normalizes source data; AI enrichment is independently repeatable and can re-enrich stored normalized source records without re-scraping.",
-      "re_enrichment_support": "Persist normalized source records and import artifacts with version/source hashes so users can rerun enrichment after changing provider, prompt, capability route, or validation rules."
+      "release_test_gates": [
+        "No critical/high severity test failure",
+        "No cross-workspace access",
+        "No direct AI-to-catalog write",
+        "Zero-provider manual workflow passes",
+        "All required preview/visual QA artifacts registered",
+        "Idempotent retry and partial failure paths pass"
+      ],
+      "manual_validation_assumptions": [
+        "Screen-reader smoke and visual comparison require human review in Stage 6",
+        "Representative-site anti-bot behavior requires controlled manual observation"
+      ]
     },
-    "rationale": "A Next.js full-stack monorepo with a separate BullMQ worker is the simplest scalable architecture: route handlers and server actions stay thin, all business logic is centralized in shared domain services, workers reuse the same domain services, scraping and AI enrichment remain independent pipelines, and the AI Capability Router/Provider Adapter interface remains stable for all AI integrations.",
-    "rejected_alternatives": [
-      {
-        "alternative": "Next.js-only including long-running workers",
-        "reason": "Too risky for Playwright/OCR/AI jobs; workers must scale and run independently."
-      },
-      {
-        "alternative": "Python/FastAPI backend",
-        "reason": "Adds a second language while frontend, Playwright, and worker ecosystem remain TypeScript-heavy."
-      },
-      {
-        "alternative": "Microservices from day one",
-        "reason": "Over-engineered before scale evidence; monorepo packages plus separate worker are enough."
-      },
-      {
-        "alternative": "External search service for MVP",
-        "reason": "Unnecessary until catalog scale proves PostgreSQL full-text insufficient."
-      }
-    ],
-    "risks": [
-      "RISK-001",
-      "RISK-005",
-      "RISK-010",
-      "RISK-012",
-      "RISK-015",
-      "ARCH-RISK-001",
-      "ARCH-RISK-002"
+    "risk_refs": [
+      "RISK-S5-001",
+      "RISK-S5-003",
+      "RISK-S5-004",
+      "RISK-S5-005"
     ]
-  },
-  "stage_contract_profile": {
-    "profile_id": "PROFILE-SOURCE-BLENDR",
-    "profile_name": "ai-heavy-app",
-    "app_type": "B2B SaaS — Vendor Intelligence Platform",
-    "complexity_level": "high",
-    "guidance_depth": "standard",
-    "required_stage_depth": {
-      "stage_1": "standard",
-      "stage_2": "standard",
-      "stage_3": "detailed",
-      "stage_4": "standard",
-      "stage_5": "standard",
-      "stage_6": "detailed",
-      "stage_7": "standard",
-      "stage_8": "minimal"
-    },
-    "required_validation_layers": [
-      "schema",
-      "reference_integrity"
-    ],
-    "optional_outputs": [
-      "Analytics",
-      "Collections"
-    ],
-    "required_outputs": [
-      "01-product-foundation.json",
-      "02-user-system-map.json",
-      "03-workflow-architecture.json",
-      "04-product-capabilities.json",
-      "05-feature-structure.json",
-      "06-product-boundaries.json",
-      "07-dependency-map.json",
-      "08-mvp-operational-model.json",
-      "09-risk-and-constraints.json",
-      "10-success-framework.json"
-    ],
-    "skip_allowed_outputs": [],
-    "approval_gates": [
-      "stage_decision_brief"
-    ]
-  },
-  "guidance_policy": {
-    "complexity_level": "high",
-    "guidance_depth": "standard",
-    "ask_threshold": "material_decisions",
-    "default_inference_allowed": true,
-    "approval_required_for": [
-      "stage_decision_brief"
-    ],
-    "max_questions_per_turn": 3
-  },
-  "related_stage_1_inputs": [
-    "Build-Plans/Stage-1/05-feature-structure.json",
-    "Build-Plans/Stage-1/08-mvp-operational-model.json",
-    "Build-Plans/Stage-1/09-risk-and-constraints.json"
-  ],
-  "related_stage_3_inputs": [
-    "Build-Plans/Stage-3/02-service-architecture.json",
-    "Build-Plans/Stage-3/03-data-architecture.json",
-    "Build-Plans/Stage-3/04-api-architecture.json",
-    "Build-Plans/Stage-3/07-infrastructure-model.json"
-  ],
-  "related_stage_4_inputs": [
-    "Build-Plans/Stage-4/03-screen-system.json",
-    "Build-Plans/Stage-4/04-feature-behaviors.json",
-    "Build-Plans/Stage-4/05-state-transition-map.json",
-    "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
-    "Build-Plans/Stage-4/08-design-system-foundation.json",
-    "Build-Plans/Stage-4/09-complete-app-blueprint.md"
-  ],
-  "execution_decisions": [
-    {
-      "assumption_id": "ASSUMPTION-S5-001",
-      "assumption": "Use dependency-aware vertical slices after a thin monorepo, tenant, data, and queue foundation.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "WORKFLOW-001",
-        "WORKFLOW-002",
-        "WORKFLOW-003",
-        "WORKFLOW-007",
-        "WORKFLOW-006",
-        "WORKFLOW-014"
-      ],
-      "confidence": 0.9,
-      "risk_if_false": "Feature demonstrations arrive later or require sequence revision.",
-      "evidence_refs": [
-        "Build-Plans/Stage-1/08-mvp-operational-model.json",
-        "Build-Plans/Stage-3/00-stage-decision-brief.md"
-      ],
-      "status": "active"
-    },
-    {
-      "assumption_id": "ASSUMPTION-S5-002",
-      "assumption": "Use milestone exit criteria rather than calendar dates because no launch deadline was approved upstream.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "MILESTONE-001",
-        "MILESTONE-002",
-        "MILESTONE-003",
-        "MILESTONE-004"
-      ],
-      "confidence": 0.95,
-      "risk_if_false": "Capacity planning will need calendar estimates later.",
-      "evidence_refs": [
-        "Build-Plans/Stage-1/08-mvp-operational-model.json"
-      ],
-      "status": "active"
-    },
-    {
-      "assumption_id": "ASSUMPTION-S5-003",
-      "assumption": "Defer Flyer and Quote builders from the launch package because Stage 1 permits deferral when risk grows and Stage 4 contains no approved UI blueprints for them.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "FEATURE-008",
-        "FEATURE-009"
-      ],
-      "confidence": 0.9,
-      "risk_if_false": "The launch package may omit desired secondary business outputs.",
-      "evidence_refs": [
-        "Build-Plans/Stage-1/08-mvp-operational-model.json",
-        "Build-Plans/Stage-4/07-ui-blueprint-specification.json"
-      ],
-      "status": "active"
-    },
-    {
-      "assumption_id": "ASSUMPTION-S5-004",
-      "assumption": "Release through internal validation, private alpha, controlled beta, then public readiness review.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "LAUNCH-GATE-001",
-        "LAUNCH-GATE-002",
-        "LAUNCH-GATE-003"
-      ],
-      "confidence": 0.85,
-      "risk_if_false": "Operational work may be overbuilt for an internal-only launch or insufficient for a public launch.",
-      "evidence_refs": [
-        "Build-Plans/Stage-2/05-risk-validation.json"
-      ],
-      "status": "active"
-    },
-    {
-      "assumption_id": "ASSUMPTION-S5-005",
-      "assumption": "Generated Stage 6 agent profiles use GPT 5.5 and ticket-scoped edit/bash permissions.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "AGENT-FOUNDATION",
-        "AGENT-BACKEND",
-        "AGENT-WORKER",
-        "AGENT-FRONTEND",
-        "AGENT-VALIDATION"
-      ],
-      "confidence": 0.9,
-      "risk_if_false": "Agent files require a model or permission-policy update before execution.",
-      "evidence_refs": [
-        ".opencode/Skills/agent-assignment-planning/skill.md"
-      ],
-      "status": "active"
-    }
-  ],
-  "risks": [
-    {
-      "risk_id": "RISK-S5-001",
-      "risk": "Website scraping behavior and anti-bot variability can destabilize the core import slice.",
-      "domain": "integration",
-      "severity": "high",
-      "likelihood": "high",
-      "status": "open",
-      "affected_ids": [
-        "FEATURE-001",
-        "WORKFLOW-001",
-        "INTEGRATION-PLAYWRIGHT"
-      ],
-      "mitigation": "Build a narrow representative-site spike first; persist normalized artifacts; use idempotent per-category jobs and manual entry fallback.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Validate representative sites in TICKET-010 before broadening scraper behavior."
-    },
-    {
-      "risk_id": "RISK-S5-002",
-      "risk": "Async job, worker, and UI status contracts may drift across web and worker workstreams.",
-      "domain": "coordination",
-      "severity": "high",
-      "likelihood": "medium",
-      "status": "open",
-      "affected_ids": [
-        "FEATURE-013",
-        "API-IMPORTS",
-        "ENTITY-IMPORT-JOB"
-      ],
-      "mitigation": "Freeze shared queue payload and job-state contracts in packages/types before parallel UI/worker implementation.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Review shared contracts at BATCH-002 merge gate."
-    },
-    {
-      "risk_id": "RISK-S5-003",
-      "risk": "Tenant isolation or credential handling defects could expose workspace or provider data.",
-      "domain": "security",
-      "severity": "critical",
-      "likelihood": "medium",
-      "status": "open",
-      "affected_ids": [
-        "FEATURE-014",
-        "FEATURE-010",
-        "INTEGRATION-CLERK"
-      ],
-      "mitigation": "Require workspace-scoped repositories, encrypted/server-only credentials, negative tenant tests, and security review before alpha.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Complete TICKET-003 and TICKET-019 before LAUNCH-GATE-001."
-    },
-    {
-      "risk_id": "RISK-S5-004",
-      "risk": "Dense discovery and catalog interfaces may fail keyboard, responsive, or visual continuity requirements.",
-      "domain": "frontend",
-      "severity": "high",
-      "likelihood": "medium",
-      "status": "open",
-      "affected_ids": [
-        "SCREEN-006",
-        "SCREEN-007",
-        "DESIGN-SYSTEM-001"
-      ],
-      "mitigation": "Build shared accessible table/drawer patterns first and require preview, screenshot, keyboard, responsive, and design-system evidence.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Validate frontend tickets through TICKET-020 before beta."
-    },
-    {
-      "risk_id": "RISK-S5-005",
-      "risk": "AI provider behavior and extraction quality vary while zero-provider operation remains mandatory.",
-      "domain": "ai",
-      "severity": "high",
-      "likelihood": "high",
-      "status": "open",
-      "affected_ids": [
-        "FEATURE-010",
-        "WORKFLOW-006"
-      ],
-      "mitigation": "Keep provider adapters behind capability contracts, use deterministic validation, and test manual-only operation as a release gate.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Validate configured and zero-provider modes in TICKET-007 and TICKET-020."
-    }
-  ],
-  "assumptions": [
-    {
-      "assumption_id": "ASSUMPTION-S5-001",
-      "assumption": "Use dependency-aware vertical slices after a thin monorepo, tenant, data, and queue foundation.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "WORKFLOW-001",
-        "WORKFLOW-002",
-        "WORKFLOW-003",
-        "WORKFLOW-007",
-        "WORKFLOW-006",
-        "WORKFLOW-014"
-      ],
-      "confidence": 0.9,
-      "risk_if_false": "Feature demonstrations arrive later or require sequence revision.",
-      "evidence_refs": [
-        "Build-Plans/Stage-1/08-mvp-operational-model.json",
-        "Build-Plans/Stage-3/00-stage-decision-brief.md"
-      ],
-      "status": "active"
-    },
-    {
-      "assumption_id": "ASSUMPTION-S5-002",
-      "assumption": "Use milestone exit criteria rather than calendar dates because no launch deadline was approved upstream.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "MILESTONE-001",
-        "MILESTONE-002",
-        "MILESTONE-003",
-        "MILESTONE-004"
-      ],
-      "confidence": 0.95,
-      "risk_if_false": "Capacity planning will need calendar estimates later.",
-      "evidence_refs": [
-        "Build-Plans/Stage-1/08-mvp-operational-model.json"
-      ],
-      "status": "active"
-    },
-    {
-      "assumption_id": "ASSUMPTION-S5-003",
-      "assumption": "Defer Flyer and Quote builders from the launch package because Stage 1 permits deferral when risk grows and Stage 4 contains no approved UI blueprints for them.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "FEATURE-008",
-        "FEATURE-009"
-      ],
-      "confidence": 0.9,
-      "risk_if_false": "The launch package may omit desired secondary business outputs.",
-      "evidence_refs": [
-        "Build-Plans/Stage-1/08-mvp-operational-model.json",
-        "Build-Plans/Stage-4/07-ui-blueprint-specification.json"
-      ],
-      "status": "active"
-    },
-    {
-      "assumption_id": "ASSUMPTION-S5-004",
-      "assumption": "Release through internal validation, private alpha, controlled beta, then public readiness review.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "LAUNCH-GATE-001",
-        "LAUNCH-GATE-002",
-        "LAUNCH-GATE-003"
-      ],
-      "confidence": 0.85,
-      "risk_if_false": "Operational work may be overbuilt for an internal-only launch or insufficient for a public launch.",
-      "evidence_refs": [
-        "Build-Plans/Stage-2/05-risk-validation.json"
-      ],
-      "status": "active"
-    },
-    {
-      "assumption_id": "ASSUMPTION-S5-005",
-      "assumption": "Generated Stage 6 agent profiles use GPT 5.5 and ticket-scoped edit/bash permissions.",
-      "source_stage": "Stage 5",
-      "affected_ids": [
-        "AGENT-FOUNDATION",
-        "AGENT-BACKEND",
-        "AGENT-WORKER",
-        "AGENT-FRONTEND",
-        "AGENT-VALIDATION"
-      ],
-      "confidence": 0.9,
-      "risk_if_false": "Agent files require a model or permission-policy update before execution.",
-      "evidence_refs": [
-        ".opencode/Skills/agent-assignment-planning/skill.md"
-      ],
-      "status": "active"
-    }
-  ],
-  "unresolved_questions": [],
-  "stage_6_handoff": {
-    "source_stage": "Stage 5",
-    "target_stage": "Stage 6",
-    "source_output_directory": "Build-Plans/Stage-5",
-    "required_files": [
-      "Build-Plans/Stage-5/01-development-roadmap.json",
-      "Build-Plans/Stage-5/02-implementation-sequence.json",
-      "Build-Plans/Stage-5/03-engineering-dependencies.json",
-      "Build-Plans/Stage-5/04-testing-strategy.json",
-      "Build-Plans/Stage-5/05-build-tickets.json",
-      "Build-Plans/Stage-5/06-agent-assignment-plan.json",
-      "Build-Plans/Stage-5/07-parallel-execution-plan.json",
-      "Build-Plans/Stage-5/08-release-plan.json"
-    ],
-    "ready": true,
-    "blocking_items": [],
-    "accepted_risks": [
-      "RISK-001",
-      "RISK-005",
-      "RISK-010",
-      "UX-RISK-001",
-      "UX-RISK-002"
-    ],
-    "traceability_refs": [
-      "FEATURE-001",
-      "FEATURE-002",
-      "FEATURE-003",
-      "FEATURE-004",
-      "FEATURE-005",
-      "FEATURE-010",
-      "FEATURE-013",
-      "FEATURE-014",
-      "FEATURE-015",
-      "WORKFLOW-001",
-      "WORKFLOW-002",
-      "WORKFLOW-003",
-      "WORKFLOW-007",
-      "WORKFLOW-006",
-      "WORKFLOW-014",
-      "SLICE-001",
-      "SLICE-002",
-      "SLICE-003",
-      "SLICE-004",
-      "SLICE-005",
-      "SLICE-006",
-      "SLICE-007",
-      "SLICE-008",
-      "SLICE-009",
-      "SLICE-010",
-      "SLICE-011",
-      "SLICE-012",
-      "SLICE-013",
-      "SLICE-014",
-      "SLICE-015",
-      "TICKET-001",
-      "TICKET-002",
-      "TICKET-003",
-      "TICKET-004",
-      "TICKET-005",
-      "TICKET-006",
-      "TICKET-007",
-      "TICKET-008",
-      "TICKET-009",
-      "TICKET-010",
-      "TICKET-011",
-      "TICKET-012",
-      "TICKET-013",
-      "TICKET-014",
-      "TICKET-015",
-      "TICKET-016",
-      "TICKET-017",
-      "TICKET-018",
-      "TICKET-019",
-      "TICKET-020",
-      "TICKET-021",
-      "AGENT-FOUNDATION",
-      "AGENT-BACKEND",
-      "AGENT-WORKER",
-      "AGENT-FRONTEND",
-      "AGENT-VALIDATION",
-      "BATCH-001",
-      "BATCH-002",
-      "BATCH-003",
-      "BATCH-004",
-      "BATCH-005",
-      "BATCH-006",
-      "BATCH-007"
-    ],
-    "completion_status": {
-      "stage_specific_status": "ready_for_stage_6",
-      "global_status": "ready_for_next_stage",
-      "reason": "All Stage 5 orchestration outputs, dependency-aware tickets, required skill chains, generated agent profiles, parallel batches, release gates, expected artifacts, and Stage 6 handoff are complete.",
-      "blocking_items": [],
-      "next_actions": [
-        "Run Stage 6 implementation and validation using BATCH-001 through BATCH-007."
-      ],
-      "ready_for": "Stage 6 (Implementation & Validation)"
-    },
-    "execution_queue": [
-      "TICKET-001",
-      "TICKET-002",
-      "TICKET-003",
-      "TICKET-004",
-      "TICKET-005",
-      "TICKET-006",
-      "TICKET-007",
-      "TICKET-008",
-      "TICKET-009",
-      "TICKET-010",
-      "TICKET-011",
-      "TICKET-012",
-      "TICKET-013",
-      "TICKET-014",
-      "TICKET-015",
-      "TICKET-016",
-      "TICKET-017",
-      "TICKET-018",
-      "TICKET-019",
-      "TICKET-020",
-      "TICKET-021"
-    ],
-    "batch_order": [
-      "BATCH-001",
-      "BATCH-002",
-      "BATCH-003",
-      "BATCH-004",
-      "BATCH-005",
-      "BATCH-006",
-      "BATCH-007"
-    ],
-    "required_agent_files": [
-      ".opencode/agents/stage6-foundation-agent.md",
-      ".opencode/agents/stage6-backend-agent.md",
-      ".opencode/agents/stage6-worker-agent.md",
-      ".opencode/agents/stage6-frontend-agent.md",
-      ".opencode/agents/stage6-validation-agent.md"
-    ]
-  },
-  "completion_status": {
-    "stage_specific_status": "ready_for_stage_6",
-    "global_status": "ready_for_next_stage",
-    "reason": "All Stage 5 orchestration outputs, dependency-aware tickets, required skill chains, generated agent profiles, parallel batches, release gates, expected artifacts, and Stage 6 handoff are complete.",
-    "blocking_items": [],
-    "next_actions": [
-      "Run Stage 6 implementation and validation using BATCH-001 through BATCH-007."
-    ],
-    "ready_for": "Stage 6 (Implementation & Validation)"
-  },
-  "schema_validation": {
-    "schema_refs": [
-      "System-References/Schemas/stage-5-output.schema.json"
-    ],
-    "validated_files": [
-      "Build-Plans/Stage-5/01-development-roadmap.json",
-      "Build-Plans/Stage-5/02-implementation-sequence.json",
-      "Build-Plans/Stage-5/03-engineering-dependencies.json",
-      "Build-Plans/Stage-5/04-testing-strategy.json",
-      "Build-Plans/Stage-5/05-build-tickets.json",
-      "Build-Plans/Stage-5/06-agent-assignment-plan.json",
-      "Build-Plans/Stage-5/07-parallel-execution-plan.json",
-      "Build-Plans/Stage-5/08-release-plan.json"
-    ],
-    "schema_errors": [],
-    "schemas_valid": true,
-    "validated_at": "2026-07-14T05:14:57.424487+00:00",
-    "validator": "Draft 2020-12 structural validation (JSON parse plus required stage/status contract)",
-    "blocking": true
-  },
-  "reference_integrity": {
-    "checked_refs": [
-      "FEATURE-001",
-      "FEATURE-002",
-      "FEATURE-003",
-      "FEATURE-004",
-      "FEATURE-005",
-      "FEATURE-010",
-      "FEATURE-013",
-      "FEATURE-014",
-      "FEATURE-015",
-      "WORKFLOW-001",
-      "WORKFLOW-002",
-      "WORKFLOW-003",
-      "WORKFLOW-007",
-      "WORKFLOW-006",
-      "WORKFLOW-014",
-      "SLICE-001",
-      "SLICE-002",
-      "SLICE-003",
-      "SLICE-004",
-      "SLICE-005",
-      "SLICE-006",
-      "SLICE-007",
-      "SLICE-008",
-      "SLICE-009",
-      "SLICE-010",
-      "SLICE-011",
-      "SLICE-012",
-      "SLICE-013",
-      "SLICE-014",
-      "SLICE-015",
-      "TICKET-001",
-      "TICKET-002",
-      "TICKET-003",
-      "TICKET-004",
-      "TICKET-005",
-      "TICKET-006",
-      "TICKET-007",
-      "TICKET-008",
-      "TICKET-009",
-      "TICKET-010",
-      "TICKET-011",
-      "TICKET-012",
-      "TICKET-013",
-      "TICKET-014",
-      "TICKET-015",
-      "TICKET-016",
-      "TICKET-017",
-      "TICKET-018",
-      "TICKET-019",
-      "TICKET-020",
-      "TICKET-021",
-      "AGENT-FOUNDATION",
-      "AGENT-BACKEND",
-      "AGENT-WORKER",
-      "AGENT-FRONTEND",
-      "AGENT-VALIDATION",
-      "BATCH-001",
-      "BATCH-002",
-      "BATCH-003",
-      "BATCH-004",
-      "BATCH-005",
-      "BATCH-006",
-      "BATCH-007"
-    ],
-    "missing_refs": [],
-    "orphaned_refs": [],
-    "stale_refs": [],
-    "duplicate_ids": [],
-    "integrity_status": "passed",
-    "blocking_ref_errors": []
-  },
-  "risk_acceptance_ledger": {
-    "ledger_path": "Build-Plans/Build-status/Risk-acceptance-ledger.json",
-    "required": true,
-    "accepted_risks_present": true
-  },
-  "revision_loops": [],
-  "testing_strategy": {
-    "strategy": "Risk-weighted test pyramid with slice-local Vitest coverage, contract/integration checks at every merge gate, and Playwright launch-workflow validation before release.",
-    "test_levels": [
-      {
-        "level": "unit",
-        "tool": "Vitest",
-        "scope": [
-          "domain services",
-          "validation rules",
-          "AI adapters",
-          "queue processors",
-          "state helpers"
-        ],
-        "release_blocking": true
-      },
-      {
-        "level": "integration",
-        "tool": "Vitest plus Prisma test database and isolated Redis",
-        "scope": [
-          "route/server action to domain service",
-          "worker processor to domain service",
-          "tenant isolation",
-          "storage and provider adapters"
-        ],
-        "release_blocking": true
-      },
-      {
-        "level": "end_to_end",
-        "tool": "Playwright",
-        "scope": [
-          "WORKFLOW-001",
-          "WORKFLOW-002",
-          "WORKFLOW-003",
-          "WORKFLOW-007",
-          "WORKFLOW-006",
-          "WORKFLOW-014"
-        ],
-        "release_blocking": true
-      },
-      {
-        "level": "accessibility",
-        "tool": "Playwright keyboard/semantic checks plus manual screen-reader smoke",
-        "scope": [
-          "SCREEN-003",
-          "SCREEN-004",
-          "SCREEN-005",
-          "SCREEN-006",
-          "SCREEN-007",
-          "SCREEN-008",
-          "SCREEN-010"
-        ],
-        "release_blocking": true
-      },
-      {
-        "level": "security",
-        "tool": "Vitest integration plus security-review",
-        "scope": [
-          "tenant isolation",
-          "Clerk workspace binding",
-          "credential secrecy",
-          "file upload validation",
-          "server action authorization"
-        ],
-        "release_blocking": true
-      },
-      {
-        "level": "visual_responsive",
-        "tool": "Playwright screenshots and design-system checklist",
-        "scope": [
-          "SCREEN-001",
-          "SCREEN-002",
-          "SCREEN-003",
-          "SCREEN-004",
-          "SCREEN-005",
-          "SCREEN-006",
-          "SCREEN-007",
-          "SCREEN-008",
-          "SCREEN-009",
-          "SCREEN-010"
-        ],
-        "release_blocking": true
-      }
-    ],
-    "workflow_acceptance": [
-      {
-        "workflow_id": "WORKFLOW-001",
-        "validation_id": "VALIDATION-WORKFLOW-001",
-        "criteria": [
-          "Happy path completes",
-          "permission denial is safe",
-          "loading/error/retry states are explicit",
-          "workspace isolation holds",
-          "manual fallback remains available when relevant"
-        ]
-      },
-      {
-        "workflow_id": "WORKFLOW-002",
-        "validation_id": "VALIDATION-WORKFLOW-002",
-        "criteria": [
-          "Happy path completes",
-          "permission denial is safe",
-          "loading/error/retry states are explicit",
-          "workspace isolation holds",
-          "manual fallback remains available when relevant"
-        ]
-      },
-      {
-        "workflow_id": "WORKFLOW-003",
-        "validation_id": "VALIDATION-WORKFLOW-003",
-        "criteria": [
-          "Happy path completes",
-          "permission denial is safe",
-          "loading/error/retry states are explicit",
-          "workspace isolation holds",
-          "manual fallback remains available when relevant"
-        ]
-      },
-      {
-        "workflow_id": "WORKFLOW-007",
-        "validation_id": "VALIDATION-WORKFLOW-004",
-        "criteria": [
-          "Happy path completes",
-          "permission denial is safe",
-          "loading/error/retry states are explicit",
-          "workspace isolation holds",
-          "manual fallback remains available when relevant"
-        ]
-      },
-      {
-        "workflow_id": "WORKFLOW-006",
-        "validation_id": "VALIDATION-WORKFLOW-005",
-        "criteria": [
-          "Happy path completes",
-          "permission denial is safe",
-          "loading/error/retry states are explicit",
-          "workspace isolation holds",
-          "manual fallback remains available when relevant"
-        ]
-      },
-      {
-        "workflow_id": "WORKFLOW-014",
-        "validation_id": "VALIDATION-WORKFLOW-006",
-        "criteria": [
-          "Happy path completes",
-          "permission denial is safe",
-          "loading/error/retry states are explicit",
-          "workspace isolation holds",
-          "manual fallback remains available when relevant"
-        ]
-      }
-    ],
-    "regression_strategy": {
-      "per_ticket": [
-        "affected unit/integration tests",
-        "lint/typecheck",
-        "artifact registration"
-      ],
-      "per_batch": [
-        "shared contract tests",
-        "database migration test",
-        "targeted Playwright smoke"
-      ],
-      "release_candidate": [
-        "full unit/integration suite",
-        "all launch workflows",
-        "accessibility/keyboard suite",
-        "responsive screenshots",
-        "security regression",
-        "rollback rehearsal"
-      ]
-    },
-    "release_test_gates": [
-      "No critical/high severity test failure",
-      "No cross-workspace access",
-      "No direct AI-to-catalog write",
-      "Zero-provider manual workflow passes",
-      "All required preview/visual QA artifacts registered",
-      "Idempotent retry and partial failure paths pass"
-    ],
-    "manual_validation_assumptions": [
-      "Screen-reader smoke and visual comparison require human review in Stage 6",
-      "Representative-site anti-bot behavior requires controlled manual observation"
-    ]
-  },
-  "test_levels": [
-    {
-      "level": "unit",
-      "tool": "Vitest",
-      "scope": [
-        "domain services",
-        "validation rules",
-        "AI adapters",
-        "queue processors",
-        "state helpers"
-      ],
-      "release_blocking": true
-    },
-    {
-      "level": "integration",
-      "tool": "Vitest plus Prisma test database and isolated Redis",
-      "scope": [
-        "route/server action to domain service",
-        "worker processor to domain service",
-        "tenant isolation",
-        "storage and provider adapters"
-      ],
-      "release_blocking": true
-    },
-    {
-      "level": "end_to_end",
-      "tool": "Playwright",
-      "scope": [
-        "WORKFLOW-001",
-        "WORKFLOW-002",
-        "WORKFLOW-003",
-        "WORKFLOW-007",
-        "WORKFLOW-006",
-        "WORKFLOW-014"
-      ],
-      "release_blocking": true
-    },
-    {
-      "level": "accessibility",
-      "tool": "Playwright keyboard/semantic checks plus manual screen-reader smoke",
-      "scope": [
-        "SCREEN-003",
-        "SCREEN-004",
-        "SCREEN-005",
-        "SCREEN-006",
-        "SCREEN-007",
-        "SCREEN-008",
-        "SCREEN-010"
-      ],
-      "release_blocking": true
-    },
-    {
-      "level": "security",
-      "tool": "Vitest integration plus security-review",
-      "scope": [
-        "tenant isolation",
-        "Clerk workspace binding",
-        "credential secrecy",
-        "file upload validation",
-        "server action authorization"
-      ],
-      "release_blocking": true
-    },
-    {
-      "level": "visual_responsive",
-      "tool": "Playwright screenshots and design-system checklist",
-      "scope": [
-        "SCREEN-001",
-        "SCREEN-002",
-        "SCREEN-003",
-        "SCREEN-004",
-        "SCREEN-005",
-        "SCREEN-006",
-        "SCREEN-007",
-        "SCREEN-008",
-        "SCREEN-009",
-        "SCREEN-010"
-      ],
-      "release_blocking": true
-    }
-  ],
-  "acceptance_criteria": [
-    {
-      "workflow_id": "WORKFLOW-001",
-      "validation_id": "VALIDATION-WORKFLOW-001",
-      "criteria": [
-        "Happy path completes",
-        "permission denial is safe",
-        "loading/error/retry states are explicit",
-        "workspace isolation holds",
-        "manual fallback remains available when relevant"
-      ]
-    },
-    {
-      "workflow_id": "WORKFLOW-002",
-      "validation_id": "VALIDATION-WORKFLOW-002",
-      "criteria": [
-        "Happy path completes",
-        "permission denial is safe",
-        "loading/error/retry states are explicit",
-        "workspace isolation holds",
-        "manual fallback remains available when relevant"
-      ]
-    },
-    {
-      "workflow_id": "WORKFLOW-003",
-      "validation_id": "VALIDATION-WORKFLOW-003",
-      "criteria": [
-        "Happy path completes",
-        "permission denial is safe",
-        "loading/error/retry states are explicit",
-        "workspace isolation holds",
-        "manual fallback remains available when relevant"
-      ]
-    },
-    {
-      "workflow_id": "WORKFLOW-007",
-      "validation_id": "VALIDATION-WORKFLOW-004",
-      "criteria": [
-        "Happy path completes",
-        "permission denial is safe",
-        "loading/error/retry states are explicit",
-        "workspace isolation holds",
-        "manual fallback remains available when relevant"
-      ]
-    },
-    {
-      "workflow_id": "WORKFLOW-006",
-      "validation_id": "VALIDATION-WORKFLOW-005",
-      "criteria": [
-        "Happy path completes",
-        "permission denial is safe",
-        "loading/error/retry states are explicit",
-        "workspace isolation holds",
-        "manual fallback remains available when relevant"
-      ]
-    },
-    {
-      "workflow_id": "WORKFLOW-014",
-      "validation_id": "VALIDATION-WORKFLOW-006",
-      "criteria": [
-        "Happy path completes",
-        "permission denial is safe",
-        "loading/error/retry states are explicit",
-        "workspace isolation holds",
-        "manual fallback remains available when relevant"
-      ]
-    }
-  ],
-  "regression_strategy": {
-    "per_ticket": [
-      "affected unit/integration tests",
-      "lint/typecheck",
-      "artifact registration"
-    ],
-    "per_batch": [
-      "shared contract tests",
-      "database migration test",
-      "targeted Playwright smoke"
-    ],
-    "release_candidate": [
-      "full unit/integration suite",
-      "all launch workflows",
-      "accessibility/keyboard suite",
-      "responsive screenshots",
-      "security regression",
-      "rollback rehearsal"
-    ]
-  },
-  "testing_risks": [
-    {
-      "risk_id": "RISK-S5-001",
-      "risk": "Website scraping behavior and anti-bot variability can destabilize the core import slice.",
-      "domain": "integration",
-      "severity": "high",
-      "likelihood": "high",
-      "status": "open",
-      "affected_ids": [
-        "FEATURE-001",
-        "WORKFLOW-001",
-        "INTEGRATION-PLAYWRIGHT"
-      ],
-      "mitigation": "Build a narrow representative-site spike first; persist normalized artifacts; use idempotent per-category jobs and manual entry fallback.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Validate representative sites in TICKET-010 before broadening scraper behavior."
-    },
-    {
-      "risk_id": "RISK-S5-003",
-      "risk": "Tenant isolation or credential handling defects could expose workspace or provider data.",
-      "domain": "security",
-      "severity": "critical",
-      "likelihood": "medium",
-      "status": "open",
-      "affected_ids": [
-        "FEATURE-014",
-        "FEATURE-010",
-        "INTEGRATION-CLERK"
-      ],
-      "mitigation": "Require workspace-scoped repositories, encrypted/server-only credentials, negative tenant tests, and security review before alpha.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Complete TICKET-003 and TICKET-019 before LAUNCH-GATE-001."
-    },
-    {
-      "risk_id": "RISK-S5-004",
-      "risk": "Dense discovery and catalog interfaces may fail keyboard, responsive, or visual continuity requirements.",
-      "domain": "frontend",
-      "severity": "high",
-      "likelihood": "medium",
-      "status": "open",
-      "affected_ids": [
-        "SCREEN-006",
-        "SCREEN-007",
-        "DESIGN-SYSTEM-001"
-      ],
-      "mitigation": "Build shared accessible table/drawer patterns first and require preview, screenshot, keyboard, responsive, and design-system evidence.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Validate frontend tickets through TICKET-020 before beta."
-    },
-    {
-      "risk_id": "RISK-S5-005",
-      "risk": "AI provider behavior and extraction quality vary while zero-provider operation remains mandatory.",
-      "domain": "ai",
-      "severity": "high",
-      "likelihood": "high",
-      "status": "open",
-      "affected_ids": [
-        "FEATURE-010",
-        "WORKFLOW-006"
-      ],
-      "mitigation": "Keep provider adapters behind capability contracts, use deterministic validation, and test manual-only operation as a release gate.",
-      "owner_stage": "Stage 5 / Stage 6",
-      "evidence_refs": [
-        "Build-Plans/Stage-5/03-engineering-dependencies.json"
-      ],
-      "next_action": "Validate configured and zero-provider modes in TICKET-007 and TICKET-020."
-    }
-  ],
-  "release_test_gates": [
-    "No critical/high severity test failure",
-    "No cross-workspace access",
-    "No direct AI-to-catalog write",
-    "Zero-provider manual workflow passes",
-    "All required preview/visual QA artifacts registered",
-    "Idempotent retry and partial failure paths pass"
-  ]
+  }
 }

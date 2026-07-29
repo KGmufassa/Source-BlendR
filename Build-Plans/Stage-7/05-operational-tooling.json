@@ -1,0 +1,164 @@
+{
+  "$schema": "../../System-References/Schemas/stage-7-output.schema.json",
+  "stage": "Stage 7",
+  "status": "needs_operational_revision",
+  "operational_tooling": {
+    "status": "planned_not_implemented",
+    "minimum_launch_tools": [
+      "Tenant-scoped job lookup",
+      "Queue pause and resume",
+      "Safe job retry and cancel",
+      "Provider route disable and health check",
+      "Source artifact and event history inspection",
+      "Release and migration version visibility",
+      "Audit trail for support actions"
+    ],
+    "access_policy": "Least privilege, tenant-scoped by default, privileged actions audited."
+  },
+  "support_model": {
+    "status": "unassigned",
+    "owner": "",
+    "intake_channel": "",
+    "escalation_channel": "",
+    "issue_categories": [
+      "Stuck or failed import job",
+      "Website scraper or PDF extraction failure",
+      "Credential or provider failure",
+      "Catalog/discovery data issue",
+      "Tenant access or authorization incident",
+      "Availability or performance incident"
+    ],
+    "triage_rules": [
+      "Treat any cross-tenant access or credential exposure as SEV-1.",
+      "Preserve source artifacts and job events before retry or cleanup.",
+      "Do not request credentials or secret values through support channels.",
+      "Pause systemic failures before replaying work.",
+      "Link every production intervention to an auditable incident or support record."
+    ]
+  },
+  "runbooks": [
+    {
+      "runbook_id": "RUNBOOK-STUCK-JOB",
+      "title": "Recover a stuck import job",
+      "status": "draft_from_stage_6",
+      "required_proof": "Staging exercise with queue pause, inspection, retry, and terminal outcome."
+    },
+    {
+      "runbook_id": "RUNBOOK-PROVIDER-DEGRADED",
+      "title": "Handle a degraded AI provider",
+      "status": "draft_from_stage_6",
+      "required_proof": "Staging exercise with route disable, fallback/manual mode, and recovery."
+    },
+    {
+      "runbook_id": "RUNBOOK-ROLLBACK",
+      "title": "Rollback a release candidate",
+      "status": "draft_from_stage_6",
+      "required_proof": "Staging rollback of web and worker plus queue/data integrity verification."
+    },
+    {
+      "runbook_id": "RUNBOOK-TENANT-INCIDENT",
+      "title": "Respond to a tenant-access incident",
+      "status": "outline",
+      "required_proof": "Tabletop exercise covering containment, evidence preservation, notification decision, and recovery."
+    },
+    {
+      "runbook_id": "RUNBOOK-STORAGE-FAILURE",
+      "title": "Recover from object-storage failure",
+      "status": "outline",
+      "required_proof": "Staging exercise demonstrating safe retry without data or tenant-boundary loss."
+    }
+  ],
+  "admin_tools": [
+    {
+      "tool_id": "OPS-TOOL-S7-001",
+      "name": "Job operations console",
+      "capabilities": [
+        "Tenant-scoped lookup",
+        "Event history",
+        "Retry",
+        "Cancel",
+        "Source artifact reference"
+      ],
+      "status": "not_implemented"
+    },
+    {
+      "tool_id": "OPS-TOOL-S7-002",
+      "name": "Provider operations panel",
+      "capabilities": [
+        "Health state",
+        "Route enable/disable",
+        "Fallback state",
+        "Latency and cost summary"
+      ],
+      "status": "not_implemented"
+    },
+    {
+      "tool_id": "OPS-TOOL-S7-003",
+      "name": "Release status panel",
+      "capabilities": [
+        "Web version",
+        "Worker version",
+        "Migration version",
+        "Health summary",
+        "Rollback reference"
+      ],
+      "status": "not_implemented"
+    }
+  ],
+  "onboarding_model": {
+    "status": "outline",
+    "checkpoints": [
+      "Workspace and membership established",
+      "Credential and storage policy explained",
+      "Optional provider configured or manual mode confirmed",
+      "First website or PDF source validated",
+      "Discovery review and catalog promotion completed",
+      "Failure recovery and support path understood"
+    ]
+  },
+  "tooling_risks": [
+    {
+      "risk_id": "RISK-S7-005",
+      "risk": "Launching without tenant-safe operational tools forces direct data or queue manipulation during incidents.",
+      "domain": "support",
+      "severity": "high",
+      "likelihood": "medium",
+      "status": "open",
+      "affected_ids": [
+        "FEATURE-013",
+        "WORKFLOW-001",
+        "WORKFLOW-002"
+      ],
+      "mitigation": "Implement the minimum job, provider, and release operations tools with audited privileged actions.",
+      "owner_stage": "Stage 7",
+      "evidence_refs": [
+        "Build-Plans/Stage-5/08-release-plan.json"
+      ],
+      "next_action": "Assign support and operations owners."
+    }
+  ],
+  "assumptions": [
+    {
+      "assumption_id": "ASSUMPTION-S7-005",
+      "assumption": "Private-alpha support can begin with a small named team once auditable tools and escalation channels exist.",
+      "status": "unverified",
+      "next_action": "Name the team and exercise the support runbooks before invitations."
+    }
+  ],
+  "traceability_refs": [
+    "FEATURE-001",
+    "FEATURE-003",
+    "FEATURE-004",
+    "FEATURE-005",
+    "FEATURE-010",
+    "FEATURE-013",
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-006",
+    "WORKFLOW-007"
+  ],
+  "artifact_refs": [
+    "ARTIFACT-S5-021-VALIDATION"
+  ]
+}

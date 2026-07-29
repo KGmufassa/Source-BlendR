@@ -1,0 +1,19 @@
+{
+  "artifact_id": "ARTIFACT-S5-001-VALIDATION",
+  "ticket_id": "TICKET-001",
+  "validation_id": "VALIDATION-S6-001",
+  "recorded_at": "2026-07-25T03:37:33Z",
+  "status": "passed",
+  "commands": [
+    "corepack pnpm install --lockfile-only",
+    "corepack pnpm test",
+    "corepack pnpm typecheck",
+    "corepack pnpm lint",
+    "corepack pnpm build"
+  ],
+  "batch_gates": {
+    "pnpm_install_resolves": "passed",
+    "workspace_typecheck_and_test_commands_execute": "passed"
+  },
+  "notes": "Validated the thin Stage 6 foundation scaffold with pnpm 10.13.1 and Node.js 22.22.2."
+}

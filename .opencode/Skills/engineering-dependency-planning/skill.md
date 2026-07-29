@@ -1,3 +1,9 @@
+---
+name: engineering-dependency-planning
+description: Map Stage 5 technical prerequisites, dependency edges, serial constraints, parallel groups, blockers, and dependency risk references.
+compatibility: opencode
+---
+
 # Skill — engineering-dependency-planning
 
 # Purpose
@@ -103,14 +109,16 @@ Pause for user input when dependency uncertainty blocks sequencing or release pl
 
 ```json
 {
-  "engineering_dependencies": {},
-  "dependency_graph": [],
-  "parallel_workstreams": [],
-  "blocked_work": [],
-  "coordination_notes": [],
-  "dependency_risks": []
+  "data": {
+    "engineering_dependencies": {},
+    "dependency_graph": [],
+    "blocked_work": [],
+    "risk_refs": []
+  }
 }
 ```
+
+Keep prerequisites, parallelizable groups, and serial constraints inside `engineering_dependencies`. Store dependency edges once in `dependency_graph`; use risk IDs rather than copied risk objects.
 
 ---
 

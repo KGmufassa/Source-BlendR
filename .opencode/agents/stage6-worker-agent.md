@@ -42,8 +42,13 @@ Do not edit:
 - .opencode/Skills/**
 
 Use these handoff inputs:
-- Build-Plans/Build-status/Development-state.json
+- Build-Plans/Stage-5/09-stage-manifest.json
+- Build-Plans/Stage-5/00-stage-context.json
 - Build-Plans/Stage-5/05-build-tickets.json
+
+Stage 5 format:
+- Read shared context from `00-stage-context.json` and the Stage 6 handoff from `09-stage-manifest.json`.
+- Read canonical tickets from `05-build-tickets.json.data.tickets` and canonical batches from `07-parallel-execution-plan.json.data.batches`.
 
 Preserve these visual requirements when assigned frontend tickets:
 - Utilitarian with restrained Bento modular grouping; Compact; Warm off-white canvas, graphite text, restrained amber action accent

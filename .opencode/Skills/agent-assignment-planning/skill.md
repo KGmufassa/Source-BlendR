@@ -1,3 +1,9 @@
+---
+name: agent-assignment-planning
+description: Assign canonical Stage 5 tickets and slices to capable Stage 6 agents and generate bounded agent handoff profiles.
+compatibility: opencode
+---
+
 # Skill — agent-assignment-planning
 
 # Purpose
@@ -321,6 +327,11 @@ Use these handoff inputs:
 - [visual style reference file when assigned frontend tickets]
 - [design system file when assigned frontend tickets]
 
+Stage 5 format:
+- Read shared context from `00-stage-context.json`.
+- Read completion and Stage 6 handoff from `09-stage-manifest.json`.
+- Read canonical collections from each numbered artifact's `data`.
+
 Preserve these visual requirements when assigned frontend tickets:
 - [visual style, density, color direction, typography feel, component style, primary visual focus, visual do and don't rules, visual acceptance criteria, user approval status]
 
@@ -364,22 +375,20 @@ Provide constructive feedback without making direct changes.
 
 ```json
 {
-  "agent_assignment_plan": {},
-  "available_agents": [],
-  "agents": [],
-  "ticket_assignments": [],
-  "slice_assignments": [],
-  "unassigned_tickets": [],
-  "generated_agents": [],
-  "generated_agent_files": [],
-  "agent_handoff_packages": [],
-  "ui_blueprint_handoff_packages": [],
-  "visual_spec_handoff_packages": [],
-  "visual_reference_handoff_packages": [],
-  "design_system_handoff_packages": [],
-  "assignment_risks": []
+  "data": {
+    "assignment_plan": {},
+    "available_agents": [],
+    "agents": [],
+    "ticket_assignments": [],
+    "slice_assignments": [],
+    "unassigned_tickets": [],
+    "generated_agent_files": [],
+    "risk_refs": []
+  }
 }
 ```
+
+Treat `agents` as the only canonical assignment collection. Resolve UI, visual, design-system, skill, and handoff details from each agent object; do not repeat full agent objects in separate handoff-package arrays.
 
 ---
 

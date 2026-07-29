@@ -164,10 +164,12 @@ The frontend agent should receive:
   "assigned_tickets": [],
   "assigned_slices": [],
   "stage_5_files": {
+    "context": "Build-Plans/Stage-5/00-stage-context.json",
     "implementation_sequence": "Build-Plans/Stage-5/02-implementation-sequence.json",
     "build_tickets": "Build-Plans/Stage-5/05-build-tickets.json",
     "agent_assignment_plan": "Build-Plans/Stage-5/06-agent-assignment-plan.json",
-    "parallel_execution_plan": "Build-Plans/Stage-5/07-parallel-execution-plan.json"
+    "parallel_execution_plan": "Build-Plans/Stage-5/07-parallel-execution-plan.json",
+    "manifest": "Build-Plans/Stage-5/09-stage-manifest.json"
   },
   "stage_4_files": {
     "user_journeys": "Build-Plans/Stage-4/01-user-journeys.json",
@@ -290,9 +292,13 @@ The actual file scope should be adjusted to the repository structure.
 Read:
 
 ```text
+Build-Plans/Stage-5/00-stage-context.json
 Build-Plans/Stage-5/06-agent-assignment-plan.json
 Build-Plans/Stage-5/07-parallel-execution-plan.json
+Build-Plans/Stage-5/09-stage-manifest.json
 ```
+
+For Stage 5 format `2.0`, read assignment objects from `06-agent-assignment-plan.json.data.agents`, batch objects from `07-parallel-execution-plan.json.data.batches`, and the Stage 6 handoff from `09-stage-manifest.json.stage_6_handoff`.
 
 Identify:
 

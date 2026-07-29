@@ -1,0 +1,347 @@
+{
+  "$schema": "../../System-References/Schemas/stage-7-output.schema.json",
+  "stage": "Stage 7",
+  "status": "needs_launch_readiness_work",
+  "launch_readiness": {
+    "launch_decision": "not_ready",
+    "recommended_release_phase": "internal_integration",
+    "reason": "Local contract tests and static visual evidence pass, but the repository does not yet contain a deployable production application or live environment evidence.",
+    "evaluated_at": "2026-07-29T00:05:00Z"
+  },
+  "launch_blockers": [
+    {
+      "blocker_id": "LAUNCH-BLOCKER-001",
+      "severity": "critical",
+      "owner_stage": "Stage 6",
+      "affected_ids": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-004",
+        "FEATURE-005",
+        "FEATURE-013",
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-003",
+        "WORKFLOW-007"
+      ],
+      "issue": "The current web, worker, persistence, scraper, and integration code is a contract/static-preview scaffold rather than a deployable production runtime.",
+      "evidence_refs": [
+        "Build-Plans/Stage-6/04-system-health.json",
+        "package.json",
+        "apps/web/package.json",
+        "apps/worker/package.json"
+      ],
+      "required_action": "Return implementation to Stage 6 and build executable Next.js routes/actions, worker runtime wiring, persistence repositories, production scraper/PDF integrations, authentication middleware, and deployable service entrypoints.",
+      "launch_impact": "No production deployment, end-to-end smoke test, hosted health check, or real-user launch is possible."
+    },
+    {
+      "blocker_id": "LAUNCH-BLOCKER-002",
+      "severity": "high",
+      "owner_stage": "Stage 6",
+      "affected_ids": [
+        "VALIDATION-S6-021",
+        "LAUNCH-GATE-001"
+      ],
+      "issue": "Stage 6 declares readiness without a Stage 6 global readiness audit and its durable Implementation-state remains in progress.",
+      "evidence_refs": [
+        "Build-Plans/Build-status/Global-workflow-state.json",
+        "Build-Plans/Build-status/Implementation-state.json"
+      ],
+      "required_action": "Complete the Stage 6 state, handoff contract, schema/reference checks, and Stage-6-readiness-audit after the production runtime work is complete.",
+      "launch_impact": "The sequential stage transition is not auditable."
+    },
+    {
+      "blocker_id": "LAUNCH-BLOCKER-003",
+      "severity": "high",
+      "owner_stage": "Stage 7",
+      "affected_ids": [
+        "LAUNCH-GATE-002",
+        "LAUNCH-GATE-003",
+        "INTEGRATION-SENTRY"
+      ],
+      "issue": "Production environment ownership, credentials, secret values, hosted endpoints, alert routing, and release approver are not verified.",
+      "evidence_refs": [
+        "Build-Plans/Stage-6/evidence/TICKET-021-validation-report.json"
+      ],
+      "required_action": "After a deployable runtime exists, provision and verify Vercel, Fly.io, Neon, Upstash, object storage, authentication, provider, and Sentry configuration without recording secret values in the repository.",
+      "launch_impact": "Deployment, monitoring, rollback, and incident-response proof cannot be collected."
+    }
+  ],
+  "readiness_gates": [
+    {
+      "gate_id": "LAUNCH-GATE-7-001",
+      "name": "deployment_readiness",
+      "status": "blocked",
+      "owner": "Stage 6 implementation owner",
+      "evidence_refs": [
+        "ARTIFACT-S5-021-BUILD",
+        "ARTIFACT-S5-021-VALIDATION"
+      ],
+      "blockers": [
+        "LAUNCH-BLOCKER-001"
+      ],
+      "accepted_risks": [],
+      "next_action": "Produce deployable web and worker artifacts, then perform a target-environment dry run."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-002",
+      "name": "environment_readiness",
+      "status": "blocked",
+      "owner": "Release owner",
+      "evidence_refs": [],
+      "blockers": [
+        "LAUNCH-BLOCKER-003"
+      ],
+      "accepted_risks": [],
+      "next_action": "Name the release owner and verify staging and production service ownership."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-003",
+      "name": "secret_readiness",
+      "status": "blocked",
+      "owner": "Release owner",
+      "evidence_refs": [],
+      "blockers": [
+        "LAUNCH-BLOCKER-003"
+      ],
+      "accepted_risks": [],
+      "next_action": "Verify required secret names and platform injection; never write secret values to source control."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-004",
+      "name": "data_migration_readiness",
+      "status": "blocked",
+      "owner": "Database owner",
+      "evidence_refs": [
+        "ARTIFACT-S5-002-VALIDATION"
+      ],
+      "blockers": [
+        "No versioned production migration artifact or rehearsal exists."
+      ],
+      "accepted_risks": [],
+      "next_action": "Create versioned migrations and rehearse forward-fix/rollback against staging data."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-005",
+      "name": "validation_evidence_readiness",
+      "status": "blocked",
+      "owner": "Stage 6 validation owner",
+      "evidence_refs": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "ARTIFACT-S5-021-TEST"
+      ],
+      "blockers": [
+        "Validation covers contracts and static previews, not deployed end-to-end behavior."
+      ],
+      "accepted_risks": [],
+      "next_action": "Run deployed authentication, import, queue, persistence, storage, AI fallback, and tenant-isolation tests."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-006",
+      "name": "visual_qa_readiness",
+      "status": "ready",
+      "owner": "Frontend validation owner",
+      "evidence_refs": [
+        "Build-Plans/Stage-6/02-validation-results.json",
+        "Build-Plans/Stage-6/evidence/launch-validation-preview.html.png"
+      ],
+      "blockers": [],
+      "accepted_risks": [],
+      "next_action": "Repeat visual QA against the deployed runtime before private alpha."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-007",
+      "name": "design_system_readiness",
+      "status": "ready",
+      "owner": "Frontend validation owner",
+      "evidence_refs": [
+        "DESIGN-SYSTEM-001",
+        "Build-Plans/Stage-6/02-validation-results.json"
+      ],
+      "blockers": [],
+      "accepted_risks": [],
+      "next_action": "Preserve the recorded design-system references in the production UI."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-008",
+      "name": "monitoring_readiness",
+      "status": "blocked",
+      "owner": "Operations owner",
+      "evidence_refs": [
+        "INTEGRATION-SENTRY"
+      ],
+      "blockers": [
+        "No live Sentry project, hosted probes, tested alerts, or routing owner is recorded."
+      ],
+      "accepted_risks": [],
+      "next_action": "Wire observability and execute one synthetic alert per critical signal."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-009",
+      "name": "analytics_readiness",
+      "status": "blocked",
+      "owner": "Product owner",
+      "evidence_refs": [
+        "SUCCESS-001",
+        "SUCCESS-002",
+        "SUCCESS-003",
+        "SUCCESS-004",
+        "SUCCESS-007"
+      ],
+      "blockers": [
+        "The event instrumentation and dashboard data source are not implemented."
+      ],
+      "accepted_risks": [],
+      "next_action": "Implement the Stage 7 event catalog and validate tenant-safe event capture."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-010",
+      "name": "rollback_readiness",
+      "status": "blocked",
+      "owner": "Release owner",
+      "evidence_refs": [
+        "ARTIFACT-S5-021-VALIDATION"
+      ],
+      "blockers": [
+        "Rollback passed only as a Stage 6 paper dry run; no real environment rehearsal exists."
+      ],
+      "accepted_risks": [],
+      "next_action": "Rehearse web, worker, queue, provider, and database recovery in staging."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-011",
+      "name": "support_readiness",
+      "status": "pending",
+      "owner": "Unassigned",
+      "evidence_refs": [
+        "RUNBOOK-STUCK-JOB",
+        "RUNBOOK-PROVIDER-DEGRADED",
+        "RUNBOOK-ROLLBACK"
+      ],
+      "blockers": [
+        "Support owner, intake channel, response targets, and escalation contact are unassigned."
+      ],
+      "accepted_risks": [],
+      "next_action": "Assign support ownership and test the four launch-critical support scenarios."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-012",
+      "name": "onboarding_readiness",
+      "status": "pending",
+      "owner": "Product owner",
+      "evidence_refs": [],
+      "blockers": [
+        "No private-alpha onboarding checklist or tenant setup verification is recorded."
+      ],
+      "accepted_risks": [],
+      "next_action": "Create and test workspace, credential, provider, first-import, and recovery onboarding."
+    },
+    {
+      "gate_id": "LAUNCH-GATE-7-013",
+      "name": "known_risk_acceptance",
+      "status": "blocked",
+      "owner": "Release approver",
+      "evidence_refs": [
+        "Build-Plans/Build-status/Risk-acceptance-ledger.json"
+      ],
+      "blockers": [
+        "No Stage 7 launch risk has an explicit approver, expiry/review date, or production evidence."
+      ],
+      "accepted_risks": [],
+      "next_action": "Record only deliberately accepted launch risks after evidence review; do not accept missing runtime implementation as risk."
+    }
+  ],
+  "visual_launch_readiness": {
+    "status": "ready_for_static_scope",
+    "preview_evidence_present": true,
+    "responsive_validation_status": "passed_with_limited_runtime_evidence",
+    "visual_qa_failures": [],
+    "major_visual_drift": false,
+    "production_revalidation_required": true
+  },
+  "visual_reference_launch_readiness": {
+    "status": "ready_for_static_scope",
+    "reference_ids": [
+      "REF-UTILITARIAN",
+      "REF-BENTO-MODIFIER"
+    ],
+    "production_revalidation_required": true
+  },
+  "design_system_launch_readiness": {
+    "status": "ready_for_static_scope",
+    "design_system_refs": [
+      "DESIGN-SYSTEM-001"
+    ],
+    "production_revalidation_required": true
+  },
+  "deployment_proof_readiness": {
+    "production_build_proof": "missing",
+    "deployment_dry_run_evidence": "stage_6_contract_only",
+    "smoke_test_evidence": "missing",
+    "rollback_verification": "stage_6_paper_rehearsal_only",
+    "environment_verification": "missing",
+    "monitoring_alert_proof": "missing"
+  },
+  "onboarding_gaps": [
+    "Private-alpha tenant provisioning checklist",
+    "Credential and provider setup verification",
+    "First website/PDF import walkthrough",
+    "Manual fallback and stuck-job recovery guidance"
+  ],
+  "support_gaps": [
+    "Named support owner",
+    "Intake and escalation channels",
+    "Severity and response targets",
+    "Tenant-access incident escalation",
+    "Credential/provider and source-processing triage"
+  ],
+  "assumptions": [
+    {
+      "assumption_id": "ASSUMPTION-S7-001",
+      "assumption": "The Stage 5 platform direction remains Vercel, Fly.io, Neon, and Upstash.",
+      "status": "unverified",
+      "next_action": "Release owner confirms or revises the target platform before provisioning."
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "RISK-S7-001",
+      "risk": "Contract-level validation may overstate production readiness.",
+      "domain": "launch",
+      "severity": "critical",
+      "likelihood": "high",
+      "status": "open",
+      "affected_ids": [
+        "LAUNCH-GATE-001",
+        "LAUNCH-GATE-002"
+      ],
+      "mitigation": "Complete executable runtime implementation and deployed end-to-end validation.",
+      "owner_stage": "Stage 6",
+      "evidence_refs": [
+        "Build-Plans/Stage-6/04-system-health.json"
+      ],
+      "next_action": "Open a Stage 6 revision loop."
+    }
+  ],
+  "traceability_refs": [
+    "FEATURE-001",
+    "FEATURE-003",
+    "FEATURE-004",
+    "FEATURE-005",
+    "FEATURE-010",
+    "FEATURE-013",
+    "WORKFLOW-001",
+    "WORKFLOW-002",
+    "WORKFLOW-003",
+    "WORKFLOW-006",
+    "WORKFLOW-007",
+    "LAUNCH-GATE-001",
+    "LAUNCH-GATE-002",
+    "LAUNCH-GATE-003"
+  ],
+  "artifact_refs": [
+    "ARTIFACT-S5-021-TEST",
+    "ARTIFACT-S5-021-VALIDATION",
+    "ARTIFACT-S5-021-BUILD"
+  ]
+}

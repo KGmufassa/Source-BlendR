@@ -1,0 +1,611 @@
+{
+  "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
+  "stage": "Stage 6",
+  "status": "ready_for_stage_7",
+  "implemented_tickets": [
+    "TICKET-001",
+    "TICKET-002",
+    "TICKET-003",
+    "TICKET-004",
+    "TICKET-016",
+    "TICKET-005",
+    "TICKET-007",
+    "TICKET-008",
+    "TICKET-006",
+    "TICKET-010",
+    "TICKET-012",
+    "TICKET-014",
+    "TICKET-009",
+    "TICKET-018",
+    "TICKET-011",
+    "TICKET-013",
+    "TICKET-015",
+    "TICKET-017",
+    "TICKET-019",
+    "TICKET-020",
+    "TICKET-021"
+  ],
+  "pending_tickets": [],
+  "blocked_tickets": [],
+  "agent_execution_results": [
+    {
+      "agent_id": "AGENT-FOUNDATION",
+      "ticket_id": "TICKET-001",
+      "status": "complete",
+      "skills_used": [
+        "lazy-mode",
+        "Test-driven-development",
+        "implementation-execution"
+      ],
+      "files_changed": [
+        "package.json",
+        "pnpm-workspace.yaml",
+        "pnpm-lock.yaml",
+        "apps/workspace-scaffold.test.mjs",
+        "apps/web/package.json",
+        "apps/worker/package.json",
+        "packages/domain/package.json",
+        "packages/shared/package.json",
+        "packages/types/package.json",
+        "packages/validation/package.json"
+      ],
+      "notes": "Thin workspace scaffold only; framework and feature dependencies remain owned by later tickets."
+    },
+    {
+      "agent_id": "AGENT-FOUNDATION",
+      "ticket_id": "TICKET-002",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "prisma/schema.prisma",
+        "prisma/workspace-schema.test.mjs"
+      ],
+      "notes": "Prisma workspace, vendor, and catalog item schema foundation with workspace-scoped uniqueness and indexes."
+    },
+    {
+      "agent_id": "AGENT-FOUNDATION",
+      "ticket_id": "TICKET-003",
+      "status": "complete",
+      "skills_used": [
+        "security-review",
+        "backend-development",
+        "Test-driven-development"
+      ],
+      "files_changed": [
+        "packages/types/src/workspace.js",
+        "packages/types/src/auth.js",
+        "packages/types/workspace-contracts.test.mjs",
+        "packages/types/auth-contracts.test.mjs"
+      ],
+      "notes": "Clerk organization claims map into explicit workspace context; cross-workspace access is denied by shared guard."
+    },
+    {
+      "agent_id": "AGENT-FOUNDATION",
+      "ticket_id": "TICKET-004",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "packages/domain/src/catalog.js",
+        "packages/domain/catalog-contracts.test.mjs",
+        "packages/validation/src/catalog-item.js",
+        "packages/validation/deterministic-validation.test.mjs"
+      ],
+      "notes": "Shared catalog domain normalization, deterministic validation errors, and workspace-scoped repository contract."
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "ticket_id": "TICKET-016",
+      "status": "complete",
+      "skills_used": [
+        "frontend-design",
+        "Test-driven-development",
+        "ux-enforcement",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "apps/web/src/app-shell.js",
+        "apps/web/app-shell.test.mjs",
+        "apps/web/preview.html",
+        "Build-Plans/Stage-6/evidence/preview.html.png"
+      ],
+      "notes": "Static app shell foundation exposes approved routes, tokens, shared component contracts, accessible navigation, and preview evidence."
+    },
+    {
+      "agent_id": "AGENT-WORKER",
+      "ticket_id": "TICKET-005",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development"
+      ],
+      "files_changed": [
+        "apps/worker/package.json",
+        "apps/worker/src/import-jobs.js",
+        "apps/worker/import-job-contracts.test.mjs"
+      ],
+      "notes": "Worker queue payload and observable import-job event contracts implemented without adding Redis/BullMQ runtime dependency yet."
+    },
+    {
+      "agent_id": "AGENT-BACKEND",
+      "ticket_id": "TICKET-007",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development",
+        "security-review"
+      ],
+      "files_changed": [
+        "packages/ai/package.json",
+        "packages/ai/src/router.js",
+        "packages/ai/ai-router.test.mjs"
+      ],
+      "notes": "Provider-neutral AI capability router, provider health selection, and manual fallback behavior implemented."
+    },
+    {
+      "agent_id": "AGENT-BACKEND",
+      "ticket_id": "TICKET-008",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development",
+        "security-review"
+      ],
+      "files_changed": [
+        "packages/domain/src/catalog-api.js",
+        "packages/domain/catalog-api-contracts.test.mjs"
+      ],
+      "notes": "Workspace-scoped catalog API contract wraps repository search/create and validates writes before save."
+    },
+    {
+      "agent_id": "AGENT-BACKEND",
+      "ticket_id": "TICKET-006",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development",
+        "security-review"
+      ],
+      "files_changed": [
+        "packages/domain/src/import-api.js",
+        "packages/domain/import-api-contracts.test.mjs"
+      ],
+      "notes": "Import status, retry, cancel, and event API contract wraps workspace-scoped job event logs."
+    },
+    {
+      "agent_id": "AGENT-WORKER",
+      "ticket_id": "TICKET-010",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development",
+        "security-review"
+      ],
+      "files_changed": [
+        "packages/scrapers/package.json",
+        "packages/scrapers/src/website.js",
+        "packages/scrapers/normalized-source.test.mjs"
+      ],
+      "notes": "Website discovery fixture normalizes title and link records into workspace-scoped normalized source output."
+    },
+    {
+      "agent_id": "AGENT-WORKER",
+      "ticket_id": "TICKET-012",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development",
+        "security-review"
+      ],
+      "files_changed": [
+        "packages/scrapers/package.json",
+        "packages/scrapers/src/pdf.js",
+        "packages/scrapers/normalized-source.test.mjs"
+      ],
+      "notes": "PDF normalized-source fixture rejects unsafe file names and normalizes extracted text records."
+    },
+    {
+      "agent_id": "AGENT-BACKEND",
+      "ticket_id": "TICKET-014",
+      "status": "complete",
+      "skills_used": [
+        "backend-development",
+        "Test-driven-development",
+        "security-review"
+      ],
+      "files_changed": [
+        "packages/domain/src/discovery-api.js",
+        "packages/domain/discovery-api-contracts.test.mjs"
+      ],
+      "notes": "Discovery candidate API validates candidates, blocks invalid promotion, and promotes valid candidates into catalog repository."
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "ticket_id": "TICKET-009",
+      "status": "complete",
+      "skills_used": [
+        "frontend-design",
+        "Test-driven-development",
+        "ux-enforcement"
+      ],
+      "files_changed": [
+        "apps/web/src/management-pages.js",
+        "apps/web/management-pages.test.mjs",
+        "apps/web/catalog-preview.html",
+        "Build-Plans/Stage-6/evidence/catalog-preview.html.png"
+      ],
+      "notes": "Catalog/vendor management page contract exposes approved routes, search action, primary new-item action, and stacked-table responsive behavior."
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "ticket_id": "TICKET-018",
+      "status": "complete",
+      "skills_used": [
+        "frontend-design",
+        "Test-driven-development",
+        "ux-enforcement",
+        "security-review"
+      ],
+      "files_changed": [
+        "apps/web/src/management-pages.js",
+        "apps/web/management-pages.test.mjs",
+        "apps/web/ai-settings-preview.html",
+        "Build-Plans/Stage-6/evidence/ai-settings-preview.html.png"
+      ],
+      "notes": "AI settings page contract exposes provider health check, manual fallback state, and save action using approved design tokens."
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "ticket_id": "TICKET-011",
+      "status": "complete",
+      "skills_used": [
+        "frontend-design",
+        "Test-driven-development",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "apps/web/src/import-workflows.js",
+        "apps/web/import-workflows.test.mjs",
+        "apps/web/website-import-preview.html",
+        "Build-Plans/Stage-6/evidence/website-import-preview.html.png"
+      ],
+      "notes": "Website import wizard exposes approved vendor/url inputs, category queue action, job navigation, keyboard focus, and responsive shell/table behavior."
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "ticket_id": "TICKET-013",
+      "status": "complete",
+      "skills_used": [
+        "frontend-design",
+        "Test-driven-development",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "apps/web/src/import-workflows.js",
+        "apps/web/import-workflows.test.mjs",
+        "apps/web/pdf-import-preview.html",
+        "Build-Plans/Stage-6/evidence/pdf-import-preview.html.png"
+      ],
+      "notes": "PDF import experience exposes approved vendor/upload inputs, start extraction action, explicit recovery state, job navigation, and responsive evidence."
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "ticket_id": "TICKET-015",
+      "status": "complete",
+      "skills_used": [
+        "frontend-design",
+        "Test-driven-development",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "apps/web/src/import-workflows.js",
+        "apps/web/import-workflows.test.mjs",
+        "apps/web/discovery-session-preview.html",
+        "Build-Plans/Stage-6/evidence/discovery-session-preview.html.png"
+      ],
+      "notes": "Discovery session page exposes search/filter, stacked candidate table, full-screen-sheet drawer contract, and bulk import/ignore/archive actions."
+    },
+    {
+      "agent_id": "AGENT-FRONTEND",
+      "ticket_id": "TICKET-017",
+      "status": "complete",
+      "skills_used": [
+        "frontend-design",
+        "Test-driven-development",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "apps/web/src/import-workflows.js",
+        "apps/web/import-workflows.test.mjs",
+        "apps/web/import-workspace-preview.html",
+        "Build-Plans/Stage-6/evidence/import-workspace-preview.html.png"
+      ],
+      "notes": "Overview, imports workspace, and job detail routes expose approved primary navigation plus retry/cancel/discovery recovery actions."
+    },
+    {
+      "agent_id": "AGENT-VALIDATION",
+      "ticket_id": "TICKET-019",
+      "status": "complete",
+      "skills_used": [
+        "security-review",
+        "Test-driven-development",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "apps/validation/src/stage6-batch006-validation.js",
+        "apps/validation/stage6-batch006-validation.test.mjs",
+        "Build-Plans/Stage-6/evidence/TICKET-019-test-output.json",
+        "Build-Plans/Stage-6/evidence/TICKET-019-validation-report.json"
+      ],
+      "notes": "Executable security validation covers tenant isolation, other-workspace data exclusion, candidate ownership, upload path traversal rejection, credential-free AI fallback, and frontend secret exposure scan."
+    },
+    {
+      "agent_id": "AGENT-VALIDATION",
+      "ticket_id": "TICKET-020",
+      "status": "complete",
+      "skills_used": [
+        "Test-driven-development",
+        "frontend-design",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "apps/validation/src/stage6-batch006-validation.js",
+        "apps/validation/stage6-batch006-validation.test.mjs",
+        "apps/web/src/management-pages.js",
+        "apps/web/launch-validation-preview.html",
+        "Build-Plans/Stage-6/evidence/launch-validation-preview.html.png"
+      ],
+      "notes": "Launch validation covers all 10 launch routes, 42 action/element refs, keyboard focus, responsive table/drawer contracts, recovery states, and approved design tokens."
+    },
+    {
+      "agent_id": "AGENT-VALIDATION",
+      "ticket_id": "TICKET-021",
+      "status": "complete",
+      "skills_used": [
+        "Test-driven-development",
+        "security-review",
+        "lazy-mode"
+      ],
+      "files_changed": [
+        "apps/ops/src/deployment-readiness.js",
+        "apps/ops/deployment-readiness.test.mjs",
+        "Build-Plans/Stage-6/evidence/TICKET-021-test-output.json",
+        "Build-Plans/Stage-6/evidence/TICKET-021-validation-report.json",
+        "Build-Plans/Stage-6/evidence/TICKET-021-build-log.json",
+        "Build-Plans/Stage-6/evidence/TICKET-021-runbook.md"
+      ],
+      "notes": "Deployment readiness dry-run contract records deployment units, health checks, observability signals, runbooks, rollback controls, and Stage 7 handoff requirements without executing production deployment."
+    }
+  ],
+  "parallel_batch_results": [
+    {
+      "batch_id": "BATCH-001",
+      "status": "complete",
+      "completed_at": "2026-07-25T03:37:33Z",
+      "recorded_at": "2026-07-25T03:37:33Z",
+      "completed_tickets": [
+        "TICKET-001"
+      ],
+      "blocked_tickets": [],
+      "failed_tickets": [],
+      "validation_gates_passed": [
+        "pnpm install resolves",
+        "workspace typecheck and test commands execute"
+      ],
+      "validation_gates_failed": [],
+      "conflicts_detected": [],
+      "blocking_failures": [],
+      "batch_completion_recorded": true
+    },
+    {
+      "batch_id": "BATCH-002",
+      "status": "complete",
+      "completed_at": "2026-07-25T05:12:11Z",
+      "recorded_at": "2026-07-25T05:12:11Z",
+      "completed_tickets": [
+        "TICKET-002",
+        "TICKET-003",
+        "TICKET-004",
+        "TICKET-016"
+      ],
+      "blocked_tickets": [],
+      "failed_tickets": [],
+      "validation_gates_passed": [
+        "Prisma schema foundation",
+        "tenant negative tests",
+        "app shell preview",
+        "shared type review"
+      ],
+      "validation_gates_failed": [],
+      "conflicts_detected": [],
+      "blocking_failures": [],
+      "batch_completion_recorded": true
+    },
+    {
+      "batch_id": "BATCH-003",
+      "status": "complete",
+      "completed_at": "2026-07-27T00:00:00Z",
+      "recorded_at": "2026-07-27T00:00:00Z",
+      "completed_tickets": [
+        "TICKET-005",
+        "TICKET-007",
+        "TICKET-008"
+      ],
+      "blocked_tickets": [],
+      "failed_tickets": [],
+      "validation_gates_passed": [
+        "queue contract tests",
+        "manual catalog E2E smoke",
+        "zero-provider tests"
+      ],
+      "validation_gates_failed": [],
+      "conflicts_detected": [],
+      "blocking_failures": [],
+      "batch_completion_recorded": true
+    },
+    {
+      "batch_id": "BATCH-004",
+      "status": "complete",
+      "completed_at": "2026-07-28T01:44:19Z",
+      "recorded_at": "2026-07-28T01:44:19Z",
+      "completed_tickets": [
+        "TICKET-006",
+        "TICKET-010",
+        "TICKET-012",
+        "TICKET-014",
+        "TICKET-009",
+        "TICKET-018"
+      ],
+      "blocked_tickets": [],
+      "failed_tickets": [],
+      "validation_gates_passed": [
+        "representative website fixture",
+        "PDF/OCR fixture",
+        "candidate promotion integration",
+        "catalog/provider browser smoke"
+      ],
+      "validation_gates_failed": [],
+      "conflicts_detected": [],
+      "blocking_failures": [],
+      "batch_completion_recorded": true
+    },
+    {
+      "batch_id": "BATCH-005",
+      "status": "complete",
+      "completed_at": "2026-07-28T01:56:14Z",
+      "recorded_at": "2026-07-28T01:56:14Z",
+      "completed_tickets": [
+        "TICKET-011",
+        "TICKET-013",
+        "TICKET-015",
+        "TICKET-017"
+      ],
+      "blocked_tickets": [],
+      "failed_tickets": [],
+      "validation_gates_passed": [
+        "desktop/tablet/mobile previews",
+        "keyboard paths",
+        "route/action/state checks",
+        "visual QA evidence"
+      ],
+      "validation_gates_failed": [],
+      "conflicts_detected": [],
+      "blocking_failures": [],
+      "batch_completion_recorded": true
+    },
+    {
+      "batch_id": "BATCH-006",
+      "status": "complete",
+      "completed_at": "2026-07-28T02:13:19Z",
+      "recorded_at": "2026-07-28T02:13:19Z",
+      "completed_tickets": [
+        "TICKET-019",
+        "TICKET-020"
+      ],
+      "blocked_tickets": [],
+      "failed_tickets": [],
+      "validation_gates_passed": [
+        "No critical/high severity test failure",
+        "No cross-workspace access",
+        "No direct AI-to-catalog write",
+        "Zero-provider manual workflow passes",
+        "All required preview/visual QA artifacts registered",
+        "Idempotent retry and partial failure paths pass"
+      ],
+      "validation_gates_failed": [],
+      "conflicts_detected": [],
+      "blocking_failures": [],
+      "batch_completion_recorded": true
+    },
+    {
+      "batch_id": "BATCH-007",
+      "status": "complete",
+      "completed_at": "2026-07-28T02:31:00Z",
+      "recorded_at": "2026-07-28T02:31:00Z",
+      "completed_tickets": [
+        "TICKET-021"
+      ],
+      "blocked_tickets": [],
+      "failed_tickets": [],
+      "validation_gates_passed": [
+        "build/deploy checks",
+        "worker/web health",
+        "Sentry/log/queue signal checks",
+        "rollback rehearsal"
+      ],
+      "validation_gates_failed": [],
+      "conflicts_detected": [],
+      "blocking_failures": [],
+      "batch_completion_recorded": true
+    }
+  ],
+  "unresolved_blockers": [],
+  "artifact_refs": [
+    "ARTIFACT-S5-001-TEST",
+    "ARTIFACT-S5-001-VALIDATION",
+    "ARTIFACT-S5-002-TEST",
+    "ARTIFACT-S5-002-VALIDATION",
+    "ARTIFACT-S5-003-TEST",
+    "ARTIFACT-S5-003-VALIDATION",
+    "ARTIFACT-S5-004-TEST",
+    "ARTIFACT-S5-004-VALIDATION",
+    "ARTIFACT-S5-016-TEST",
+    "ARTIFACT-S5-016-VALIDATION",
+    "ARTIFACT-S5-016-PREVIEW",
+    "ARTIFACT-S5-016-SCREENSHOT",
+    "ARTIFACT-S5-005-TEST",
+    "ARTIFACT-S5-005-VALIDATION",
+    "ARTIFACT-S5-007-TEST",
+    "ARTIFACT-S5-007-VALIDATION",
+    "ARTIFACT-S5-008-TEST",
+    "ARTIFACT-S5-008-VALIDATION",
+    "ARTIFACT-S5-006-TEST",
+    "ARTIFACT-S5-006-VALIDATION",
+    "ARTIFACT-S5-010-TEST",
+    "ARTIFACT-S5-010-VALIDATION",
+    "ARTIFACT-S5-012-TEST",
+    "ARTIFACT-S5-012-VALIDATION",
+    "ARTIFACT-S5-014-TEST",
+    "ARTIFACT-S5-014-VALIDATION",
+    "ARTIFACT-S5-009-TEST",
+    "ARTIFACT-S5-009-VALIDATION",
+    "ARTIFACT-S5-009-PREVIEW",
+    "ARTIFACT-S5-009-SCREENSHOT",
+    "ARTIFACT-S5-018-TEST",
+    "ARTIFACT-S5-018-VALIDATION",
+    "ARTIFACT-S5-018-PREVIEW",
+    "ARTIFACT-S5-018-SCREENSHOT",
+    "ARTIFACT-S5-011-TEST",
+    "ARTIFACT-S5-011-VALIDATION",
+    "ARTIFACT-S5-011-PREVIEW",
+    "ARTIFACT-S5-011-SCREENSHOT",
+    "ARTIFACT-S5-013-TEST",
+    "ARTIFACT-S5-013-VALIDATION",
+    "ARTIFACT-S5-013-PREVIEW",
+    "ARTIFACT-S5-013-SCREENSHOT",
+    "ARTIFACT-S5-015-TEST",
+    "ARTIFACT-S5-015-VALIDATION",
+    "ARTIFACT-S5-015-PREVIEW",
+    "ARTIFACT-S5-015-SCREENSHOT",
+    "ARTIFACT-S5-017-TEST",
+    "ARTIFACT-S5-017-VALIDATION",
+    "ARTIFACT-S5-017-PREVIEW",
+    "ARTIFACT-S5-017-SCREENSHOT",
+    "ARTIFACT-S5-019-TEST",
+    "ARTIFACT-S5-019-VALIDATION",
+    "ARTIFACT-S5-020-TEST",
+    "ARTIFACT-S5-020-VALIDATION",
+    "ARTIFACT-S5-020-PREVIEW",
+    "ARTIFACT-S5-020-SCREENSHOT",
+    "ARTIFACT-S5-021-TEST",
+    "ARTIFACT-S5-021-VALIDATION",
+    "ARTIFACT-S5-021-BUILD"
+  ]
+}

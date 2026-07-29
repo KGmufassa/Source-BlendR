@@ -16,6 +16,7 @@
           "type": { "type": "string" },
           "related_stage": { "type": "string" },
           "related_stage_output": { "type": "string" },
+          "related_stage_data_path": { "type": "string" },
           "related_ticket_ids": { "type": "array" },
           "related_validation_ids": { "type": "array" },
           "related_agent_ids": { "type": "array" },

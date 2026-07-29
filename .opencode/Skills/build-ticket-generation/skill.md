@@ -1,3 +1,9 @@
+---
+name: build-ticket-generation
+description: Convert Stage 5 implementation slices into canonical, dependency-aware Stage 6 tickets with skill routing, validation, visual, and evidence requirements.
+compatibility: opencode
+---
+
 # Skill — build-ticket-generation
 
 # Purpose
@@ -445,22 +451,20 @@ Pause for user input when ticket uncertainty blocks Stage 6 execution.
 
 ```json
 {
-  "build_tickets": {},
-  "tickets": [],
-  "ticket_groups": [],
-  "ticket_dependency_graph": [],
-  "ticket_skill_assignments": [],
-  "ticket_ui_blueprint_assignments": [],
-  "ticket_visual_spec_assignments": [],
-  "ticket_visual_reference_assignments": [],
-  "ticket_design_system_assignments": [],
-  "visual_acceptance_criteria_ticket_map": [],
-  "frontend_task_groups": [],
-  "component_ticket_map": [],
-  "ticket_risks": [],
-  "stage_6_execution_queue": []
+  "data": {
+    "ticket_count": 0,
+    "tickets": [],
+    "indexes": {
+      "tickets_by_slice": [],
+      "components_to_tickets": []
+    },
+    "execution_queue": [],
+    "risk_refs": []
+  }
 }
 ```
+
+Treat `tickets` as the only canonical ticket collection. Derive skill, blueprint, visual, design-system, dependency, frontend, and component views from ticket fields when consuming the artifact. Persist only compact ID-based indexes that materially improve lookup.
 
 ---
 

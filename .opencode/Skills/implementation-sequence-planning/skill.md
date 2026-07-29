@@ -1,3 +1,9 @@
+---
+name: implementation-sequence-planning
+description: Convert the Stage 5 roadmap into canonical implementation slices, dependency order, and validation checkpoints for Stage 6.
+compatibility: opencode
+---
+
 # Skill — implementation-sequence-planning
 
 # Purpose
@@ -109,13 +115,17 @@ Pause for user input when sequencing affects risk, timeline, validation, or impl
 
 ```json
 {
-  "implementation_sequence": {},
-  "implementation_slices": [],
-  "sequence_dependencies": [],
-  "validation_checkpoints": [],
-  "sequence_risks": []
+  "data": {
+    "implementation_sequence": {},
+    "implementation_slices": [],
+    "sequence_dependencies": [],
+    "validation_checkpoints": [],
+    "risk_refs": []
+  }
 }
 ```
+
+Store slices and checkpoints only in their canonical arrays. `implementation_sequence` may contain IDs, approach, and queue ordering, but must not embed copies of those arrays.
 
 ---
 

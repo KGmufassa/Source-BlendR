@@ -1,0 +1,75 @@
+{
+  "ticket_id": "TICKET-012",
+  "validation_id": "VALIDATION-S6-012",
+  "status": "passed",
+  "recorded_at": "2026-07-28T01:44:19Z",
+  "checks": [
+    {
+      "command": "corepack pnpm install --lockfile-only",
+      "status": "passed_with_warning",
+      "notes": "Exit code 0; pnpm update metadata lookup failed under restricted network, no external dependency added."
+    },
+    {
+      "command": "corepack pnpm exec node --test packages/domain/import-api-contracts.test.mjs packages/scrapers/normalized-source.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test",
+      "status": "passed",
+      "notes": "25 tests passed, 0 failed."
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm lint",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed"
+    },
+    {
+      "command": "curl -I http://127.0.0.1:4174/catalog-preview.html",
+      "status": "passed",
+      "evidence": "HTTP/1.0 200 OK"
+    },
+    {
+      "command": "curl -I http://127.0.0.1:4174/ai-settings-preview.html",
+      "status": "passed",
+      "evidence": "HTTP/1.0 200 OK"
+    },
+    {
+      "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/catalog-preview.html apps/web/ai-settings-preview.html",
+      "status": "passed"
+    }
+  ],
+  "security_review": {
+    "status": "passed_for_current_scope",
+    "surfaces_reviewed": [
+      "import job API",
+      "website normalized-source parsing",
+      "PDF upload filename validation",
+      "discovery candidate promotion",
+      "AI settings UI",
+      "catalog management UI"
+    ],
+    "selected_checks": [
+      "workspace authorization",
+      "unsafe file name rejection",
+      "hardcoded secrets",
+      "browser token storage",
+      "raw SQL/dynamic query patterns",
+      "unsafe HTML APIs"
+    ],
+    "findings": [],
+    "residual_risks": [
+      "Real Playwright/OCR/B2/Prisma/Next.js route integrations remain downstream runtime work; this batch freezes executable contracts and fixtures."
+    ]
+  },
+  "visual_qa": null,
+  "coverage_gaps": [
+    "Production runtime integrations remain downstream; BATCH-004 implements deterministic contracts, fixtures, and previewable UI foundations."
+  ]
+}

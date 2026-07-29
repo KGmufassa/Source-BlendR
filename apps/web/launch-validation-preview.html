@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source Blendr Launch Validation</title>
+  <style>
+    :root { --sb-canvas:#F7F6F2; --sb-surface:#FFFFFF; --sb-text:#1F2421; --sb-muted:#68716B; --sb-border:#D7D9D2; --sb-action:#A85E2A; --sb-focus:#155E75; --sb-success:#2F6B4F; }
+    body { margin:0; background:var(--sb-canvas); color:var(--sb-text); font:14px/1.45 system-ui,sans-serif; }
+    a { color:inherit; }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--sb-focus); outline-offset:2px; }
+    main { max-width:1120px; margin:auto; padding:24px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .card { background:var(--sb-surface); border:1px solid var(--sb-border); border-radius:6px; padding:16px; }
+    .status { display:inline-flex; border:1px solid var(--sb-border); border-radius:999px; padding:4px 8px; color:var(--sb-success); }
+    table { width:100%; border-collapse:collapse; background:var(--sb-surface); border:1px solid var(--sb-border); }
+    th, td { padding:10px; border-bottom:1px solid var(--sb-border); text-align:left; }
+    @media (max-width:767px) { .grid { grid-template-columns:1fr; } table, thead, tbody, tr, td { display:block; } th { display:none; } td::before { content:attr(data-label) ': '; font-weight:600; } }
+  </style>
+</head>
+<body>
+  <main data-route="/app/launch-validation" data-state="success">
+    <p class="status">BATCH-006 validation passed</p>
+    <h1>Launch workflow validation</h1>
+    <section class="grid">
+      <article class="card">
+        <h2>Security gates</h2>
+        <ul>
+          <li>Tenant isolation denied cross-workspace access.</li>
+          <li>Catalog search excluded other-workspace records.</li>
+          <li>PDF upload rejected path traversal file names.</li>
+          <li>Zero-provider AI path used manual fallback without credentials.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>UX and visual gates</h2>
+        <ul>
+          <li>10 launch routes represented.</li>
+          <li>42 required action/element references represented.</li>
+          <li>Keyboard focus, responsive stacking, and full-screen drawer contracts present.</li>
+          <li>Approved utilitarian design tokens present.</li>
+        </ul>
+      </article>
+    </section>
+    <table data-component="DataTable" data-mobile-behavior="stacked_labeled_records">
+      <thead><tr><th>Gate</th><th>Status</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Gate">TICKET-019</td><td data-label="Status">passed</td><td data-label="Evidence">security contract validation</td></tr>
+        <tr><td data-label="Gate">TICKET-020</td><td data-label="Status">passed</td><td data-label="Evidence">launch route/action/accessibility/responsive validation</td></tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

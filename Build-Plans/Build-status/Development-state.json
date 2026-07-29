@@ -2,6 +2,21 @@
   "stage": "Stage 5",
   "command": "stage-5-development-orchestration",
   "status": "ready_for_stage_6",
+  "format_version": "2.0",
+  "output_contract": {
+    "context": "Build-Plans/Stage-5/00-stage-context.json",
+    "manifest": "Build-Plans/Stage-5/09-stage-manifest.json",
+    "artifacts": [
+      "Build-Plans/Stage-5/01-development-roadmap.json",
+      "Build-Plans/Stage-5/02-implementation-sequence.json",
+      "Build-Plans/Stage-5/03-engineering-dependencies.json",
+      "Build-Plans/Stage-5/04-testing-strategy.json",
+      "Build-Plans/Stage-5/05-build-tickets.json",
+      "Build-Plans/Stage-5/06-agent-assignment-plan.json",
+      "Build-Plans/Stage-5/07-parallel-execution-plan.json",
+      "Build-Plans/Stage-5/08-release-plan.json"
+    ]
+  },
   "stage_1_inputs": {
     "required_files": [
       "Build-Plans/Stage-1/05-feature-structure.json",
@@ -1249,352 +1264,6 @@
   "implementation_sequence": {
     "sequence_id": "SEQUENCE-S5-001",
     "approach": "Foundation-first, then vertical slices with contract gates",
-    "implementation_slices": [
-      {
-        "slice_id": "SLICE-001",
-        "name": "Selected-stack monorepo foundation",
-        "feature_refs": [
-          "FEATURE-013",
-          "FEATURE-014"
-        ],
-        "workflow_refs": [],
-        "depends_on_slices": []
-      },
-      {
-        "slice_id": "SLICE-002",
-        "name": "Workspace data and tenant boundary",
-        "feature_refs": [
-          "FEATURE-014"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-005"
-        ],
-        "depends_on_slices": [
-          "SLICE-001"
-        ]
-      },
-      {
-        "slice_id": "SLICE-003",
-        "name": "Shared domain, repository, and validation contracts",
-        "feature_refs": [
-          "FEATURE-004",
-          "FEATURE-005"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-003",
-          "WORKFLOW-007",
-          "WORKFLOW-014"
-        ],
-        "depends_on_slices": [
-          "SLICE-001",
-          "SLICE-002"
-        ]
-      },
-      {
-        "slice_id": "SLICE-004",
-        "name": "Observable background job foundation",
-        "feature_refs": [
-          "FEATURE-013"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-001",
-          "WORKFLOW-002"
-        ],
-        "depends_on_slices": [
-          "SLICE-001",
-          "SLICE-002"
-        ]
-      },
-      {
-        "slice_id": "SLICE-005",
-        "name": "Vendor and catalog manual baseline",
-        "feature_refs": [
-          "FEATURE-002",
-          "FEATURE-005",
-          "FEATURE-015",
-          "FEATURE-016"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-007",
-          "WORKFLOW-014"
-        ],
-        "depends_on_slices": [
-          "SLICE-003"
-        ]
-      },
-      {
-        "slice_id": "SLICE-006",
-        "name": "AI capability routing and zero-provider fallback",
-        "feature_refs": [
-          "FEATURE-010"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-006"
-        ],
-        "depends_on_slices": [
-          "SLICE-002",
-          "SLICE-003"
-        ]
-      },
-      {
-        "slice_id": "SLICE-007",
-        "name": "Website discovery import",
-        "feature_refs": [
-          "FEATURE-001",
-          "FEATURE-013"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-001"
-        ],
-        "depends_on_slices": [
-          "SLICE-004",
-          "SLICE-005",
-          "SLICE-006"
-        ]
-      },
-      {
-        "slice_id": "SLICE-008",
-        "name": "PDF/OCR import",
-        "feature_refs": [
-          "FEATURE-003",
-          "FEATURE-013"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-002"
-        ],
-        "depends_on_slices": [
-          "SLICE-004",
-          "SLICE-005",
-          "SLICE-006"
-        ]
-      },
-      {
-        "slice_id": "SLICE-009",
-        "name": "Discovery review and promotion",
-        "feature_refs": [
-          "FEATURE-004",
-          "FEATURE-005",
-          "FEATURE-015"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-003"
-        ],
-        "depends_on_slices": [
-          "SLICE-003",
-          "SLICE-005"
-        ]
-      },
-      {
-        "slice_id": "SLICE-010",
-        "name": "Design system, shell, routes, and shared state components",
-        "feature_refs": [
-          "FEATURE-014"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-001",
-          "WORKFLOW-002",
-          "WORKFLOW-003",
-          "WORKFLOW-007",
-          "WORKFLOW-006",
-          "WORKFLOW-014"
-        ],
-        "depends_on_slices": [
-          "SLICE-001"
-        ]
-      },
-      {
-        "slice_id": "SLICE-011",
-        "name": "Import, job, and discovery frontend",
-        "feature_refs": [
-          "FEATURE-001",
-          "FEATURE-003",
-          "FEATURE-004",
-          "FEATURE-013"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-001",
-          "WORKFLOW-002",
-          "WORKFLOW-003"
-        ],
-        "depends_on_slices": [
-          "SLICE-004",
-          "SLICE-007",
-          "SLICE-008",
-          "SLICE-009",
-          "SLICE-010"
-        ]
-      },
-      {
-        "slice_id": "SLICE-012",
-        "name": "Catalog, vendor, overview, and provider frontend",
-        "feature_refs": [
-          "FEATURE-002",
-          "FEATURE-005",
-          "FEATURE-010",
-          "FEATURE-015",
-          "FEATURE-016"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-006",
-          "WORKFLOW-007",
-          "WORKFLOW-014"
-        ],
-        "depends_on_slices": [
-          "SLICE-005",
-          "SLICE-006",
-          "SLICE-010"
-        ]
-      },
-      {
-        "slice_id": "SLICE-013",
-        "name": "Security and tenant validation",
-        "feature_refs": [
-          "FEATURE-010",
-          "FEATURE-014"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-001",
-          "WORKFLOW-002",
-          "WORKFLOW-003",
-          "WORKFLOW-007",
-          "WORKFLOW-006",
-          "WORKFLOW-014"
-        ],
-        "depends_on_slices": [
-          "SLICE-002",
-          "SLICE-006",
-          "SLICE-009"
-        ]
-      },
-      {
-        "slice_id": "SLICE-014",
-        "name": "End-to-end, accessibility, responsive, and visual validation",
-        "feature_refs": [
-          "FEATURE-001",
-          "FEATURE-002",
-          "FEATURE-003",
-          "FEATURE-004",
-          "FEATURE-005",
-          "FEATURE-010",
-          "FEATURE-013",
-          "FEATURE-014",
-          "FEATURE-015"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-001",
-          "WORKFLOW-002",
-          "WORKFLOW-003",
-          "WORKFLOW-007",
-          "WORKFLOW-006",
-          "WORKFLOW-014"
-        ],
-        "depends_on_slices": [
-          "SLICE-011",
-          "SLICE-012",
-          "SLICE-013"
-        ]
-      },
-      {
-        "slice_id": "SLICE-015",
-        "name": "Deployment and observability readiness",
-        "feature_refs": [
-          "FEATURE-001",
-          "FEATURE-003",
-          "FEATURE-013",
-          "FEATURE-014"
-        ],
-        "workflow_refs": [
-          "WORKFLOW-001",
-          "WORKFLOW-002",
-          "WORKFLOW-003",
-          "WORKFLOW-007",
-          "WORKFLOW-006",
-          "WORKFLOW-014"
-        ],
-        "depends_on_slices": [
-          "SLICE-004",
-          "SLICE-013",
-          "SLICE-014"
-        ]
-      }
-    ],
-    "validation_checkpoints": [
-      {
-        "validation_id": "VALIDATION-001",
-        "slice_id": "SLICE-001",
-        "checkpoint": "Validate Selected-stack monorepo foundation acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-002",
-        "slice_id": "SLICE-002",
-        "checkpoint": "Validate Workspace data and tenant boundary acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-003",
-        "slice_id": "SLICE-003",
-        "checkpoint": "Validate Shared domain, repository, and validation contracts acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-004",
-        "slice_id": "SLICE-004",
-        "checkpoint": "Validate Observable background job foundation acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-005",
-        "slice_id": "SLICE-005",
-        "checkpoint": "Validate Vendor and catalog manual baseline acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-006",
-        "slice_id": "SLICE-006",
-        "checkpoint": "Validate AI capability routing and zero-provider fallback acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-007",
-        "slice_id": "SLICE-007",
-        "checkpoint": "Validate Website discovery import acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-008",
-        "slice_id": "SLICE-008",
-        "checkpoint": "Validate PDF/OCR import acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-009",
-        "slice_id": "SLICE-009",
-        "checkpoint": "Validate Discovery review and promotion acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-010",
-        "slice_id": "SLICE-010",
-        "checkpoint": "Validate Design system, shell, routes, and shared state components acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-011",
-        "slice_id": "SLICE-011",
-        "checkpoint": "Validate Import, job, and discovery frontend acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-012",
-        "slice_id": "SLICE-012",
-        "checkpoint": "Validate Catalog, vendor, overview, and provider frontend acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-013",
-        "slice_id": "SLICE-013",
-        "checkpoint": "Validate Security and tenant validation acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-014",
-        "slice_id": "SLICE-014",
-        "checkpoint": "Validate End-to-end, accessibility, responsive, and visual validation acceptance criteria and dependency contracts before dependent slices start."
-      },
-      {
-        "validation_id": "VALIDATION-015",
-        "slice_id": "SLICE-015",
-        "checkpoint": "Validate Deployment and observability readiness acceptance criteria and dependency contracts before dependent slices start."
-      }
-    ],
     "queue": [
       "SLICE-001",
       "SLICE-002",
@@ -2588,7 +2257,7 @@
           "ADR-009"
         ],
         "stage_4_ux_refs": [
-          "STATE-JOB"
+          "SCREEN-005"
         ],
         "ui_blueprint_refs": [],
         "visual_spec_refs": [],
@@ -2715,8 +2384,7 @@
           "ENTITY-IMPORT-JOB"
         ],
         "stage_4_ux_refs": [
-          "SCREEN-005",
-          "STATE-JOB"
+          "SCREEN-005"
         ],
         "ui_blueprint_refs": [],
         "visual_spec_refs": [],
@@ -3246,9 +2914,9 @@
           ]
         },
         "visual_acceptance_criteria_refs": [
-          "VAC-SCREEN-007",
-          "VAC-SCREEN-008",
-          "VAC-SCREEN-009"
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/6/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/7/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/8/visual_spec/visual_acceptance_criteria"
         ],
         "preview_required": true,
         "visual_qa_required": true,
@@ -3620,7 +3288,7 @@
           ]
         },
         "visual_acceptance_criteria_refs": [
-          "VAC-SCREEN-003"
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/2/visual_spec/visual_acceptance_criteria"
         ],
         "preview_required": true,
         "visual_qa_required": true,
@@ -3993,7 +3661,7 @@
           ]
         },
         "visual_acceptance_criteria_refs": [
-          "VAC-SCREEN-004"
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/3/visual_spec/visual_acceptance_criteria"
         ],
         "preview_required": true,
         "visual_qa_required": true,
@@ -4116,8 +3784,7 @@
           "ADR-005"
         ],
         "stage_4_ux_refs": [
-          "SCREEN-006",
-          "STATE-CANDIDATE"
+          "SCREEN-006"
         ],
         "ui_blueprint_refs": [],
         "visual_spec_refs": [],
@@ -4243,8 +3910,7 @@
           "SERVICE-VALIDATION"
         ],
         "stage_4_ux_refs": [
-          "SCREEN-006",
-          "STATE-CANDIDATE"
+          "SCREEN-006"
         ],
         "ui_blueprint_refs": [
           "UI-BLUEPRINT-SCREEN-006"
@@ -4364,7 +4030,7 @@
           ]
         },
         "visual_acceptance_criteria_refs": [
-          "VAC-SCREEN-006"
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/5/visual_spec/visual_acceptance_criteria"
         ],
         "preview_required": true,
         "visual_qa_required": true,
@@ -4729,16 +4395,16 @@
           ]
         },
         "visual_acceptance_criteria_refs": [
-          "VAC-SCREEN-001",
-          "VAC-SCREEN-002",
-          "VAC-SCREEN-003",
-          "VAC-SCREEN-004",
-          "VAC-SCREEN-005",
-          "VAC-SCREEN-006",
-          "VAC-SCREEN-007",
-          "VAC-SCREEN-008",
-          "VAC-SCREEN-009",
-          "VAC-SCREEN-010"
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/0/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/1/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/2/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/3/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/4/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/5/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/6/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/7/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/8/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/9/visual_spec/visual_acceptance_criteria"
         ],
         "preview_required": true,
         "visual_qa_required": true,
@@ -4999,9 +4665,9 @@
           ]
         },
         "visual_acceptance_criteria_refs": [
-          "VAC-SCREEN-001",
-          "VAC-SCREEN-002",
-          "VAC-SCREEN-005"
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/0/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/1/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/4/visual_spec/visual_acceptance_criteria"
         ],
         "preview_required": true,
         "visual_qa_required": true,
@@ -5236,7 +4902,7 @@
           ]
         },
         "visual_acceptance_criteria_refs": [
-          "VAC-SCREEN-010"
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/9/visual_spec/visual_acceptance_criteria"
         ],
         "preview_required": true,
         "visual_qa_required": true,
@@ -5761,16 +5427,16 @@
           ]
         },
         "visual_acceptance_criteria_refs": [
-          "VAC-SCREEN-001",
-          "VAC-SCREEN-002",
-          "VAC-SCREEN-003",
-          "VAC-SCREEN-004",
-          "VAC-SCREEN-005",
-          "VAC-SCREEN-006",
-          "VAC-SCREEN-007",
-          "VAC-SCREEN-008",
-          "VAC-SCREEN-009",
-          "VAC-SCREEN-010"
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/0/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/1/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/2/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/3/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/4/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/5/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/6/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/7/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/8/visual_spec/visual_acceptance_criteria",
+          "Build-Plans/Stage-4/07-ui-blueprint-specification.json#/ui_blueprints/9/visual_spec/visual_acceptance_criteria"
         ],
         "preview_required": true,
         "visual_qa_required": true,
@@ -5905,10 +5571,10 @@
         "stage_2_assumption_refs": [],
         "stage_3_architecture_refs": [
           "INTEGRATION-SENTRY",
-          "INFRA-WEB",
-          "INFRA-WORKER",
-          "INFRA-DB",
-          "INFRA-REDIS"
+          "DEPLOY-WEB",
+          "DEPLOY-WORKER",
+          "DEPLOY-DB",
+          "DEPLOY-REDIS"
         ],
         "stage_4_ux_refs": [
           "SCREEN-005"
@@ -6031,13 +5697,15 @@
     ]
   },
   "agent_assignment_plan": {
-    "inventory_sources": [
-      ".opencode/agents/",
-      "System-References/agent-registry/agent-registry.json",
-      "System-References/agents/available-agents.json",
-      "Build-Plans/Stage-5/available-agents.json"
-    ],
-    "scan_result": "No usable formal agent inventory existed; generated ticket-scoped profiles from required skill chains.",
+    "assignment_plan": {
+      "inventory_sources": [
+        ".opencode/agents/",
+        "System-References/agent-registry/agent-registry.json",
+        "System-References/agents/available-agents.json",
+        "Build-Plans/Stage-5/available-agents.json"
+      ],
+      "scan_result": "No usable formal agent inventory existed; generated ticket-scoped profiles from required skill chains."
+    },
     "agents": [
       {
         "agent_id": "AGENT-FOUNDATION",
@@ -6132,7 +5800,8 @@
         ],
         "missing_skills": [],
         "handoff_inputs": [
-          "Build-Plans/Build-status/Development-state.json",
+          "Build-Plans/Stage-5/09-stage-manifest.json",
+          "Build-Plans/Stage-5/00-stage-context.json",
           "Build-Plans/Stage-5/05-build-tickets.json"
         ],
         "ui_blueprint_refs": [],
@@ -6155,6 +5824,8 @@
           "apps/**",
           "packages/types/**",
           "packages/shared/**",
+          "packages/domain/**",
+          "packages/validation/**",
           "prisma/**"
         ],
         "restricted_file_scopes": [
@@ -6268,7 +5939,8 @@
         ],
         "missing_skills": [],
         "handoff_inputs": [
-          "Build-Plans/Build-status/Development-state.json",
+          "Build-Plans/Stage-5/09-stage-manifest.json",
+          "Build-Plans/Stage-5/00-stage-context.json",
           "Build-Plans/Stage-5/05-build-tickets.json"
         ],
         "ui_blueprint_refs": [],
@@ -6394,7 +6066,8 @@
         ],
         "missing_skills": [],
         "handoff_inputs": [
-          "Build-Plans/Build-status/Development-state.json",
+          "Build-Plans/Stage-5/09-stage-manifest.json",
+          "Build-Plans/Stage-5/00-stage-context.json",
           "Build-Plans/Stage-5/05-build-tickets.json"
         ],
         "ui_blueprint_refs": [],
@@ -6588,7 +6261,8 @@
         ],
         "missing_skills": [],
         "handoff_inputs": [
-          "Build-Plans/Build-status/Development-state.json",
+          "Build-Plans/Stage-5/09-stage-manifest.json",
+          "Build-Plans/Stage-5/00-stage-context.json",
           "Build-Plans/Stage-5/05-build-tickets.json",
           "Build-Plans/Stage-4/07-ui-blueprint-specification.json",
           "Build-Plans/Stage-4/08-design-system-foundation.json",
@@ -6805,7 +6479,8 @@
         ],
         "missing_skills": [],
         "handoff_inputs": [
-          "Build-Plans/Build-status/Development-state.json",
+          "Build-Plans/Stage-5/09-stage-manifest.json",
+          "Build-Plans/Stage-5/00-stage-context.json",
           "Build-Plans/Stage-5/05-build-tickets.json"
         ],
         "ui_blueprint_refs": [
@@ -6848,8 +6523,15 @@
         "allowed_file_scopes": [
           "tests/**",
           "apps/**/tests/**",
+          "apps/web/**",
+          "apps/worker/**",
+          ".github/workflows/**",
+          "package.json",
           "playwright.config.*",
           "vitest.config.*",
+          "fly.toml",
+          "vercel.json",
+          "sentry.*",
           "docs/**",
           "Build-Plans/Build-status/**"
         ],
@@ -6891,251 +6573,6 @@
   },
   "parallel_execution_plan": {
     "plan_id": "PARALLEL-S5-001",
-    "batches": [
-      {
-        "batch_id": "BATCH-001",
-        "execution_order": 1,
-        "can_run_in_parallel": false,
-        "assigned_agents": [
-          "AGENT-FOUNDATION"
-        ],
-        "tickets": [
-          "TICKET-001"
-        ],
-        "blocked_by_batches": [],
-        "file_ownership_boundaries": [
-          "workspace manifests and initial app/package skeletons"
-        ],
-        "shared_contracts": [
-          "pnpm workspace layout",
-          "TypeScript configuration"
-        ],
-        "merge_strategy": "serial_merge_by_dependency",
-        "batch_validation": [
-          "pnpm install resolves",
-          "workspace typecheck and test commands execute"
-        ],
-        "risk_level": "high",
-        "coordination_notes": [
-          "Establish file ownership before parallel work"
-        ]
-      },
-      {
-        "batch_id": "BATCH-002",
-        "execution_order": 2,
-        "can_run_in_parallel": true,
-        "assigned_agents": [
-          "AGENT-FOUNDATION",
-          "AGENT-FRONTEND"
-        ],
-        "tickets": [
-          "TICKET-002",
-          "TICKET-003",
-          "TICKET-004",
-          "TICKET-016"
-        ],
-        "blocked_by_batches": [
-          "BATCH-001"
-        ],
-        "file_ownership_boundaries": [
-          "AGENT-FOUNDATION: prisma, packages/types, packages/shared",
-          "AGENT-FRONTEND: apps/web UI shell only"
-        ],
-        "shared_contracts": [
-          "workspace context",
-          "DTOs",
-          "design tokens"
-        ],
-        "merge_strategy": "contract_review_before_merge",
-        "batch_validation": [
-          "Prisma test migration",
-          "tenant negative tests",
-          "app shell preview",
-          "shared type review"
-        ],
-        "risk_level": "critical",
-        "coordination_notes": [
-          "Frontend uses fixtures until domain contracts merge"
-        ]
-      },
-      {
-        "batch_id": "BATCH-003",
-        "execution_order": 3,
-        "can_run_in_parallel": true,
-        "assigned_agents": [
-          "AGENT-WORKER",
-          "AGENT-BACKEND"
-        ],
-        "tickets": [
-          "TICKET-005",
-          "TICKET-007",
-          "TICKET-008"
-        ],
-        "blocked_by_batches": [
-          "BATCH-002"
-        ],
-        "file_ownership_boundaries": [
-          "AGENT-WORKER: worker and queue processors",
-          "AGENT-BACKEND: domain/API/AI/catalog packages"
-        ],
-        "shared_contracts": [
-          "queue payloads",
-          "repository interfaces",
-          "provider capability contracts"
-        ],
-        "merge_strategy": "contract_review_before_merge",
-        "batch_validation": [
-          "queue contract tests",
-          "manual catalog E2E smoke",
-          "zero-provider tests"
-        ],
-        "risk_level": "critical",
-        "coordination_notes": [
-          "Shared types change only through contract review"
-        ]
-      },
-      {
-        "batch_id": "BATCH-004",
-        "execution_order": 4,
-        "can_run_in_parallel": true,
-        "assigned_agents": [
-          "AGENT-WORKER",
-          "AGENT-BACKEND",
-          "AGENT-FRONTEND"
-        ],
-        "tickets": [
-          "TICKET-006",
-          "TICKET-010",
-          "TICKET-012",
-          "TICKET-014",
-          "TICKET-009",
-          "TICKET-018"
-        ],
-        "blocked_by_batches": [
-          "BATCH-003"
-        ],
-        "file_ownership_boundaries": [
-          "Worker owns scraper/OCR processors",
-          "Backend owns import/discovery APIs",
-          "Frontend owns vendor/catalog/provider pages"
-        ],
-        "shared_contracts": [
-          "job status",
-          "candidate DTO",
-          "catalog mutation results"
-        ],
-        "merge_strategy": "validate_each_then_merge_batch",
-        "batch_validation": [
-          "representative website fixture",
-          "PDF/OCR fixture",
-          "candidate promotion integration",
-          "catalog/provider browser smoke"
-        ],
-        "risk_level": "critical",
-        "coordination_notes": [
-          "Merge API contracts before frontend replaces fixtures"
-        ]
-      },
-      {
-        "batch_id": "BATCH-005",
-        "execution_order": 5,
-        "can_run_in_parallel": false,
-        "assigned_agents": [
-          "AGENT-FRONTEND"
-        ],
-        "tickets": [
-          "TICKET-011",
-          "TICKET-013",
-          "TICKET-015",
-          "TICKET-017"
-        ],
-        "blocked_by_batches": [
-          "BATCH-004"
-        ],
-        "file_ownership_boundaries": [
-          "apps/web import, job, and discovery routes/components"
-        ],
-        "shared_contracts": [
-          "approved Stage 4 blueprint and design system"
-        ],
-        "merge_strategy": "serial_merge_by_dependency",
-        "batch_validation": [
-          "desktop/tablet/mobile previews",
-          "keyboard paths",
-          "route/action/state checks",
-          "visual QA evidence"
-        ],
-        "risk_level": "critical",
-        "coordination_notes": [
-          "Serialize shared DataTable/Drawer changes to prevent visual drift"
-        ]
-      },
-      {
-        "batch_id": "BATCH-006",
-        "execution_order": 6,
-        "can_run_in_parallel": false,
-        "assigned_agents": [
-          "AGENT-VALIDATION"
-        ],
-        "tickets": [
-          "TICKET-019",
-          "TICKET-020"
-        ],
-        "blocked_by_batches": [
-          "BATCH-005"
-        ],
-        "file_ownership_boundaries": [
-          "tests, validation evidence, and issue reports"
-        ],
-        "shared_contracts": [
-          "all launch contracts"
-        ],
-        "merge_strategy": "manual_review_required",
-        "batch_validation": [
-          "No critical/high severity test failure",
-          "No cross-workspace access",
-          "No direct AI-to-catalog write",
-          "Zero-provider manual workflow passes",
-          "All required preview/visual QA artifacts registered",
-          "Idempotent retry and partial failure paths pass"
-        ],
-        "risk_level": "critical",
-        "coordination_notes": [
-          "Validation failures route back to owning ticket and batch"
-        ]
-      },
-      {
-        "batch_id": "BATCH-007",
-        "execution_order": 7,
-        "can_run_in_parallel": false,
-        "assigned_agents": [
-          "AGENT-VALIDATION"
-        ],
-        "tickets": [
-          "TICKET-021"
-        ],
-        "blocked_by_batches": [
-          "BATCH-006"
-        ],
-        "file_ownership_boundaries": [
-          "deployment configuration, observability, runbooks, evidence registry"
-        ],
-        "shared_contracts": [
-          "release candidate artifact set"
-        ],
-        "merge_strategy": "manual_review_required",
-        "batch_validation": [
-          "build/deploy checks",
-          "worker/web health",
-          "Sentry/log/queue signal checks",
-          "rollback rehearsal"
-        ],
-        "risk_level": "critical",
-        "coordination_notes": [
-          "No public rollout from Stage 6; Stage 7 owns deployment execution"
-        ]
-      }
-    ],
     "workspace_plan": {
       "strategy": "Use isolated git worktrees for parallel batches",
       "recommended_worktrees": [
@@ -7667,7 +7104,10 @@
     "source_stage": "Stage 5",
     "target_stage": "Stage 6",
     "source_output_directory": "Build-Plans/Stage-5",
+    "manifest": "Build-Plans/Stage-5/09-stage-manifest.json",
+    "context": "Build-Plans/Stage-5/00-stage-context.json",
     "required_files": [
+      "Build-Plans/Stage-5/00-stage-context.json",
       "Build-Plans/Stage-5/01-development-roadmap.json",
       "Build-Plans/Stage-5/02-implementation-sequence.json",
       "Build-Plans/Stage-5/03-engineering-dependencies.json",
@@ -7675,7 +7115,8 @@
       "Build-Plans/Stage-5/05-build-tickets.json",
       "Build-Plans/Stage-5/06-agent-assignment-plan.json",
       "Build-Plans/Stage-5/07-parallel-execution-plan.json",
-      "Build-Plans/Stage-5/08-release-plan.json"
+      "Build-Plans/Stage-5/08-release-plan.json",
+      "Build-Plans/Stage-5/09-stage-manifest.json"
     ],
     "ready": true,
     "blocking_items": [],
@@ -7815,47 +7256,316 @@
     {
       "skill": "development-roadmap-planning",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.424713+00:00"
+      "persisted_at": "2026-07-25T01:39:56.002177+00:00"
     },
     {
       "skill": "implementation-sequence-planning",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.426006+00:00"
+      "persisted_at": "2026-07-25T01:39:56.003570+00:00"
     },
     {
       "skill": "engineering-dependency-planning",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.427515+00:00"
+      "persisted_at": "2026-07-25T01:39:56.004838+00:00"
     },
     {
       "skill": "testing-strategy-planning",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.428777+00:00"
+      "persisted_at": "2026-07-25T01:39:56.006060+00:00"
     },
     {
       "skill": "build-ticket-generation",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.430126+00:00"
+      "persisted_at": "2026-07-25T01:39:56.007370+00:00"
     },
     {
       "skill": "agent-assignment-planning",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.433794+00:00"
+      "persisted_at": "2026-07-25T01:39:56.010853+00:00"
     },
     {
       "skill": "parallel-execution-planning",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.437986+00:00"
+      "persisted_at": "2026-07-25T01:39:56.014993+00:00"
     },
     {
       "skill": "release-plan-orchestration",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.442512+00:00"
+      "persisted_at": "2026-07-25T01:39:56.019198+00:00"
     },
     {
       "skill": "development-orchestration-synthesis",
       "status": "completed",
-      "persisted_at": "2026-07-14T05:14:57.446946+00:00"
+      "persisted_at": "2026-07-25T01:39:56.023221+00:00"
+    }
+  ],
+  "implementation_slices": [
+    {
+      "slice_id": "SLICE-001",
+      "name": "Selected-stack monorepo foundation",
+      "feature_refs": [
+        "FEATURE-013",
+        "FEATURE-014"
+      ],
+      "workflow_refs": [],
+      "depends_on_slices": []
+    },
+    {
+      "slice_id": "SLICE-002",
+      "name": "Workspace data and tenant boundary",
+      "feature_refs": [
+        "FEATURE-014"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-005"
+      ],
+      "depends_on_slices": [
+        "SLICE-001"
+      ]
+    },
+    {
+      "slice_id": "SLICE-003",
+      "name": "Shared domain, repository, and validation contracts",
+      "feature_refs": [
+        "FEATURE-004",
+        "FEATURE-005"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-003",
+        "WORKFLOW-007",
+        "WORKFLOW-014"
+      ],
+      "depends_on_slices": [
+        "SLICE-001",
+        "SLICE-002"
+      ]
+    },
+    {
+      "slice_id": "SLICE-004",
+      "name": "Observable background job foundation",
+      "feature_refs": [
+        "FEATURE-013"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-001",
+        "WORKFLOW-002"
+      ],
+      "depends_on_slices": [
+        "SLICE-001",
+        "SLICE-002"
+      ]
+    },
+    {
+      "slice_id": "SLICE-005",
+      "name": "Vendor and catalog manual baseline",
+      "feature_refs": [
+        "FEATURE-002",
+        "FEATURE-005",
+        "FEATURE-015",
+        "FEATURE-016"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-007",
+        "WORKFLOW-014"
+      ],
+      "depends_on_slices": [
+        "SLICE-003"
+      ]
+    },
+    {
+      "slice_id": "SLICE-006",
+      "name": "AI capability routing and zero-provider fallback",
+      "feature_refs": [
+        "FEATURE-010"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-006"
+      ],
+      "depends_on_slices": [
+        "SLICE-002",
+        "SLICE-003"
+      ]
+    },
+    {
+      "slice_id": "SLICE-007",
+      "name": "Website discovery import",
+      "feature_refs": [
+        "FEATURE-001",
+        "FEATURE-013"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-001"
+      ],
+      "depends_on_slices": [
+        "SLICE-004",
+        "SLICE-005",
+        "SLICE-006"
+      ]
+    },
+    {
+      "slice_id": "SLICE-008",
+      "name": "PDF/OCR import",
+      "feature_refs": [
+        "FEATURE-003",
+        "FEATURE-013"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-002"
+      ],
+      "depends_on_slices": [
+        "SLICE-004",
+        "SLICE-005",
+        "SLICE-006"
+      ]
+    },
+    {
+      "slice_id": "SLICE-009",
+      "name": "Discovery review and promotion",
+      "feature_refs": [
+        "FEATURE-004",
+        "FEATURE-005",
+        "FEATURE-015"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-003"
+      ],
+      "depends_on_slices": [
+        "SLICE-003",
+        "SLICE-005"
+      ]
+    },
+    {
+      "slice_id": "SLICE-010",
+      "name": "Design system, shell, routes, and shared state components",
+      "feature_refs": [
+        "FEATURE-014"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-003",
+        "WORKFLOW-007",
+        "WORKFLOW-006",
+        "WORKFLOW-014"
+      ],
+      "depends_on_slices": [
+        "SLICE-001"
+      ]
+    },
+    {
+      "slice_id": "SLICE-011",
+      "name": "Import, job, and discovery frontend",
+      "feature_refs": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-004",
+        "FEATURE-013"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-003"
+      ],
+      "depends_on_slices": [
+        "SLICE-004",
+        "SLICE-007",
+        "SLICE-008",
+        "SLICE-009",
+        "SLICE-010"
+      ]
+    },
+    {
+      "slice_id": "SLICE-012",
+      "name": "Catalog, vendor, overview, and provider frontend",
+      "feature_refs": [
+        "FEATURE-002",
+        "FEATURE-005",
+        "FEATURE-010",
+        "FEATURE-015",
+        "FEATURE-016"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-006",
+        "WORKFLOW-007",
+        "WORKFLOW-014"
+      ],
+      "depends_on_slices": [
+        "SLICE-005",
+        "SLICE-006",
+        "SLICE-010"
+      ]
+    },
+    {
+      "slice_id": "SLICE-013",
+      "name": "Security and tenant validation",
+      "feature_refs": [
+        "FEATURE-010",
+        "FEATURE-014"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-003",
+        "WORKFLOW-007",
+        "WORKFLOW-006",
+        "WORKFLOW-014"
+      ],
+      "depends_on_slices": [
+        "SLICE-002",
+        "SLICE-006",
+        "SLICE-009"
+      ]
+    },
+    {
+      "slice_id": "SLICE-014",
+      "name": "End-to-end, accessibility, responsive, and visual validation",
+      "feature_refs": [
+        "FEATURE-001",
+        "FEATURE-002",
+        "FEATURE-003",
+        "FEATURE-004",
+        "FEATURE-005",
+        "FEATURE-010",
+        "FEATURE-013",
+        "FEATURE-014",
+        "FEATURE-015"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-003",
+        "WORKFLOW-007",
+        "WORKFLOW-006",
+        "WORKFLOW-014"
+      ],
+      "depends_on_slices": [
+        "SLICE-011",
+        "SLICE-012",
+        "SLICE-013"
+      ]
+    },
+    {
+      "slice_id": "SLICE-015",
+      "name": "Deployment and observability readiness",
+      "feature_refs": [
+        "FEATURE-001",
+        "FEATURE-003",
+        "FEATURE-013",
+        "FEATURE-014"
+      ],
+      "workflow_refs": [
+        "WORKFLOW-001",
+        "WORKFLOW-002",
+        "WORKFLOW-003",
+        "WORKFLOW-007",
+        "WORKFLOW-006",
+        "WORKFLOW-014"
+      ],
+      "depends_on_slices": [
+        "SLICE-004",
+        "SLICE-013",
+        "SLICE-014"
+      ]
     }
   ]
 }

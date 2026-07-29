@@ -1,0 +1,53 @@
+{
+  "ticket_id": "TICKET-017",
+  "validation_id": "VALIDATION-S6-017",
+  "status": "passed",
+  "recorded_at": "2026-07-28T01:56:14Z",
+  "checks": [
+    {
+      "command": "corepack pnpm exec node --test apps/web/import-workflows.test.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test",
+      "status": "passed",
+      "notes": "30 tests passed, 0 failed."
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm lint",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed"
+    },
+    {
+      "command": "curl -I http://127.0.0.1:4175/import-workspace-preview.html",
+      "status": "passed",
+      "evidence": "HTTP/1.0 200 OK"
+    },
+    {
+      "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/import-workspace-preview.html",
+      "status": "passed"
+    }
+  ],
+  "visual_qa": {
+    "status": "passed_for_foundation_scope",
+    "preview_url": "http://127.0.0.1:4175/import-workspace-preview.html",
+    "screenshot_path": "Build-Plans/Stage-6/evidence/import-workspace-preview.html.png",
+    "responsive_evidence": [
+      "imports table stacks into labeled records",
+      "overview/import/job-detail routes expose primary actions",
+      "retry, cancel, and discovery navigation actions remain visible"
+    ],
+    "visual_drift_status": "visual_match",
+    "visual_drift_source": "implementation_only_drift"
+  },
+  "coverage_gaps": [
+    "Static preview freezes route/action/state and visual contracts; production Next.js route handlers remain downstream runtime work."
+  ]
+}

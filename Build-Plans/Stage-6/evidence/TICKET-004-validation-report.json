@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "recorded_at": "2026-07-25T05:12:11Z",
+  "checks": [
+    {
+      "command": "corepack pnpm install --lockfile-only",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm lint",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed"
+    },
+    {
+      "command": "curl -I http://127.0.0.1:4173/preview.html",
+      "status": "passed",
+      "evidence": "HTTP/1.0 200 OK"
+    },
+    {
+      "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/preview.html",
+      "status": "passed"
+    }
+  ],
+  "security_review": {
+    "status": "passed_for_current_scope",
+    "surfaces_reviewed": [
+      "workspace authorization guard",
+      "Clerk organization claim mapping",
+      "workspace-scoped repository reads"
+    ],
+    "findings": [],
+    "residual_risks": [
+      "Real Clerk middleware integration and database client authorization remain owned by later API/runtime tickets."
+    ]
+  },
+  "visual_qa": {
+    "status": "passed_for_foundation_scope",
+    "preview_url": "http://127.0.0.1:4173/preview.html",
+    "screenshot_path": "Build-Plans/Stage-6/evidence/preview.html.png",
+    "visual_drift_status": "visual_match",
+    "visual_drift_source": "implementation_only_drift",
+    "notes": "Rendered static shell shows approved warm canvas, persistent sidebar, active route, status badge, visible primary action, and no obvious overlap at desktop thumbnail size."
+  },
+  "ticket_id": "TICKET-004",
+  "validation_id": "VALIDATION-S6-004"
+}

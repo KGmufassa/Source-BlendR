@@ -1,0 +1,60 @@
+{
+  "ticket_id": "TICKET-007",
+  "validation_id": "VALIDATION-S6-007",
+  "status": "passed",
+  "recorded_at": "2026-07-27T00:00:00Z",
+  "checks": [
+    {
+      "command": "corepack pnpm install --lockfile-only",
+      "status": "passed_with_warning",
+      "notes": "Exit code 0; registry metadata lookup for pnpm update notice failed under restricted network, no dependency install required."
+    },
+    {
+      "command": "corepack pnpm exec node --test apps/worker/import-job-contracts.test.mjs packages/ai/ai-router.test.mjs packages/domain/catalog-api-contracts.test.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test",
+      "status": "passed",
+      "notes": "17 tests passed, 0 failed."
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm lint",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "security_review": {
+    "status": "passed_for_current_scope",
+    "surfaces_reviewed": [
+      "AI provider adapter dispatch",
+      "workspace-scoped catalog API",
+      "worker queue payload and event log"
+    ],
+    "selected_checks": [
+      "hardcoded secrets",
+      "browser token storage",
+      "raw SQL/dynamic query patterns",
+      "cross-workspace data access"
+    ],
+    "findings": [],
+    "residual_risks": [
+      "Real BullMQ processors, Redis retries, Prisma repository implementation, and Next.js route handlers remain owned by downstream tickets.",
+      "Provider credentials are not implemented in this batch; credential encryption and storage remain owned by later workspace/settings tickets."
+    ]
+  },
+  "coverage_gaps": [
+    "Real provider SDK adapters and credential persistence are intentionally deferred; this batch freezes capability routing contracts."
+  ]
+}

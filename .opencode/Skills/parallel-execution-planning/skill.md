@@ -1,3 +1,9 @@
+---
+name: parallel-execution-planning
+description: Group Stage 5 tickets into dependency-safe Stage 6 batches with ownership, merge, workspace, and validation controls.
+compatibility: opencode
+---
+
 # Skill — parallel-execution-planning
 
 # Purpose
@@ -62,6 +68,7 @@ Each parallel batch must include:
   "batch_id": "",
   "execution_order": 0,
   "can_run_in_parallel": true,
+  "execution_waves": [],
   "assigned_agents": [],
   "tickets": [],
   "blocked_by_batches": [],
@@ -94,6 +101,8 @@ Block parallel execution when tickets have:
 * incompatible validation requirements
 * high-risk integration overlap
 
+When a batch contains ticket dependencies, add `execution_waves`. Every same-batch prerequisite must appear in an earlier wave than its dependent ticket. `can_run_in_parallel` means at least one wave contains independently executable tickets; it does not permit dependencies within the same wave.
+
 ## Workspace Isolation Guidance
 
 When parallel work is approved, recommend isolated workspaces such as:
@@ -118,16 +127,18 @@ Each agent should receive:
 
 ```json
 {
-  "parallel_execution_plan": {},
-  "parallel_batches": [],
-  "serial_batches": [],
-  "conflict_controls": [],
-  "workspace_plan": {},
-  "merge_plan": {},
-  "batch_validation_gates": [],
-  "parallel_execution_risks": []
+  "data": {
+    "parallel_execution_plan": {},
+    "batches": [],
+    "parallel_batch_ids": [],
+    "serial_batch_ids": [],
+    "conflict_controls": [],
+    "risk_refs": []
+  }
 }
 ```
+
+Store each batch once in `batches`. Parallel/serial views must contain batch IDs rather than copied batch objects; batch validation remains on each canonical batch.
 
 ---
 
@@ -162,4 +173,5 @@ Validate:
 * every batch has validation gates
 * file ownership boundaries are explicit
 * shared contract conflicts block parallel execution
+* same-batch dependencies are ordered through `execution_waves`
 * high-risk integration work is serialized unless explicitly approved

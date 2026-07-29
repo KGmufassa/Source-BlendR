@@ -1,0 +1,252 @@
+{
+  "$schema": "../../System-References/Schemas/stage-7-output.schema.json",
+  "stage": "Stage 7",
+  "status": "needs_operational_revision",
+  "analytics_framework": {
+    "status": "planned_not_instrumented",
+    "principles": [
+      "Tenant-safe identifiers only",
+      "No credentials, source documents, extracted content, or catalog payloads in analytics",
+      "Stable event names and schema versions",
+      "Operational telemetry remains distinct from product analytics",
+      "Private-alpha measurement precedes optimization"
+    ],
+    "data_source": "",
+    "retention_policy": "pending_privacy_and_product_owner_decision"
+  },
+  "events": [
+    {
+      "event_id": "TELEMETRY-S7-001",
+      "name": "workspace_onboarding_completed",
+      "trigger": "Workspace completes required setup and reaches an import-capable state",
+      "properties": [
+        "workspace_id_hash",
+        "provider_mode",
+        "schema_version"
+      ],
+      "success_refs": [
+        "SUCCESS-001",
+        "SUCCESS-002",
+        "SUCCESS-003"
+      ],
+      "status": "not_implemented"
+    },
+    {
+      "event_id": "TELEMETRY-S7-002",
+      "name": "import_job_started",
+      "trigger": "Website or PDF import job is accepted",
+      "properties": [
+        "workspace_id_hash",
+        "source_type",
+        "job_id_hash",
+        "schema_version"
+      ],
+      "success_refs": [
+        "SUCCESS-001",
+        "SUCCESS-002",
+        "SUCCESS-007"
+      ],
+      "status": "not_implemented"
+    },
+    {
+      "event_id": "TELEMETRY-S7-003",
+      "name": "import_job_terminal",
+      "trigger": "Import job succeeds, fails, or is canceled",
+      "properties": [
+        "workspace_id_hash",
+        "source_type",
+        "outcome",
+        "duration_bucket",
+        "retry_count",
+        "failure_class",
+        "schema_version"
+      ],
+      "success_refs": [
+        "SUCCESS-001",
+        "SUCCESS-002",
+        "SUCCESS-007"
+      ],
+      "status": "not_implemented"
+    },
+    {
+      "event_id": "TELEMETRY-S7-004",
+      "name": "discovery_session_reviewed",
+      "trigger": "A user completes a discovery review action",
+      "properties": [
+        "workspace_id_hash",
+        "candidate_count_bucket",
+        "selected_count_bucket",
+        "action",
+        "schema_version"
+      ],
+      "success_refs": [
+        "SUCCESS-001",
+        "SUCCESS-002"
+      ],
+      "status": "not_implemented"
+    },
+    {
+      "event_id": "TELEMETRY-S7-005",
+      "name": "catalog_item_created",
+      "trigger": "Catalog item is created manually or promoted from discovery",
+      "properties": [
+        "workspace_id_hash",
+        "creation_mode",
+        "item_type",
+        "schema_version"
+      ],
+      "success_refs": [
+        "SUCCESS-001",
+        "SUCCESS-002",
+        "SUCCESS-003"
+      ],
+      "status": "not_implemented"
+    },
+    {
+      "event_id": "TELEMETRY-S7-006",
+      "name": "ai_route_outcome",
+      "trigger": "An AI capability route succeeds, falls back, or enters manual mode",
+      "properties": [
+        "workspace_id_hash",
+        "capability",
+        "outcome",
+        "provider_alias",
+        "latency_bucket",
+        "cost_bucket",
+        "schema_version"
+      ],
+      "success_refs": [
+        "SUCCESS-003",
+        "SUCCESS-004"
+      ],
+      "status": "not_implemented"
+    }
+  ],
+  "metrics": [
+    {
+      "metric_id": "METRIC-S7-001",
+      "name": "onboarding_activation_rate",
+      "definition": "Private-alpha workspaces completing onboarding and one successful catalog creation divided by invited workspaces.",
+      "category": "activation",
+      "source_events": [
+        "TELEMETRY-S7-001",
+        "TELEMETRY-S7-005"
+      ]
+    },
+    {
+      "metric_id": "METRIC-S7-002",
+      "name": "import_success_rate",
+      "definition": "Successful import jobs divided by terminal import jobs, segmented by source type.",
+      "category": "reliability",
+      "source_events": [
+        "TELEMETRY-S7-003"
+      ]
+    },
+    {
+      "metric_id": "METRIC-S7-003",
+      "name": "candidate_to_catalog_conversion",
+      "definition": "Candidates promoted to catalog divided by candidates reviewed.",
+      "category": "conversion",
+      "source_events": [
+        "TELEMETRY-S7-004",
+        "TELEMETRY-S7-005"
+      ]
+    },
+    {
+      "metric_id": "METRIC-S7-004",
+      "name": "manual_fallback_rate",
+      "definition": "AI capability attempts ending in manual fallback divided by all AI capability attempts.",
+      "category": "product_reliability",
+      "source_events": [
+        "TELEMETRY-S7-006"
+      ]
+    },
+    {
+      "metric_id": "METRIC-S7-005",
+      "name": "time_to_first_catalog_value",
+      "definition": "Time from onboarding completion to first created catalog item.",
+      "category": "activation",
+      "source_events": [
+        "TELEMETRY-S7-001",
+        "TELEMETRY-S7-005"
+      ]
+    }
+  ],
+  "dashboards": [
+    {
+      "dashboard_id": "DASHBOARD-S7-LAUNCH",
+      "name": "Launch health",
+      "audience": [
+        "Release owner",
+        "Operations owner"
+      ],
+      "metrics": [
+        "availability",
+        "error rate",
+        "queue depth",
+        "job outcomes",
+        "METRIC-S7-002",
+        "METRIC-S7-004"
+      ],
+      "status": "not_implemented"
+    },
+    {
+      "dashboard_id": "DASHBOARD-S7-PRODUCT",
+      "name": "Private-alpha activation",
+      "audience": [
+        "Product owner"
+      ],
+      "metrics": [
+        "METRIC-S7-001",
+        "METRIC-S7-003",
+        "METRIC-S7-005"
+      ],
+      "status": "not_implemented"
+    }
+  ],
+  "analytics_risks": [
+    {
+      "risk_id": "RISK-S7-004",
+      "risk": "Missing instrumentation prevents Stage 8 from distinguishing adoption problems from runtime failures.",
+      "domain": "analytics",
+      "severity": "high",
+      "likelihood": "high",
+      "status": "open",
+      "affected_ids": [
+        "SUCCESS-001",
+        "SUCCESS-002",
+        "SUCCESS-003",
+        "SUCCESS-004",
+        "SUCCESS-007"
+      ],
+      "mitigation": "Implement the minimal event catalog and validate dashboard source quality before private alpha.",
+      "owner_stage": "Stage 7",
+      "evidence_refs": [
+        "Build-Plans/Stage-1/10-success-framework.json"
+      ],
+      "next_action": "Select an analytics sink and privacy owner."
+    }
+  ],
+  "assumptions": [
+    {
+      "assumption_id": "ASSUMPTION-S7-004",
+      "assumption": "Hashed workspace identifiers and coarse buckets are sufficient for private-alpha product measurement.",
+      "status": "unverified",
+      "next_action": "Privacy and product owners approve the analytics data contract."
+    }
+  ],
+  "traceability_refs": [
+    "SUCCESS-001",
+    "SUCCESS-002",
+    "SUCCESS-003",
+    "SUCCESS-004",
+    "SUCCESS-007",
+    "FEATURE-001",
+    "FEATURE-003",
+    "FEATURE-004",
+    "FEATURE-005",
+    "FEATURE-010",
+    "FEATURE-013"
+  ],
+  "artifact_refs": []
+}

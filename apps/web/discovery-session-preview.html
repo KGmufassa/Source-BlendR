@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source Blendr Discovery Session</title>
+  <style>
+    :root { --sb-canvas:#F7F6F2; --sb-surface:#FFFFFF; --sb-text:#1F2421; --sb-muted:#68716B; --sb-border:#D7D9D2; --sb-action:#A85E2A; --sb-focus:#155E75; --sb-danger:#A43D35; }
+    body { margin:0; background:var(--sb-canvas); color:var(--sb-text); font:14px/1.45 system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline:2px solid var(--sb-focus); outline-offset:2px; }
+    .shell { min-height:100vh; display:grid; grid-template-columns:248px 1fr; }
+    nav { border-right:1px solid var(--sb-border); background:var(--sb-surface); padding:16px; }
+    nav a { display:block; padding:8px 10px; border-radius:6px; }
+    nav a[aria-current="page"] { border-left:3px solid var(--sb-action); font-weight:600; }
+    main { padding:24px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .card, table, aside { background:var(--sb-surface); border:1px solid var(--sb-border); border-radius:6px; padding:16px; }
+    .toolbar, .actions { display:flex; flex-wrap:wrap; gap:8px; align-items:end; margin:12px 0; }
+    label { display:grid; gap:4px; color:var(--sb-muted); }
+    input, select { border:1px solid var(--sb-border); border-radius:6px; padding:8px; background:var(--sb-surface); color:var(--sb-text); }
+    button, .button { border:1px solid var(--sb-border); border-radius:6px; padding:8px 10px; background:var(--sb-surface); color:var(--sb-text); }
+    .primary { background:var(--sb-action); border-color:var(--sb-action); color:#fff; }
+    .danger { color:var(--sb-danger); }
+    .status { display:inline-flex; border:1px solid var(--sb-border); border-radius:999px; padding:4px 8px; color:var(--sb-muted); }
+    table { width:100%; border-collapse:collapse; padding:0; }
+    th, td { padding:10px; border-bottom:1px solid var(--sb-border); text-align:left; }
+    @media (max-width:767px) { .shell, .grid { grid-template-columns:1fr; } nav { border-right:0; border-bottom:1px solid var(--sb-border); } table, thead, tbody, tr, td { display:block; } th { display:none; } td::before { content:attr(data-label) ': '; font-weight:600; } aside[data-component="AccessibleDrawer"] { position:fixed; inset:0; overflow:auto; border-radius:0; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav aria-label="Primary workspace navigation"><a href="/app">Overview</a><a href="/app/imports">Imports</a><a href="/app/imports/website">Website Import</a><a href="/app/imports/pdf">PDF Import</a><a href="/app/imports/jobs/:jobId">Job Detail</a><a href="/app/discovery/:sessionId" aria-current="page">Discovery</a><a href="/app/catalog">Catalog</a><a href="/app/catalog/new">New Item</a><a href="/app/vendors">Vendors</a><a href="/app/settings/ai">AI Settings</a></nav>
+    <main data-state="populated">
+      <p class="status">populated</p>
+      <h1>Discovery Session</h1>
+      <section data-route="/app/discovery/:sessionId" data-component="COMP-SCREEN-006-PRIMARY">
+      <form role="search" class="toolbar">
+        <label>Search candidates <input type="search" data-element="EL-DIS-001" data-action="ACTION-SEARCH-CANDIDATES"></label>
+        <label>Status filter <select data-element="EL-DIS-002" data-action="ACTION-FILTER-CANDIDATES"><option>ready</option><option>ignored</option></select></label>
+      </form>
+      <table data-component="DataTable" data-mobile-behavior="stacked_labeled_records">
+        <thead><tr><th>Select</th><th>Name</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody><tr><td data-label="Select"><input type="checkbox" data-element="EL-DIS-003" value="cand-1"></td><td data-label="Name">Jasmine Tea</td><td data-label="Status">ready</td><td data-label="Action"><button type="button" data-element="EL-DIS-004" data-action="ACTION-PREVIEW-CANDIDATE">Preview candidate</button></td></tr><tr><td data-label="Select"><input type="checkbox" data-element="EL-DIS-003" value="cand-2"></td><td data-label="Name">House Espresso</td><td data-label="Status">needs_review</td><td data-label="Action"><button type="button" data-element="EL-DIS-004" data-action="ACTION-PREVIEW-CANDIDATE">Preview candidate</button></td></tr></tbody>
+      </table>
+      <div class="actions">
+        <button type="button" data-element="EL-DIS-005" data-action="ACTION-BULK-IMPORT">Import selected</button>
+        <button type="button" data-element="EL-DIS-006" data-action="ACTION-BULK-IGNORE">Ignore selected</button>
+        <button type="button" class="danger" data-element="EL-DIS-007" data-action="ACTION-BULK-ARCHIVE">Archive selected</button>
+      </div>
+      <aside data-component="AccessibleDrawer" data-mobile-behavior="full_screen_sheet" aria-label="Candidate preview"><h2>Candidate preview</h2><p>Use Escape or the close control to return focus to the table.</p><button type="button">Close preview</button></aside>
+    </section>
+    </main>
+  </div>
+</body>
+</html>

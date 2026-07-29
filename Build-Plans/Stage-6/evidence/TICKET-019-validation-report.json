@@ -1,0 +1,55 @@
+{
+  "ticket_id": "TICKET-019",
+  "validation_id": "VALIDATION-S6-019",
+  "status": "passed",
+  "recorded_at": "2026-07-28T02:13:19Z",
+  "checks": [
+    {
+      "command": "corepack pnpm exec node --test apps/validation/stage6-batch006-validation.test.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test",
+      "status": "passed",
+      "notes": "32 tests passed, 0 failed."
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm lint",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed"
+    }
+  ],
+  "security_review": {
+    "status": "passed",
+    "surfaces_reviewed": [
+      "workspace authorization",
+      "catalog workspace filtering",
+      "discovery candidate promotion",
+      "PDF upload filename validation",
+      "AI provider fallback",
+      "frontend preview credential exposure"
+    ],
+    "selected_checks": [
+      "cross-workspace denial",
+      "other-workspace data exclusion",
+      "candidate promotion ownership",
+      "path traversal rejection",
+      "zero-provider credential-free fallback",
+      "secret-like browser storage scan"
+    ],
+    "findings": [],
+    "residual_risks": [
+      "Production route handlers, persisted credentials, and real upload storage are not present in this Stage 6 contract harness."
+    ]
+  },
+  "coverage_gaps": [
+    "Security validation is contract-level; production middleware, storage ACLs, and runtime rate limiting remain downstream."
+  ]
+}

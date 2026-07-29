@@ -1,3 +1,9 @@
+---
+name: testing-strategy-planning
+description: Define the canonical Stage 5 testing strategy, workflow acceptance, regression coverage, release gates, and testing risk references.
+compatibility: opencode
+---
+
 # Skill — testing-strategy-planning
 
 # Purpose
@@ -107,14 +113,19 @@ Pause for user input when testing scope changes release readiness or Stage 6 val
 
 ```json
 {
-  "testing_strategy": {},
-  "test_levels": [],
-  "acceptance_criteria": [],
-  "regression_strategy": {},
-  "testing_risks": [],
-  "release_test_gates": []
+  "data": {
+    "testing_strategy": {
+      "test_levels": [],
+      "workflow_acceptance": [],
+      "regression_strategy": {},
+      "release_test_gates": []
+    },
+    "risk_refs": []
+  }
 }
 ```
+
+Store testing collections only inside `testing_strategy`. Do not repeat them as sibling fields.
 
 ---
 

@@ -1,3 +1,9 @@
+---
+name: development-roadmap-planning
+description: Define the Stage 5 engineering roadmap, workstreams, milestones, scope boundaries, and roadmap risk references.
+compatibility: opencode
+---
+
 # Skill — development-roadmap-planning
 
 # Purpose
@@ -99,14 +105,16 @@ Pause for user input when roadmap scope changes release readiness, sequencing, o
 
 ```json
 {
-  "development_roadmap": {},
-  "workstreams": [],
-  "milestones": [],
-  "deferred_work": [],
-  "roadmap_risks": [],
-  "open_questions": []
+  "data": {
+    "development_roadmap": {},
+    "workstreams": [],
+    "milestones": [],
+    "risk_refs": []
+  }
 }
 ```
+
+Keep deferred work inside `development_roadmap.deferred_work`. Record full risks and unresolved questions in the shared Stage 5 context; reference them here by ID.
 
 ---
 

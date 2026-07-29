@@ -1,0 +1,56 @@
+{
+  "ticket_id": "TICKET-020",
+  "validation_id": "VALIDATION-S6-020",
+  "status": "passed",
+  "recorded_at": "2026-07-28T02:13:19Z",
+  "checks": [
+    {
+      "command": "corepack pnpm exec node --test apps/validation/stage6-batch006-validation.test.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test",
+      "status": "passed",
+      "notes": "32 tests passed, 0 failed."
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm lint",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed"
+    },
+    {
+      "command": "curl -I http://127.0.0.1:4176/launch-validation-preview.html",
+      "status": "passed",
+      "evidence": "HTTP/1.0 200 OK"
+    },
+    {
+      "command": "qlmanage -t -s 1440 -o Build-Plans/Stage-6/evidence apps/web/launch-validation-preview.html",
+      "status": "passed"
+    }
+  ],
+  "visual_qa": {
+    "status": "passed_for_validation_scope",
+    "preview_url": "http://127.0.0.1:4176/launch-validation-preview.html",
+    "screenshot_path": "Build-Plans/Stage-6/evidence/launch-validation-preview.html.png",
+    "route_coverage": 10,
+    "action_coverage": 42,
+    "responsive_evidence": [
+      "launch validation preview uses mobile breakpoint",
+      "validation audit verifies stacked labeled records",
+      "validation audit verifies full-screen drawer contract",
+      "keyboard focus styles are verified across generated launch pages"
+    ],
+    "visual_drift_status": "visual_match",
+    "visual_drift_source": "validation_coverage_snapshot"
+  },
+  "coverage_gaps": [
+    "Real browser automation remains unavailable; route/action/accessibility/responsive checks are static executable contract validation plus Quick Look screenshot evidence."
+  ]
+}

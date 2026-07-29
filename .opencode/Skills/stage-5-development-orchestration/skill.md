@@ -1,3 +1,9 @@
+---
+name: stage-5-development-orchestration
+description: Orchestrate Stage 5 engineering planning into normalized, dependency-aware roadmap, ticket, assignment, execution, testing, and release artifacts for Stage 6.
+compatibility: opencode
+---
+
 # Command — stage-5-development-orchestration
 
 # Purpose
@@ -74,9 +80,15 @@ The command must load this file at the beginning of Stage 5, update it after eac
 
 ```json
 {
+  "format_version": "2.0",
   "stage": "Stage 5",
   "command": "stage-5-development-orchestration",
   "status": "not_started",
+  "output_contract": {
+    "context": "Build-Plans/Stage-5/00-stage-context.json",
+    "manifest": "Build-Plans/Stage-5/09-stage-manifest.json",
+    "artifacts": []
+  },
   "stage_1_inputs": {},
   "stage_2_inputs": {},
   "stage_3_inputs": {},
@@ -444,6 +456,7 @@ interactive_guidance
 Generate:
 
 ```text
+Build-Plans/Stage-5/00-stage-context.json
 Build-Plans/Stage-5/01-development-roadmap.json
 Build-Plans/Stage-5/02-implementation-sequence.json
 Build-Plans/Stage-5/03-engineering-dependencies.json
@@ -452,21 +465,33 @@ Build-Plans/Stage-5/05-build-tickets.json
 Build-Plans/Stage-5/06-agent-assignment-plan.json
 Build-Plans/Stage-5/07-parallel-execution-plan.json
 Build-Plans/Stage-5/08-release-plan.json
+Build-Plans/Stage-5/09-stage-manifest.json
 ```
 
-Each output must include:
+Use Stage 5 output format `2.0`.
 
-* related Stage 1 scope or feature inputs
-* related Stage 3 architecture dependencies
-* related Stage 4 UX dependencies
-* related Stage 4 UI blueprint dependencies where applicable
-* related Stage 4 visual spec dependencies where applicable
-* related Stage 4 design system dependencies where applicable
-* related Stage 4 visual style reference dependencies where applicable
-* execution decisions
-* risks and constraints
-* unresolved questions
-* Stage 6 handoff notes when relevant
+Store shared inputs, selected stack, contract profile, guidance policy, assumptions, risks, reference integrity, and revision loops once in `00-stage-context.json`.
+
+Store Stage 6 handoff, completion status, artifact index, and schema-validation result once in `09-stage-manifest.json`.
+
+Each numbered artifact must use:
+
+```json
+{
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S5-*",
+  "artifact_type": "",
+  "stage": "Stage 5",
+  "status": "",
+  "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
+  "traceability_refs": [],
+  "data": {}
+}
+```
+
+Do not copy the shared context, completion status, or Stage 6 handoff into numbered artifacts.
+
+Store each canonical collection once. Use ID-based indexes or `risk_refs` when an artifact needs a secondary view; do not copy full ticket, risk, slice, batch, or agent objects into multiple fields.
 
 The build ticket output must include:
 
@@ -512,7 +537,7 @@ If the audit does not pass, do not use `ready_for_stage_6`.
 
 Stage 5 may complete only when:
 
-* all eight development orchestration outputs exist
+* the shared context, all eight development orchestration artifacts, and the stage manifest exist
 * development roadmap is defined
 * implementation sequence is dependency-aware
 * engineering dependencies are mapped
@@ -536,6 +561,7 @@ Stage 5 may complete only when:
 * generated agents include valid subagent frontmatter and prompt body based on ticket-required skills
 * generated agent permissions match the assigned role and risk level
 * parallel execution plan separates safe parallel work from serial work
+* parallel batches with same-batch dependencies define dependency-safe execution waves
 * release plan exists
 * high and critical execution risks have mitigation paths
 * critical interactive guidance questions are answered or converted into recorded assumptions
@@ -570,6 +596,7 @@ Before completing Stage 5, confirm:
 * agent assignment plan gives each agent clear ownership and handoff inputs
 * generated agents have valid markdown definitions in `.opencode/agents/`, safe permission settings, and complete prompt bodies
 * parallel execution plan defines batches, merge strategy, and validation gates
+* same-batch ticket dependencies appear in earlier execution waves
 * release plan includes readiness gates
 * approved Stage 3 `selected_stack` is present and unchanged
 * critical interactive guidance questions are answered or converted into recorded assumptions
@@ -590,11 +617,25 @@ completion_status.status = blocked
 completion_status.reason = "missing_or_unresolved_selected_stack"
 ```
 
-Stage 5 must reference:
+Stage 5 must validate against:
 
 ```text
-System-References/Schemas/stage-5-output.schema.json
+System-References/Schemas/stage-5-context.schema.json
+System-References/Schemas/stage-5-artifact.schema.json
+System-References/Schemas/stage-5-manifest.schema.json
 ```
+
+Run the structural validator before recording `schemas_valid = true`. Do not predeclare successful validation.
+
+Resolve every ticket reference against the loaded Stage 1-4 sources before recording `reference_integrity.integrity_status = passed`. Validate file-plus-JSON-Pointer references by navigating the target document, not by checking the filename alone.
+
+Stage 6 compatibility reads may use:
+
+```text
+.opencode/Skills/stage-5-development-orchestration/scripts/resolve_stage5.py
+```
+
+The resolver must support format `2.0` and legacy self-contained Stage 5 artifacts.
 
 Build tickets must define `expected_artifacts` when validation, preview, visual QA, deployment proof, or launch readiness evidence will be required later.
 
@@ -602,6 +643,13 @@ Expected artifacts must be carried into:
 
 ```text
 Build-Plans/Build-status/Artifact-evidence-registry.json
+```
+
+Registry entries sourced from the v2 build-ticket artifact must record:
+
+```text
+related_stage_output = Build-Plans/Stage-5/05-build-tickets.json
+related_stage_data_path = /data/tickets
 ```
 
 Before using `ready_for_stage_6`, Stage 5 must provide `schema_validation`, `reference_integrity`, `risk_acceptance_ledger`, and `revision_loops` in the readiness audit or stage state.

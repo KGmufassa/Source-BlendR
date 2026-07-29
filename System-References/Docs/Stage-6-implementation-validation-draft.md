@@ -237,6 +237,7 @@ Build-Plans/Stage-5/
 Required Stage 5 files:
 
 ```text
+00-stage-context.json
 01-development-roadmap.json
 02-implementation-sequence.json
 03-engineering-dependencies.json
@@ -245,6 +246,7 @@ Required Stage 5 files:
 06-agent-assignment-plan.json
 07-parallel-execution-plan.json
 08-release-plan.json
+09-stage-manifest.json
 ```
 
 Minimum viable input set:
@@ -264,6 +266,12 @@ If the minimum viable input set is missing, stop and set:
 completion_status.status = "blocked"
 completion_status.reason = "missing_implementation_inputs"
 ```
+
+For Stage 5 format `2.0`, load common context from `00-stage-context.json`, load completion and handoff state from `09-stage-manifest.json`, and load numbered artifact payloads from `data`. Tickets are located at `05-build-tickets.json.data.tickets`, agents at `06-agent-assignment-plan.json.data.agents`, and batches at `07-parallel-execution-plan.json.data.batches`.
+
+If any numbered artifact declares format `2.0`, `00-stage-context.json` and `09-stage-manifest.json` are mandatory. Treat a partial v2 handoff as blocked; do not reinterpret it as legacy.
+
+Use `python3 .opencode/Skills/stage-5-development-orchestration/scripts/resolve_stage5.py` when consuming either format `2.0` or an archived self-contained Stage 5 artifact.
 
 ---
 
