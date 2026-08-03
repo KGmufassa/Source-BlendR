@@ -1,17 +1,18 @@
 export const DESIGN_TOKENS = Object.freeze({
   color: {
-    canvas: "#F7F6F2",
+    canvas: "#f7f9fb",
     surface: "#FFFFFF",
-    surfaceSubtle: "#ECEBE6",
-    text: "#1F2421",
-    textMuted: "#68716B",
-    border: "#D7D9D2",
-    action: "#A85E2A",
+    surfaceSubtle: "#f2f4f6",
+    text: "#191c1e",
+    textMuted: "#64748b",
+    border: "#e2e8f0",
+    action: "#006c49",
+    actionBright: "#10b981",
     actionText: "#FFFFFF",
-    success: "#2F6B4F",
+    success: "#006c49",
     warning: "#8A651D",
-    danger: "#A43D35",
-    focus: "#155E75",
+    danger: "#ba1a1a",
+    focus: "#10b981",
   },
   radius: {
     default: "6px",
@@ -21,15 +22,21 @@ export const DESIGN_TOKENS = Object.freeze({
 });
 
 export const APP_ROUTES = Object.freeze([
-  { path: "/app", label: "Overview" },
-  { path: "/app/imports", label: "Imports" },
-  { path: "/app/imports/website", label: "Website Import" },
+  { path: "/app", label: "Workspace Overview" },
+  { path: "/app/imports", label: "Imports Workspace" },
+  { path: "/app/imports/website", label: "Website Import Wizard" },
   { path: "/app/imports/pdf", label: "PDF Import" },
+  { path: "/app/imports/jobs", label: "Import Jobs" },
   { path: "/app/imports/jobs/:jobId", label: "Job Detail" },
+  { path: "/app/discovery", label: "Discovery Sessions" },
   { path: "/app/discovery/:sessionId", label: "Discovery" },
   { path: "/app/catalog", label: "Catalog" },
+  { path: "/app/catalog/:itemId", label: "Catalog Item" },
   { path: "/app/catalog/new", label: "New Item" },
   { path: "/app/vendors", label: "Vendors" },
+  { path: "/app/vendors/:vendorId", label: "Vendor Detail" },
+  { path: "/app/vendors/new", label: "New Vendor" },
+  { path: "/app/settings", label: "Settings" },
   { path: "/app/settings/ai", label: "AI Settings" },
 ]);
 

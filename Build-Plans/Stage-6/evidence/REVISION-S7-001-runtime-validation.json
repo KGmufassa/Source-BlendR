@@ -1,0 +1,86 @@
+{
+  "artifact_id": "ARTIFACT-S6-RUNTIME-REVISION-001",
+  "revision_id": "REVISION-S7-001",
+  "type": "runtime_validation",
+  "status": "passed_with_blockers",
+  "recorded_at": "2026-07-31T00:59:00Z",
+  "implemented_scope": [
+    "Pinned TypeScript pnpm workspace with Next.js 16 and React 19",
+    "Prisma 7 PostgreSQL schema, generated client, and baseline migration",
+    "Clerk organization-to-workspace request context with production-safe development auth guard",
+    "Workspace-scoped catalog service, Prisma repository, route handler, and responsive runtime page",
+    "BullMQ website import submission, workspace-scoped job status route, worker processor, SSRF guard, events, and worker health endpoint",
+    "Persisted workspace-scoped discovery candidate listing and idempotent catalog promotion",
+    "AES-256-GCM provider credential storage with redacted provider APIs and manual fallback",
+    "Vercel, Fly.io, Docker Compose, environment template, structured logging, and production build configuration"
+  ],
+  "checks": [
+    {
+      "command": "corepack pnpm test",
+      "status": "passed",
+      "summary": "34 contract tests and 4 runtime tests passed."
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm lint",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed",
+      "summary": "Next.js production build and worker ESM bundle completed."
+    },
+    {
+      "command": "docker compose config --quiet",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm audit --audit-level=high",
+      "status": "passed",
+      "summary": "No known vulnerabilities found after pinning patched transitive dependencies."
+    },
+    {
+      "command": "docker compose up -d postgres redis minio",
+      "status": "passed",
+      "summary": "PostgreSQL, Redis, and MinIO reported healthy; PostgreSQL is isolated on host port 55432 to avoid the existing host service."
+    },
+    {
+      "command": "corepack pnpm db:deploy",
+      "status": "passed",
+      "summary": "Applied migration 20260730000100_runtime_foundation and confirmed all ten application tables."
+    },
+    {
+      "command": "docker compose exec -T redis redis-cli ping",
+      "status": "passed",
+      "summary": "Redis returned PONG."
+    },
+    {
+      "command": "curl http://localhost:3000/api/health && curl http://localhost:8080/health",
+      "status": "passed",
+      "summary": "The live web API reported its database ready and the production worker bundle reported ready."
+    },
+    {
+      "command": "POST/GET /api/catalog-items",
+      "status": "passed",
+      "summary": "Created and read back a workspace-scoped catalog record, then removed the smoke record."
+    },
+    {
+      "command": "POST /api/imports/website and GET /api/imports/jobs/{jobId}",
+      "status": "passed",
+      "summary": "BullMQ processed https://example.com through queued, processing, and completed events and persisted a normalized source record."
+    },
+    {
+      "command": "corepack pnpm --filter @source-blendr/worker build",
+      "status": "passed",
+      "summary": "Bundled workspace TypeScript dependencies into the production worker after the live start check exposed an external-module packaging defect."
+    }
+  ],
+  "remaining_blockers": [
+    "Implement PDF/object-storage runtime processing.",
+    "Implement production provider health checks and capability routing against stored credentials.",
+    "Complete deployed-runtime visual and end-to-end validation before the Stage 6 readiness audit."
+  ]
+}

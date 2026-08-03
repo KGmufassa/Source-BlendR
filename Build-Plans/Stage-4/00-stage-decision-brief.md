@@ -41,3 +41,16 @@ Approval is required before Stage 4 can use `ready_for_stage_5`.
 ## Recorded approval
 
 Approved by user at `2026-07-14T03:54:34.812187+00:00`. Stage 4 may proceed to readiness audit for Stage 5 handoff.
+
+## Notable out-of-scope Stitch additions
+
+These Stitch-added interactions were mapped but classified as `rejected_out_of_scope`. They must not enter Stage 5 unless a prior-stage revision explicitly approves them.
+
+| Page | Stitch addition | Classification | Reason |
+|------|-----------------|----------------|--------|
+| Vendors | Privacy Policy | `rejected_out_of_scope` | Static policy surface is not part of the approved Stage 1-4 workspace scope. |
+| Vendors | Operations Log | `rejected_out_of_scope` | Operational audit/log route is not part of the approved MVP screen system. |
+| Vendors | System Status | `rejected_out_of_scope` | Public/system status surface is not part of the approved MVP workflow set. |
+| AI Provider Settings | View audit log | `rejected_out_of_scope` | Audit-log workflow is not defined in Stage 1-3 or earlier Stage 4 artifacts. |
+| AI Provider Settings | Documentation | `rejected_out_of_scope` | External documentation/support surface is not part of the approved app scope. |
+| AI Provider Settings | Support | `rejected_out_of_scope` | Support workflow is not part of the approved MVP screen system. |

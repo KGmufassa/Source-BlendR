@@ -1,8 +1,8 @@
 {
   "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
   "stage": "Stage 6",
-  "status": "ready_for_stage_7",
-  "overall_health": "ready_for_stage_7",
+  "status": "needs_repair",
+  "overall_health": "runtime_revision_in_progress",
   "completed_batches": [
     "BATCH-001",
     "BATCH-002",
@@ -13,10 +13,12 @@
     "BATCH-007"
   ],
   "pending_batches": [],
-  "critical_blockers": [],
+  "critical_blockers": [
+    "REVISION-S7-001 requires PDF/storage and live provider-routing runtime flows."
+  ],
   "critical_validation_failures": [],
   "critical_regressions": [],
-  "next_action": "Proceed to Stage 7 launch operationalization: verify production deployment, live credentials, hosted health checks, monitoring alerts, and rollback rehearsal.",
+  "next_action": "Implement PDF/storage and live provider routing, complete deployed-runtime validation, then run the Stage 6 readiness audit.",
   "next_batches": [],
   "health_signals": [
     "BATCH-002 validation gates passed",
@@ -34,6 +36,7 @@
     "BATCH-007 validation gates passed",
     "Deployment readiness dry-run evidence recorded",
     "Runbooks and rollback controls recorded for Stage 7 handoff",
+    "Local PostgreSQL migration, Redis, MinIO, web health, worker health, catalog persistence, and BullMQ website-import processing passed",
     "All Stage 6 batches complete with no critical blockers, validation failures, or regressions"
   ],
   "known_limitations": [
@@ -43,6 +46,8 @@
     "BATCH-005 uses static preview contracts and Quick Look screenshots; real browser automation and production Next.js route handlers remain downstream.",
     "BATCH-006 validates current contract harness and static previews; real browser automation, production middleware, and deployed storage ACL validation remain downstream.",
     "Stage 6 did not execute production deployment; Stage 7 must verify live credentials, hosted health endpoints, monitoring alerts, and rollback in target environments."
+    ,
+    "REVISION-S7-001 now has a live-validated Next.js catalog slice and BullMQ website-import worker, but PDF/storage, live provider routing, and deployed validation remain incomplete."
   ],
   "artifact_refs": [
     "ARTIFACT-S5-001-TEST",
@@ -103,7 +108,8 @@
     "ARTIFACT-S5-020-SCREENSHOT",
     "ARTIFACT-S5-021-TEST",
     "ARTIFACT-S5-021-VALIDATION",
-    "ARTIFACT-S5-021-BUILD"
+    "ARTIFACT-S5-021-BUILD",
+    "ARTIFACT-S6-RUNTIME-REVISION-001"
   ],
   "stage_7_handoff": {
     "source_stage": "Stage 6",

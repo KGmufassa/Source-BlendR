@@ -1,0 +1,315 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Source Blendr Studio</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary-fixed-dim": "#4edea3",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-fixed": "#6ffbbe",
+                        "surface-container": "#eceef0",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "primary": "#006c49",
+                        "on-surface": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "secondary": "#505f76",
+                        "on-surface-variant": "#3c4a42",
+                        "outline": "#6c7a71",
+                        "on-primary-fixed": "#002113",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-container": "#10b981",
+                        "on-secondary-container": "#54647a",
+                        "on-primary-container": "#00422b",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#d0e1fb",
+                        "on-primary-fixed-variant": "#005236",
+                        "tertiary-fixed": "#ffdad7",
+                        "outline-variant": "#bbcabf",
+                        "tertiary-container": "#fc7c78",
+                        "surface-tint": "#006c49",
+                        "surface-container-low": "#f2f4f6",
+                        "surface": "#f7f9fb",
+                        "tertiary": "#a43a3a",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-container": "#711419",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#4edea3",
+                        "on-tertiary-fixed": "#410005",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed-variant": "#842225"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "32px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px",
+                        "sidebar-collapsed": "72px",
+                        "container-max": "1440px",
+                        "base-unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #E2E8F0;
+        }
+        .sparkle-btn {
+            background: #10B981;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sparkle-btn:hover {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-on-surface bg-background">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 bottom-0 w-[80px] md:w-sidebar-width bg-surface border-r border-outline-variant z-50 flex flex-col hidden md:flex">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">dataset</span>
+</div>
+<h1 class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary hidden lg:block">Source Blendr</h1>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-secondary hover:bg-surface-container transition-colors group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-label-md hidden lg:block">Home</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-secondary hover:bg-surface-container transition-colors group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">inventory_2</span>
+<span class="font-label-md hidden lg:block">Inventory</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-secondary hover:bg-surface-container transition-colors group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">sync</span>
+<span class="font-label-md hidden lg:block">Imports</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-container/10 text-primary transition-colors group">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-md hidden lg:block font-bold">Studio</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-secondary hover:bg-surface-container transition-colors group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>
+<span class="font-label-md hidden lg:block">Settings</span>
+</button>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold shrink-0">JS</div>
+<div class="hidden lg:block overflow-hidden">
+<p class="font-label-md text-on-surface truncate">John Smith</p>
+<p class="text-[10px] text-secondary truncate">Workspace Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Adjusted for Sidebar) -->
+<header class="fixed top-0 right-0 left-0 md:left-sidebar-width z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant shadow-sm flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-4">
+<button class="p-2 text-secondary hover:bg-surface-container rounded-full transition-colors md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="relative p-2 text-secondary hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-label-md md:hidden">JS</div>
+</div>
+</header>
+<!-- Main Canvas (Adjusted for Sidebar) -->
+<main class="pt-24 pb-12 px-margin-mobile md:px-margin-desktop md:ml-sidebar-width max-w-container-max mx-auto min-h-screen">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Creative Studio</h2>
+<p class="font-body-md text-secondary mt-1">Design, blend, and automate your brand presence with AI.</p>
+</div>
+<button class="sparkle-btn flex items-center gap-2 px-6 py-3 rounded-xl text-white font-bold active:scale-95">
+<span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="">Create New</span>
+</button>
+</div>
+<!-- Category Grid (Horizontal Scroll on Mobile) -->
+<section class="mb-10 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+<div class="flex gap-4 min-w-max">
+<div class="glass-card p-4 rounded-xl flex flex-col gap-3 w-44 cursor-pointer hover:border-primary transition-all" style="transform: translateY(0px);">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="forum">forum</span>
+<span class="font-label-md text-on-surface">Social Posts</span>
+</div>
+<div class="glass-card p-4 rounded-xl flex flex-col gap-3 w-44 cursor-pointer hover:border-primary transition-all">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="description">description</span>
+<span class="font-label-md text-on-surface">Product Descriptions</span>
+</div>
+<div class="glass-card p-4 rounded-xl flex flex-col gap-3 w-44 cursor-pointer hover:border-primary transition-all" style="transform: translateY(0px);">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="mail">mail</span>
+<span class="font-label-md text-on-surface">Email Campaigns</span>
+</div>
+<div class="glass-card p-4 rounded-xl flex flex-col gap-3 w-44 cursor-pointer hover:border-primary transition-all" style="transform: translateY(0px);">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="layers">layers</span>
+<span class="font-label-md text-on-surface">Flyers</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid for Recent & Templates -->
+<div class="bento-grid">
+<!-- Recent Draft Large -->
+<div class="md:col-span-2 md:row-span-2 glass-card rounded-xl overflow-hidden flex flex-col" style="transform: translateY(0px);">
+<div class="h-64 w-full bg-surface-container relative">
+<img class="w-full h-full object-cover" data-alt="A vibrant and modern social media post design featuring professional lighting, high-end product photography of a sleek gadget, and elegant minimalist typography. The aesthetic is clean and corporate, using a primary emerald green and slate grey color palette. Soft ambient shadows give the graphic depth against a neutral studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuCiDz2Anj9LhykkWLVPm6AhFQbH6h3fr2LKwBV4KVtP_yrS9QrQ7jyRFPtyuMLJvnk02WkbeUGOt1DyVfPmQ_6c1FYc7n6OBmzleIaSvmTwuoxIHmEfd3_ns_5xMECkvKCPt9VoySvb1Ak_fnWez84xEm9D5SXv-40DwNhff99qX40zgMPD-leOKEY1s8A7jgyoK2W96wp7IZJLjnajO1DYxuTTGQZNtYOZ86N52IlYBHZg4VM9_grw">
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-label-sm font-bold text-primary shadow-sm">
+                        Recent Draft
+                    </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-on-surface">Summer Campaign Launch</h3>
+<p class="font-body-sm text-secondary">Last edited 2 hours ago • Social Posts</p>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="edit">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Templates Section Label (Mobile Friendly) -->
+<div class="md:col-span-2 flex items-center justify-between mt-4 md:mt-0">
+<h3 class="font-headline-sm text-on-surface">Popular Templates</h3>
+<button class="text-primary font-label-md hover:underline">View All</button>
+</div>
+<!-- Template 1 -->
+<div class="glass-card rounded-xl p-4 flex flex-col gap-4 hover:shadow-md transition-shadow">
+<div class="h-32 w-full bg-secondary-container/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="auto_stories">auto_stories</span>
+</div>
+<div>
+<h4 class="font-label-md text-on-surface">Narrative Storytelling</h4>
+<p class="font-body-sm text-secondary">Instagram &amp; TikTok</p>
+</div>
+</div>
+<!-- Template 2 -->
+<div class="glass-card rounded-xl p-4 flex flex-col gap-4 hover:shadow-md transition-shadow" style="transform: translateY(0px);">
+<div class="h-32 w-full bg-primary-container/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="shutter_speed">shutter_speed</span>
+</div>
+<div>
+<h4 class="font-label-md text-on-surface">Quick Product Brief</h4>
+<p class="font-body-sm text-secondary">LinkedIn Ads</p>
+</div>
+</div>
+<!-- Recent Items Mini 1 -->
+<div class="glass-card rounded-xl p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="article">article</span>
+</div>
+<div class="overflow-hidden">
+<h4 class="font-label-md text-on-surface truncate">Email: Re-engagement</h4>
+<p class="font-body-sm text-secondary">Draft • 1d ago</p>
+</div>
+</div>
+<!-- Recent Items Mini 2 -->
+<div class="glass-card rounded-xl p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer" style="transform: translateY(0px);">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="post_add">post_add</span>
+</div>
+<div class="overflow-hidden">
+<h4 class="font-label-md text-on-surface truncate">Blog: AI in B2B</h4>
+<p class="font-body-sm text-secondary">Completed • 3d ago</p>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

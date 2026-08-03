@@ -24,15 +24,16 @@
         "WORKFLOW-003",
         "WORKFLOW-007"
       ],
-      "issue": "The current web, worker, persistence, scraper, and integration code is a contract/static-preview scaffold rather than a deployable production runtime.",
+      "issue": "A deployable catalog, website-import, discovery-promotion, and encrypted-credential runtime foundation now exists, but PDF/storage, live provider routing, and database/queue integration proof remain incomplete.",
       "evidence_refs": [
         "Build-Plans/Stage-6/04-system-health.json",
         "package.json",
         "apps/web/package.json",
-        "apps/worker/package.json"
+        "apps/worker/package.json",
+        "ARTIFACT-S6-RUNTIME-REVISION-001"
       ],
-      "required_action": "Return implementation to Stage 6 and build executable Next.js routes/actions, worker runtime wiring, persistence repositories, production scraper/PDF integrations, authentication middleware, and deployable service entrypoints.",
-      "launch_impact": "No production deployment, end-to-end smoke test, hosted health check, or real-user launch is possible."
+      "required_action": "Continue Stage 6 with PDF/storage and live provider routing; then execute local integration, end-to-end, and visual validation before the readiness audit.",
+      "launch_impact": "The foundation builds for production, but the full launch workflows and trustworthy integration proof are not yet available."
     },
     {
       "blocker_id": "LAUNCH-BLOCKER-002",

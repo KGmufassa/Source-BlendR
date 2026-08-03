@@ -29,6 +29,96 @@ def now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def stitch_prototype_gate() -> dict[str, Any]:
+    prompt_block = """Prototype constraints for Source BlendR Stage 4:
+Product scope boundaries: B2B inventory import/review/catalog workspace only. MVP role is workspace_owner. Do not create marketing, billing, checkout, auth, onboarding, team admin, BI dashboard, storefront, order management, or AI auto-publish experiences.
+Approved workflows: website vendor import, PDF catalog import, Discovery Session candidate review, manual catalog curation, vendor access, and AI provider routing settings.
+Allowed page types: use only the page type already mapped to the current Stage 4 UI blueprint.
+Forbidden pages/features: no new routes, roles, product capabilities, integrations, collaboration, billing, customer-facing storefront, or admin surfaces unless already supported by Stage 1-3 and existing Stage 4 artifacts.
+Design system rules: compact utilitarian operations workspace; warm off-white canvas; white bordered surfaces; graphite text; muted secondary text; restrained amber primary action; Inter/system sans; dense tables and status panels; visible focus; no decorative hero treatment.
+Accessibility constraints: semantic controls, accessible names, keyboard-reachable interactions, visible focus, WCAG AA contrast, text/icon status labels, no color-only status, reduced-motion-safe progress.
+Required states: loading, empty, populated, saving, success, error, permission_denied.
+Required permissions: workspace_owner in MVP; permission denied must be visible, non-destructive, and recoverable.
+Route/action discipline: every clickable/input/add component must resolve to an approved route, approved action, or no_navigation. Do not invent orphan controls."""
+    return {
+        "status": "not_started",
+        "stage_scope": "stage_4_local_only",
+        "stitch_is_downstream_dependency": False,
+        "prototype_constraints_prompt_template": {
+            "template_id": "STITCH-PROMPT-STAGE-4-PROTOTYPE-CONSTRAINTS",
+            "name": "Stage 4 Stitch prototype constraints prompt",
+            "required_sections": [
+                "product_scope_boundaries",
+                "approved_workflows",
+                "allowed_page_types",
+                "forbidden_pages_features",
+                "design_system_rules",
+                "accessibility_constraints",
+                "required_states",
+                "required_permissions",
+                "route_action_discipline",
+            ],
+            "prompt_block": prompt_block,
+        },
+        "page_approval_ledger": [],
+        "component_categories": [
+            "navigation",
+            "primary_action",
+            "secondary_action",
+            "destructive_action",
+            "form_input",
+            "filter_sort_control",
+            "bulk_action",
+            "status_control",
+            "disclosure",
+            "system_feedback",
+            "unknown_or_unmapped",
+        ],
+        "component_extraction_checklist": [
+            "navigation_components",
+            "content_data_components",
+            "forms_and_inputs",
+            "buttons_and_links",
+            "menus_dropdowns",
+            "tabs",
+            "modals_drawers",
+            "clickable_cards_rows",
+            "filters_search_sort_controls",
+            "status_indicators",
+            "empty_loading_error_success_states",
+        ],
+        "stitch_divergence_rule": {
+            "classifications": [
+                "accepted_stage_4_refinement",
+                "requires_stage_1_revision",
+                "requires_stage_3_revision",
+                "rejected_out_of_scope",
+            ],
+            "rule": "Any Stitch suggestion not supported by Stage 1-3 or earlier Stage 4 work must be classified before approval and may not silently mutate Stage 5 scope.",
+        },
+        "no_orphan_interaction_gate": {
+            "required_resolution_values": ["route", "action", "no_navigation"],
+            "status": "not_started",
+            "rule": "Every interactive component must resolve to route, action, or no_navigation before Stage 4 can complete.",
+        },
+        "responsive_review_expectations": {
+            "desktop_layout": "record whether desktop-only layout is sufficient",
+            "tablet_collapse_behavior": "record sidebar/table/form collapse expectations",
+            "mobile_transformation": "record table-to-record and drawer-to-sheet transformations",
+            "hidden_deprioritized_mobile_content": "record secondary content that may collapse without hiding status, validation, permissions, or primary actions",
+        },
+        "post_inventory_accessibility_checks": [
+            "accessible_names",
+            "keyboard_interaction",
+            "focus_states",
+            "disabled_loading_states",
+            "destructive_action_confirmation",
+            "permission_denied_behavior",
+            "error_recovery",
+        ],
+    }
+
+
 def el(element_id: str, element_type: str, label: str, behavior: str, target: str, component: str, section: str, action: str = "") -> dict[str, Any]:
     return {
         "element_id": element_id, "element_type": element_type, "label": label,
@@ -178,6 +268,7 @@ def main() -> int:
             component_values.extend(get_text_values(section["components"], "component_id"))
     component_ids = sorted_text_values(component_values)
     frontend = {"page_inventory": [{"page_id": x["page_id"], "route": x["navigation"]["route"], "ui_blueprint_id": x["ui_blueprint_id"], "launch_critical": True} for x in page_blueprints], "component_inventory": component_ids, "shared_components": ["AppShell", "Sidebar", "Breadcrumbs", "StatusBadge", "JobProgressTimeline", "SearchFilterBar", "BulkActionToolbar", "DataTable", "FormField", "ConfirmDialog", "Toast", "EmptyState", "ErrorState", "AccessibleDrawer"], "route_inventory": route_inventory, "action_inventory": action_inventory, "state_inventory": states["screen_states"] + states["feature_states"], "frontend_task_hints": ["Build shared job status and recovery patterns first", "Implement table-to-stacked responsive behavior", "Keep route handlers/server actions thin; consume domain contracts", "Add keyboard and screen-reader tests for discovery bulk actions"], "recommended_frontend_skills": ["Next.js App Router", "TypeScript", "Tailwind CSS", "shadcn/ui-compatible primitives", "Playwright accessibility and workflow tests"]}
+    stitch_gate = stitch_prototype_gate()
     risk_list = [{"risk_id": "UX-RISK-001", "severity": "high", "risk": "Users cannot understand long-running import progress", "mitigation": "Persistent job detail, step timeline, event log, retry/cancel, and partial-result access", "owner": "Stage 4 / Stage 6"}, {"risk_id": "UX-RISK-002", "severity": "high", "risk": "AI extraction creates unsafe or duplicate catalog records", "mitigation": "Discovery Session review gate, deterministic validation, explicit conflict states, no direct AI catalog writes", "owner": "Stage 4 / Stage 6"}, {"risk_id": "UX-RISK-003", "severity": "medium", "risk": "Dense tables reduce mobile and assistive-technology usability", "mitigation": "Responsive stacked records, semantic table headers, keyboard selection, live announcements", "owner": "Stage 4 / Stage 6"}]
     brief = {"brief_id": "STAGE4-BRIEF-001", "stage": "Stage 4", "brief_path": "Build-Plans/Stage-4/00-stage-decision-brief.md", "recommended_direction": "A precise, compact operations workspace: Utilitarian foundation, Bento-style modular overview panels, persistent sidebar, dense searchable tables, explicit async job status, and review-first import flows.", "alternatives_considered": ["Atmospheric AI dashboard: rejected because it weakens dense operational scanning", "Marketing-led dashboard: rejected because launch-critical work is import/review/catalog operations", "Pure card-only layout: rejected because discovery and catalog require table density"], "key_decisions": ["Workspace owner is the MVP role", "Website/PDF imports converge on Discovery Session review", "Manual entry remains first-class and works with zero AI providers", "Async jobs expose progress, retry, cancel, and partial failure recovery", "AI never writes directly to catalog"], "assumptions": assumptions, "risks": risk_list, "downstream_impact": ["Stage 5 should implement shared data table, bulk toolbar, status timeline, and accessible drawer primitives before page-specific work", "Stage 6 must validate async recovery, candidate review gate, tenant-scoped actions, responsive tables, and keyboard behavior"], "user_decision_required": True, "approval_status": "pending", "approved_by": "", "approved_at": "", "revision_notes": []}
     brief_md = """# Stage 4 UX/UI Decision Brief\n\n## Recommended direction\n\nBuild Source BlendR as a precise, compact operations workspace: a Utilitarian foundation with restrained Bento-style modular grouping for overview and status panels. Use a persistent workspace sidebar, dense searchable tables, explicit async job status, and review-first import flows.\n\n## Why this fits\n\n- The primary user is a workspace owner performing high-frequency import, review, and catalog curation work.\n- Website and PDF imports converge on a Discovery Session before catalog writes.\n- Manual entry must remain fully capable when no AI provider is configured.\n- BullMQ-backed work is asynchronous and needs visible progress, retry, cancel, and partial-failure recovery.\n- Accessibility requires semantic controls, visible focus, text-based status, and responsive table fallbacks.\n\n## Key UX decisions\n\n- MVP role: `workspace_owner`; future roles are not given separate MVP workflows.\n- Navigation: persistent sidebar with Overview, Imports, Discovery, Catalog, Vendors, and Settings.\n- Editing: candidate preview/edit uses an accessible drawer; catalog creation uses a dedicated form.\n- Safety: AI output remains a candidate until deterministic validation and explicit user import.\n- Visual system: compact spacing, flat bordered surfaces, high contrast, restrained amber action accent, tabular data numerals.\n\n## Main risks and mitigations\n\n- Long-running jobs: persistent job detail with step timeline, event log, retry/cancel, and partial-result access.\n- Unsafe extraction: Discovery Session review gate, validation, duplicate/conflict states, and manual fallback.\n- Dense responsive UI: stacked mobile records, semantic table headers, keyboard selection, and live announcements.\n\n## Approval\n\nDo you approve this recommended UX/UI direction?\n\n- [ ] Approve recommended UI direction\n- [ ] Revise visual style\n- [ ] Revise page/screen structure\n- [ ] Revise navigation/layout\n- [ ] Revise component priorities\n\nApproval is required before Stage 4 can use `ready_for_stage_5`.\n"""
@@ -187,10 +278,10 @@ def main() -> int:
     write_json(OUT / "04-feature-behaviors.json", {"stage": "Stage 4", "status": "draft", **feature_behaviors, "related_stage_1_features": launch_features, "related_stage_3_architecture_constraints": ["Deterministic validation gate", "Route Handler -> Domain Service -> Repository", "BullMQ for long-running work"]})
     write_json(OUT / "05-state-transition-map.json", {"stage": "Stage 4", "status": "draft", **states, "ux_decisions": assumptions, "risks": risk_list})
     write_json(OUT / "06-accessibility-framework.json", {"stage": "Stage 4", "status": "draft", "accessibility_framework": accessibility, "related_stage_4_states": states["screen_states"]})
-    write_json(OUT / "07-ui-blueprint-specification.json", {"stage": "Stage 4", "status": "draft", "ui_blueprints": page_blueprints, "frontend_build_package": frontend, "visual_spec_inventory": [x["visual_spec"] for x in page_blueprints], "visual_reference_selection": design_system["visual_reference_selection"], "stage_5_handoff": {"ready": False, "reason": "Awaiting Stage 4 decision brief approval"}})
-    write_json(OUT / "08-design-system-foundation.json", {"stage": "Stage 4", "status": "draft", "design_system": design_system, "ui_blueprint_alignment": [{"ui_blueprint_id": x["ui_blueprint_id"], "design_system_id": "DESIGN-SYSTEM-001"} for x in page_blueprints], "stage_5_handoff": {"ready": False, "reason": "Awaiting approval"}})
-    write_text(OUT / "09-complete-app-blueprint.md", "# Complete App Blueprint\n\n## Pages\n\n" + "\n".join(f"- **{x['page_name']}** (`{x['ui_blueprint_id']}`)\n  - Route: `{x['navigation']['route']}`\n  - Sections: Primary work area\n  - Components: Primary task component; shared AppShell patterns\n  - Actions: " + ", ".join(x["actions"]) + "\n  - States: loading, empty, populated, saving, success, error, permission_denied\n  - Data: workspace-scoped records and status where applicable" for x in page_blueprints) + "\n\n## Shared Components\n\n" + "\n".join(f"- {x}" for x in frontend["shared_components"]) + "\n\n## Routes\n\n" + "\n".join(f"- `{x['path']}`" for x in route_inventory) + "\n\n## Frontend build package summary\n\n- Next.js App Router, TypeScript, Tailwind CSS, and shadcn/ui-compatible primitives.\n- Implement shared job status, searchable data tables, bulk actions, accessible drawers, forms, and state components before page-specific composition.\n- Every interactive element is mapped in `07-ui-blueprint-specification.json` action inventory.\n")
-    write_json(STATUS / "UX-state.json", {"stage": "Stage 4", "command": "stage-4-ux-interaction-architecture", "status": "needs_ux_revision", "stage_1_inputs": paths["stage_1"], "stage_2_inputs": paths["stage_2"], "stage_3_inputs": paths["stage_3"], "preflight": {"status": "passed", "required_inputs_present": present, "primary_users_defined": True, "mvp_workflows_defined": True, "feature_structure_clear": True, "security_constraints_available": True, "api_and_data_constraints_available": True, "architecture_status": read(STATUS / "Architecture-state.json").get("status")}, "user_journeys": {"output": "Build-Plans/Stage-4/01-user-journeys.json", "journeys": journeys}, "interaction_architecture": {"output": "Build-Plans/Stage-4/02-interaction-architecture.json", **interactions}, "screen_system": {"output": "Build-Plans/Stage-4/03-screen-system.json", **screen_system}, "feature_behaviors": {"output": "Build-Plans/Stage-4/04-feature-behaviors.json", **feature_behaviors}, "state_transition_map": states, "accessibility_framework": accessibility, "ui_blueprints": {"output": "Build-Plans/Stage-4/07-ui-blueprint-specification.json", "pages": page_blueprints}, "visual_spec_inventory": [x["visual_spec"] for x in page_blueprints], "design_system_foundation": design_system, "visual_reference_selection": design_system["visual_reference_selection"], "frontend_build_package": frontend, "ux_decisions": assumptions, "ux_risks": risk_list, "interaction_tradeoffs": interactions["tradeoffs"], "open_questions": ["Approve recommended UX/UI direction in Stage 4 decision brief"], "interactive_guidance": {"open_questions": ["UX-GUIDANCE-001"], "answered_questions": [], "assumptions_made": assumptions, "blocked_decisions": [], "user_confirmations": [], "ux_confidence_gaps": ["Visual direction approval pending"]}, "stage_decision_brief": brief, "stage_5_handoff": {"ready": False, "reason": "Stage 4 decision brief approval is required"}, "completion_status": {"status": "needs_ux_revision", "reason": "Awaiting user approval of recommended UX/UI direction", "ready_for": "stage_5"}, "generated_at": now()})
+    write_json(OUT / "07-ui-blueprint-specification.json", {"stage": "Stage 4", "status": "draft", "ui_blueprints": page_blueprints, "frontend_build_package": frontend, "visual_spec_inventory": [x["visual_spec"] for x in page_blueprints], "visual_reference_selection": design_system["visual_reference_selection"], "stitch_prototype_gate": stitch_gate, "stage_5_handoff": {"ready": False, "reason": "Awaiting Stage 4 decision brief approval"}})
+    write_json(OUT / "08-design-system-foundation.json", {"stage": "Stage 4", "status": "draft", "design_system": design_system, "ui_blueprint_alignment": [{"ui_blueprint_id": x["ui_blueprint_id"], "design_system_id": "DESIGN-SYSTEM-001"} for x in page_blueprints], "stitch_design_system_mapping": {"stage_scope": "stage_4_local_only", "source_design_system_id": "DESIGN-SYSTEM-001", "important_note": "Stitch remains prototype evidence only; Stage 5 consumes canonical Stage 4 outputs."}, "stage_5_handoff": {"ready": False, "reason": "Awaiting approval"}})
+    write_text(OUT / "09-complete-app-blueprint.md", "# Complete App Blueprint\n\n## Pages\n\n" + "\n".join(f"- **{x['page_name']}** (`{x['ui_blueprint_id']}`)\n  - Route: `{x['navigation']['route']}`\n  - Sections: Primary work area\n  - Components: Primary task component; shared AppShell patterns\n  - Actions: " + ", ".join(x["actions"]) + "\n  - States: loading, empty, populated, saving, success, error, permission_denied\n  - Data: workspace-scoped records and status where applicable" for x in page_blueprints) + "\n\n## Shared Components\n\n" + "\n".join(f"- {x}" for x in frontend["shared_components"]) + "\n\n## Routes\n\n" + "\n".join(f"- `{x['path']}`" for x in route_inventory) + "\n\n## Frontend build package summary\n\n- Next.js App Router, TypeScript, Tailwind CSS, and shadcn/ui-compatible primitives.\n- Implement shared job status, searchable data tables, bulk actions, accessible drawers, forms, and state components before page-specific composition.\n- Every interactive element is mapped in `07-ui-blueprint-specification.json` action inventory.\n\n## Stage 4 Stitch prototype gate\n\nStitch MCP prototype evidence is Stage-4-local and does not change the Stage 5 handoff contract.\n\n- Prototype constraints prompt: `STITCH-PROMPT-STAGE-4-PROTOTYPE-CONSTRAINTS`\n- Page approval ledger: recorded in `07-ui-blueprint-specification.json` and `Build-Plans/Build-status/UX-state.json`\n- Component extraction checklist: required after page approval\n- No orphan interaction gate: every interactive component must resolve to `route`, `action`, or `no_navigation`\n")
+    write_json(STATUS / "UX-state.json", {"stage": "Stage 4", "command": "stage-4-ux-interaction-architecture", "status": "needs_ux_revision", "stage_1_inputs": paths["stage_1"], "stage_2_inputs": paths["stage_2"], "stage_3_inputs": paths["stage_3"], "preflight": {"status": "passed", "required_inputs_present": present, "primary_users_defined": True, "mvp_workflows_defined": True, "feature_structure_clear": True, "security_constraints_available": True, "api_and_data_constraints_available": True, "architecture_status": read(STATUS / "Architecture-state.json").get("status")}, "user_journeys": {"output": "Build-Plans/Stage-4/01-user-journeys.json", "journeys": journeys}, "interaction_architecture": {"output": "Build-Plans/Stage-4/02-interaction-architecture.json", **interactions}, "screen_system": {"output": "Build-Plans/Stage-4/03-screen-system.json", **screen_system}, "feature_behaviors": {"output": "Build-Plans/Stage-4/04-feature-behaviors.json", **feature_behaviors}, "state_transition_map": states, "accessibility_framework": accessibility, "ui_blueprints": {"output": "Build-Plans/Stage-4/07-ui-blueprint-specification.json", "pages": page_blueprints}, "visual_spec_inventory": [x["visual_spec"] for x in page_blueprints], "design_system_foundation": design_system, "visual_reference_selection": design_system["visual_reference_selection"], "frontend_build_package": frontend, "stitch_prototype": stitch_gate, "ux_decisions": assumptions, "ux_risks": risk_list, "interaction_tradeoffs": interactions["tradeoffs"], "open_questions": ["Approve recommended UX/UI direction in Stage 4 decision brief"], "interactive_guidance": {"open_questions": ["UX-GUIDANCE-001"], "answered_questions": [], "assumptions_made": assumptions, "blocked_decisions": [], "user_confirmations": [], "ux_confidence_gaps": ["Visual direction approval pending"]}, "stage_decision_brief": brief, "stage_5_handoff": {"ready": False, "reason": "Stage 4 decision brief approval is required"}, "completion_status": {"status": "needs_ux_revision", "reason": "Awaiting user approval of recommended UX/UI direction", "ready_for": "stage_5"}, "generated_at": now()})
     write_text(OUT / "00-stage-decision-brief.md", brief_md)
     print("Stage 4 artifacts generated; approval pending.")
     return 0

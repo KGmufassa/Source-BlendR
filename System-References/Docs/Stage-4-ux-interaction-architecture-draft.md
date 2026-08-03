@@ -755,6 +755,101 @@ Every page in `09-complete-app-blueprint.md` must map to a `ui_blueprint_id`. Ev
 
 Do not include every screen type from the controlled vocabulary in the markdown tree. Include only selected pages with recorded rationale.
 
+## Stage 4 Stitch Prototype Gate
+
+Stitch MCP may be used only inside Stage 4 as a prototype and approval aid.
+
+Raw Stitch metadata must stay Stage-4-local in `Build-Plans/Build-status/UX-state.json`. Stage 5 must receive canonical Stage 4 outputs only and must not require Stitch project access.
+
+### Prototype constraints prompt template
+
+Every Stitch generation prompt must include:
+
+```text
+Prototype constraints for Source BlendR Stage 4:
+Product scope boundaries: B2B inventory import/review/catalog workspace only. MVP role is workspace_owner. Do not create marketing, billing, checkout, auth, onboarding, team admin, BI dashboard, storefront, order management, or AI auto-publish experiences.
+Approved workflows: website vendor import, PDF catalog import, Discovery Session candidate review, manual catalog curation, vendor access, and AI provider routing settings.
+Allowed page types: use only the page type already mapped to the current Stage 4 UI blueprint.
+Forbidden pages/features: no new routes, roles, product capabilities, integrations, collaboration, billing, customer-facing storefront, or admin surfaces unless already supported by Stage 1-3 and existing Stage 4 artifacts.
+Design system rules: compact utilitarian operations workspace; warm off-white canvas; white bordered surfaces; graphite text; muted secondary text; restrained amber primary action; Inter/system sans; dense tables and status panels; visible focus; no decorative hero treatment.
+Accessibility constraints: semantic controls, accessible names, keyboard-reachable interactions, visible focus, WCAG AA contrast, text/icon status labels, no color-only status, reduced-motion-safe progress.
+Required states: loading, empty, populated, saving, success, error, permission_denied.
+Required permissions: workspace_owner in MVP; permission denied must be visible, non-destructive, and recoverable.
+Route/action discipline: every clickable/input/add component must resolve to an approved route, approved action, or no_navigation. Do not invent orphan controls.
+```
+
+### Page approval ledger
+
+Every generated or linked Stitch page must be recorded before Stage 4 readiness is restored:
+
+```json
+{
+  "page_name": "",
+  "stitch_screen_id": "",
+  "approval_status": "approved | revise | rejected | deferred",
+  "reason": "",
+  "mapped_ui_blueprint_id": "UI-BLUEPRINT-..."
+}
+```
+
+### Component extraction checklist
+
+After a Stitch page is approved, Stage 4 must inventory:
+
+* navigation components
+* content/data components
+* forms and inputs
+* buttons and links
+* menus/dropdowns
+* tabs
+* modals/drawers
+* clickable cards/rows
+* filters/search/sort controls
+* status indicators
+* empty/loading/error/success states
+
+### No orphan interaction gate
+
+Every interactive component must resolve to exactly one of:
+
+```text
+route
+action
+no_navigation
+```
+
+Stage 4 must not complete while any button, link, row, menu item, card, form input, drawer trigger, modal trigger, or other interactive component lacks that resolution.
+
+### Stitch divergence rule
+
+If Stitch suggests anything not already supported by Stage 1-3 or earlier Stage 4 work, classify it as:
+
+* `accepted_stage_4_refinement`
+* `requires_stage_1_revision`
+* `requires_stage_3_revision`
+* `rejected_out_of_scope`
+
+Unclassified Stitch divergence blocks Stage 4 readiness.
+
+### Responsive and accessibility review
+
+For each approved Stitch page, Stage 4 must record whether it needs:
+
+* desktop-only layout
+* tablet collapse behavior
+* mobile transformation
+* hidden/deprioritized mobile content
+
+After component inventory, Stage 4 must check:
+
+* accessible names
+* keyboard interaction
+* focus states
+* disabled/loading states
+* destructive action confirmation
+* permission-denied behavior
+* error recovery
+
 The UI blueprint package may also produce a readable `UI_BLUEPRINT.md` view when useful, with sections for:
 
 ```text
@@ -2325,6 +2420,12 @@ Stage 4 may complete only when:
 * every interactive element with navigate behavior has a route_target that exists in the route inventory
 * action_inventory is complete for all launch-critical pages and maps every action to its route_target
 * route_inventory covers all navigation paths used by interactive elements
+* every required Stitch page has a page approval ledger entry
+* every approved Stitch page has completed component extraction
+* every interactive Stitch component resolves to `route`, `action`, or `no_navigation`
+* every Stitch-added component is approved, revised, or rejected
+* every Stitch divergence is classified before it can influence canonical Stage 4 outputs
+* Stitch metadata remains Stage-4-local and does not change the Stage 5 handoff contract
 * Stage 4 decision brief exists and is approved
 
 ---
@@ -2354,6 +2455,11 @@ Before completing Stage 4, confirm:
 * every action in action_inventory maps back to its owning page and component
 * every route in route_inventory maps to a blueprint page_ref
 * every navigation item has a route_target pointing to a valid route in route_inventory
+* page approval ledger maps every Stitch page to a `ui_blueprint_id`
+* component extraction checklist covers navigation, forms, buttons, links, drawers, clickable rows/cards, filters/search/sort controls, status indicators, and required states
+* no orphan interaction remains after prototype review
+* post-inventory accessibility pass covers accessible names, keyboard interaction, focus, disabled/loading states, destructive confirmations, permission-denied behavior, and error recovery
+* Stitch-added components are categorized and classified before Stage 4 readiness is restored
 * component inventory, shared components, routes, states, actions, and interactive elements are defined
 * frontend build package is usable by frontend-design, frontend-builder, task generators, and agent builders
 * complete app blueprint markdown is usable by Stage 5 without reinterpreting page, component, route, action, state, or data requirements

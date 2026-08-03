@@ -1,49 +1,178 @@
 generator client {
-  provider = "prisma-client-js"
+  provider     = "prisma-client"
+  output       = "../packages/shared/src/generated/prisma"
+  moduleFormat = "esm"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Workspace {
-  id           String        @id
+  id           String        @id @default(cuid())
   clerkOrgId   String        @unique
   name         String
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   vendors      Vendor[]
   catalogItems CatalogItem[]
+  importJobs   ImportJob[]
+  sessions     DiscoverySession[]
+  sources      NormalizedSourceRecord[]
+  credentials  AIProviderCredential[]
+  auditEvents  AuditEvent[]
 }
 
 model Vendor {
-  id          String        @id
+  id          String        @id @default(cuid())
   workspaceId String
   name        String
+  websiteUrl  String?
+  archivedAt  DateTime?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   items       CatalogItem[]
+  importJobs  ImportJob[]
 
   @@unique([workspaceId, name])
   @@index([workspaceId])
 }
 
 model CatalogItem {
-  id          String    @id
+  id          String    @id @default(cuid())
   workspaceId String
-  vendorId    String
+  vendorId    String?
+  type        String    @default("product")
   name        String
+  description String    @default("")
   sku         String
   priceCents  Int
   currency    String
+  attributes  Json      @default("{}")
+  tags        String[]  @default([])
+  sourceCandidateId String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  vendor      Vendor    @relation(fields: [vendorId], references: [id], onDelete: Restrict)
+  vendor      Vendor?   @relation(fields: [vendorId], references: [id], onDelete: Restrict)
 
   @@unique([workspaceId, sku])
   @@index([workspaceId])
   @@index([vendorId])
+}
+
+model ImportJob {
+  id             String   @id @default(cuid())
+  workspaceId    String
+  vendorId       String?
+  sourceType     String
+  sourceUri      String
+  status         String   @default("queued")
+  requestedByUserId String
+  idempotencyKey String?
+  attempt        Int      @default(1)
+  errorCode      String?
+  canceledAt     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  workspace      Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  vendor         Vendor?   @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+  events         ImportJobEvent[]
+  sources        NormalizedSourceRecord[]
+  session        DiscoverySession?
+
+  @@unique([workspaceId, idempotencyKey])
+  @@index([workspaceId, status])
+}
+
+model ImportJobEvent {
+  id          String   @id @default(cuid())
+  workspaceId String
+  jobId       String
+  type        String
+  detail      Json     @default("{}")
+  createdAt   DateTime @default(now())
+  job         ImportJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, jobId, createdAt])
+}
+
+model NormalizedSourceRecord {
+  id          String   @id @default(cuid())
+  workspaceId String
+  jobId       String
+  sourceHash  String
+  sourceType  String
+  sourceUri   String
+  payload     Json
+  createdAt   DateTime @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  job         ImportJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  candidates  CandidateItem[]
+
+  @@unique([workspaceId, sourceHash])
+  @@index([workspaceId, jobId])
+}
+
+model DiscoverySession {
+  id          String   @id @default(cuid())
+  workspaceId String
+  importJobId String   @unique
+  status      String   @default("open")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  importJob   ImportJob @relation(fields: [importJobId], references: [id], onDelete: Cascade)
+  candidates  CandidateItem[]
+
+  @@index([workspaceId, status])
+}
+
+model CandidateItem {
+  id             String   @id @default(cuid())
+  workspaceId    String
+  sessionId      String
+  sourceRecordId String?
+  state          String   @default("new")
+  name           String
+  sku            String
+  priceCents     Int
+  currency       String
+  payload        Json     @default("{}")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  session        DiscoverySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sourceRecord   NormalizedSourceRecord? @relation(fields: [sourceRecordId], references: [id], onDelete: SetNull)
+
+  @@unique([workspaceId, sessionId, sku])
+  @@index([workspaceId, sessionId, state])
+}
+
+model AIProviderCredential {
+  id                  String   @id @default(cuid())
+  workspaceId         String
+  provider            String
+  encryptedCredential String
+  enabled             Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  workspace           Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, provider])
+  @@index([workspaceId])
+}
+
+model AuditEvent {
+  id          String   @id @default(cuid())
+  workspaceId String
+  actorUserId String
+  action      String
+  entityType  String
+  entityId    String
+  detail      Json     @default("{}")
+  createdAt   DateTime @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, createdAt])
 }

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@source-blendr/domain": ["packages/domain/src/index.ts"],
+      "@source-blendr/shared": ["packages/shared/src/index.ts"]
+    }
+  },
+  "include": ["packages/**/*.ts", "apps/worker/**/*.ts", "vitest.config.ts"],
+  "exclude": ["node_modules", "**/dist", "apps/web"]
+}

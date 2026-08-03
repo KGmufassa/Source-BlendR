@@ -1,6 +1,6 @@
 {
   "stage": "Stage 4",
-  "status": "ready_for_stage_5",
+  "status": "needs_current_stage_revision",
   "design_system": {
     "design_system_id": "DESIGN-SYSTEM-001",
     "product_visual_personality": "Precise, calm, trustworthy operations workspace",
@@ -240,15 +240,28 @@
     }
   },
   "completion_status": {
-    "stage_specific_status": "ready_for_stage_5",
-    "global_status": "ready_for_next_stage",
-    "reason": "Stage 4 UX/UI direction approved and handoff package completed.",
-    "blocking_items": [],
+    "stage_specific_status": "needs_current_stage_revision",
+    "global_status": "needs_current_stage_revision",
+    "reason": "Stage 4 Stitch prototypes were generated; page approval, component extraction, Stitch-added component approval, and no-orphan interaction gate must complete before ready_for_stage_5 is restored.",
+    "blocking_items": [
+      "Stitch page approval ledger has deferred entries",
+      "Component extraction checklist is pending for approved pages",
+      "Stitch-added components require approval/classification",
+      "No-orphan interaction gate is not complete for Stitch-added components"
+    ],
     "next_actions": [
-      "Run Stage 5 development orchestration."
+      "Review and approve or revise each Stitch page and Stitch-added component before Stage 4 handoff readiness is restored."
     ],
     "ready_for": "stage_5"
   },
   "assumptions": [],
-  "risks": []
+  "risks": [],
+  "stitch_design_system_mapping": {
+    "stage_scope": "stage_4_local_only",
+    "project_id": "9248820866477955856",
+    "design_system_asset_id": "9645362222514515324",
+    "source_design_system_id": "DESIGN-SYSTEM-001",
+    "alignment_status": "created_from_stage_4_design_direction",
+    "important_note": "Stitch remains prototype evidence only; Stage 5 consumes canonical Stage 4 outputs."
+  }
 }

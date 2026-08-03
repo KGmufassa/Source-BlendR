@@ -648,18 +648,24 @@
     "user_confirmations": [
       "Begin Stage 6"
     ],
-    "implementation_confidence_gaps": []
+    "implementation_confidence_gaps": [
+      "PDF/storage runtime and live provider routing"
+    ]
   },
   "stage_7_handoff": {},
   "completion_status": {
     "status": "in_progress",
-    "reason": "BATCH-001 through BATCH-004 are complete; 7 tickets across BATCH-005 through BATCH-007 remain.",
+    "reason": "REVISION-S7-001 established and live-validated a deployable catalog and website-import runtime foundation; remaining runtime paths and deployed evidence are still required.",
     "completed_at": "",
-    "recorded_at": "2026-07-28T01:44:19Z",
-    "blocking_items": [],
-    "next_actions": [
-      "Execute BATCH-005 frontend previews, keyboard paths, route/action/state checks, and visual QA evidence."
+    "recorded_at": "2026-07-31T00:59:00Z",
+    "blocking_items": [
+      "PDF/storage runtime incomplete",
+      "Live provider health and capability routing incomplete"
     ],
-    "ready_for": "BATCH-005"
+    "next_actions": [
+      "Implement PDF/storage and live provider health/capability routing.",
+      "Run the Stage 6 global readiness audit only after runtime and validation blockers are resolved."
+    ],
+    "ready_for": "REVISION-S7-001 continuation"
   }
 }

@@ -1,7 +1,7 @@
 {
   "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
   "stage": "Stage 6",
-  "status": "ready_for_stage_7",
+  "status": "needs_repair",
   "implemented_tickets": [
     "TICKET-001",
     "TICKET-002",
@@ -546,7 +546,15 @@
       "batch_completion_recorded": true
     }
   ],
-  "unresolved_blockers": [],
+  "unresolved_blockers": [
+    "REVISION-S7-001 remains open: the deployable catalog, website-import, discovery-promotion, and credential runtime foundation is live-validated, but PDF/storage and live provider routing remain."
+  ],
+  "runtime_revision": {
+    "revision_id": "REVISION-S7-001",
+    "status": "in_progress",
+    "evidence_ref": "ARTIFACT-S6-RUNTIME-REVISION-001",
+    "validated_at": "2026-07-31T00:59:00Z"
+  },
   "artifact_refs": [
     "ARTIFACT-S5-001-TEST",
     "ARTIFACT-S5-001-VALIDATION",
@@ -606,6 +614,7 @@
     "ARTIFACT-S5-020-SCREENSHOT",
     "ARTIFACT-S5-021-TEST",
     "ARTIFACT-S5-021-VALIDATION",
-    "ARTIFACT-S5-021-BUILD"
+    "ARTIFACT-S5-021-BUILD",
+    "ARTIFACT-S6-RUNTIME-REVISION-001"
   ]
 }

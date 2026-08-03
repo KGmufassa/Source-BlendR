@@ -10,9 +10,9 @@ test("declares the approved pnpm workspace skeleton", async () => {
 
   assert.equal(rootPackage.private, true);
   assert.match(rootPackage.packageManager, /^pnpm@/);
-  assert.deepEqual(rootPackage.engines, { node: ">=22", pnpm: ">=10" });
-  assert.match(rootPackage.scripts.test, /node --test/);
-  assert.match(rootPackage.scripts.test, /apps\/workspace-scaffold\.test\.mjs/);
+  assert.deepEqual(rootPackage.engines, { node: ">=22.12", pnpm: ">=10" });
+  assert.match(rootPackage.scripts["test:contracts"], /node --test/);
+  assert.match(rootPackage.scripts["test:contracts"], /apps\/workspace-scaffold\.test\.mjs/);
   assert.match(workspace, /- "apps\/\*"/);
   assert.match(workspace, /- "packages\/\*"/);
 });

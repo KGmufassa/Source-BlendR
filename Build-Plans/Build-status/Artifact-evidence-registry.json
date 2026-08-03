@@ -2,6 +2,30 @@
   "registry_version": "1.0.0",
   "artifacts": [
     {
+      "artifact_id": "ARTIFACT-S6-RUNTIME-REVISION-001",
+      "type": "build_log",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-6/01-implementation-status.json",
+      "related_ticket_ids": [
+        "TICKET-001",
+        "TICKET-002",
+        "TICKET-005",
+        "TICKET-006",
+        "TICKET-008",
+        "TICKET-009",
+        "TICKET-010",
+        "TICKET-021"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [],
+      "path_or_url": "Build-Plans/Stage-6/evidence/REVISION-S7-001-runtime-validation.json",
+      "status": "passed_with_blockers",
+      "confidence": "high",
+      "created_by": "stage-6-implementation-validation",
+      "created_at": "2026-07-31T00:59:00Z",
+      "notes": "Production builds, contract/runtime tests, typecheck, lint, deployment configuration, local migration, catalog persistence, and live BullMQ website-import processing pass; PDF/storage and live provider routing remain."
+    },
+    {
       "artifact_id": "ARTIFACT-001",
       "type": "screenshot",
       "related_stage": "Stage 1",
