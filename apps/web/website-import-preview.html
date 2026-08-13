@@ -30,7 +30,7 @@
 </head>
 <body>
   <div class="shell">
-    <nav aria-label="Primary workspace navigation"><a href="/app">Overview</a><a href="/app/imports">Imports</a><a href="/app/imports/website" aria-current="page">Website Import</a><a href="/app/imports/pdf">PDF Import</a><a href="/app/imports/jobs/:jobId">Job Detail</a><a href="/app/discovery/:sessionId">Discovery</a><a href="/app/catalog">Catalog</a><a href="/app/catalog/new">New Item</a><a href="/app/vendors">Vendors</a><a href="/app/settings/ai">AI Settings</a></nav>
+    <nav aria-label="Primary workspace navigation"><a href="/app">Workspace Overview</a><a href="/app/imports">Imports Workspace</a><a href="/app/imports/website" aria-current="page">Website Import Wizard</a><a href="/app/imports/pdf">PDF Import</a><a href="/app/imports/jobs">Import Jobs</a><a href="/app/imports/jobs/:jobId">Job Detail</a><a href="/app/discovery">Discovery Sessions</a><a href="/app/discovery/:sessionId">Discovery</a><a href="/app/catalog">Catalog</a><a href="/app/catalog/:itemId">Catalog Item</a><a href="/app/catalog/new">New Item</a><a href="/app/vendors">Vendors</a><a href="/app/vendors/:vendorId">Vendor Detail</a><a href="/app/vendors/new">New Vendor</a><a href="/app/settings">Settings</a><a href="/app/settings/ai">AI Settings</a></nav>
     <main data-state="populated">
       <p class="status">populated</p>
       <h1>Website Import</h1>
@@ -42,7 +42,7 @@
       </form>
       <section class="card">
         <h2>Categories</h2>
-        <label><input type="checkbox" data-element="EL-WEB-004" value="Tea"> Tea</label><label><input type="checkbox" data-element="EL-WEB-004" value="Coffee"> Coffee</label>
+        <fieldset class="category-tree" aria-label="Detected Category tree"><legend>Detected Category tree</legend><div class="category-branch"><h3>catalog</h3><label><input type="checkbox" data-element="EL-WEB-004" value="Tea"> Tea</label><label><input type="checkbox" data-element="EL-WEB-004" value="Coffee"> Coffee</label></div></fieldset>
         <button type="button" data-element="EL-WEB-005" data-action="ACTION-QUEUE-CATEGORIES">Start selected categories</button>
       </section>
       <a href="/app/imports/jobs/job-website-1" data-element="EL-WEB-006">Open job</a>

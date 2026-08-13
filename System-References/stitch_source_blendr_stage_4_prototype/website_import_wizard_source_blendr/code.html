@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Website Import Wizard - Source BlendR</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        surface: "#ffffff",
+                        canvas: "#faf9f6", // Warm off-white
+                        graphite: "#333333",
+                        muted: "#71716a",
+                        primary: "#d97706", // Amber-600
+                        "primary-hover": "#b45309",
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Inter", "sans-serif"],
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+        body {
+            background-color: #faf9f6;
+            color: #333333;
+            font-family: 'Inter', sans-serif;
+        }
+        .step-inactive { opacity: 0.5; pointer-events: none; }
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 z-50 bg-stone-50 border-r border-stone-200 w-64">
+<div class="px-6 mb-8">
+<h1 class="text-stone-900 font-black tracking-tight text-lg">Source BlendR</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Inventory Ops</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Nav Item: Overview -->
+<a class="flex items-center px-6 py-2.5 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+                Overview
+            </a>
+<!-- Nav Item: Imports (ACTIVE) -->
+<a class="flex items-center px-6 py-2.5 text-xs font-medium bg-white text-stone-900 border-l-4 border-amber-600 shadow-sm active:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined mr-3 text-amber-600">upload_file</span>
+                Imports
+            </a>
+<!-- Nav Item: Discovery -->
+<a class="flex items-center px-6 py-2.5 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">explore</span>
+                Discovery
+            </a>
+<!-- Nav Item: Catalog -->
+<a class="flex items-center px-6 py-2.5 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">inventory_2</span>
+                Catalog
+            </a>
+<!-- Nav Item: Vendors -->
+<a class="flex items-center px-6 py-2.5 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">storefront</span>
+                Vendors
+            </a>
+<!-- Nav Item: Settings -->
+<a class="flex items-center px-6 py-2.5 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="px-6 pt-4 mt-auto border-t border-stone-100">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-stone-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a workspace administrator with a neutral expression, wearing a clean charcoal grey sweater, set against a soft beige minimalist office background. The lighting is bright and even, reinforcing an efficient and professional atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASR51OoF46KXUglktNBZr92Nz7DFcts2TLViHz6esKiTw-1ThIdjD-ksvljE-WjLOtqtYn55A34wqXFeKEit7uLr96N560E7E3NE533XptRiv0ESmtM8crl1h159_UzCsHBW1X6vUNcx7JTVocBhdobkKuM2UExRl5-GhdWuALN5oORxxa9a90q-_VZt9ArnorSvkkLIkJUOIl3MLbLyHA-3CfUqqDrNwTjP5CGB_0Q6oLphwSNAZglDl3-8CKf26iH9fXXeudhrA"/>
+</div>
+<div>
+<p class="text-[11px] font-bold text-stone-800">Admin User</p>
+<p class="text-[10px] text-stone-500">Workspace Owner</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar Shell -->
+<header class="flex justify-between items-center h-14 px-6 w-full z-40 bg-surface border-b border-stone-200 sticky top-0">
+<div class="flex items-center gap-4">
+<nav aria-label="Breadcrumb" class="flex items-center text-sm font-body text-stone-500">
+<a class="hover:text-stone-800 transition-colors" href="#">Imports</a>
+<span class="material-symbols-outlined mx-1 text-xs">chevron_right</span>
+<span class="text-amber-600 font-semibold border-b-2 border-amber-600 pb-0.5">Website Import</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-stone-400">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-stone-50 border border-stone-200 rounded text-xs focus:ring-1 focus:ring-amber-500 focus:border-amber-500 w-64 transition-all" placeholder="Global search..." type="text"/>
+</div>
+<button aria-label="Notifications" class="p-1.5 text-stone-500 hover:bg-stone-50 rounded transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Help" class="p-1.5 text-stone-500 hover:bg-stone-50 rounded transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-8 max-w-4xl w-full">
+<!-- Page Header -->
+<div class="mb-8">
+<a class="inline-flex items-center text-xs font-medium text-stone-500 hover:text-stone-800 transition-colors mb-2 group" href="#">
+<span class="material-symbols-outlined mr-1 text-sm group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+                    Back to Imports
+                </a>
+<h2 class="text-2xl font-bold text-stone-900 tracking-tight">Import from Website</h2>
+<p class="text-stone-500 text-sm mt-1">Configure source parameters and analyze catalog structure for automated ingestion.</p>
+</div>
+<!-- Wizard Container -->
+<div class="space-y-6">
+<!-- STEP 1: Vendor & URL -->
+<section class="bg-white border border-stone-200 rounded shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-stone-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-amber-600 text-white text-[10px] font-bold">1</span>
+<h3 class="font-semibold text-stone-800 text-sm">Vendor Selection &amp; URL</h3>
+</div>
+<span class="text-[10px] font-bold text-amber-600 px-2 py-0.5 bg-amber-50 rounded">ACTIVE</span>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1.5">
+<label class="block text-[11px] font-bold uppercase tracking-wider text-stone-600" for="vendor-select">Vendor Entity</label>
+<select class="w-full text-sm border-stone-200 rounded focus:ring-amber-500 focus:border-amber-500" id="vendor-select">
+<option value="">Select an existing vendor...</option>
+<option value="v_001">Global Outdoor Supplies</option>
+<option value="v_002">Nordic Hardware Co.</option>
+<option value="v_003">Zenith Textiles</option>
+</select>
+<p class="text-[10px] text-stone-400">Map the imported data to a registered vendor record.</p>
+</div>
+<div class="space-y-1.5">
+<label class="block text-[11px] font-bold uppercase tracking-wider text-stone-600" for="website-url">Website URL</label>
+<div class="relative">
+<input class="w-full text-sm border-red-300 bg-red-50/30 rounded focus:ring-red-500 focus:border-red-500 pr-10" id="website-url" placeholder="https://example.com/catalog" type="url" value="ftp://invalid-source.com"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-red-500 text-lg">error</span>
+</div>
+<p class="text-[10px] text-red-600 font-medium">Invalid URL format. Please ensure the protocol is http:// or https://</p>
+</div>
+<div class="md:col-span-2 pt-4 border-t border-stone-50 flex justify-end">
+<button class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded text-sm font-semibold transition-all active:opacity-80 flex items-center gap-2" onclick="simulateAnalysis()">
+<span>Analyze Website</span>
+<span class="material-symbols-outlined text-sm">pageview</span>
+</button>
+</div>
+</div>
+</section>
+<!-- STEP 2: Category Tree (With Pending State) -->
+<section class="bg-white border border-stone-200 rounded shadow-sm overflow-hidden relative" id="step-2">
+<!-- Loading Overlay (Initial Hidden) -->
+<div class="hidden absolute inset-0 bg-white/80 backdrop-blur-[1px] z-10 flex items-center justify-center flex-col gap-4" id="analysis-overlay">
+<div class="flex items-center gap-2">
+<span class="animate-spin material-symbols-outlined text-amber-600 text-3xl">sync</span>
+</div>
+<p class="text-xs font-bold text-stone-600 uppercase tracking-widest">Analyzing sitemap and structures...</p>
+<div class="w-48 h-1 bg-stone-100 rounded-full overflow-hidden">
+<div class="h-full bg-amber-600 loading-shimmer w-2/3"></div>
+</div>
+</div>
+<div class="px-6 py-4 border-b border-stone-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-stone-200 text-stone-600 text-[10px] font-bold">2</span>
+<h3 class="font-semibold text-stone-800 text-sm">Detected Category Tree</h3>
+</div>
+</div>
+<div class="p-6">
+<div class="bg-stone-50 border border-stone-200 rounded p-4 mb-4">
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-bold text-stone-500 uppercase tracking-tighter">7 Categories Found</span>
+<button class="text-[10px] font-bold text-amber-600 hover:underline">Select All</button>
+</div>
+<!-- Hierarchy Mock -->
+<div class="space-y-3">
+<div class="flex items-center gap-3 py-1">
+<input checked="" class="rounded text-amber-600 focus:ring-amber-500 border-stone-300" type="checkbox"/>
+<span class="material-symbols-outlined text-stone-400">folder_open</span>
+<span class="text-xs font-medium text-stone-700">All Products</span>
+<span class="ml-auto text-[10px] text-stone-400 font-mono">1,240 items</span>
+</div>
+<div class="ml-6 space-y-3 border-l border-stone-200 pl-4">
+<div class="flex items-center gap-3 py-1">
+<input checked="" class="rounded text-amber-600 focus:ring-amber-500 border-stone-300" type="checkbox"/>
+<span class="text-xs text-stone-600">Hardware &amp; Industrial</span>
+<span class="ml-auto text-[10px] text-stone-400 font-mono">452 items</span>
+</div>
+<div class="flex items-center gap-3 py-1">
+<input class="rounded text-amber-600 focus:ring-amber-500 border-stone-300" type="checkbox"/>
+<span class="text-xs text-stone-600">Textiles &amp; Fabrics</span>
+<span class="ml-auto text-[10px] text-stone-400 font-mono">318 items</span>
+</div>
+<div class="flex items-center gap-3 py-1">
+<input checked="" class="rounded text-amber-600 focus:ring-amber-500 border-stone-300" type="checkbox"/>
+<span class="text-xs text-stone-600">Archived Clearance</span>
+<span class="ml-auto text-[10px] text-stone-400 font-mono">110 items</span>
+</div>
+</div>
+<div class="flex items-center gap-3 py-1">
+<input class="rounded text-amber-600 focus:ring-amber-500 border-stone-300" type="checkbox"/>
+<span class="material-symbols-outlined text-stone-400">folder_open</span>
+<span class="text-xs font-medium text-stone-700">Seasonal Collections</span>
+<span class="ml-auto text-[10px] text-stone-400 font-mono">360 items</span>
+</div>
+</div>
+</div>
+<div class="flex justify-end pt-4 border-t border-stone-50">
+<button class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded text-sm font-semibold transition-all active:opacity-80 flex items-center gap-2" onclick="simulateSuccess()">
+<span>Start Selected Categories</span>
+<span class="material-symbols-outlined text-sm">playlist_add_check</span>
+</button>
+</div>
+</div>
+</section>
+<!-- STEP 3: Job Result (Success State) -->
+<section class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500" id="step-3">
+<div class="bg-emerald-50 border border-emerald-200 rounded-lg p-6 shadow-sm">
+<div class="flex items-start gap-4">
+<div class="bg-emerald-100 p-2 rounded-full">
+<span class="material-symbols-outlined text-emerald-600 text-2xl">check_circle</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-emerald-900 text-base">Import job started successfully</h4>
+<p class="text-emerald-700 text-sm mt-1">The system is now crawling the selected categories. This process may take 15-45 minutes depending on vendor server response times.</p>
+<div class="mt-6 flex items-center gap-4">
+<a class="inline-flex items-center px-4 py-2 bg-emerald-600 text-white text-xs font-bold rounded hover:bg-emerald-700 transition-colors" href="#">
+                                        Open Job Monitor
+                                        <span class="material-symbols-outlined ml-2 text-sm">open_in_new</span>
+</a>
+<button class="text-emerald-700 text-xs font-bold hover:underline">Download Analysis Report (PDF)</button>
+</div>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">JOB ID: #8291-C</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Meta -->
+<div class="mt-12 pt-6 border-t border-stone-200 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-[11px] font-medium text-stone-500">System Ready</span>
+</div>
+<div class="text-[11px] font-medium text-stone-500">
+                        Version: <span class="text-stone-800">4.2.0-STABLE</span>
+</div>
+</div>
+<p class="text-[11px] text-stone-400">© 2024 Source BlendR Operations. All Rights Reserved.</p>
+</div>
+</div>
+</main>
+<script>
+        // Simple Micro-interactions for Prototype
+        function simulateAnalysis() {
+            const overlay = document.getElementById('analysis-overlay');
+            overlay.classList.remove('hidden');
+            
+            // Artificial delay to show loading state
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                // Could highlight step 2 here
+                document.getElementById('step-2').scrollIntoView({ behavior: 'smooth' });
+            }, 2500);
+        }
+
+        function simulateSuccess() {
+            const step3 = document.getElementById('step-3');
+            step3.classList.remove('hidden');
+            step3.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Active State logic for TopNavBar breadcrumbs
+        // The prompt says "Imports > Website Import" breadcrumbs.
+        // Handled in HTML template.
+    </script>
+</body></html>

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import {
@@ -50,10 +51,15 @@ test("discovery session page exposes stacked candidate table, drawer, and bulk a
   assert.match(html, /data-component="DataTable"/);
   assert.match(html, /data-mobile-behavior="stacked_labeled_records"/);
   assert.match(html, /data-component="AccessibleDrawer"/);
+  assert.match(readLiveFile("discovery/[sessionId]/discovery-client.tsx"), /AI inference details/);
   assert.match(html, /data-action="ACTION-BULK-IMPORT"/);
   assert.match(html, /data-action="ACTION-BULK-IGNORE"/);
   assert.match(html, /data-action="ACTION-BULK-ARCHIVE"/);
 });
+
+function readLiveFile(relativePath) {
+  return readFileSync(new URL(`./app/app/${relativePath}`, import.meta.url), "utf8");
+}
 
 test("overview, imports workspace, and job detail expose approved routes and recovery actions", () => {
   const overview = renderImportsWorkspacePage({ jobs: [{ id: "job-1", source: "Website", status: "running" }] });

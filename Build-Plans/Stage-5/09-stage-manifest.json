@@ -4,7 +4,7 @@
   "artifact_id": "ARTIFACT-S5-MANIFEST",
   "artifact_type": "stage_manifest",
   "stage": "Stage 5",
-  "status": "ready_for_stage_6",
+  "status": "scraper_repair_visual_validation_pending",
   "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
   "artifacts": [
     {
@@ -62,6 +62,13 @@
       "path": "Build-Plans/Stage-5/08-release-plan.json",
       "data_path": "/data/release_plan",
       "schema_ref": "System-References/Schemas/stage-5-artifact.schema.json"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-SCRAPER-REPAIR-PLAN-2026-08-06",
+      "artifact_type": "scraper_repair_implementation_plan",
+      "path": "Build-Plans/Stage-5/11-scraper-repair-implementation-plan.json",
+      "data_path": "/",
+      "schema_ref": "not_applicable_revision_artifact"
     }
   ],
   "stage_6_handoff": {
@@ -80,10 +87,13 @@
       "Build-Plans/Stage-5/06-agent-assignment-plan.json",
       "Build-Plans/Stage-5/07-parallel-execution-plan.json",
       "Build-Plans/Stage-5/08-release-plan.json",
-      "Build-Plans/Stage-5/09-stage-manifest.json"
+      "Build-Plans/Stage-5/09-stage-manifest.json",
+      "Build-Plans/Stage-5/11-scraper-repair-implementation-plan.json"
     ],
-    "ready": true,
-    "blocking_items": [],
+    "ready": false,
+    "blocking_items": [
+      "Connected-browser click-through and responsive screenshot evidence is required to complete TICKET-036 and TICKET-039."
+    ],
     "accepted_risks": [
       "RISK-001",
       "RISK-005",
@@ -154,15 +164,34 @@
       "BATCH-004",
       "BATCH-005",
       "BATCH-006",
-      "BATCH-007"
+      "BATCH-007",
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028",
+      "TICKET-029",
+      "TICKET-030",
+      "TICKET-031",
+      "TICKET-032",
+      "TICKET-033",
+      "TICKET-034",
+      "TICKET-035",
+      "TICKET-036",
+      "TICKET-037",
+      "TICKET-038",
+      "TICKET-039"
     ],
     "completion_status": {
-      "stage_specific_status": "ready_for_stage_6",
+      "stage_specific_status": "ready_for_stage_6_repair_execution",
       "global_status": "ready_for_next_stage",
-      "reason": "All Stage 5 orchestration outputs, dependency-aware tickets, required skill chains, generated agent profiles, parallel batches, release gates, expected artifacts, and Stage 6 handoff are complete.",
+      "reason": "Stage 5 revision added explicit runtime repair tickets TICKET-022 through TICKET-028 before Stage 7 may resume.",
       "blocking_items": [],
       "next_actions": [
-        "Run Stage 6 implementation and validation using BATCH-001 through BATCH-007."
+        "Run Stage 6 implementation and validation using BATCH-008 and BATCH-009.",
+        "Do not resume Stage 7 until repair smoke evidence passes."
       ],
       "ready_for": "Stage 6 (Implementation & Validation)"
     },
@@ -187,7 +216,25 @@
       "TICKET-018",
       "TICKET-019",
       "TICKET-020",
-      "TICKET-021"
+      "TICKET-021",
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028",
+      "TICKET-029",
+      "TICKET-030",
+      "TICKET-031",
+      "TICKET-032",
+      "TICKET-033",
+      "TICKET-034",
+      "TICKET-035",
+      "TICKET-036",
+      "TICKET-037",
+      "TICKET-038",
+      "TICKET-039"
     ],
     "batch_order": [
       "BATCH-001",
@@ -196,7 +243,15 @@
       "BATCH-004",
       "BATCH-005",
       "BATCH-006",
-      "BATCH-007"
+      "BATCH-007",
+      "BATCH-008",
+      "BATCH-009",
+      "BATCH-010",
+      "BATCH-011",
+      "BATCH-012",
+      "BATCH-013",
+      "BATCH-014",
+      "BATCH-015"
     ],
     "required_agent_files": [
       ".opencode/agents/stage6-foundation-agent.md",
@@ -207,14 +262,16 @@
     ]
   },
   "completion_status": {
-    "stage_specific_status": "ready_for_stage_6",
-    "global_status": "ready_for_next_stage",
-    "reason": "All Stage 5 orchestration outputs, dependency-aware tickets, required skill chains, generated agent profiles, parallel batches, release gates, expected artifacts, and Stage 6 handoff are complete.",
-    "blocking_items": [],
-    "next_actions": [
-      "Run Stage 6 implementation and validation using BATCH-001 through BATCH-007."
+    "stage_specific_status": "scraper_repair_implementation_complete_visual_validation_pending",
+    "global_status": "blocked",
+    "reason": "All non-browser scraper repair gates passed; browser inventory is empty, so visual validation remains pending.",
+    "blocking_items": [
+      "Browser connector returned an empty browser inventory."
     ],
-    "ready_for": "Stage 6 (Implementation & Validation)"
+    "next_actions": [
+      "Connect a browser and capture category workflow screenshots and keyboard evidence."
+    ],
+    "ready_for": "Stage 6 visual validation"
   },
   "schema_validation": {
     "schema_refs": [
@@ -239,5 +296,57 @@
     "validated_at": "2026-07-25T01:39:56.001811+00:00",
     "validator": "Stage 5 v2 structural validator",
     "blocking": true
-  }
+  },
+  "traceability_refs": [
+    "TICKET-022",
+    "TICKET-023",
+    "TICKET-024",
+    "TICKET-025",
+    "TICKET-026",
+    "TICKET-027",
+    "TICKET-028",
+    "TICKET-029",
+    "TICKET-030",
+    "TICKET-031",
+    "TICKET-032",
+    "TICKET-033",
+    "TICKET-034",
+    "TICKET-035",
+    "TICKET-036",
+    "TICKET-037",
+    "TICKET-038",
+    "TICKET-039",
+    "SLICE-023",
+    "SLICE-024",
+    "SLICE-025",
+    "SLICE-026",
+    "SLICE-027",
+    "SLICE-028",
+    "BATCH-010",
+    "BATCH-011",
+    "BATCH-012",
+    "BATCH-013",
+    "BATCH-014",
+    "BATCH-015"
+  ],
+  "revision_loops": [
+    {
+      "revision_id": "REVISION-S5-RUNTIME-REPAIR-2026-08-05",
+      "owning_stage": "Stage 5",
+      "owning_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "status": "routed_to_stage_6",
+      "issue": "Runtime workflow gaps were not explicit enough in original broad build tickets.",
+      "required_change": "Execute TICKET-022 through TICKET-028 before Stage 7 resumes.",
+      "created_at": "2026-08-05T00:00:00-04:00"
+    },
+    {
+      "revision_id": "REVISION-S5-SCRAPER-REPAIR-2026-08-06",
+      "owning_stage": "Stage 5",
+      "owning_output": "Build-Plans/Stage-5/11-scraper-repair-implementation-plan.json",
+      "status": "implementation_complete_visual_validation_pending",
+      "issue": "Real-site testing showed the worker was not running and the scraper only fetched one page without category or product extraction.",
+      "required_change": "After approval, execute TICKET-029 through TICKET-039 using BATCH-010 through BATCH-015 and keep Stage 7 paused until TICKET-039 passes.",
+      "created_at": "2026-08-06T00:00:00-04:00"
+    }
+  ]
 }

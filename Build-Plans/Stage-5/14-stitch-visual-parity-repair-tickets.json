@@ -1,0 +1,467 @@
+{
+  "$schema": "../../System-References/Schemas/stage-5-artifact.schema.json",
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S5-STITCH-VISUAL-PARITY-REPAIR-TICKETS",
+  "artifact_type": "revision_repair_tickets",
+  "stage": "Stage 5",
+  "status": "completed",
+  "revision_id": "REVISION-STITCH-VISUAL-PARITY-REPAIR-2026-08-08",
+  "repairs_revision_id": "REVISION-STITCH-PROTOTYPE-UI-2026-08-06",
+  "summary_ref": "Build-Plans/Stage-5/12-stitch-prototype-revision-summary.md",
+  "prior_ticket_plan_ref": "Build-Plans/Stage-5/13-stitch-stage4-ui-revision-tickets.json",
+  "prototype_ref": "System-References/stitch_source_blendr_stage_4_prototype",
+  "ticket_id_range": "TICKET-053..TICKET-059",
+  "goal": "Make the current app visually match the extracted Stitch Stage 4 prototype layouts while preserving existing backend behavior, route paths, API contracts, data fetching, mutation handlers, workspace security, and component responsibility mapping.",
+  "source_of_truth_policy": {
+    "visual_source_of_truth": "System-References/stitch_source_blendr_stage_4_prototype/**/screen.png",
+    "layout_reference": "System-References/stitch_source_blendr_stage_4_prototype/**/code.html",
+    "functional_source_of_truth": [
+      "apps/web/app/workspace-routes.ts",
+      "apps/web/app/app/**/page.tsx",
+      "apps/web/app/app/runtime-forms.tsx",
+      "apps/web/app/app/**/**-client.tsx",
+      "apps/web/app/api/**/route.ts",
+      "packages/shared/**",
+      "packages/domain/**"
+    ],
+    "rule": "Stitch controls visual layout. Current app controls routes, data, actions, auth, APIs, and persistence."
+  },
+  "non_negotiable_repair_rules": [
+    "Do not change database schema in this repair layer.",
+    "Do not change API request or response contracts unless a separate backend ticket is approved.",
+    "Do not remove or bypass workspace scoping, auth checks, same-origin checks, idempotency keys, import queue behavior, scraper contracts, PDF upload behavior, discovery candidate actions, catalog writes, vendor writes, or AI provider health/routing behavior.",
+    "Do not paste Tailwind CDN, external prototype scripts, inline showState controls, href=\"#\" links, demo state toggles, or hard-coded sample IDs into production routes.",
+    "Do preserve component responsibility mapping: forms submit through current form/client components, tables navigate through current route links, and mutations continue using current API routes.",
+    "Do provide populated-looking empty states where local data is sparse so the layout still resembles the Stitch visual structure without inventing production records.",
+    "Do not implement deferred features from the selective feature table."
+  ],
+  "selective_feature_policy": {
+    "approved_features_to_preserve": [
+      "Detected Category Tree in wizard",
+      "Hierarchical category tree rendering",
+      "Import job status cards/details",
+      "Discovery candidate preview drawer",
+      "Discovery AI inference details",
+      "Catalog category filter",
+      "Catalog product/service segmented control",
+      "Permission denied/provider summary cards"
+    ],
+    "deferred_features_to_exclude": [
+      "Download Analysis Report PDF",
+      "Catalog mobile floating create button",
+      "Vendor state toggles",
+      "Vendor footer links",
+      "Topbar notification/help buttons",
+      "Provider documentation/support links"
+    ],
+    "discarded_features_to_exclude": []
+  },
+  "data": {
+    "ticket_count": 7,
+    "tickets": [
+      {
+        "ticket_id": "TICKET-053",
+        "title": "Create visual parity baseline and component mapping matrix",
+        "ticket_type": "visual_parity_planning",
+        "priority": "critical",
+        "revision_scope": "repair_foundation",
+        "depends_on_tickets": [],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/imports_workspace_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/website_import_wizard_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/pdf_import_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/import_job_detail_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/discovery_session_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/vendors_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/ai_provider_settings_source_blendr/screen.png"
+        ],
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/imports/website",
+          "/app/imports/pdf",
+          "/app/imports/jobs/:jobId",
+          "/app/discovery/:sessionId",
+          "/app/catalog",
+          "/app/catalog/new",
+          "/app/vendors",
+          "/app/settings/ai"
+        ],
+        "expected_files": [
+          "Build-Plans/Stage-6/evidence/REVISION-STITCH-VISUAL-PARITY-REPAIR-2026-08-08.json"
+        ],
+        "acceptance_criteria": [
+          "Create a route-by-route matrix mapping each Stitch screenshot region to the current React page/component responsible for behavior.",
+          "Record which visual elements are allowed to become static empty-state placeholders and which must be backed by real data.",
+          "Identify all deferred prototype elements and mark them as excluded from visual parity.",
+          "Define the screenshot capture dimensions for desktop, tablet, and mobile validation.",
+          "Do not modify app source code in this ticket."
+        ],
+        "validation_steps": [
+          "Verify every prototype screen has one live route mapping or an explicit no-route note.",
+          "Verify every live route action maps to an existing component/API path.",
+          "Verify deferred features are explicitly excluded before implementation tickets run."
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-08"
+      },
+      {
+        "ticket_id": "TICKET-054",
+        "title": "Repair shared shell and global visual system for Stitch parity",
+        "ticket_type": "frontend_visual_parity",
+        "priority": "critical",
+        "revision_scope": "shell_and_design_system",
+        "depends_on_tickets": [
+          "TICKET-053"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/source_blendr_stage_4_design_system/DESIGN.md",
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/catalog",
+          "/app/vendors",
+          "/app/settings/ai"
+        ],
+        "expected_files": [
+          "apps/web/app/globals.css",
+          "apps/web/app/workspace-shell.tsx",
+          "apps/web/app/app/page-actions.tsx"
+        ],
+        "acceptance_criteria": [
+          "Sidebar visually matches Stitch proportions, typography, active route marker, spacing, and persistent fixed-left layout.",
+          "Main canvas uses Stitch warm off-white background, content offset, max-width behavior, and topbar/header rhythm.",
+          "Shared card, table, toolbar, badge, button, form, drawer, and empty-state primitives support the Stitch layouts.",
+          "Topbar excludes deferred notification/help buttons unless already backed by approved behavior.",
+          "Route paths and workspace navigation behavior remain unchanged."
+        ],
+        "validation_steps": [
+          "Run typecheck and route contract tests.",
+          "Verify no production href=\"#\", showState, Tailwind CDN script, or external prototype JavaScript exists.",
+          "Capture shell screenshots for at least /app, /app/imports, /app/catalog, and /app/settings/ai."
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-08"
+      },
+      {
+        "ticket_id": "TICKET-055",
+        "title": "Repair overview and imports layouts to match Stitch screenshots",
+        "ticket_type": "frontend_visual_parity",
+        "priority": "critical",
+        "revision_scope": "top_level_import_surfaces",
+        "depends_on_tickets": [
+          "TICKET-054"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/imports_workspace_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/imports_workspace_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/imports/jobs"
+        ],
+        "expected_files": [
+          "apps/web/app/app/page.tsx",
+          "apps/web/app/app/imports/page.tsx",
+          "apps/web/app/app/imports/jobs/page.tsx"
+        ],
+        "acceptance_criteria": [
+          "/app matches the Stitch overview composition: breadcrumb/header, quick actions, active jobs area, status/summary panels, and compact operational cards.",
+          "/app/imports matches the Stitch imports composition: method chooser cards, operational status header, recent/import job sections, and dense table styling.",
+          "Real DB counts/jobs remain the data source, but empty states keep the same structural slots as the prototype.",
+          "Open catalog, Start import, View active jobs, Website import, PDF import, and Open job links preserve current route behavior.",
+          "No fake production job IDs, vendors, or records are introduced."
+        ],
+        "validation_steps": [
+          "Run import workflow and live page tests.",
+          "Capture and compare /app, /app/imports, and /app/imports/jobs screenshots against the prototype baseline.",
+          "Confirm sparse local data still renders the same page skeleton."
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-08"
+      },
+      {
+        "ticket_id": "TICKET-056",
+        "title": "Repair website, PDF, and import job detail workflows to match Stitch screenshots",
+        "ticket_type": "frontend_visual_parity",
+        "priority": "critical",
+        "revision_scope": "import_workflows",
+        "depends_on_tickets": [
+          "TICKET-055"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/website_import_wizard_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/website_import_wizard_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/pdf_import_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/pdf_import_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/import_job_detail_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/import_job_detail_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/imports/website",
+          "/app/imports/pdf",
+          "/app/imports/jobs/:jobId"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/website/page.tsx",
+          "apps/web/app/app/imports/pdf/page.tsx",
+          "apps/web/app/app/imports/jobs/[jobId]/page.tsx",
+          "apps/web/app/app/imports/jobs/[jobId]/category-job-selector.tsx",
+          "apps/web/app/app/runtime-forms.tsx"
+        ],
+        "acceptance_criteria": [
+          "/app/imports/website matches the Stitch wizard layout while keeping WebsiteImportForm submission, idempotency, and job handoff behavior.",
+          "Detected Category Tree remains approved and visually matches the Stitch tree region when category data exists; otherwise an empty tree skeleton is shown.",
+          "/app/imports/pdf matches the Stitch PDF import layout while preserving the current upload API and accessible error/status messages.",
+          "/app/imports/jobs/:jobId matches the Stitch job detail layout while preserving retry, cancel, event timeline, category jobs, and discovery handoff behavior.",
+          "Download Analysis Report PDF remains excluded."
+        ],
+        "validation_steps": [
+          "Run import API and category job tests.",
+          "Run browser/manual flow for website form, PDF form, job retry/cancel disabled states, and category selector.",
+          "Capture screenshots for website import, PDF import, and job detail states."
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-08"
+      },
+      {
+        "ticket_id": "TICKET-057",
+        "title": "Repair discovery, catalog, and catalog form layouts to match Stitch screenshots",
+        "ticket_type": "frontend_visual_parity",
+        "priority": "critical",
+        "revision_scope": "review_and_catalog_surfaces",
+        "depends_on_tickets": [
+          "TICKET-054"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/discovery_session_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/discovery_session_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/discovery/:sessionId",
+          "/app/catalog",
+          "/app/catalog/new"
+        ],
+        "expected_files": [
+          "apps/web/app/app/discovery/[sessionId]/page.tsx",
+          "apps/web/app/app/discovery/[sessionId]/discovery-client.tsx",
+          "apps/web/app/app/catalog/page.tsx",
+          "apps/web/app/app/catalog/catalog-client.tsx",
+          "apps/web/app/app/catalog/new/page.tsx",
+          "apps/web/app/app/runtime-forms.tsx"
+        ],
+        "acceptance_criteria": [
+          "/app/discovery/:sessionId matches the Stitch review workspace layout while preserving search, filter, select, preview, import, ignore, archive, and save behavior.",
+          "Candidate preview drawer visually matches Stitch and keeps keyboard close/focus behavior.",
+          "AI inference details remain conditional on backed candidate payload data.",
+          "/app/catalog matches the Stitch catalog toolbar/table layout while preserving real item query, search/filter, category filter, row navigation, and new item route.",
+          "/app/catalog/new matches the Stitch form layout while preserving CatalogItemForm submission and product/service segmented control.",
+          "Catalog mobile floating create button remains excluded."
+        ],
+        "validation_steps": [
+          "Run discovery and catalog contract tests.",
+          "Capture screenshots for discovery, catalog, and catalog create form.",
+          "Verify no client-only demo toggles ship from the prototype code."
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-08"
+      },
+      {
+        "ticket_id": "TICKET-058",
+        "title": "Repair vendors and AI settings layouts to match Stitch screenshots",
+        "ticket_type": "frontend_visual_parity",
+        "priority": "high",
+        "revision_scope": "management_surfaces",
+        "depends_on_tickets": [
+          "TICKET-054"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/vendors_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/vendors_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/ai_provider_settings_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/ai_provider_settings_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/vendors",
+          "/app/vendors/new",
+          "/app/vendors/:vendorId",
+          "/app/settings/ai"
+        ],
+        "expected_files": [
+          "apps/web/app/app/vendors/page.tsx",
+          "apps/web/app/app/vendors/new/page.tsx",
+          "apps/web/app/app/vendors/[vendorId]/page.tsx",
+          "apps/web/app/app/settings/ai/page.tsx",
+          "apps/web/app/app/settings/ai/ai-settings-client.tsx"
+        ],
+        "acceptance_criteria": [
+          "/app/vendors matches the Stitch vendors layout while preserving real vendor list, new vendor route, and open vendor route.",
+          "Vendor state toggles and vendor footer links remain excluded.",
+          "/app/settings/ai matches the Stitch AI provider settings layout while preserving provider add, health check, manual fallback, save routing, and credential privacy behavior.",
+          "Provider documentation/support links remain excluded.",
+          "Permission/provider summary cards remain present without exposing credential values."
+        ],
+        "validation_steps": [
+          "Run vendor and AI settings route/API tests.",
+          "Capture screenshots for vendors and AI settings.",
+          "Verify credentials and secret-like strings are not exposed in HTML, logs, or preview files."
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-08"
+      },
+      {
+        "ticket_id": "TICKET-059",
+        "title": "Validate Stitch visual parity repair with screenshots and regression suite",
+        "ticket_type": "visual_qa_validation",
+        "priority": "critical",
+        "revision_scope": "validation_gate",
+        "depends_on_tickets": [
+          "TICKET-056",
+          "TICKET-057",
+          "TICKET-058"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype"
+        ],
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/imports/website",
+          "/app/imports/pdf",
+          "/app/imports/jobs/:jobId",
+          "/app/discovery/:sessionId",
+          "/app/catalog",
+          "/app/catalog/new",
+          "/app/vendors",
+          "/app/settings/ai"
+        ],
+        "expected_files": [
+          "Build-Plans/Stage-6/evidence/REVISION-STITCH-VISUAL-PARITY-REPAIR-2026-08-08.json",
+          "Build-Plans/Stage-6/evidence/stitch-visual-parity/*.png"
+        ],
+        "acceptance_criteria": [
+          "Each live route has fresh desktop screenshot evidence mapped to the corresponding Stitch screen.png.",
+          "Tablet and mobile screenshots are captured for shell, imports, catalog, and discovery surfaces.",
+          "Visual QA notes record any intentional differences caused by real-data constraints or deferred features.",
+          "typecheck, contract tests, and production build pass.",
+          "Existing scraper, PDF, AI settings, import, discovery, catalog, vendor, auth, and workspace behavior remains covered by regression tests.",
+          "The repair evidence clearly states whether visual parity is complete or lists exact remaining deltas."
+        ],
+        "validation_steps": [
+          "Run corepack pnpm typecheck.",
+          "Run corepack pnpm test:contracts.",
+          "Run corepack pnpm --filter @source-blendr/web build.",
+          "Run local app with SOURCE_BLENDR_DEV_AUTH=1 and DATABASE_URL configured.",
+          "Capture route screenshots against the Stitch source package.",
+          "Record screenshot paths, viewport sizes, route URLs, and remaining deltas."
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-08"
+      }
+    ],
+    "batches": [
+      {
+        "batch_id": "BATCH-021",
+        "execution_order": 21,
+        "tickets": [
+          "TICKET-053"
+        ],
+        "blocked_by_batches": [
+          "BATCH-020"
+        ],
+        "can_run_in_parallel": false,
+        "purpose": "Establish visual parity and component mapping before touching layout code."
+      },
+      {
+        "batch_id": "BATCH-022",
+        "execution_order": 22,
+        "tickets": [
+          "TICKET-054"
+        ],
+        "blocked_by_batches": [
+          "BATCH-021"
+        ],
+        "can_run_in_parallel": false,
+        "purpose": "Repair shared shell and visual primitives first so page-level parity uses one system."
+      },
+      {
+        "batch_id": "BATCH-023",
+        "execution_order": 23,
+        "tickets": [
+          "TICKET-055",
+          "TICKET-057",
+          "TICKET-058"
+        ],
+        "blocked_by_batches": [
+          "BATCH-022"
+        ],
+        "can_run_in_parallel": true,
+        "purpose": "Repair independent route groups after shell parity is established."
+      },
+      {
+        "batch_id": "BATCH-024",
+        "execution_order": 24,
+        "tickets": [
+          "TICKET-056"
+        ],
+        "blocked_by_batches": [
+          "BATCH-023"
+        ],
+        "can_run_in_parallel": false,
+        "purpose": "Repair import workflow/detail surfaces after imports parent layout is stable."
+      },
+      {
+        "batch_id": "BATCH-025",
+        "execution_order": 25,
+        "tickets": [
+          "TICKET-059"
+        ],
+        "blocked_by_batches": [
+          "BATCH-024"
+        ],
+        "can_run_in_parallel": false,
+        "purpose": "Run screenshot visual QA and full regression validation."
+      }
+    ],
+    "dependency_notes": [
+      "TICKET-053 must complete first because it defines which current components own each prototype visual section.",
+      "TICKET-054 must complete before page parity work because sidebar, topbar, spacing, table, card, and form primitives affect every screenshot.",
+      "TICKET-055, TICKET-057, and TICKET-058 can run after shell parity because they cover independent top-level route groups.",
+      "TICKET-056 waits for TICKET-055 because website/PDF/job detail visuals depend on imports workspace patterns.",
+      "TICKET-059 is the final gate and cannot pass without screenshot evidence or an explicit user-approved visual QA waiver."
+    ]
+  },
+  "completed_at": "2026-08-08",
+  "execution_summary": {
+    "result": "completed",
+    "tickets_completed": [
+      "TICKET-053",
+      "TICKET-054",
+      "TICKET-055",
+      "TICKET-056",
+      "TICKET-057",
+      "TICKET-058",
+      "TICKET-059"
+    ],
+    "validation": [
+      "corepack pnpm typecheck",
+      "corepack pnpm test:contracts",
+      "corepack pnpm --filter @source-blendr/web build",
+      "curl -I http://localhost:3000/app"
+    ],
+    "evidence_ref": "Build-Plans/Stage-6/evidence/REVISION-STITCH-VISUAL-PARITY-REPAIR-2026-08-08.json"
+  }
+}

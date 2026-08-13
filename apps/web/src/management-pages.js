@@ -12,6 +12,7 @@ export function renderCatalogManagementPage({ items = [] } = {}) {
   <form role="search" data-action="ACTION-SEARCH-CATALOG">
     <label>Search catalog <input name="query" type="search" data-element="EL-CAT-001"></label>
     <label>Type filter <select name="type" data-element="EL-CAT-002" data-action="ACTION-FILTER-CATALOG"><option>all</option><option>product</option></select></label>
+    <label>Category filter <select name="category" data-element="EL-CAT-005" data-action="ACTION-FILTER-CATALOG-CATEGORY"><option>all categories</option><option>products</option><option>services</option></select></label>
     <button type="submit">Search</button>
   </form>
   <a href="/app/catalog">Catalog</a>
@@ -29,7 +30,7 @@ export function renderCatalogItemFormPage() {
   return `${renderAppShell({ activePath: "/app/catalog/new", workspaceName: "New Catalog Item" })}
 <section data-route="/app/catalog/new" data-component="COMP-SCREEN-008-PRIMARY">
   <form data-action="ACTION-SAVE-ITEM">
-    <label>Item type <select data-element="EL-FORM-001" name="item_type"><option>Product</option><option>Service</option></select></label>
+    <fieldset data-element="EL-FORM-001" class="segmented-control"><legend>Item type</legend><label><input name="item_type" type="radio" value="product" checked>Product</label><label><input name="item_type" type="radio" value="service">Service</label></fieldset>
     <label>Name <input data-element="EL-FORM-002" name="name" value="Green Tea"></label>
     <label>SKU <input data-element="EL-FORM-003" name="sku" value="TEA-1"></label>
     <label>Price <input data-element="EL-FORM-004" name="price" inputmode="numeric" value="450"></label>
@@ -64,6 +65,7 @@ export function renderAiSettingsPage({ providers = [] } = {}) {
   <a href="/app/settings/ai">AI Provider Settings</a>
   <button type="button" data-element="EL-AI-001">Add provider</button>
   <button type="button" data-element="EL-AI-002" data-action="ACTION-HEALTH-CHECK">Check provider health</button>
+  <section aria-label="Provider summary"><p>Configured providers are summarized without exposing credentials.</p></section>
   <table data-component="DataTable" data-mobile-behavior="stacked_labeled_records">
     <thead><tr><th>Provider</th><th>Status</th><th>Capability</th></tr></thead>
     <tbody>${providerRows}</tbody>

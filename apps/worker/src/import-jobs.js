@@ -54,3 +54,12 @@ export function summarizeImportJob(events) {
     events: events.map((event) => event.type),
   };
 }
+
+export function canClaimImportJob(status, attemptsStarted) {
+  return status === "queued" || (status === "processing" && attemptsStarted > 1);
+}
+
+export function workerHealth({ workerRunning, redisStatus, shuttingDown }) {
+  const checks = { worker: workerRunning, redis: redisStatus === "ready", shuttingDown };
+  return { status: checks.worker && checks.redis && !checks.shuttingDown ? "ready" : "not_ready", checks };
+}

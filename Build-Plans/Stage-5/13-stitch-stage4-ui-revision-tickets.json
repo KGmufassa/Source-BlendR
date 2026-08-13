@@ -1,0 +1,787 @@
+{
+  "$schema": "../../System-References/Schemas/stage-5-artifact.schema.json",
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S5-STITCH-STAGE4-UI-REVISION-TICKETS",
+  "artifact_type": "revision_build_tickets",
+  "stage": "Stage 5",
+  "status": "completed",
+  "revision_id": "REVISION-STITCH-PROTOTYPE-UI-2026-08-06",
+  "summary_ref": "Build-Plans/Stage-5/12-stitch-prototype-revision-summary.md",
+  "prototype_ref": "System-References/stitch_source_blendr_stage_4_prototype",
+  "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
+  "ticket_id_range": "TICKET-040..TICKET-052",
+  "dependency_policy": {
+    "rule": "Execute in dependency order. Do not start a ticket until all depends_on_tickets are complete or explicitly waived by user-approved launch risk.",
+    "stage_4_contract": "Stage 4 blueprint files remain canonical for routes and interactions. Stitch code.html and screen.png files are visual references only.",
+    "implementation_guardrail": "Do not ship prototype-only href=\"#\" links, inline demo JavaScript, showState controls, hard-coded sample IDs, or unbacked routes."
+  },
+  "selective_features_decision_snapshot": {
+    "source": "Build-Plans/Stage-5/12-stitch-prototype-revision-summary.md#selective-stitch-features-awaiting-approval",
+    "note": "Decision table rechecked on 2026-08-07. Approved features are included in executable ticket scope. Deferred features are excluded from this implementation wave and must not be implemented unless a later revision approves them.",
+    "approved": [
+      "Detected Category Tree in wizard",
+      "Hierarchical category tree rendering",
+      "Import job status cards/details",
+      "Discovery candidate preview drawer",
+      "Discovery AI inference details",
+      "Catalog category filter",
+      "Catalog product/service segmented control",
+      "Permission denied/provider summary cards"
+    ],
+    "deferred": [
+      "Download Analysis Report PDF",
+      "Catalog mobile floating create button",
+      "Vendor state toggles",
+      "Vendor footer links",
+      "Topbar notification/help buttons",
+      "Provider documentation/support links"
+    ],
+    "discarded": [],
+    "pending": []
+  },
+  "data": {
+    "ticket_count": 13,
+    "tickets": [
+      {
+        "ticket_id": "TICKET-040",
+        "title": "Translate extracted Stage 4 design system into app tokens and shared primitives",
+        "ticket_type": "frontend_design_system",
+        "priority": "critical",
+        "revision_scope": "core",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/source_blendr_stage_4_design_system/DESIGN.md",
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/screen.png"
+        ],
+        "route_refs": [],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-001",
+          "UI-BLUEPRINT-SCREEN-002",
+          "UI-BLUEPRINT-SCREEN-003",
+          "UI-BLUEPRINT-SCREEN-004",
+          "UI-BLUEPRINT-SCREEN-005",
+          "UI-BLUEPRINT-SCREEN-006",
+          "UI-BLUEPRINT-SCREEN-007",
+          "UI-BLUEPRINT-SCREEN-008",
+          "UI-BLUEPRINT-SCREEN-009",
+          "UI-BLUEPRINT-SCREEN-010"
+        ],
+        "depends_on_tickets": [],
+        "expected_files": [
+          "apps/web/app/globals.css",
+          "apps/web/app/app/page-actions.tsx"
+        ],
+        "acceptance_criteria": [
+          "Warm off-white canvas, graphite text, stone muted text, amber primary actions, bordered white surfaces, compact tables, visible focus rings, and labeled form styles are available as app-owned CSS/component primitives",
+          "No Tailwind CDN prototype code is copied into the app",
+          "Existing shared component APIs remain backward compatible unless all usages are updated in the same ticket",
+          "Design system changes do not alter route behavior or data fetching"
+        ],
+        "validation_steps": [
+          "Run web lint/typecheck/build after implementation",
+          "Verify shared components render existing pages without runtime errors",
+          "Capture visual comparison against extracted Stage 4 screenshots when browser QA is available"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-041",
+        "title": "Restyle workspace shell, sidebar, and topbar using extracted Stage 4 references",
+        "ticket_type": "frontend_shell",
+        "priority": "critical",
+        "revision_scope": "core",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/imports_workspace_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/vendors_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/ai_provider_settings_source_blendr/screen.png"
+        ],
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/discovery",
+          "/app/catalog",
+          "/app/vendors",
+          "/app/settings",
+          "/app/settings/ai"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-001",
+          "UI-BLUEPRINT-SCREEN-002",
+          "UI-BLUEPRINT-SCREEN-006",
+          "UI-BLUEPRINT-SCREEN-007",
+          "UI-BLUEPRINT-SCREEN-009",
+          "UI-BLUEPRINT-SCREEN-010"
+        ],
+        "depends_on_tickets": [
+          "TICKET-040"
+        ],
+        "expected_files": [
+          "apps/web/app/workspace-shell.tsx",
+          "apps/web/app/workspace-routes.ts",
+          "apps/web/app/globals.css"
+        ],
+        "acceptance_criteria": [
+          "Sidebar and topbar visually align with the extracted Stage 4 screenshots",
+          "Route paths remain stable",
+          "Navigation labels remain Overview, Imports, Discovery, Catalog, Vendors, and Settings unless separately approved",
+          "No unbacked notification/help destinations are shipped"
+        ],
+        "validation_steps": [
+          "Run route registry tests",
+          "Run keyboard navigation checks for sidebar/topbar",
+          "Verify no route link resolves to href=\"#\""
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-042",
+        "title": "Restyle Workspace Overview and permission-aware provider summary using extracted dashboard screen",
+        "ticket_type": "frontend_page",
+        "priority": "high",
+        "revision_scope": "core",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-001"
+        ],
+        "depends_on_tickets": [
+          "TICKET-041"
+        ],
+        "expected_files": [
+          "apps/web/app/app/page.tsx"
+        ],
+        "acceptance_criteria": [
+          "Overview page uses real active job, catalog, discovery, and provider data where available",
+          "Open catalog, Start import, and View active jobs links preserve canonical routes",
+          "Permission denied/provider summary cards are included using current auth/context behavior and never expose unauthorized provider details",
+          "No static prototype IDs or sample records ship as production data"
+        ],
+        "validation_steps": [
+          "Run page render tests for populated and empty states",
+          "Verify links to /app/catalog, /app/imports, and /app/imports/jobs",
+          "Compare layout against workspace_overview_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-043",
+        "title": "Restyle Imports Workspace with approved job status cards and details",
+        "ticket_type": "frontend_page",
+        "priority": "high",
+        "revision_scope": "core",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/imports_workspace_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/imports_workspace_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/imports",
+          "/app/imports/jobs",
+          "/app/imports/jobs/:jobId",
+          "/app/imports/website",
+          "/app/imports/pdf"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-002",
+          "UI-BLUEPRINT-SCREEN-005"
+        ],
+        "depends_on_tickets": [
+          "TICKET-041"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/page.tsx",
+          "apps/web/app/app/imports/jobs/page.tsx"
+        ],
+        "acceptance_criteria": [
+          "Website import and PDF import entry points preserve canonical routes",
+          "Recent/import job list uses real import jobs",
+          "Approved import job status cards/details are implemented using real import job data",
+          "Retry/open job controls appear only where backed by current APIs",
+          "Prototype-only logs and demo job IDs are not implemented"
+        ],
+        "validation_steps": [
+          "Run import workspace route tests",
+          "Verify job detail links use real job IDs",
+          "Compare layout against imports_workspace_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-044",
+        "title": "Upgrade Website Import Wizard with approved detected and hierarchical category tree",
+        "ticket_type": "frontend_workflow",
+        "priority": "critical",
+        "revision_scope": "core_with_selective_gate",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/website_import_wizard_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/website_import_wizard_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/imports/website",
+          "/app/imports/jobs/:jobId"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-003",
+          "UI-BLUEPRINT-SCREEN-005"
+        ],
+        "depends_on_tickets": [
+          "TICKET-043"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/website/page.tsx",
+          "apps/web/app/app/runtime-forms.tsx",
+          "apps/web/app/app/imports/jobs/[jobId]/category-job-selector.tsx",
+          "apps/web/app/api/imports/jobs/[jobId]/categories/route.ts"
+        ],
+        "selective_feature_gates": [
+          {
+            "feature": "Detected Category Tree in wizard",
+            "status": "approved",
+            "implementation_scope": "include_using_existing_category_api"
+          },
+          {
+            "feature": "Hierarchical category tree rendering",
+            "status": "approved",
+            "implementation_scope": "include_hierarchy_or_grouping_without_backend_contract_breakage"
+          },
+          {
+            "feature": "Download Analysis Report PDF",
+            "status": "deferred",
+            "implementation_scope": "exclude_from_this_wave"
+          }
+        ],
+        "acceptance_criteria": [
+          "Wizard preserves current website import API and idempotency behavior",
+          "Detected category UI reuses existing category job API",
+          "Approved hierarchical category rendering is implemented through safe grouping/enrichment without breaking flat category data compatibility",
+          "Category selections queue independent jobs through existing POST route",
+          "Report download is not implemented in this wave",
+          "No second website import API is introduced"
+        ],
+        "validation_steps": [
+          "Run website import form tests",
+          "Run category GET/POST API tests",
+          "Verify job handoff route uses real job IDs",
+          "Compare layout against website_import_wizard_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-045",
+        "title": "Restyle PDF Import states using extracted PDF import screen",
+        "ticket_type": "frontend_workflow",
+        "priority": "high",
+        "revision_scope": "core",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/pdf_import_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/pdf_import_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/imports/pdf",
+          "/app/imports/jobs/:jobId"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-004",
+          "UI-BLUEPRINT-SCREEN-005"
+        ],
+        "depends_on_tickets": [
+          "TICKET-043"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/pdf/page.tsx",
+          "apps/web/app/app/runtime-forms.tsx",
+          "apps/web/app/api/imports/pdf/route.ts"
+        ],
+        "acceptance_criteria": [
+          "PDF import preserves current upload API contract",
+          "Empty, selected, loading, error, and success states are represented without demo state toggles",
+          "Successful upload hands off to real import job detail route",
+          "OCR/AI context appears only where backed by current metadata"
+        ],
+        "validation_steps": [
+          "Run PDF import UI/API tests",
+          "Verify file validation and accessible error messages",
+          "Compare layout against pdf_import_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-046",
+        "title": "Restyle Import Job Detail using extracted job detail screen",
+        "ticket_type": "frontend_page",
+        "priority": "high",
+        "revision_scope": "core",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/import_job_detail_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/import_job_detail_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/imports/jobs/:jobId",
+          "/app/discovery/:sessionId"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-005",
+          "UI-BLUEPRINT-SCREEN-006"
+        ],
+        "depends_on_tickets": [
+          "TICKET-043",
+          "TICKET-045"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/jobs/[jobId]/page.tsx",
+          "apps/web/app/app/imports/jobs/[jobId]/job-actions.tsx"
+        ],
+        "acceptance_criteria": [
+          "Job detail shows real job status, event/progress data, and recovery actions",
+          "Retry and cancel preserve current API behavior",
+          "Open Discovery Session appears only when a real session exists",
+          "No hard-coded IMP sample IDs ship"
+        ],
+        "validation_steps": [
+          "Run job action contract tests",
+          "Verify retry/cancel state handling",
+          "Compare layout against import_job_detail_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-047",
+        "title": "Restyle Discovery Session with approved preview drawer and AI inference details",
+        "ticket_type": "frontend_page",
+        "priority": "high",
+        "revision_scope": "core_with_selective_gate",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/discovery_session_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/discovery_session_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/discovery/:sessionId"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-006"
+        ],
+        "depends_on_tickets": [
+          "TICKET-046"
+        ],
+        "expected_files": [
+          "apps/web/app/app/discovery/[sessionId]/page.tsx",
+          "apps/web/app/app/discovery/[sessionId]/discovery-client.tsx"
+        ],
+        "selective_feature_gates": [
+          {
+            "feature": "Discovery candidate preview drawer",
+            "status": "approved",
+            "implementation_scope": "include_preserving_candidate_actions"
+          },
+          {
+            "feature": "Discovery AI inference details",
+            "status": "approved",
+            "implementation_scope": "include_only_when_backed_by_candidate_or_source_payload"
+          }
+        ],
+        "acceptance_criteria": [
+          "Discovery session preserves candidate import, ignore, archive, search, and filter behavior",
+          "AI output remains review-gated",
+          "Approved preview drawer preserves keyboard access and candidate actions",
+          "Approved AI inference details render only when backed by current payload data",
+          "No hard-coded SES sample IDs ship"
+        ],
+        "validation_steps": [
+          "Run discovery candidate action tests",
+          "Run keyboard/a11y checks for table and drawer if included",
+          "Compare layout against discovery_session_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-048",
+        "title": "Restyle Catalog table with approved category filter and state views",
+        "ticket_type": "frontend_page",
+        "priority": "high",
+        "revision_scope": "core_with_selective_gate",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/catalog",
+          "/app/catalog/:itemId",
+          "/app/catalog/new"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-007",
+          "UI-BLUEPRINT-SCREEN-008"
+        ],
+        "depends_on_tickets": [
+          "TICKET-041"
+        ],
+        "expected_files": [
+          "apps/web/app/app/catalog/page.tsx",
+          "apps/web/app/app/catalog/catalog-client.tsx"
+        ],
+        "selective_feature_gates": [
+          {
+            "feature": "Catalog category filter",
+            "status": "approved",
+            "implementation_scope": "include_with_query_or_client_filtering"
+          },
+          {
+            "feature": "Catalog mobile floating create button",
+            "status": "deferred",
+            "implementation_scope": "exclude_from_this_wave"
+          }
+        ],
+        "acceptance_criteria": [
+          "Catalog uses real catalog items and preserves row navigation",
+          "Approved category filter is backed by current query/client behavior",
+          "Search controls remain functional and accessible",
+          "New catalog item route is preserved",
+          "Mobile floating create button is not implemented in this wave",
+          "No hard-coded catalog sample IDs ship"
+        ],
+        "validation_steps": [
+          "Run catalog route and table tests",
+          "Verify mobile stacked behavior remains usable",
+          "Compare layout against catalog_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-049",
+        "title": "Restyle Catalog Item Form with approved product/service segmented control",
+        "ticket_type": "frontend_form",
+        "priority": "medium",
+        "revision_scope": "core_with_selective_gate",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/catalog/new",
+          "/app/catalog"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-008"
+        ],
+        "depends_on_tickets": [
+          "TICKET-048"
+        ],
+        "expected_files": [
+          "apps/web/app/app/catalog/new/page.tsx",
+          "apps/web/app/app/runtime-forms.tsx"
+        ],
+        "selective_feature_gates": [
+          {
+            "feature": "Catalog product/service segmented control",
+            "status": "approved",
+            "implementation_scope": "include_mapped_to_current_item_type_model"
+          }
+        ],
+        "acceptance_criteria": [
+          "Catalog create form preserves current API contract",
+          "Field-level validation remains visible",
+          "Cancel route returns to /app/catalog",
+          "Approved product/service segmented control maps to the current item type model without schema changes"
+        ],
+        "validation_steps": [
+          "Run catalog create form tests",
+          "Verify successful save redirects to created record",
+          "Compare layout against new_catalog_item_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-050",
+        "title": "Restyle Vendors page while excluding deferred prototype-only vendor affordances",
+        "ticket_type": "frontend_page",
+        "priority": "medium",
+        "revision_scope": "core_with_selective_gate",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/vendors_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/vendors_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/vendors",
+          "/app/vendors/new",
+          "/app/vendors/:vendorId"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-009"
+        ],
+        "depends_on_tickets": [
+          "TICKET-041"
+        ],
+        "expected_files": [
+          "apps/web/app/app/vendors/page.tsx",
+          "apps/web/app/app/vendors/[vendorId]/page.tsx",
+          "apps/web/app/app/vendors/new/page.tsx"
+        ],
+        "selective_feature_gates": [
+          {
+            "feature": "Vendor state toggles",
+            "status": "deferred",
+            "implementation_scope": "exclude_demo_toggles_from_this_wave"
+          },
+          {
+            "feature": "Vendor footer links",
+            "status": "deferred",
+            "implementation_scope": "exclude_unbacked_links_from_this_wave"
+          }
+        ],
+        "acceptance_criteria": [
+          "Vendors page uses real vendors and last import data where available",
+          "New vendor and open vendor routes are preserved",
+          "Demo state toggles do not ship",
+          "Footer links are excluded from this wave"
+        ],
+        "validation_steps": [
+          "Run vendor route/form tests",
+          "Verify workspace-scoped vendor list and detail access",
+          "Compare layout against vendors_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-051",
+        "title": "Restyle AI Provider Settings while excluding deferred support/help links",
+        "ticket_type": "frontend_page",
+        "priority": "medium",
+        "revision_scope": "core_with_selective_gate",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/ai_provider_settings_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/ai_provider_settings_source_blendr/code.html"
+        ],
+        "route_refs": [
+          "/app/settings/ai"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-010"
+        ],
+        "depends_on_tickets": [
+          "TICKET-041"
+        ],
+        "expected_files": [
+          "apps/web/app/app/settings/ai/page.tsx",
+          "apps/web/app/app/settings/ai/ai-settings-client.tsx",
+          "apps/web/app/api/ai-settings/providers/route.ts",
+          "apps/web/app/api/ai-settings/providers/health/route.ts"
+        ],
+        "selective_feature_gates": [
+          {
+            "feature": "Provider documentation/support links",
+            "status": "deferred",
+            "implementation_scope": "exclude_unbacked_links_from_this_wave"
+          },
+          {
+            "feature": "Topbar notification/help buttons",
+            "status": "deferred",
+            "implementation_scope": "exclude_unbacked_topbar_actions_from_this_wave"
+          }
+        ],
+        "acceptance_criteria": [
+          "Provider list, health states, capability routing, save routing, and health check behavior are preserved",
+          "Manual fallback behavior remains intact",
+          "Documentation/support links are excluded from this wave",
+          "Topbar notification/help buttons are excluded from this wave unless already backed by existing shell behavior",
+          "No credential values are exposed in UI or logs"
+        ],
+        "validation_steps": [
+          "Run AI settings route/API tests",
+          "Verify zero-provider and provider-error states",
+          "Compare layout against ai_provider_settings_source_blendr/screen.png"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      },
+      {
+        "ticket_id": "TICKET-052",
+        "title": "Validate Stage 4 Stitch UI migration routes, accessibility, and screenshots",
+        "ticket_type": "validation",
+        "priority": "critical",
+        "revision_scope": "validation",
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype"
+        ],
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/imports/website",
+          "/app/imports/pdf",
+          "/app/imports/jobs",
+          "/app/imports/jobs/:jobId",
+          "/app/discovery/:sessionId",
+          "/app/catalog",
+          "/app/catalog/new",
+          "/app/vendors",
+          "/app/vendors/new",
+          "/app/settings/ai"
+        ],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-001",
+          "UI-BLUEPRINT-SCREEN-002",
+          "UI-BLUEPRINT-SCREEN-003",
+          "UI-BLUEPRINT-SCREEN-004",
+          "UI-BLUEPRINT-SCREEN-005",
+          "UI-BLUEPRINT-SCREEN-006",
+          "UI-BLUEPRINT-SCREEN-007",
+          "UI-BLUEPRINT-SCREEN-008",
+          "UI-BLUEPRINT-SCREEN-009",
+          "UI-BLUEPRINT-SCREEN-010"
+        ],
+        "depends_on_tickets": [
+          "TICKET-042",
+          "TICKET-044",
+          "TICKET-045",
+          "TICKET-046",
+          "TICKET-047",
+          "TICKET-049",
+          "TICKET-050",
+          "TICKET-051"
+        ],
+        "expected_files": [
+          "apps/web/live-pages.test.mjs",
+          "apps/web/app-shell.test.mjs",
+          "apps/validation/src/stage6-batch006-validation.js",
+          "Build-Plans/Stage-6/evidence"
+        ],
+        "acceptance_criteria": [
+          "All canonical Stage 4 routes render and route correctly",
+          "Approved selective features are implemented only in their approved scopes",
+          "Deferred selective features are not implemented in this wave",
+          "No production page ships href=\"#\", demo state toggles, inline prototype JavaScript, or hard-coded sample IDs",
+          "Keyboard and accessibility checks pass for sidebar, forms, tables, drawers, and action controls",
+          "Screenshot evidence is captured against each matching extracted screen.png when browser QA is available",
+          "Existing scraper, PDF, AI settings, import, discovery, catalog, and vendor behavior remains covered by regression tests"
+        ],
+        "validation_steps": [
+          "Run unit, route, API, typecheck, lint, and production build validation",
+          "Run browser visual QA when connector is available",
+          "Record evidence under Stage 6 evidence with route and screenshot references"
+        ],
+        "completion_status": "completed",
+        "completed_at": "2026-08-07"
+      }
+    ],
+    "batches": [
+      {
+        "batch_id": "BATCH-016",
+        "execution_order": 16,
+        "tickets": [
+          "TICKET-040"
+        ],
+        "blocked_by_batches": [
+          "BATCH-015"
+        ],
+        "can_run_in_parallel": false,
+        "purpose": "Establish Stage 4 Stitch design tokens and shared primitives before page migration."
+      },
+      {
+        "batch_id": "BATCH-017",
+        "execution_order": 17,
+        "tickets": [
+          "TICKET-041"
+        ],
+        "blocked_by_batches": [
+          "BATCH-016"
+        ],
+        "can_run_in_parallel": false,
+        "purpose": "Migrate the shared shell and route navigation before route pages."
+      },
+      {
+        "batch_id": "BATCH-018",
+        "execution_order": 18,
+        "tickets": [
+          "TICKET-042",
+          "TICKET-043",
+          "TICKET-048",
+          "TICKET-050",
+          "TICKET-051"
+        ],
+        "blocked_by_batches": [
+          "BATCH-017"
+        ],
+        "can_run_in_parallel": true,
+        "purpose": "Migrate independent top-level pages after shell migration."
+      },
+      {
+        "batch_id": "BATCH-019",
+        "execution_order": 19,
+        "tickets": [
+          "TICKET-044",
+          "TICKET-045",
+          "TICKET-046",
+          "TICKET-047",
+          "TICKET-049"
+        ],
+        "blocked_by_batches": [
+          "BATCH-018"
+        ],
+        "can_run_in_parallel": false,
+        "purpose": "Migrate workflow/detail pages in dependency order after their parent surfaces."
+      },
+      {
+        "batch_id": "BATCH-020",
+        "execution_order": 20,
+        "tickets": [
+          "TICKET-052"
+        ],
+        "blocked_by_batches": [
+          "BATCH-019"
+        ],
+        "can_run_in_parallel": false,
+        "purpose": "Validate full route, behavior, accessibility, and screenshot migration evidence."
+      }
+    ],
+    "dependency_notes": [
+      "TICKET-040 must complete before shell or page visual migration.",
+      "TICKET-041 must complete before route page migrations so shared navigation and topbar behavior are stable.",
+      "TICKET-044 includes approved detected and hierarchical category tree work; Download Analysis Report PDF remains deferred.",
+      "TICKET-047 includes approved preview drawer and AI inference details when backed by current payload data.",
+      "TICKET-048 includes approved category filtering; mobile floating create remains deferred.",
+      "TICKET-049 includes approved product/service segmented control mapped to current item type model.",
+      "TICKET-050 and TICKET-051 are executable visual restyles, but deferred links/toggles must be excluded.",
+      "TICKET-052 is the final validation gate."
+    ]
+  },
+  "completed_at": "2026-08-07",
+  "execution_summary": {
+    "result": "completed",
+    "tickets_completed": [
+      "TICKET-040",
+      "TICKET-041",
+      "TICKET-042",
+      "TICKET-043",
+      "TICKET-044",
+      "TICKET-045",
+      "TICKET-046",
+      "TICKET-047",
+      "TICKET-048",
+      "TICKET-049",
+      "TICKET-050",
+      "TICKET-051",
+      "TICKET-052"
+    ],
+    "validation": [
+      "corepack pnpm typecheck",
+      "corepack pnpm test:contracts",
+      "corepack pnpm --filter @source-blendr/web build"
+    ],
+    "evidence_ref": "Build-Plans/Stage-6/evidence/REVISION-STITCH-PROTOTYPE-UI-2026-08-06.json"
+  }
+}

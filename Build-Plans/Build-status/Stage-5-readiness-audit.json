@@ -41,8 +41,8 @@
     ],
     "schema_errors": [],
     "schemas_valid": true,
-    "validated_at": "2026-07-25T01:39:56.001811+00:00",
-    "validator": "Stage 5 v2 structural validator",
+    "validated_at": "2026-08-05T00:00:00-04:00",
+    "validator": "manual revision consistency check after runtime repair ticket refinement",
     "blocking": true
   },
   "reference_integrity": {
@@ -109,13 +109,29 @@
       "BATCH-004",
       "BATCH-005",
       "BATCH-006",
-      "BATCH-007"
+      "BATCH-007",
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028",
+      "SLICE-016",
+      "SLICE-017",
+      "SLICE-018",
+      "SLICE-019",
+      "SLICE-020",
+      "SLICE-021",
+      "SLICE-022",
+      "BATCH-008",
+      "BATCH-009"
     ],
     "missing_refs": [],
     "orphaned_refs": [],
     "stale_refs": [],
     "duplicate_ids": [],
-    "integrity_status": "passed",
+    "integrity_status": "passed_with_warnings",
     "blocking_ref_errors": []
   },
   "artifact_evidence_registry": {
@@ -131,7 +147,17 @@
     "missing_risk_acceptance_entries": [],
     "expired_or_unowned_risks": []
   },
-  "revision_loops": [],
+  "revision_loops": [
+    {
+      "revision_id": "REVISION-S5-RUNTIME-REPAIR-2026-08-05",
+      "owning_stage": "Stage 6",
+      "owning_output": "Build-Plans/Stage-6/01-implementation-status.json",
+      "status": "routed_to_stage_6",
+      "issue": "Runtime workflow gaps are now explicit repair tickets.",
+      "required_change": "Execute TICKET-022 through TICKET-028 before Stage 7 resumes.",
+      "created_at": "2026-08-05T00:00:00-04:00"
+    }
+  ],
   "visual_design_continuity": {
     "required": true,
     "ui_blueprint_refs_present": true,
@@ -147,11 +173,12 @@
   },
   "blocking_gaps": [],
   "warnings": [
-    "Stage 6 preview, screenshot, responsive, visual drift, and final validation artifacts are registered as pending and must be produced before ticket completion.",
-    "Calendar estimates remain out of scope until staffing capacity or a deadline is provided."
+    "Stage 5 ticket refinement added TICKET-022 through TICKET-028 as repair tickets; Stage 6 must execute them before Stage 7 resumes.",
+    "The prior Stage 6 readiness audit is intentionally invalidated until repair smoke evidence is recorded."
   ],
   "next_actions": [
-    "Start Stage 6 with BATCH-001 and produce expected artifact evidence as tickets complete."
+    "Run Stage 6 repair BATCH-008 and BATCH-009.",
+    "Rerun Stage 6 readiness audit after repair evidence passes."
   ],
   "ready_for_next_stage": true
 }

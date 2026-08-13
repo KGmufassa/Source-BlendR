@@ -103,7 +103,7 @@ export function renderWebsiteImportPage({ vendors = [], categories = [], jobId =
       </form>
       <section class="card">
         <h2>Categories</h2>
-        ${categoryInputs || "<p>No categories queued yet. Analyze a website to continue.</p>"}
+        <fieldset class="category-tree" aria-label="Detected Category tree"><legend>Detected Category tree</legend><div class="category-branch"><h3>catalog</h3>${categoryInputs || "<p>No categories queued yet. Analyze a website to continue.</p>"}</div></fieldset>
         <button type="button" data-element="EL-WEB-005" data-action="ACTION-QUEUE-CATEGORIES">Start selected categories</button>
       </section>
       <a href="/app/imports/jobs/${jobId}" data-element="EL-WEB-006">Open job</a>
@@ -192,7 +192,7 @@ export function renderDiscoverySessionPage({ candidates = [], state = "populated
         <button type="button" data-element="EL-DIS-006" data-action="ACTION-BULK-IGNORE">Ignore selected</button>
         <button type="button" class="danger" data-element="EL-DIS-007" data-action="ACTION-BULK-ARCHIVE">Archive selected</button>
       </div>
-      <aside data-component="AccessibleDrawer" data-mobile-behavior="full_screen_sheet" aria-label="Candidate preview"><h2>Candidate preview</h2><p>Use Escape or the close control to return focus to the table.</p><button type="button">Close preview</button></aside>
+      <aside data-component="AccessibleDrawer" data-mobile-behavior="full_screen_sheet" aria-label="Candidate preview"><h2>Candidate preview</h2><p>Use Escape or the close control to return focus to the table.</p><section aria-label="AI inference details"><h3>AI inference details</h3><p>Shown only when candidate payload includes model, confidence, or explanation metadata.</p></section><button type="button">Close preview</button></aside>
     </section>`,
   });
 }

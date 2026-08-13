@@ -4,7 +4,7 @@
   "artifact_id": "ARTIFACT-S5-ASSIGNMENTS",
   "artifact_type": "agent_assignment_plan",
   "stage": "Stage 5",
-  "status": "ready_for_stage_6",
+  "status": "needs_stage_6_repair_execution",
   "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
   "traceability_refs": [
     "TICKET-001",
@@ -32,7 +32,21 @@
     "AGENT-BACKEND",
     "AGENT-WORKER",
     "AGENT-FRONTEND",
-    "AGENT-VALIDATION"
+    "AGENT-VALIDATION",
+    "TICKET-022",
+    "SLICE-016",
+    "TICKET-023",
+    "SLICE-017",
+    "TICKET-024",
+    "SLICE-018",
+    "TICKET-025",
+    "SLICE-019",
+    "TICKET-026",
+    "SLICE-020",
+    "TICKET-027",
+    "SLICE-021",
+    "TICKET-028",
+    "SLICE-022"
   ],
   "data": {
     "assignment_plan": {
@@ -196,18 +210,24 @@
           "SLICE-004",
           "SLICE-006",
           "SLICE-005",
-          "SLICE-009"
+          "SLICE-009",
+          "SLICE-018",
+          "SLICE-020"
         ],
         "assigned_tickets": [
           "TICKET-006",
           "TICKET-007",
           "TICKET-008",
-          "TICKET-014"
+          "TICKET-014",
+          "TICKET-024",
+          "TICKET-026"
         ],
         "ticket_required_skills": [
           "backend-development",
           "Test-driven-development",
-          "security-review"
+          "security-review",
+          "frontend-design",
+          "ux-enforcement"
         ],
         "ticket_skill_instructions": {
           "TICKET-006": {
@@ -269,6 +289,36 @@
               "security-review"
             ],
             "usage_notes": "Load each selected skill before its relevant implementation or validation activity; preserve lazy-mode simplifications and use the debugging skill only after a reproducible failure."
+          },
+          "TICKET-024": {
+            "must_use": [
+              "backend-development",
+              "Test-driven-development"
+            ],
+            "use_if_needed": [
+              "security-review"
+            ],
+            "skill_usage_order": [
+              "backend-development",
+              "Test-driven-development",
+              "security-review"
+            ],
+            "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+          },
+          "TICKET-026": {
+            "must_use": [
+              "frontend-design",
+              "Test-driven-development"
+            ],
+            "use_if_needed": [
+              "ux-enforcement"
+            ],
+            "skill_usage_order": [
+              "frontend-design",
+              "Test-driven-development",
+              "ux-enforcement"
+            ],
+            "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
           }
         },
         "matched_skills": [
@@ -322,7 +372,7 @@
           "TICKET-008"
         ],
         "risk_level": "critical",
-        "execution_notes": "Use an isolated worktree when the parallel plan allows it; do not modify shared contracts without the owning batch gate."
+        "execution_notes": "Use an isolated worktree when the parallel plan allows it; do not modify shared contracts without the owning batch gate. Runtime repair tickets require verified user workflows; contract-only completion is not allowed. Runtime repair tickets require verified user workflows; contract-only completion is not allowed."
       },
       {
         "agent_id": "AGENT-WORKER",
@@ -333,12 +383,14 @@
         "assigned_slices": [
           "SLICE-004",
           "SLICE-007",
-          "SLICE-008"
+          "SLICE-008",
+          "SLICE-019"
         ],
         "assigned_tickets": [
           "TICKET-005",
           "TICKET-010",
-          "TICKET-012"
+          "TICKET-012",
+          "TICKET-025"
         ],
         "ticket_required_skills": [
           "backend-development",
@@ -395,6 +447,21 @@
               "systematic-debugger"
             ],
             "usage_notes": "Load each selected skill before its relevant implementation or validation activity; preserve lazy-mode simplifications and use the debugging skill only after a reproducible failure."
+          },
+          "TICKET-025": {
+            "must_use": [
+              "backend-development",
+              "Test-driven-development"
+            ],
+            "use_if_needed": [
+              "security-review"
+            ],
+            "skill_usage_order": [
+              "backend-development",
+              "Test-driven-development",
+              "security-review"
+            ],
+            "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
           }
         },
         "matched_skills": [
@@ -451,7 +518,7 @@
           "TICKET-008"
         ],
         "risk_level": "critical",
-        "execution_notes": "Use an isolated worktree when the parallel plan allows it; do not modify shared contracts without the owning batch gate."
+        "execution_notes": "Use an isolated worktree when the parallel plan allows it; do not modify shared contracts without the owning batch gate. Runtime repair tickets require verified user workflows; contract-only completion is not allowed."
       },
       {
         "agent_id": "AGENT-FRONTEND",
@@ -462,7 +529,10 @@
         "assigned_slices": [
           "SLICE-012",
           "SLICE-011",
-          "SLICE-010"
+          "SLICE-010",
+          "SLICE-016",
+          "SLICE-017",
+          "SLICE-021"
         ],
         "assigned_tickets": [
           "TICKET-009",
@@ -471,7 +541,10 @@
           "TICKET-015",
           "TICKET-016",
           "TICKET-017",
-          "TICKET-018"
+          "TICKET-018",
+          "TICKET-022",
+          "TICKET-023",
+          "TICKET-027"
         ],
         "ticket_required_skills": [
           "frontend-design",
@@ -589,6 +662,51 @@
               "security-review"
             ],
             "usage_notes": "Load each selected skill before its relevant implementation or validation activity; preserve lazy-mode simplifications and use the debugging skill only after a reproducible failure."
+          },
+          "TICKET-022": {
+            "must_use": [
+              "frontend-design",
+              "Test-driven-development"
+            ],
+            "use_if_needed": [
+              "ux-enforcement"
+            ],
+            "skill_usage_order": [
+              "frontend-design",
+              "Test-driven-development",
+              "ux-enforcement"
+            ],
+            "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+          },
+          "TICKET-023": {
+            "must_use": [
+              "frontend-design",
+              "Test-driven-development"
+            ],
+            "use_if_needed": [
+              "ux-enforcement"
+            ],
+            "skill_usage_order": [
+              "frontend-design",
+              "Test-driven-development",
+              "ux-enforcement"
+            ],
+            "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+          },
+          "TICKET-027": {
+            "must_use": [
+              "frontend-design",
+              "Test-driven-development"
+            ],
+            "use_if_needed": [
+              "ux-enforcement"
+            ],
+            "skill_usage_order": [
+              "frontend-design",
+              "Test-driven-development",
+              "ux-enforcement"
+            ],
+            "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
           }
         },
         "matched_skills": [
@@ -729,7 +847,7 @@
           "TICKET-007"
         ],
         "risk_level": "critical",
-        "execution_notes": "Use an isolated worktree when the parallel plan allows it; do not modify shared contracts without the owning batch gate."
+        "execution_notes": "Use an isolated worktree when the parallel plan allows it; do not modify shared contracts without the owning batch gate. Runtime repair tickets require verified user workflows; contract-only completion is not allowed. Runtime repair tickets require verified user workflows; contract-only completion is not allowed. Runtime repair tickets require verified user workflows; contract-only completion is not allowed."
       },
       {
         "agent_id": "AGENT-VALIDATION",
@@ -740,12 +858,14 @@
         "assigned_slices": [
           "SLICE-013",
           "SLICE-014",
-          "SLICE-015"
+          "SLICE-015",
+          "SLICE-022"
         ],
         "assigned_tickets": [
           "TICKET-019",
           "TICKET-020",
-          "TICKET-021"
+          "TICKET-021",
+          "TICKET-028"
         ],
         "ticket_required_skills": [
           "security-review",
@@ -805,6 +925,21 @@
               "lazy-mode"
             ],
             "usage_notes": "Load each selected skill before its relevant implementation or validation activity; preserve lazy-mode simplifications and use the debugging skill only after a reproducible failure."
+          },
+          "TICKET-028": {
+            "must_use": [
+              "Test-driven-development",
+              "security-review"
+            ],
+            "use_if_needed": [
+              "lazy-mode"
+            ],
+            "skill_usage_order": [
+              "Test-driven-development",
+              "security-review",
+              "lazy-mode"
+            ],
+            "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
           }
         },
         "matched_skills": [
@@ -906,7 +1041,7 @@
           "TICKET-020"
         ],
         "risk_level": "critical",
-        "execution_notes": "Use an isolated worktree when the parallel plan allows it; do not modify shared contracts without the owning batch gate."
+        "execution_notes": "Use an isolated worktree when the parallel plan allows it; do not modify shared contracts without the owning batch gate. Runtime repair tickets require verified user workflows; contract-only completion is not allowed."
       }
     ],
     "ticket_assignments": [
@@ -992,6 +1127,34 @@
       },
       {
         "ticket_id": "TICKET-021",
+        "agent_id": "AGENT-VALIDATION"
+      },
+      {
+        "ticket_id": "TICKET-022",
+        "agent_id": "AGENT-FRONTEND"
+      },
+      {
+        "ticket_id": "TICKET-023",
+        "agent_id": "AGENT-FRONTEND"
+      },
+      {
+        "ticket_id": "TICKET-024",
+        "agent_id": "AGENT-BACKEND"
+      },
+      {
+        "ticket_id": "TICKET-025",
+        "agent_id": "AGENT-WORKER"
+      },
+      {
+        "ticket_id": "TICKET-026",
+        "agent_id": "AGENT-BACKEND"
+      },
+      {
+        "ticket_id": "TICKET-027",
+        "agent_id": "AGENT-FRONTEND"
+      },
+      {
+        "ticket_id": "TICKET-028",
         "agent_id": "AGENT-VALIDATION"
       }
     ],
@@ -1100,6 +1263,7 @@
       "RISK-S5-002",
       "RISK-S5-003",
       "RISK-S5-004"
-    ]
+    ],
+    "repair_assignment_note": "TICKET-022 through TICKET-028 are Stage 6 repair tickets generated by REVISION-S5-RUNTIME-REPAIR-2026-08-05."
   }
 }

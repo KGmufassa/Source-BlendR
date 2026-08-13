@@ -1,0 +1,161 @@
+{
+  "$schema": "../../../System-References/Schemas/stage-6-evidence.schema.json",
+  "artifact_id": "ARTIFACT-S6-STITCH-VISUAL-PARITY-REPAIR-2026-08-08",
+  "revision_id": "REVISION-STITCH-VISUAL-PARITY-REPAIR-2026-08-08",
+  "source_ticket_plan": "Build-Plans/Stage-5/14-stitch-visual-parity-repair-tickets.json",
+  "status": "passed_with_manual_visual_review_required",
+  "started_at": "2026-08-08",
+  "visual_source_of_truth": "System-References/stitch_source_blendr_stage_4_prototype/**/screen.png",
+  "functional_source_of_truth": "Current Next.js routes, server queries, client form components, and API route handlers",
+  "route_component_mapping": [
+    {
+      "route": "/app",
+      "prototype": "workspace_overview_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/page.tsx"
+      ],
+      "visual_goal": "Match Stitch overview header, quick actions, active jobs panel, summary cards, and operational bento structure."
+    },
+    {
+      "route": "/app/imports",
+      "prototype": "imports_workspace_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/imports/page.tsx"
+      ],
+      "visual_goal": "Match Stitch import method cards, status header, recent activity, and job table layout."
+    },
+    {
+      "route": "/app/imports/website",
+      "prototype": "website_import_wizard_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/imports/website/page.tsx",
+        "apps/web/app/app/runtime-forms.tsx"
+      ],
+      "visual_goal": "Match Stitch wizard layout while preserving WebsiteImportForm submission and job handoff."
+    },
+    {
+      "route": "/app/imports/pdf",
+      "prototype": "pdf_import_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/imports/pdf/page.tsx",
+        "apps/web/app/app/runtime-forms.tsx"
+      ],
+      "visual_goal": "Match Stitch PDF import state layout while preserving PDF upload API."
+    },
+    {
+      "route": "/app/imports/jobs/:jobId",
+      "prototype": "import_job_detail_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/imports/jobs/[jobId]/page.tsx",
+        "apps/web/app/app/imports/jobs/[jobId]/job-actions.tsx",
+        "apps/web/app/app/imports/jobs/[jobId]/category-job-selector.tsx"
+      ],
+      "visual_goal": "Match Stitch job detail progress/recovery layout while preserving retry/cancel/category/discovery actions."
+    },
+    {
+      "route": "/app/discovery/:sessionId",
+      "prototype": "discovery_session_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/discovery/[sessionId]/page.tsx",
+        "apps/web/app/app/discovery/[sessionId]/discovery-client.tsx"
+      ],
+      "visual_goal": "Match Stitch discovery review table and drawer layout while preserving candidate mutations."
+    },
+    {
+      "route": "/app/catalog",
+      "prototype": "catalog_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/catalog/page.tsx",
+        "apps/web/app/app/catalog/catalog-client.tsx"
+      ],
+      "visual_goal": "Match Stitch catalog toolbar and table layout while preserving search/filter/navigation."
+    },
+    {
+      "route": "/app/catalog/new",
+      "prototype": "new_catalog_item_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/catalog/new/page.tsx",
+        "apps/web/app/app/runtime-forms.tsx"
+      ],
+      "visual_goal": "Match Stitch catalog form layout while preserving CatalogItemForm submission."
+    },
+    {
+      "route": "/app/vendors",
+      "prototype": "vendors_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/vendors/page.tsx"
+      ],
+      "visual_goal": "Match Stitch vendor management layout while preserving vendor routes."
+    },
+    {
+      "route": "/app/settings/ai",
+      "prototype": "ai_provider_settings_source_blendr",
+      "behavior_components": [
+        "apps/web/app/app/settings/ai/page.tsx",
+        "apps/web/app/app/settings/ai/ai-settings-client.tsx"
+      ],
+      "visual_goal": "Match Stitch AI settings layout while preserving credential privacy, health checks, manual fallback, and routing."
+    }
+  ],
+  "deferred_visual_elements_excluded": [
+    "Download Analysis Report PDF",
+    "Catalog mobile floating create button",
+    "Vendor state toggles",
+    "Vendor footer links",
+    "Topbar notification/help buttons",
+    "Provider documentation/support links"
+  ],
+  "validation_commands": [
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test:contracts",
+      "status": "passed",
+      "result": "66 passed, 0 failed"
+    },
+    {
+      "command": "corepack pnpm --filter @source-blendr/web build",
+      "status": "passed"
+    },
+    {
+      "command": "curl -I http://localhost:3000/app",
+      "status": "passed",
+      "result": "HTTP 200 OK"
+    }
+  ],
+  "screenshot_evidence": [
+    {
+      "route": "/app",
+      "status": "not_captured_by_tool",
+      "note": "Local route returned HTTP 200; user browser can visually inspect at http://localhost:3000/app. Browser screenshot automation was not invoked in this run."
+    }
+  ],
+  "notes": [
+    "TICKET-053 baseline mapping recorded before visual parity code repairs.",
+    "Sparse local data must still render the Stitch page skeleton without inserting fake production records.",
+    "No API routes, Prisma schema, worker contracts, scraper contracts, PDF upload contract, or AI provider API contracts were changed by this visual parity pass.",
+    "Manual screenshot comparison is still recommended because exact pixel parity requires browser-captured route images against the Stitch screen.png files.",
+    "Deferred features remain excluded: PDF report download, mobile floating create button, vendor toggles/footer links, topbar notification/help buttons, and provider docs/support links."
+  ],
+  "completed_at": "2026-08-08",
+  "tickets_completed": [
+    "TICKET-053",
+    "TICKET-054",
+    "TICKET-055",
+    "TICKET-056",
+    "TICKET-057",
+    "TICKET-058",
+    "TICKET-059"
+  ],
+  "implemented_visual_repairs": [
+    "Fixed-left Stitch-style sidebar with route icons, compact labels, active amber marker, and workspace owner footer.",
+    "Stitch-style canvas/topbar/content rhythm, cards, tables, badges, forms, workflow grids, and empty-state table skeletons.",
+    "Overview rebuilt around active jobs table, quick actions, operational metric cards, and provider access summary.",
+    "Imports rebuilt around method cards, status cards, dense job table, and real job data.",
+    "Website/PDF import routes rebuilt as two-column workflow layouts while preserving form handlers.",
+    "Import job detail rebuilt as progress/detail grid while preserving retry/cancel/category/discovery behavior.",
+    "Discovery, catalog, vendors, and AI settings layouts tightened to Stitch-style panels/toolbars/tables."
+  ]
+}

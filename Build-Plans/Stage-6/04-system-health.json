@@ -1,8 +1,8 @@
 {
   "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
   "stage": "Stage 6",
-  "status": "needs_repair",
-  "overall_health": "runtime_revision_in_progress",
+  "status": "needs_visual_validation",
+  "overall_health": "runtime_repairs_passed_visual_evidence_pending",
   "completed_batches": [
     "BATCH-001",
     "BATCH-002",
@@ -14,11 +14,11 @@
   ],
   "pending_batches": [],
   "critical_blockers": [
-    "REVISION-S7-001 requires PDF/storage and live provider-routing runtime flows."
+    "Required repaired-UI browser screenshots and click-through evidence remain unavailable; Stage 7 stays paused."
   ],
   "critical_validation_failures": [],
   "critical_regressions": [],
-  "next_action": "Implement PDF/storage and live provider routing, complete deployed-runtime validation, then run the Stage 6 readiness audit.",
+  "next_action": "Connect a browser backend, capture repaired UI click-through and responsive screenshots, then rerun the Stage 6 readiness audit.",
   "next_batches": [],
   "health_signals": [
     "BATCH-002 validation gates passed",
@@ -37,6 +37,8 @@
     "Deployment readiness dry-run evidence recorded",
     "Runbooks and rollback controls recorded for Stage 7 handoff",
     "Local PostgreSQL migration, Redis, MinIO, web health, worker health, catalog persistence, and BullMQ website-import processing passed",
+    "PDF import API, workspace-scoped object storage, PDF worker extraction, AI provider health assessment, and capability route selection passed local validation",
+    "corepack pnpm test, corepack pnpm typecheck, and corepack pnpm build passed on 2026-08-04",
     "All Stage 6 batches complete with no critical blockers, validation failures, or regressions"
   ],
   "known_limitations": [
@@ -45,9 +47,8 @@
     "BATCH-004 intentionally does not run real Playwright, OCR, B2, Prisma clients, or Next.js route handlers.",
     "BATCH-005 uses static preview contracts and Quick Look screenshots; real browser automation and production Next.js route handlers remain downstream.",
     "BATCH-006 validates current contract harness and static previews; real browser automation, production middleware, and deployed storage ACL validation remain downstream.",
-    "Stage 6 did not execute production deployment; Stage 7 must verify live credentials, hosted health endpoints, monitoring alerts, and rollback in target environments."
-    ,
-    "REVISION-S7-001 now has a live-validated Next.js catalog slice and BullMQ website-import worker, but PDF/storage, live provider routing, and deployed validation remain incomplete."
+    "Stage 6 did not execute production deployment; Stage 7 must verify live credentials, hosted health endpoints, monitoring alerts, and rollback in target environments.",
+    "PDF text extraction uses native readable-text extraction for local runtime proof; binary-layout parsing/OCR remains an upgrade path for launch-grade fixtures."
   ],
   "artifact_refs": [
     "ARTIFACT-S5-001-TEST",
@@ -109,13 +110,17 @@
     "ARTIFACT-S5-021-TEST",
     "ARTIFACT-S5-021-VALIDATION",
     "ARTIFACT-S5-021-BUILD",
-    "ARTIFACT-S6-RUNTIME-REVISION-001"
+    "ARTIFACT-S6-RUNTIME-REVISION-001",
+    "ARTIFACT-S6-RUNTIME-CONTINUATION-2026-08-04",
+    "ARTIFACT-S5-RUNTIME-REPAIR-REFINEMENT-2026-08-05",
+    "ARTIFACT-S6-RUNTIME-REPAIR-2026-08-05"
   ],
   "stage_7_handoff": {
     "source_stage": "Stage 6",
     "target_stage": "Stage 7",
-    "ready": true,
+    "ready": false,
     "required_follow_up": [
+      "Complete repaired UI browser screenshot validation before Stage 7 resumes",
       "Verify production credentials and environment variables",
       "Wire live Sentry project and alert routing",
       "Verify hosted web and worker health endpoints",
@@ -125,7 +130,8 @@
     "evidence_refs": [
       "ARTIFACT-S5-021-TEST",
       "ARTIFACT-S5-021-VALIDATION",
-      "ARTIFACT-S5-021-BUILD"
+      "ARTIFACT-S5-021-BUILD",
+      "ARTIFACT-S6-RUNTIME-REPAIR-2026-08-05"
     ]
   }
 }

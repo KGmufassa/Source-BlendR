@@ -16,10 +16,11 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "lint": "eslint apps/web packages apps/worker --max-warnings=0",
-    "test:contracts": "node --test apps/workspace-scaffold.test.mjs prisma/workspace-schema.test.mjs packages/types/workspace-contracts.test.mjs packages/types/auth-contracts.test.mjs packages/domain/catalog-contracts.test.mjs packages/validation/deterministic-validation.test.mjs apps/web/app-shell.test.mjs apps/web/live-pages.test.mjs apps/worker/import-job-contracts.test.mjs packages/ai/ai-router.test.mjs packages/domain/catalog-api-contracts.test.mjs packages/domain/import-api-contracts.test.mjs packages/scrapers/normalized-source.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs apps/web/import-workflows.test.mjs apps/validation/stage6-batch006-validation.test.mjs apps/ops/deployment-readiness.test.mjs",
+    "test:contracts": "node --test apps/workspace-scaffold.test.mjs prisma/workspace-schema.test.mjs packages/types/workspace-contracts.test.mjs packages/types/auth-contracts.test.mjs packages/domain/catalog-contracts.test.mjs packages/validation/deterministic-validation.test.mjs apps/web/app-shell.test.mjs apps/web/live-pages.test.mjs apps/web/runtime-repair.test.mjs apps/worker/import-job-contracts.test.mjs apps/worker/worker-lifecycle.test.mjs apps/worker/browser-collector.test.mjs apps/worker/website-collector.test.mjs apps/worker/url-security.test.mjs packages/ai/ai-router.test.mjs packages/ai/extraction-fallback.test.mjs packages/domain/catalog-api-contracts.test.mjs packages/domain/import-api-contracts.test.mjs packages/domain/category-jobs.test.mjs packages/scrapers/normalized-source.test.mjs packages/scrapers/scraper-contracts.test.mjs packages/scrapers/shopify-adapter.test.mjs packages/domain/discovery-api-contracts.test.mjs apps/web/management-pages.test.mjs apps/web/import-workflows.test.mjs apps/validation/stage6-batch006-validation.test.mjs apps/ops/deployment-readiness.test.mjs",
     "test": "corepack pnpm test:contracts && vitest run",
+    "smoke:stage6": "node apps/validation/stage6-runtime-smoke.mjs",
     "typecheck": "tsc --noEmit && corepack pnpm --filter @source-blendr/web typecheck",
-    "infra:up": "docker compose up -d postgres redis minio",
+    "infra:up": "docker compose up -d",
     "infra:down": "docker compose down"
   },
   "devDependencies": {
@@ -33,7 +34,8 @@
   },
   "pnpm": {
     "overrides": {
-      "brace-expansion": "5.0.8",
+      "brace-expansion": "5.0.9",
+      "fast-uri": "3.1.5",
       "postcss": "8.5.18",
       "sharp": "0.35.0"
     }

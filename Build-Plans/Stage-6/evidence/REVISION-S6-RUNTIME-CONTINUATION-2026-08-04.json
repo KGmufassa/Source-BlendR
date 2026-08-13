@@ -1,0 +1,44 @@
+{
+  "artifact_id": "ARTIFACT-S6-RUNTIME-CONTINUATION-2026-08-04",
+  "stage": "Stage 6",
+  "revision_ref": "REVISION-S7-001",
+  "status": "local_validation_passed",
+  "recorded_at": "2026-08-04T02:10:00Z",
+  "scope": [
+    "PDF import API route",
+    "Workspace-scoped PDF object storage",
+    "PDF worker extraction path",
+    "AI provider health assessment",
+    "Provider capability route selection",
+    "Production build validation"
+  ],
+  "files_changed": [
+    "apps/web/app/api/imports/pdf/route.ts",
+    "apps/web/app/api/imports/website/route.ts",
+    "apps/web/app/api/ai-settings/providers/health/route.ts",
+    "apps/web/app/app/imports/pdf/page.tsx",
+    "apps/web/lib/import-queue.ts",
+    "apps/worker/src/index.ts",
+    "packages/shared/src/storage.ts",
+    "packages/shared/src/storage.test.ts",
+    "packages/shared/src/ai-provider-runtime.ts",
+    "packages/shared/src/ai-provider-runtime.test.ts",
+    "packages/shared/src/index.ts"
+  ],
+  "validation_commands": [
+    {
+      "command": "corepack pnpm test",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm build",
+      "status": "passed"
+    }
+  ],
+  "remaining_stage_6_action": "Run the Stage 6 global readiness audit and reconcile the Stage 6 handoff after this runtime continuation.",
+  "stage_7_boundary": "No Stage 7 deployment, provisioning, monitoring setup, rollback rehearsal, or launch approval work was executed."
+}

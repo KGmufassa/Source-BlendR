@@ -1405,6 +1405,644 @@
       "created_at": "2026-07-14T05:13:55.444530+00:00",
       "notes": "Expected Stage 6 evidence registered by Stage 5; Stage 6 must populate path/status.",
       "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S6-RUNTIME-CONTINUATION-2026-08-04",
+      "type": "runtime_validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-6/evidence/REVISION-S6-RUNTIME-CONTINUATION-2026-08-04.json",
+      "related_ticket_ids": [
+        "TICKET-007",
+        "TICKET-012",
+        "TICKET-013",
+        "TICKET-021"
+      ],
+      "related_validation_ids": [
+        "REVISION-S7-001"
+      ],
+      "related_agent_ids": [
+        "AGENT-BACKEND",
+        "AGENT-WORKER",
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "Build-Plans/Stage-6/evidence/REVISION-S6-RUNTIME-CONTINUATION-2026-08-04.json",
+      "status": "present",
+      "confidence": "high",
+      "created_by": "stage-6-runtime-continuation",
+      "created_at": "2026-08-04T02:10:00Z",
+      "notes": "Records local Stage 6 validation for PDF storage/worker runtime and AI provider health/capability routing. No Stage 7 deployment or provisioning was executed.",
+      "related_stage_data_path": "/runtime_revision"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-022-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-022"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-022-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-022"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-022-SMOKE",
+      "type": "workflow_smoke_test",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-022"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-022-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-022"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-022-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-022"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-023-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-023"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-023-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-023"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-023-SMOKE",
+      "type": "workflow_smoke_test",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-023"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-023-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-023"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-023-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-023"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-024-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-024"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-024-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-024"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-024-SMOKE",
+      "type": "workflow_smoke_test",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-024"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-025-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-025"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-025-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-025"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-025-SMOKE",
+      "type": "workflow_smoke_test",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-025"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-WORKER"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-026-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-026"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-026-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-026"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-026-SMOKE",
+      "type": "workflow_smoke_test",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-026"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-026-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-026"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-026-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-026"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-BACKEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-027-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-027"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-027-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-027"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-027-SMOKE",
+      "type": "workflow_smoke_test",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-027"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-027-PREVIEW",
+      "type": "preview_url",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-027"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-027-SCREENSHOT",
+      "type": "screenshot",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-027"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-FRONTEND"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-028-TEST",
+      "type": "test_output",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-028"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-028-VALIDATION",
+      "type": "validation_report",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-028"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S5-028-SMOKE",
+      "type": "workflow_smoke_test",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-5/05-build-tickets.json",
+      "related_ticket_ids": [
+        "TICKET-028"
+      ],
+      "related_validation_ids": [],
+      "related_agent_ids": [
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "",
+      "status": "pending",
+      "confidence": "low",
+      "created_by": "stage-5-runtime-repair-ticket-refinement",
+      "created_at": "2026-08-05T00:00:00-04:00",
+      "notes": "Expected Stage 6 repair evidence; must be populated before Stage 7 resumes.",
+      "related_stage_data_path": "/data/tickets"
+    },
+    {
+      "artifact_id": "ARTIFACT-S6-RUNTIME-REPAIR-2026-08-05",
+      "type": "combined_runtime_test_validation_and_smoke_evidence",
+      "related_stage": "Stage 6",
+      "related_stage_output": "Build-Plans/Stage-6/evidence/STAGE6-RUNTIME-REPAIR-2026-08-05.json",
+      "related_ticket_ids": [
+        "TICKET-022",
+        "TICKET-023",
+        "TICKET-024",
+        "TICKET-025",
+        "TICKET-026",
+        "TICKET-027",
+        "TICKET-028"
+      ],
+      "related_validation_ids": [
+        "VALIDATION-S6-RUNTIME-REPAIR-2026-08-05"
+      ],
+      "related_agent_ids": [
+        "AGENT-FRONTEND",
+        "AGENT-BACKEND",
+        "AGENT-WORKER",
+        "AGENT-VALIDATION"
+      ],
+      "path_or_url": "Build-Plans/Stage-6/evidence/STAGE6-RUNTIME-REPAIR-2026-08-05.json",
+      "status": "runtime_passed_visual_evidence_pending",
+      "confidence": "high",
+      "created_by": "stage-6-runtime-repair-execution",
+      "created_at": "2026-08-06T01:33:00Z",
+      "notes": "Tests, typecheck, lint, build, production HTTP routes, database persistence, queue/worker processing, retry/cancel, discovery actions, promotion, and AI routing passed. Browser screenshots remain pending because no browser backend was available.",
+      "related_stage_data_path": "/runtime_revision"
     }
   ]
 }

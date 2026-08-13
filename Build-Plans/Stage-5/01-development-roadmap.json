@@ -4,7 +4,7 @@
   "artifact_id": "ARTIFACT-S5-ROADMAP",
   "artifact_type": "development_roadmap",
   "stage": "Stage 5",
-  "status": "ready_for_stage_6",
+  "status": "awaiting_user_approval_for_scraper_repair",
   "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
   "traceability_refs": [
     "FEATURE-001",
@@ -96,8 +96,8 @@
             "Bulk outcomes are per-record and recoverable"
           ]
         },
-        {
-          "phase_id": "PHASE-004",
+      {
+        "phase_id": "PHASE-004",
           "name": "Release hardening",
           "goal": "Close security, accessibility, integration, observability, and rollout gates.",
           "feature_refs": [
@@ -117,13 +117,28 @@
             "SLICE-014",
             "SLICE-015"
           ],
-          "readiness_criteria": [
-            "Launch-critical E2E workflows pass",
-            "Tenant isolation and credential checks pass",
-            "Responsive and keyboard evidence is registered",
-            "Rollback and operational checks are rehearsed"
-          ]
-        }
+        "readiness_criteria": [
+          "Launch-critical E2E workflows pass",
+          "Tenant isolation and credential checks pass",
+          "Responsive and keyboard evidence is registered",
+          "Rollback and operational checks are rehearsed"
+        ]
+      },
+      {
+        "phase_id": "PHASE-005",
+        "name": "Supported scraper repair",
+        "goal": "Replace single-page fetch behavior with an operational, platform-aware, browser-capable, resumable, secure, and measurable website ingestion workflow.",
+        "feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013", "FEATURE-014", "FEATURE-015"],
+        "slice_ids": ["SLICE-023", "SLICE-024", "SLICE-025", "SLICE-026", "SLICE-027", "SLICE-028"],
+        "readiness_criteria": [
+          "Worker claim and restart recovery are automatic",
+          "Shopify and generic JavaScript fixture matrices pass at 100 percent",
+          "Blank Knights passes three consecutive controlled live canaries",
+          "Category selection, job status, retry, and evidence are browser verified",
+          "Security and crawl-compliance gates pass",
+          "The 100 percent claim is limited to the declared supported matrix"
+        ]
+      }
       ],
       "mvp_features": [
         "FEATURE-001",
@@ -199,6 +214,11 @@
           "SLICE-014",
           "SLICE-015"
         ]
+      },
+      {
+        "workstream_id": "WORKSTREAM-005",
+        "name": "Scraper repair and supported-site validation",
+        "owned_slices": ["SLICE-023", "SLICE-024", "SLICE-025", "SLICE-026", "SLICE-027", "SLICE-028"]
       }
     ],
     "milestones": [
@@ -271,6 +291,18 @@
           "TICKET-020",
           "TICKET-021"
         ]
+      },
+      {
+        "milestone_id": "MILESTONE-005",
+        "name": "Supported scraper release candidate",
+        "exit_criteria": [
+          "All repair tickets TICKET-029 through TICKET-039 pass in dependency order",
+          "Supported golden fixtures have 100 percent expected-field and URL coverage with zero duplicates",
+          "Blank Knights passes three consecutive controlled live canaries",
+          "Restart, partial failure, unsupported-site, security denial, and manual-review outcomes are verified",
+          "Browser click-through and responsive screenshot evidence are registered"
+        ],
+        "blocking_ticket_ids": ["TICKET-029", "TICKET-030", "TICKET-031", "TICKET-032", "TICKET-033", "TICKET-034", "TICKET-035", "TICKET-036", "TICKET-037", "TICKET-038", "TICKET-039"]
       }
     ],
     "risk_refs": [

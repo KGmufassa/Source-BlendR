@@ -1,7 +1,8 @@
 import { CatalogService } from "@source-blendr/domain";
-import { PrismaCatalogRepository } from "@source-blendr/shared";
+import { getDatabase, PrismaCatalogRepository } from "@source-blendr/shared";
 import { apiError } from "@/lib/http";
 import { getWorkspaceContext } from "@/lib/workspace-context";
+import { requireSameOrigin } from "@/lib/request-security";
 
 const catalog = new CatalogService(new PrismaCatalogRepository());
 
@@ -17,8 +18,14 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    requireSameOrigin(request);
     const context = await getWorkspaceContext();
-    const item = await catalog.create(context.workspaceId, await request.json());
+    const input = await request.json();
+    if (input.vendorId) {
+      const vendor = await getDatabase().vendor.findFirst({ where: { id: input.vendorId, workspaceId: context.workspaceId } });
+      if (!vendor) throw new Error("vendor_not_found");
+    }
+    const item = await catalog.create(context.workspaceId, input);
     return Response.json({ data: item }, { status: 201 });
   } catch (error) {
     return apiError(error);

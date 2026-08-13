@@ -1,7 +1,7 @@
 {
   "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
   "stage": "Stage 6",
-  "status": "in_progress",
+  "status": "runtime_complete_visual_validation_pending",
   "repairs": [
     {
       "repair_id": "REPAIR-S6-002",
@@ -22,8 +22,13 @@
       "revalidation": "Focused BATCH-004 tests and root pnpm test passed"
     }
   ],
-  "remaining_defects": [],
-  "unresolved_repair_risks": [],
+  "remaining_defects": [
+    "Browser click-through and screenshot evidence could not be captured because no browser backend was available."
+  ],
+  "unresolved_repair_risks": [
+    "DNS rebinding hardening remains before public multi-tenant website/provider fetching.",
+    "Full binary PDF parser/OCR support remains beyond the readable-text Stage 6 implementation."
+  ],
   "artifact_refs": [
     "ARTIFACT-S5-001-TEST",
     "ARTIFACT-S5-001-VALIDATION",

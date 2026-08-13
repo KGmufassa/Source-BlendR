@@ -1,0 +1,181 @@
+{
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S5-SCRAPER-REPAIR-PLAN-2026-08-06",
+  "artifact_type": "scraper_repair_implementation_plan",
+  "stage": "Stage 5",
+  "status": "implementation_complete_visual_validation_pending",
+  "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
+  "revision_id": "REVISION-S5-SCRAPER-REPAIR-2026-08-06",
+  "created_at": "2026-08-06T00:00:00-04:00",
+  "reason": "A real Blank Knights Shopify import remained queued and the current worker only fetched one page and extracted its title/HTML. The prior example.com smoke validated plumbing but did not validate scraper capability.",
+  "scope_statement": {
+    "goal": "Achieve 100 percent correctness and completeness on an explicitly supported scraper acceptance matrix, beginning with Shopify and the Blank Knights live canary, while providing a bounded generic browser fallback and manual-review outcomes for unsupported sites.",
+    "not_claimed": "This plan does not claim perfect extraction from every arbitrary website on the public internet.",
+    "stage_7_boundary": "Stage 7 remains paused until this revision is approved, implemented in dependency order, and TICKET-039 evidence passes."
+  },
+  "diagnostic_basis": [
+    "The tested Blank Knights job remained queued because no worker process was claiming it.",
+    "The website worker used native fetch for one page and returned title/HTML rather than discovering categories or products.",
+    "The existing website normalizer was not connected to the worker execution path.",
+    "There was no platform adapter, rendered-browser fallback, recursive pagination, category-selection workflow, or completeness matrix.",
+    "Browser screenshot evidence from the earlier repair remained unavailable and is explicitly release blocking in the final validation ticket."
+  ],
+  "execution_policy": {
+    "approval_required": true,
+    "implementation_started": true,
+    "approved_at": "2026-08-06T00:00:00-04:00",
+    "approval_evidence": "User message: Approve REVISION-S5-SCRAPER-REPAIR-2026-08-06",
+    "dependency_rule": "A ticket may start only when every depends_on_tickets entry is complete and its containing batch is unblocked.",
+    "batch_rule": "BATCH-010 through BATCH-015 execute in order; only tickets in an explicit execution_waves entry may overlap.",
+    "completion_rule": "Contract-only tests and example.com smoke are insufficient. User-visible workflow proof, real worker execution, deterministic fixture coverage, controlled live canaries, and browser evidence are required."
+  },
+  "repair_ticket_ids": [
+    "TICKET-029",
+    "TICKET-030",
+    "TICKET-031",
+    "TICKET-032",
+    "TICKET-033",
+    "TICKET-034",
+    "TICKET-035",
+    "TICKET-036",
+    "TICKET-037",
+    "TICKET-038",
+    "TICKET-039"
+  ],
+  "dependency_graph": {
+    "TICKET-029": [],
+    "TICKET-030": [],
+    "TICKET-031": ["TICKET-030"],
+    "TICKET-032": ["TICKET-029", "TICKET-030"],
+    "TICKET-033": ["TICKET-031", "TICKET-032"],
+    "TICKET-034": ["TICKET-030", "TICKET-032"],
+    "TICKET-035": ["TICKET-029", "TICKET-031", "TICKET-032", "TICKET-033", "TICKET-034"],
+    "TICKET-036": ["TICKET-033", "TICKET-035"],
+    "TICKET-037": ["TICKET-029", "TICKET-035", "TICKET-036"],
+    "TICKET-038": ["TICKET-029", "TICKET-030", "TICKET-031", "TICKET-032", "TICKET-033", "TICKET-034", "TICKET-035"],
+    "TICKET-039": ["TICKET-029", "TICKET-030", "TICKET-031", "TICKET-032", "TICKET-033", "TICKET-034", "TICKET-035", "TICKET-036", "TICKET-037", "TICKET-038"]
+  },
+  "batch_order": [
+    {
+      "batch_id": "BATCH-010",
+      "name": "Runtime and contract foundation",
+      "execution_waves": [["TICKET-029", "TICKET-030"]]
+    },
+    {
+      "batch_id": "BATCH-011",
+      "name": "Deterministic and browser collectors",
+      "execution_waves": [["TICKET-031", "TICKET-032"]]
+    },
+    {
+      "batch_id": "BATCH-012",
+      "name": "Unified discovery and AI fallback",
+      "execution_waves": [["TICKET-033", "TICKET-034"]]
+    },
+    {
+      "batch_id": "BATCH-013",
+      "name": "Recursive workflow and UI",
+      "execution_waves": [["TICKET-035"], ["TICKET-036"]]
+    },
+    {
+      "batch_id": "BATCH-014",
+      "name": "Operability and security hardening",
+      "execution_waves": [["TICKET-037", "TICKET-038"]]
+    },
+    {
+      "batch_id": "BATCH-015",
+      "name": "Supported matrix release gate",
+      "execution_waves": [["TICKET-039"]]
+    }
+  ],
+  "supported_acceptance_matrix": {
+    "golden_fixtures": [
+      "Saved Shopify collection/product/variant fixtures with pagination and overlapping categories",
+      "Generic JavaScript-rendered fixture with cookie overlay, load-more behavior, and bounded scrolling",
+      "Restart, timeout, partial failure, unsupported-site, provider-disabled, invalid-AI-output, robots-denial, redirect, and SSRF fixtures"
+    ],
+    "live_canary": "Blank Knights Shopify collection, three consecutive controlled runs",
+    "required_score": "100 percent of declared expected categories, product URLs, variants, SKUs, prices, images, canonical URLs, provenance, state transitions, and security outcomes",
+    "duplicate_budget": 0,
+    "manual_intervention_during_canary": 0,
+    "browser_evidence_required": true,
+    "manual_fallback_required": true
+  },
+  "approval_gate": {
+    "status": "approved",
+    "approval_request": "Approve REVISION-S5-SCRAPER-REPAIR-2026-08-06 to authorize Stage 6 execution of TICKET-029 through TICKET-039 in BATCH-010 through BATCH-015.",
+    "on_approval": "Begin BATCH-010 only.",
+    "on_rejection_or_revision": "Keep all repair tickets awaiting_user_approval and revise this Stage 5 plan without changing implementation code."
+  },
+  "execution_results": [
+    {
+      "batch_id": "BATCH-010",
+      "status": "complete",
+      "completed_ticket_ids": ["TICKET-029", "TICKET-030"],
+      "evidence": [
+        "Worker lifecycle and scraper contract tests passed",
+        "Type checking and Docker Compose validation passed",
+        "Worker image built and reached a healthy state on port 8080",
+        "Worker automatically claimed and completed the previously queued Blank Knights job"
+      ]
+    },
+    {
+      "batch_id": "BATCH-011",
+      "status": "complete",
+      "completed_ticket_ids": ["TICKET-031", "TICKET-032"],
+      "evidence": [
+        "Shopify and browser collector tests passed",
+        "Full contract, Vitest, and typecheck suites passed",
+        "Blank Knights shirts canary discovered 12 categories, 19 products, and 851 variants",
+        "Pinned Playwright worker image built, became healthy, and launched Chromium successfully"
+      ]
+    },
+    {
+      "batch_id": "BATCH-012",
+      "status": "complete",
+      "completed_ticket_ids": ["TICKET-033", "TICKET-034"],
+      "evidence": [
+        "Category canonicalization and independent-job contract tests passed",
+        "Workspace-scoped category GET/POST API added",
+        "AI deterministic bypass, budget, schema-validation, provider-failure, and manual-review tests passed",
+        "Type checking passed"
+      ]
+    },
+    {
+      "batch_id": "BATCH-013",
+      "status": "implementation_complete_visual_validation_pending",
+      "completed_ticket_ids": ["TICKET-035"],
+      "pending_ticket_ids": ["TICKET-036"],
+      "evidence": [
+        "Recursive pagination, throttling, retry, deduplication, and counter tests passed",
+        "Category selection API and responsive UI implementation passed typecheck and production build",
+        "Independent Blank Knights category job completed with 851 candidates"
+      ],
+      "blocking_item": "Connected-browser responsive screenshot evidence is unavailable."
+    },
+    {
+      "batch_id": "BATCH-014",
+      "status": "implementation_complete_dependency_validation_pending",
+      "completed_ticket_ids": ["TICKET-038"],
+      "pending_ticket_ids": ["TICKET-037"],
+      "evidence": [
+        "SSRF, credential, private DNS, redirect revalidation, browser request, and robots tests passed",
+        "Terminal events record adapter, candidate count, and reconciled scraper counters",
+        "Lint, typecheck, worker build, and production dependency audit passed with no high or critical findings"
+      ],
+      "blocking_item": "TICKET-037 cannot be dependency-complete until TICKET-036 visual validation passes.",
+      "residual_risks": ["One moderate production dependency advisory remains."]
+    },
+    {
+      "batch_id": "BATCH-015",
+      "status": "blocked_by_dependencies_and_browser_evidence",
+      "completed_ticket_ids": [],
+      "pending_ticket_ids": ["TICKET-039"],
+      "evidence": [
+        "Three consecutive Blank Knights live canaries each returned 12 categories, 19 products, 851 variants, zero duplicates, and zero product failures",
+        "Production worker image is healthy and launches pinned Chromium",
+        "End-to-end parent import and independent category job each completed with 851 candidates and reconciled counters"
+      ],
+      "blocking_item": "The in-app browser inventory is empty, so required UI click-through screenshots cannot be captured."
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import { renderAiSettingsPage, renderCatalogManagementPage } from "./src/management-pages.js";
@@ -11,6 +12,8 @@ test("catalog management page exposes approved route actions and responsive tabl
   assert.match(html, /href="\/app\/catalog"/);
   assert.match(html, /href="\/app\/catalog\/new"/);
   assert.match(html, /data-action="ACTION-SEARCH-CATALOG"/);
+  assert.match(readFileSync(new URL("./app/app/catalog/catalog-client.tsx", import.meta.url), "utf8"), /Category filter/);
+  assert.doesNotMatch(readFileSync(new URL("./app/app/catalog/catalog-client.tsx", import.meta.url), "utf8"), /floating create/i);
   assert.match(html, /data-component="DataTable"/);
   assert.match(html, /data-mobile-behavior="stacked_labeled_records"/);
 });
@@ -22,6 +25,8 @@ test("ai settings page exposes provider health and manual fallback states", () =
 
   assert.match(html, /href="\/app\/settings\/ai"/);
   assert.match(html, /data-action="ACTION-HEALTH-CHECK"/);
+  assert.match(readFileSync(new URL("./app/app/settings/ai/ai-settings-client.tsx", import.meta.url), "utf8"), /Provider summary/);
+  assert.doesNotMatch(readFileSync(new URL("./app/app/settings/ai/ai-settings-client.tsx", import.meta.url), "utf8"), /documentation|support link/i);
   assert.match(html, /data-state="manual_fallback"/);
   assert.match(html, /Save AI settings/);
 });

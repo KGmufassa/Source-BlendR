@@ -1,0 +1,73 @@
+{
+  "$schema": "../../../../System-References/Schemas/stage-6-artifact.schema.json",
+  "artifact_id": "ARTIFACT-S6-STITCH-PAGE-REBUILD-FINAL-GATE",
+  "artifact_type": "stage_6_validation_evidence",
+  "revision_id": "REVISION-STITCH-PAGE-REBUILD-2026-08-08",
+  "source_ticket_plan": "Build-Plans/Stage-5/15-stitch-page-rebuild-ticket-plan.json",
+  "status": "completed_with_screenshot_tooling_limitation",
+  "completed_at": "2026-08-08",
+  "tickets_executed": [
+    "TICKET-060",
+    "TICKET-061",
+    "TICKET-062",
+    "TICKET-063",
+    "TICKET-064",
+    "TICKET-065",
+    "TICKET-066",
+    "TICKET-067",
+    "TICKET-068",
+    "TICKET-069",
+    "TICKET-070",
+    "TICKET-071",
+    "TICKET-072",
+    "TICKET-073"
+  ],
+  "validation_results": {
+    "typecheck": {
+      "command": "corepack pnpm --filter @source-blendr/web typecheck",
+      "status": "passed"
+    },
+    "production_build": {
+      "command": "DATABASE_URL='postgresql://source_blendr:source_blendr@localhost:55432/source_blendr' REDIS_URL='redis://localhost:6379' SOURCE_BLENDR_DEV_AUTH=1 S3_ENDPOINT='http://localhost:9000' S3_REGION='us-east-1' S3_BUCKET='source-blendr' S3_ACCESS_KEY_ID='source_blendr' S3_SECRET_ACCESS_KEY='source_blendr_local' corepack pnpm --filter @source-blendr/web build",
+      "status": "passed"
+    },
+    "route_smoke": {
+      "status": "passed",
+      "routes": [
+        { "route": "/app", "status": 200 },
+        { "route": "/app/imports", "status": 200 },
+        { "route": "/app/imports/jobs", "status": 200 },
+        { "route": "/app/imports/website", "status": 200 },
+        { "route": "/app/imports/pdf", "status": 200 },
+        { "route": "/app/discovery", "status": 200 },
+        { "route": "/app/catalog", "status": 200 },
+        { "route": "/app/catalog/new", "status": 200 },
+        { "route": "/app/vendors", "status": 200 },
+        { "route": "/app/vendors/new", "status": 200 },
+        { "route": "/app/settings", "status": 200 },
+        { "route": "/app/settings/ai", "status": 200 }
+      ]
+    },
+    "excluded_feature_scan": {
+      "command": "rg -n \"showState|IMP-892|href=\\\"#\\\"|Download Analysis|Request Access|Privacy Policy|Operations Log|System Status|floating|state switcher|notification|help button|documentation/support|Provider documentation\" apps/web/app apps/web/src apps/web/*.html || true",
+      "status": "passed",
+      "matches": []
+    },
+    "screenshot_capture": {
+      "status": "blocked_by_tooling",
+      "details": [
+        "Local Playwright package was not installed.",
+        "Local Puppeteer package was not installed.",
+        "Browser connector returned: No browser is available."
+      ],
+      "impact": "Code and route validation completed, but visual screenshot evidence could not be generated in this session."
+    }
+  },
+  "backend_preservation": {
+    "database_schema_changed": false,
+    "new_api_contracts_added": false,
+    "new_routes_added": false,
+    "deferred_features_implemented": false,
+    "discarded_demo_controls_implemented": false
+  }
+}

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Provider Settings - Source BlendR</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        surface: "#FFFFFF",
+                        canvas: "#FBFBFA", // Warm off-white canvas
+                        graphite: "#333333",
+                        stone: {
+                            50: "#FBFBFA",
+                            100: "#F5F5F4",
+                            200: "#E7E5E4",
+                            300: "#D6D3D1",
+                            400: "#A8A29E",
+                            500: "#78716C",
+                            600: "#57534E",
+                            700: "#44403C",
+                            800: "#292524",
+                            900: "#1C1917",
+                            950: "#0C0A09",
+                        },
+                        amber: {
+                            500: "#F59E0B",
+                            600: "#D97706",
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Inter", "sans-serif"],
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            font-size: 1.25rem;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FBFBFA;
+            color: #333333;
+        }
+        .sidebar-active {
+            background-color: #FFFFFF;
+            color: #1C1917;
+            border-left: 4px solid #D97706;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2378716c' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+    </style>
+</head>
+<body class="bg-canvas text-graphite min-h-screen flex">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 z-50 bg-stone-50 border-r border-stone-200 w-64">
+<div class="px-6 mb-8">
+<h1 class="text-stone-900 font-black tracking-tight text-xl">Source BlendR</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Inventory Ops</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 font-medium text-xs hover:bg-stone-100 transition-transform active:translate-x-1 rounded" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 font-medium text-xs hover:bg-stone-100 transition-transform active:translate-x-1 rounded" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span>Imports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 font-medium text-xs hover:bg-stone-100 transition-transform active:translate-x-1 rounded" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span>Discovery</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 font-medium text-xs hover:bg-stone-100 transition-transform active:translate-x-1 rounded" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Catalog</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 font-medium text-xs hover:bg-stone-100 transition-transform active:translate-x-1 rounded" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span>Vendors</span>
+</a>
+<a class="sidebar-active flex items-center gap-3 px-3 py-2 font-medium text-xs transition-transform active:translate-x-1 rounded" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-6 py-4 border-t border-stone-200 mt-auto">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-stone-200 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, professional headshot of a person with a neutral background, styled in high-key lighting for a bright, modern light-mode interface. The individual is wearing professional attire, and the overall aesthetic is minimalist and high-end, focusing on clarity and approachability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp1pwRH4Hj5pYn5vly6ZcunxU084KlyAdfPOL68qR4czd7hYk30Dq0GmsXAu7m7U9KbbBv7t0LRjP0q3Wteb56LmZYSiE-wNt1TlK3pltVjtza55SvCtFIcEGrz5vKQMMvA5THkZXzPk-iP7oiJrk8L3_6N225a8lR_HGKFqxMFEo1PbRpYPz_yOBn1De-XshJgNWzs4et2vyVvDMdbdYXJgisEInikz8Vr3iaOcZP85SSdgAddsUqJlmPmUTBpc8hpViunZy34tM"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-stone-800">Admin User</span>
+<span class="text-[10px] text-stone-500">Workspace Owner</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 p-8">
+<!-- Header -->
+<header class="mb-8 flex justify-between items-end">
+<div>
+<nav class="flex items-center gap-2 text-xs text-stone-500 mb-2">
+<span>Settings</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-stone-900 font-semibold">AI Provider Settings</span>
+</nav>
+<h2 class="text-2xl font-bold text-stone-900 tracking-tight">AI Provider Settings</h2>
+<p class="text-stone-500 text-sm mt-1">Configure model routing and provider health for automated ingestion.</p>
+</div>
+<button class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 text-sm font-semibold rounded flex items-center gap-2 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg">add</span>
+                Add provider
+            </button>
+</header>
+<div class="space-y-6 max-w-5xl">
+<!-- Section 1: Provider List -->
+<section class="bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden">
+<div class="px-5 py-4 border-b border-stone-100 flex justify-between items-center bg-stone-50/50">
+<h3 class="text-sm font-bold text-stone-800 uppercase tracking-wider">Active AI Providers</h3>
+<span class="text-[10px] font-medium px-2 py-0.5 bg-stone-200 text-stone-600 rounded">3 ACTIVE</span>
+</div>
+<div class="divide-y divide-stone-100">
+<!-- Provider Row: Healthy -->
+<div class="px-5 py-4 flex items-center justify-between hover:bg-stone-50/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded bg-stone-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-600">psychology</span>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-stone-900 leading-none mb-1">OpenAI</h4>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span class="text-xs text-stone-500">Healthy</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs text-stone-400 font-mono">ID: prov_openai_01</span>
+<button class="text-stone-600 hover:text-stone-900 text-xs font-semibold px-3 py-1.5 border border-stone-200 rounded hover:bg-white transition-all">Edit</button>
+</div>
+</div>
+<!-- Provider Row: Rate Limited -->
+<div class="px-5 py-4 flex items-center justify-between hover:bg-stone-50/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded bg-stone-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-600">token</span>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-stone-900 leading-none mb-1">Anthropic</h4>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="text-xs text-amber-700 font-medium">Rate Limited</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 border border-amber-100 rounded">QUOTA WARNING</span>
+<button class="text-stone-600 hover:text-stone-900 text-xs font-semibold px-3 py-1.5 border border-stone-200 rounded hover:bg-white transition-all">Edit</button>
+</div>
+</div>
+<!-- Provider Row: Credential Error -->
+<div class="px-5 py-4 flex items-center justify-between bg-red-50/20 hover:bg-red-50/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded bg-red-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-red-600">key_off</span>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-stone-900 leading-none mb-1">Google Gemini</h4>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-500"></span>
+<span class="text-xs text-red-600 font-semibold">Credential Error</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<a class="text-red-600 hover:text-red-700 text-xs font-bold underline underline-offset-4 decoration-red-200" href="#">Fix credentials</a>
+<button class="text-stone-600 hover:text-stone-900 text-xs font-semibold px-3 py-1.5 border border-stone-200 rounded hover:bg-white transition-all">Edit</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Capability Routing -->
+<section class="bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden">
+<div class="px-5 py-4 border-b border-stone-100 flex justify-between items-center bg-stone-50/50">
+<div class="flex items-center gap-2">
+<h3 class="text-sm font-bold text-stone-800 uppercase tracking-wider">Capability Routing</h3>
+<span class="material-symbols-outlined text-stone-400 text-sm cursor-help" title="Define which AI model handles specific ingestion tasks.">info</span>
+</div>
+<button class="text-stone-600 hover:text-stone-900 text-xs flex items-center gap-1 font-medium transition-colors">
+<span class="material-symbols-outlined text-sm">history</span>
+                        View audit log
+                    </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-stone-50/30 border-b border-stone-100">
+<th class="px-5 py-3 text-[11px] font-bold text-stone-500 uppercase tracking-widest">Capability</th>
+<th class="px-5 py-3 text-[11px] font-bold text-stone-500 uppercase tracking-widest">Status</th>
+<th class="px-5 py-3 text-[11px] font-bold text-stone-500 uppercase tracking-widest">Provider</th>
+<th class="px-5 py-3 text-[11px] font-bold text-stone-500 uppercase tracking-widest">Model Selection</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-100">
+<tr>
+<td class="px-5 py-4">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-stone-800">Website Extraction</span>
+<span class="text-[10px] text-stone-500">Scraping vendor landing pages</span>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-50 text-green-700 border border-green-100">ACTIVE</span>
+</td>
+<td class="px-5 py-4">
+<span class="text-xs text-stone-600">OpenAI</span>
+</td>
+<td class="px-5 py-4">
+<select class="w-full max-w-xs text-xs font-medium text-stone-800 border-stone-200 rounded focus:ring-amber-500 focus:border-amber-500 py-1.5 px-3">
+<option>GPT-4o (Standard)</option>
+<option>GPT-4 Turbo</option>
+<option>GPT-3.5 (Legacy)</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="px-5 py-4">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-stone-800">PDF Parsing</span>
+<span class="text-[10px] text-stone-500">Reading structured catalog exports</span>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-50 text-green-700 border border-green-100">ACTIVE</span>
+</td>
+<td class="px-5 py-4">
+<span class="text-xs text-stone-600">Anthropic</span>
+</td>
+<td class="px-5 py-4">
+<select class="w-full max-w-xs text-xs font-medium text-stone-800 border-stone-200 rounded focus:ring-amber-500 focus:border-amber-500 py-1.5 px-3">
+<option>Claude 3.5 Sonnet</option>
+<option>Claude 3 Opus</option>
+<option>Claude 3 Haiku</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="px-5 py-4">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-stone-800">Image Enhancement</span>
+<span class="text-[10px] text-stone-500">Up-sampling product hero images</span>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-red-50 text-red-700 border border-red-100 italic">SUSPENDED</span>
+</td>
+<td class="px-5 py-4">
+<span class="text-xs text-stone-400">—</span>
+</td>
+<td class="px-5 py-4">
+<select class="w-full max-w-xs text-xs font-medium text-stone-400 border-stone-100 bg-stone-50 rounded py-1.5 px-3 cursor-not-allowed" disabled="">
+<option>No provider configured</option>
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-5 py-4 border-t border-stone-100 bg-stone-50/30 flex justify-end">
+<button class="bg-stone-800 hover:bg-stone-900 text-white px-6 py-2 text-xs font-bold rounded transition-all flex items-center gap-2" id="saveRoutingBtn">
+<span>Save routing</span>
+</button>
+</div>
+</section>
+<!-- Section 3: Health & Status -->
+<section class="bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex items-start gap-4">
+<div class="p-2 bg-stone-100 rounded">
+<span class="material-symbols-outlined text-stone-600">monitor_heart</span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-stone-900 leading-tight">Health &amp; Connectivity Status</h3>
+<p class="text-xs text-stone-500 mt-1">Provider connections are validated every 15 minutes.</p>
+<div class="mt-3 flex items-center gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-stone-400 font-bold uppercase">Last Check</span>
+<span class="text-xs font-medium text-stone-700">Today, 10:45 AM (8 mins ago)</span>
+</div>
+<div class="w-px h-6 bg-stone-200"></div>
+<div class="flex flex-col">
+<span class="text-[10px] text-stone-400 font-bold uppercase">Average Latency</span>
+<span class="text-xs font-medium text-stone-700">342ms</span>
+</div>
+</div>
+</div>
+</div>
+<div>
+<button class="flex items-center gap-2 border border-stone-300 text-stone-700 px-4 py-2 text-xs font-bold rounded hover:bg-stone-50 hover:border-stone-400 transition-all" id="healthCheckBtn">
+<span class="material-symbols-outlined text-lg" id="healthIcon">refresh</span>
+<span id="healthText">Run health check</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer / Feedback UI -->
+<footer class="mt-12 pt-8 border-t border-stone-200 flex justify-between items-center text-stone-400 text-[10px] font-medium uppercase tracking-widest">
+<div>© 2024 Source BlendR Inventory Ops</div>
+<div class="flex gap-4">
+<a class="hover:text-stone-600 transition-colors" href="#">Documentation</a>
+<a class="hover:text-stone-600 transition-colors" href="#">Support</a>
+</div>
+</footer>
+</main>
+<!-- Micro-interactions Script -->
+<script>
+        // Simulate Loading State for Health Check
+        const healthBtn = document.getElementById('healthCheckBtn');
+        const healthIcon = document.getElementById('healthIcon');
+        const healthText = document.getElementById('healthText');
+
+        healthBtn.addEventListener('click', () => {
+            healthBtn.disabled = true;
+            healthBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            healthIcon.classList.add('animate-spin');
+            healthText.innerText = 'Checking connectivity...';
+
+            setTimeout(() => {
+                healthIcon.classList.remove('animate-spin');
+                healthIcon.innerText = 'check_circle';
+                healthIcon.classList.add('text-green-600');
+                healthText.innerText = 'Success: All nodes verified';
+                
+                setTimeout(() => {
+                    healthBtn.disabled = false;
+                    healthBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                    healthIcon.innerText = 'refresh';
+                    healthIcon.classList.remove('text-green-600');
+                    healthText.innerText = 'Run health check';
+                }, 3000);
+            }, 2000);
+        });
+
+        // Simulate Saving State for Routing
+        const saveBtn = document.getElementById('saveRoutingBtn');
+        saveBtn.addEventListener('click', () => {
+            const originalContent = saveBtn.innerHTML;
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Saving changes...
+            `;
+
+            setTimeout(() => {
+                saveBtn.innerHTML = `
+                    <span class="material-symbols-outlined text-sm">done</span>
+                    Saved!
+                `;
+                saveBtn.classList.replace('bg-stone-800', 'bg-green-700');
+
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalContent;
+                    saveBtn.classList.replace('bg-green-700', 'bg-stone-800');
+                    saveBtn.disabled = false;
+                }, 2000);
+            }, 1500);
+        });
+    </script>
+</body></html>

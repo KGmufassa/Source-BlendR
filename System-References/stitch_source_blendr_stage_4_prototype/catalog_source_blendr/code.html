@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catalog | Source BlendR</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#D97706", // amber-600
+                        "primary-hover": "#B45309", // amber-700
+                        surface: "#FFFFFF",
+                        canvas: "#FBFBF9", // warm off-white
+                        graphite: "#27272A", // stone-800
+                        muted: "#71717A", // stone-500
+                        border: "#E7E7E4" // stone-200
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Inter", "sans-serif"],
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FBFBF9;
+            color: #27272A;
+        }
+        /* Custom Scrollbar for dense tables */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E7E7E4;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #D4D4D4;
+        }
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="antialiased text-graphite overflow-hidden">
+<!-- Sidebar Component (SideNavBar) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 z-50 bg-stone-50 dark:bg-stone-950 border-r border-stone-200 dark:border-stone-800 w-64">
+<!-- Brand Header -->
+<div class="px-6 mb-8">
+<h1 class="text-stone-900 dark:text-stone-50 font-black text-xl tracking-tight">Source BlendR</h1>
+<p class="text-stone-500 dark:text-stone-400 font-body text-xs font-medium uppercase tracking-wider">Inventory Ops</p>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 space-y-1 px-3">
+<!-- Overview -->
+<a class="flex items-center px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 group" href="/app/overview">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-body text-xs font-medium">Overview</span>
+</a>
+<!-- Imports -->
+<a class="flex items-center px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 group" href="/app/imports">
+<span class="material-symbols-outlined mr-3">upload_file</span>
+<span class="font-body text-xs font-medium">Imports</span>
+</a>
+<!-- Discovery -->
+<a class="flex items-center px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 group" href="/app/discovery">
+<span class="material-symbols-outlined mr-3">explore</span>
+<span class="font-body text-xs font-medium">Discovery</span>
+</a>
+<!-- Catalog (ACTIVE) -->
+<a class="flex items-center px-3 py-2 bg-white dark:bg-stone-900 text-stone-900 dark:text-white border-l-4 border-amber-600 shadow-sm transition-transform active:translate-x-1 group" href="/app/catalog">
+<span class="material-symbols-outlined mr-3 text-amber-600 dark:text-amber-500">inventory_2</span>
+<span class="font-body text-xs font-medium">Catalog</span>
+</a>
+<!-- Vendors -->
+<a class="flex items-center px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 group" href="/app/vendors">
+<span class="material-symbols-outlined mr-3">storefront</span>
+<span class="font-body text-xs font-medium">Vendors</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 group" href="/app/settings">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-body text-xs font-medium">Settings</span>
+</a>
+</nav>
+<!-- User Profile (Minimal) -->
+<div class="mt-auto px-6 pt-4 border-t border-stone-200 dark:border-stone-800">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-xs">JD</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-semibold text-stone-900 dark:text-stone-50 truncate">Jane Doe</p>
+<p class="text-[10px] text-stone-500 truncate">Workspace Owner</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- Top Bar / Header -->
+<header class="flex justify-between items-center h-14 px-8 w-full z-40 bg-surface border-b border-stone-200 dark:border-stone-800 sticky top-0">
+<div class="flex items-center gap-4">
+<h2 class="font-bold text-stone-900 text-lg tracking-tight">Catalog</h2>
+<span class="text-stone-300">/</span>
+<span class="text-stone-500 text-sm">Product Inventory</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-stone-500 hover:bg-stone-50 rounded transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 text-stone-500 hover:bg-stone-50 rounded transition-colors" title="Help">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Catalog Toolbar -->
+<section class="px-8 py-6 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3 flex-1 max-w-2xl">
+<!-- Search Input -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white border border-border rounded text-sm focus:ring-2 focus:ring-amber-600/20 focus:border-amber-600 transition-all outline-none" oninput="console.log('ACTION-SEARCH-CATALOG/catalog_search')" placeholder="Search SKU, name, or category..." type="text"/>
+</div>
+<!-- Category Filter -->
+<div class="relative">
+<select class="pl-4 pr-10 py-2 bg-white border border-border rounded text-sm focus:ring-2 focus:ring-amber-600/20 focus:border-amber-600 appearance-none cursor-pointer" onchange="console.log('ACTION-FILTER-CATALOG/catalog_type_filter')">
+<option value="">All Categories</option>
+<option value="electronics">Electronics</option>
+<option value="furniture">Furniture</option>
+<option value="apparel">Apparel</option>
+<option value="raw-materials">Raw Materials</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none text-lg">expand_more</span>
+</div>
+</div>
+<!-- New Item Button -->
+<a class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded text-sm font-semibold transition-colors shadow-sm active:opacity-90" href="/app/catalog/new">
+<span class="material-symbols-outlined text-lg">add</span>
+                New catalog item
+            </a>
+</section>
+<!-- View State Toggles (For Demo Purposes) -->
+<div class="px-8 flex gap-4 mb-4">
+<button class="text-[10px] uppercase font-bold tracking-widest text-muted hover:text-amber-600" onclick="showState('populated')">Populated</button>
+<button class="text-[10px] uppercase font-bold tracking-widest text-muted hover:text-amber-600" onclick="showState('loading')">Loading</button>
+<button class="text-[10px] uppercase font-bold tracking-widest text-muted hover:text-amber-600" onclick="showState('empty')">Empty</button>
+<button class="text-[10px] uppercase font-bold tracking-widest text-muted hover:text-amber-600" onclick="showState('error')">Error</button>
+</div>
+<!-- Main Content (Table) -->
+<div class="flex-1 px-8 pb-12 overflow-hidden flex flex-col" id="content-container">
+<!-- POPULATED STATE -->
+<div class="catalog-state bg-white border border-border rounded shadow-sm overflow-hidden flex flex-col h-full" id="state-populated">
+<div class="overflow-x-auto custom-scrollbar flex-1">
+<table class="w-full text-left border-collapse min-w-[1000px]">
+<thead>
+<tr class="bg-stone-50 border-b border-border">
+<th class="py-3 px-4 text-[11px] font-bold text-muted uppercase tracking-wider w-12">
+<input class="rounded border-border text-amber-600 focus:ring-amber-600" type="checkbox"/>
+</th>
+<th class="py-3 px-4 text-[11px] font-bold text-muted uppercase tracking-wider">Product Name</th>
+<th class="py-3 px-4 text-[11px] font-bold text-muted uppercase tracking-wider">SKU</th>
+<th class="py-3 px-4 text-[11px] font-bold text-muted uppercase tracking-wider">Category</th>
+<th class="py-3 px-4 text-[11px] font-bold text-muted uppercase tracking-wider">Price</th>
+<th class="py-3 px-4 text-[11px] font-bold text-muted uppercase tracking-wider">Status</th>
+<th class="py-3 px-4 text-[11px] font-bold text-muted uppercase tracking-wider">Last Updated</th>
+<th class="py-3 px-4 text-[11px] font-bold text-muted uppercase tracking-wider w-10"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border">
+<!-- Row 1: Live -->
+<tr class="hover:bg-stone-50/50 cursor-pointer transition-colors group" onclick="window.location.href='/app/catalog/item-001'">
+<td class="py-3 px-4" onclick="event.stopPropagation()">
+<input class="rounded border-border text-amber-600 focus:ring-amber-600" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded border border-border bg-stone-50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-muted text-sm">image</span>
+</div>
+<span class="font-medium text-stone-900 truncate max-w-[200px]">Ergonomic Task Chair V2</span>
+</div>
+</td>
+<td class="py-3 px-4 text-sm font-mono text-muted">FUR-2023-001</td>
+<td class="py-3 px-4">
+<span class="text-xs py-1 px-2 rounded-full bg-stone-100 text-stone-600 border border-stone-200">Furniture</span>
+</td>
+<td class="py-3 px-4 text-sm font-medium">$289.00</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-100 uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                        Live
+                                    </span>
+</td>
+<td class="py-3 px-4 text-xs text-muted">2 hours ago</td>
+<td class="py-3 px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-1 text-muted hover:text-stone-900 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Draft -->
+<tr class="hover:bg-stone-50/50 cursor-pointer transition-colors group" onclick="window.location.href='/app/catalog/item-002'">
+<td class="py-3 px-4" onclick="event.stopPropagation()">
+<input class="rounded border-border text-amber-600 focus:ring-amber-600" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded border border-border bg-stone-50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-muted text-sm">image</span>
+</div>
+<span class="font-medium text-stone-900 truncate max-w-[200px]">Bluetooth Mesh Controller</span>
+</div>
+</td>
+<td class="py-3 px-4 text-sm font-mono text-muted">ELC-2023-992</td>
+<td class="py-3 px-4">
+<span class="text-xs py-1 px-2 rounded-full bg-stone-100 text-stone-600 border border-stone-200">Electronics</span>
+</td>
+<td class="py-3 px-4 text-sm font-medium">$42.50</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full bg-stone-100 text-stone-600 text-[10px] font-bold border border-stone-200 uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span>
+                                        Draft
+                                    </span>
+</td>
+<td class="py-3 px-4 text-xs text-muted">Nov 28, 2023</td>
+<td class="py-3 px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-1 text-muted hover:text-stone-900 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Pending -->
+<tr class="hover:bg-stone-50/50 cursor-pointer transition-colors group" onclick="window.location.href='/app/catalog/item-003'">
+<td class="py-3 px-4" onclick="event.stopPropagation()">
+<input class="rounded border-border text-amber-600 focus:ring-amber-600" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded border border-border bg-stone-50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-muted text-sm">image</span>
+</div>
+<span class="font-medium text-stone-900 truncate max-w-[200px]">Organic Cotton Fabric (Blue)</span>
+</div>
+</td>
+<td class="py-3 px-4 text-sm font-mono text-muted">FAB-001-BLU</td>
+<td class="py-3 px-4">
+<span class="text-xs py-1 px-2 rounded-full bg-stone-100 text-stone-600 border border-stone-200">Apparel</span>
+</td>
+<td class="py-3 px-4 text-sm font-medium">$12.00/yd</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold border border-amber-100 uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                        Pending
+                                    </span>
+</td>
+<td class="py-3 px-4 text-xs text-muted">Yesterday</td>
+<td class="py-3 px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-1 text-muted hover:text-stone-900 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Archived -->
+<tr class="hover:bg-stone-50/50 cursor-pointer transition-colors group opacity-70" onclick="window.location.href='/app/catalog/item-004'">
+<td class="py-3 px-4" onclick="event.stopPropagation()">
+<input class="rounded border-border text-amber-600 focus:ring-amber-600" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded border border-border bg-stone-100 flex items-center justify-center shrink-0 grayscale">
+<span class="material-symbols-outlined text-muted text-sm">image</span>
+</div>
+<span class="font-medium text-stone-900 truncate max-w-[200px]">Legacy Charging Cable</span>
+</div>
+</td>
+<td class="py-3 px-4 text-sm font-mono text-muted">ELC-2019-005</td>
+<td class="py-3 px-4">
+<span class="text-xs py-1 px-2 rounded-full bg-stone-100 text-stone-600 border border-stone-200">Electronics</span>
+</td>
+<td class="py-3 px-4 text-sm font-medium">$5.00</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full bg-stone-100 text-stone-400 text-[10px] font-bold border border-stone-200 uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-stone-300"></span>
+                                        Archived
+                                    </span>
+</td>
+<td class="py-3 px-4 text-xs text-muted">Oct 12, 2023</td>
+<td class="py-3 px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-1 text-muted hover:text-stone-900 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="py-3 px-4 border-t border-border bg-stone-50 flex items-center justify-between">
+<p class="text-xs text-muted">Showing 1 to 4 of 124 products</p>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded hover:bg-stone-200 text-muted disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-white border border-amber-600 text-amber-600 text-xs font-bold">1</button>
+<button class="w-8 h-8 rounded bg-white border border-border text-stone-600 text-xs hover:bg-stone-100">2</button>
+<button class="w-8 h-8 rounded bg-white border border-border text-stone-600 text-xs hover:bg-stone-100">3</button>
+<button class="p-1 rounded hover:bg-stone-200 text-muted">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- LOADING STATE (Hidden by default) -->
+<div class="catalog-state hidden bg-white border border-border rounded shadow-sm overflow-hidden flex flex-col h-full" id="state-loading">
+<div class="animate-pulse">
+<div class="h-10 bg-stone-50 border-b border-border flex items-center px-4 gap-8">
+<div class="w-4 h-4 bg-stone-200 rounded"></div>
+<div class="w-32 h-3 bg-stone-200 rounded"></div>
+<div class="w-24 h-3 bg-stone-200 rounded"></div>
+<div class="w-24 h-3 bg-stone-200 rounded"></div>
+</div>
+<div class="space-y-4 p-4">
+<div class="flex items-center gap-8 border-b border-stone-50 pb-4">
+<div class="w-4 h-4 bg-stone-100 rounded"></div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-stone-100 rounded"></div>
+<div class="w-48 h-4 bg-stone-100 rounded"></div>
+</div>
+<div class="w-32 h-4 bg-stone-100 rounded"></div>
+<div class="w-24 h-4 bg-stone-100 rounded"></div>
+<div class="w-20 h-4 bg-stone-100 rounded"></div>
+</div>
+<div class="flex items-center gap-8 border-b border-stone-50 pb-4">
+<div class="w-4 h-4 bg-stone-100 rounded"></div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-stone-100 rounded"></div>
+<div class="w-32 h-4 bg-stone-100 rounded"></div>
+</div>
+<div class="w-32 h-4 bg-stone-100 rounded"></div>
+<div class="w-24 h-4 bg-stone-100 rounded"></div>
+<div class="w-20 h-4 bg-stone-100 rounded"></div>
+</div>
+<div class="flex items-center gap-8 border-b border-stone-50 pb-4">
+<div class="w-4 h-4 bg-stone-100 rounded"></div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-stone-100 rounded"></div>
+<div class="w-56 h-4 bg-stone-100 rounded"></div>
+</div>
+<div class="w-32 h-4 bg-stone-100 rounded"></div>
+<div class="w-24 h-4 bg-stone-100 rounded"></div>
+<div class="w-20 h-4 bg-stone-100 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- EMPTY STATE (Hidden by default) -->
+<div class="catalog-state hidden flex-1 flex flex-col items-center justify-center text-center p-12 bg-white border-2 border-dashed border-border rounded" id="state-empty">
+<div class="w-16 h-16 bg-stone-50 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-stone-300 text-4xl">inventory_2</span>
+</div>
+<h3 class="text-stone-900 font-bold text-lg mb-1">No catalog items found</h3>
+<p class="text-muted text-sm max-w-xs mb-6">Your catalog is currently empty. Start by importing from a vendor or creating a manual entry.</p>
+<div class="flex gap-3">
+<a class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded text-sm font-semibold transition-colors" href="/app/catalog/new">
+<span class="material-symbols-outlined text-lg">add</span>
+                        New item
+                    </a>
+<button class="inline-flex items-center gap-2 bg-white border border-border hover:bg-stone-50 text-stone-700 px-4 py-2 rounded text-sm font-semibold transition-colors">
+<span class="material-symbols-outlined text-lg">upload_file</span>
+                        Run Import
+                    </button>
+</div>
+</div>
+<!-- ERROR STATE (Hidden by default) -->
+<div class="catalog-state hidden flex-1 flex flex-col items-center justify-center text-center p-12 bg-white border border-red-100 rounded" id="state-error">
+<div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-red-500 text-2xl">error_outline</span>
+</div>
+<h3 class="text-stone-900 font-bold text-lg mb-1">Failed to load catalog</h3>
+<p class="text-muted text-sm mb-6">There was an issue connecting to the inventory database. Please try again or contact support.</p>
+<button class="inline-flex items-center gap-2 bg-stone-900 hover:bg-black text-white px-4 py-2 rounded text-sm font-semibold transition-colors" onclick="location.reload()">
+<span class="material-symbols-outlined text-lg">refresh</span>
+                    Retry connection
+                </button>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (Contextual) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-amber-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-amber-700 active:scale-95 transition-all md:hidden z-50">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+<script>
+        /**
+         * State Switcher Logic
+         * Demonstrates various UI states based on blueprint requirements
+         */
+        function showState(stateName) {
+            // Hide all states
+            document.querySelectorAll('.catalog-state').forEach(el => {
+                el.classList.add('hidden');
+            });
+            // Show requested state
+            const target = document.getElementById(`state-${stateName}`);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+        }
+
+        // Initialize tooltips/interactions if needed
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Source BlendR Catalog Workspace Loaded.");
+        });
+    </script>
+</body></html>

@@ -2,7 +2,7 @@
   "workflow": "Genesis App Building Harness",
   "global_workflow_contract": "System-References/Docs/Global-Stage-Workflow-Contract.md",
   "readiness_audit_contract": "System-References/Docs/Global-Stage-Readiness-Audit.md",
-  "current_stage": "Stage 7",
+  "current_stage": "Stage 6",
   "stages": {
     "stage_1": {
       "name": "Product Initialization",
@@ -42,7 +42,7 @@
     },
     "stage_7": {
       "name": "Launch & Operationalization",
-      "status": "in_progress",
+      "status": "paused_before_resume",
       "audit_file": "Build-Plans/Build-status/Stage-7-readiness-audit.json",
       "ready_for_next_stage": false
     },
@@ -54,38 +54,61 @@
     }
   },
   "blocking_gaps": [
-    "Stage 6 production runtime and deployed end-to-end evidence are incomplete.",
-    "Stage 6 readiness audit is missing and Implementation-state remains in progress.",
-    "Stage 7 production environment, monitoring, analytics, rollback, and support proof are not yet available."
+    "Stage 6 runtime and HTTP smoke passed; required repaired-UI browser screenshot evidence remains pending."
   ],
   "revision_loops": [
     {
       "revision_id": "REVISION-S7-001",
       "source_stage": "Stage 7",
       "owning_stage": "Stage 6",
-      "status": "open",
+      "status": "resolved_in_stage_6",
       "blocking_issue": "The implementation is a contract/static-preview scaffold rather than a deployable production runtime.",
-      "next_action": "Implement the production runtime and complete the Stage 6 readiness audit."
+      "next_action": "Resume Stage 7 only after explicit user instruction."
+    },
+    {
+      "revision_id": "REVISION-S5-RUNTIME-REPAIR-2026-08-05",
+      "source_stage": "Stage 5",
+      "owning_stage": "Stage 6",
+      "status": "runtime_implemented_visual_evidence_pending",
+      "blocking_issue": "Build tickets require repaired user workflows plus browser screenshot evidence before Stage 7.",
+      "next_action": "Connect a browser backend and complete repaired UI click-through and screenshot validation."
     }
   ],
-  "last_audit": "Build-Plans/Build-status/Stage-5-readiness-audit.json",
-  "next_recommended_action": "Resolve REVISION-S7-001 in Stage 6, then resume Stage 7 staging deployment and operational proof.",
-  "last_updated": "2026-07-25T03:37:33Z",
-  "current_stage_status": "needs_prior_stage_revision",
-  "updated_at": "2026-07-29T00:05:00Z",
+  "last_audit": "Build-Plans/Build-status/Stage-6-readiness-audit.json",
+  "next_recommended_action": "Capture browser click-through and screenshot evidence for the repaired UI; do not resume Stage 7 yet.",
+  "last_updated": "2026-08-06T01:33:00Z",
+  "current_stage_status": "needs_current_stage_revision",
+  "updated_at": "2026-08-06T01:33:00Z",
   "stage_6": {
     "status": "needs_current_stage_revision",
     "completed_batches": [
       "BATCH-001",
       "BATCH-002",
       "BATCH-003",
-      "BATCH-004"
+      "BATCH-004",
+      "BATCH-005",
+      "BATCH-006",
+      "BATCH-007"
     ],
-    "current_batch": "",
-    "revision_loop": "REVISION-S7-001"
+    "current_batch": "BATCH-009-visual-evidence",
+    "revision_loop": "REVISION-S7-001",
+    "audit_file": "Build-Plans/Build-status/Stage-6-readiness-audit.json",
+    "repair_ticket_ids": [
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028"
+    ],
+    "repair_batch_ids": [
+      "BATCH-008",
+      "BATCH-009"
+    ]
   },
   "stage_7": {
-    "status": "in_progress",
+    "status": "paused_before_resume",
     "operationalization_state": "Build-Plans/Build-status/Operationalization-state.json",
     "launch_decision": "not_ready",
     "completion_status": "needs_launch_readiness_work",

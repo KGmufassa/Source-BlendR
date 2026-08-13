@@ -2,6 +2,7 @@ import { promoteCandidates } from "@source-blendr/shared";
 import { z } from "zod";
 import { apiError } from "@/lib/http";
 import { getWorkspaceContext } from "@/lib/workspace-context";
+import { requireSameOrigin } from "@/lib/request-security";
 
 const selectionSchema = z.object({
   candidateIds: z.array(z.string().min(1)).min(1).max(500),
@@ -9,6 +10,7 @@ const selectionSchema = z.object({
 
 export async function POST(request: Request, { params }: { params: Promise<{ sessionId: string }> }) {
   try {
+    requireSameOrigin(request);
     const context = await getWorkspaceContext();
     const { sessionId } = await params;
     const { candidateIds } = selectionSchema.parse(await request.json());

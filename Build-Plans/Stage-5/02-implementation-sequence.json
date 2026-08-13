@@ -4,7 +4,7 @@
   "artifact_id": "ARTIFACT-S5-SEQUENCE",
   "artifact_type": "implementation_sequence",
   "stage": "Stage 5",
-  "status": "ready_for_stage_6",
+  "status": "awaiting_user_approval_for_scraper_repair",
   "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
   "traceability_refs": [
     "FEATURE-001",
@@ -57,7 +57,13 @@
         "SLICE-012",
         "SLICE-013",
         "SLICE-014",
-        "SLICE-015"
+        "SLICE-015",
+        "SLICE-023",
+        "SLICE-024",
+        "SLICE-025",
+        "SLICE-026",
+        "SLICE-027",
+        "SLICE-028"
       ]
     },
     "implementation_slices": [
@@ -327,6 +333,48 @@
           "SLICE-013",
           "SLICE-014"
         ]
+      },
+      {
+        "slice_id": "SLICE-023",
+        "name": "Scraper runtime and contract foundation",
+        "feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013", "FEATURE-014"],
+        "workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "depends_on_slices": ["SLICE-007", "SLICE-009"]
+      },
+      {
+        "slice_id": "SLICE-024",
+        "name": "Shopify adapter and browser collection",
+        "feature_refs": ["FEATURE-001", "FEATURE-004"],
+        "workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "depends_on_slices": ["SLICE-023"]
+      },
+      {
+        "slice_id": "SLICE-025",
+        "name": "Unified category discovery and AI fallback",
+        "feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-015"],
+        "workflow_refs": ["WORKFLOW-001", "WORKFLOW-003", "WORKFLOW-014"],
+        "depends_on_slices": ["SLICE-006", "SLICE-024"]
+      },
+      {
+        "slice_id": "SLICE-026",
+        "name": "Recursive category jobs and user workflow",
+        "feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013"],
+        "workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "depends_on_slices": ["SLICE-011", "SLICE-025"]
+      },
+      {
+        "slice_id": "SLICE-027",
+        "name": "Scraper observability and security hardening",
+        "feature_refs": ["FEATURE-001", "FEATURE-013", "FEATURE-014"],
+        "workflow_refs": ["WORKFLOW-001"],
+        "depends_on_slices": ["SLICE-026"]
+      },
+      {
+        "slice_id": "SLICE-028",
+        "name": "Supported scraper matrix acceptance",
+        "feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013", "FEATURE-014", "FEATURE-015"],
+        "workflow_refs": ["WORKFLOW-001", "WORKFLOW-003", "WORKFLOW-014"],
+        "depends_on_slices": ["SLICE-027"]
       }
     ],
     "sequence_dependencies": [
@@ -533,6 +581,48 @@
         "to": "SLICE-015",
         "type": "blocks",
         "reason": "Declared slice prerequisite"
+      },
+      {
+        "from": "SLICE-007",
+        "to": "SLICE-023",
+        "type": "blocks",
+        "reason": "Existing website job contract precedes scraper repair"
+      },
+      {
+        "from": "SLICE-009",
+        "to": "SLICE-023",
+        "type": "blocks",
+        "reason": "Existing import-to-discovery persistence precedes scraper repair"
+      },
+      {
+        "from": "SLICE-023",
+        "to": "SLICE-024",
+        "type": "blocks",
+        "reason": "Adapters require worker lifecycle and shared contracts"
+      },
+      {
+        "from": "SLICE-024",
+        "to": "SLICE-025",
+        "type": "blocks",
+        "reason": "Unified discovery requires deterministic and browser collectors"
+      },
+      {
+        "from": "SLICE-025",
+        "to": "SLICE-026",
+        "type": "blocks",
+        "reason": "Recursive jobs and UI require persisted category discovery"
+      },
+      {
+        "from": "SLICE-026",
+        "to": "SLICE-027",
+        "type": "blocks",
+        "reason": "Hardening validates the complete workflow"
+      },
+      {
+        "from": "SLICE-027",
+        "to": "SLICE-028",
+        "type": "blocks",
+        "reason": "Final acceptance runs only after observability and security gates"
       }
     ],
     "validation_checkpoints": [
@@ -610,6 +700,36 @@
         "validation_id": "VALIDATION-015",
         "slice_id": "SLICE-015",
         "checkpoint": "Validate Deployment and observability readiness acceptance criteria and dependency contracts before dependent slices start."
+      },
+      {
+        "validation_id": "VALIDATION-023",
+        "slice_id": "SLICE-023",
+        "checkpoint": "Prove automatic worker claim, restart recovery, canonicalization, and shared contract compatibility before adapter work merges."
+      },
+      {
+        "validation_id": "VALIDATION-024",
+        "slice_id": "SLICE-024",
+        "checkpoint": "Prove Shopify golden fixtures, the Blank Knights canary, and JavaScript rendering fixtures before unified discovery work starts."
+      },
+      {
+        "validation_id": "VALIDATION-025",
+        "slice_id": "SLICE-025",
+        "checkpoint": "Prove category persistence, independent category-job creation, deterministic-first extraction, and validated AI fallback."
+      },
+      {
+        "validation_id": "VALIDATION-026",
+        "slice_id": "SLICE-026",
+        "checkpoint": "Prove recursive pagination, checkpoint recovery, deduplication, counter reconciliation, and browser category selection."
+      },
+      {
+        "validation_id": "VALIDATION-027",
+        "slice_id": "SLICE-027",
+        "checkpoint": "Pass failure injection, state reconciliation, SSRF, redirect, robots, and resource-budget tests."
+      },
+      {
+        "validation_id": "VALIDATION-028",
+        "slice_id": "SLICE-028",
+        "checkpoint": "Achieve 100 percent of the declared supported fixture matrix plus three consecutive Blank Knights canaries and browser screenshot evidence."
       }
     ],
     "risk_refs": [

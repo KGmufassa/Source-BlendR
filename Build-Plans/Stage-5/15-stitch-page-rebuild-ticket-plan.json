@@ -1,0 +1,931 @@
+{
+  "$schema": "../../System-References/Schemas/stage-5-artifact.schema.json",
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S5-STITCH-PAGE-REBUILD-TICKET-PLAN",
+  "artifact_type": "stage_5_revision_ticket_plan",
+  "stage": "Stage 5",
+  "status": "executed_with_screenshot_tooling_limitation",
+  "created_at": "2026-08-08",
+  "revision_id": "REVISION-STITCH-PAGE-REBUILD-2026-08-08",
+  "supersedes_or_extends": [
+    "Build-Plans/Stage-5/13-stitch-stage4-ui-revision-tickets.json",
+    "Build-Plans/Stage-5/14-stitch-visual-parity-repair-tickets.json"
+  ],
+  "summary_ref": "Build-Plans/Stage-5/12-stitch-prototype-revision-summary.md",
+  "prototype_ref": "System-References/stitch_source_blendr_stage_4_prototype",
+  "ticket_id_range": "TICKET-060..TICKET-073",
+  "execution_result": {
+    "executed_at": "2026-08-08",
+    "evidence_refs": [
+      "Build-Plans/Stage-6/evidence/REVISION-STITCH-PAGE-REBUILD-2026-08-08/route-component-baseline.md",
+      "Build-Plans/Stage-6/evidence/REVISION-STITCH-PAGE-REBUILD-2026-08-08/final-regression-gate.json"
+    ],
+    "validation_summary": {
+      "typecheck": "passed",
+      "production_build": "passed",
+      "route_smoke": "passed",
+      "excluded_feature_scan": "passed",
+      "screenshot_capture": "blocked_by_unavailable_browser_or_local_screenshot_tooling"
+    }
+  },
+  "goal": "Rebuild the current app page layouts so they visually match the extracted Stitch Source BlendR Stage 4 prototype while preserving current routes, backend behavior, API contracts, workspace scoping, forms, mutations, and component responsibility mapping.",
+  "execution_policy": {
+    "approval_required_before_execution": true,
+    "allowed_changes_after_approval": [
+      "Frontend visual layout rebuilds",
+      "Route-preserving component restyles",
+      "Reusable CSS/design-system primitives",
+      "Approved visual-only prototype features mapped to current behavior",
+      "Screenshot and regression evidence artifacts"
+    ],
+    "disallowed_changes_without_new_approval": [
+      "Database schema changes",
+      "New API contracts",
+      "New backend state models",
+      "New production routes or route aliases",
+      "Unbacked external/internal links",
+      "Demo-only prototype controls",
+      "Hard-coded production demo data"
+    ],
+    "dependency_graph_rule": "Execute tickets only after all depends_on_tickets are complete. Parallel execution is allowed only within the same batch when ticket dependencies do not overlap."
+  },
+  "source_of_truth_policy": {
+    "visual_source_of_truth": "System-References/stitch_source_blendr_stage_4_prototype/**/screen.png",
+    "layout_reference": "System-References/stitch_source_blendr_stage_4_prototype/**/code.html",
+    "design_system_reference": "System-References/stitch_source_blendr_stage_4_prototype/source_blendr_stage_4_design_system/DESIGN.md",
+    "functional_source_of_truth": [
+      "apps/web/app/app/**/page.tsx",
+      "apps/web/app/app/**/**-client.tsx",
+      "apps/web/app/app/runtime-forms.tsx",
+      "apps/web/app/api/**/route.ts",
+      "packages/shared/**",
+      "packages/domain/**"
+    ],
+    "rule": "Stitch controls visual structure and layout. The current app controls data, routes, auth, APIs, mutations, persistence, and validation behavior."
+  },
+  "approved_scope_from_revision_summary": [
+    "User/workspace profile block with avatar/persona as visual-only shell footer",
+    "Last sync text derived from available import timestamps",
+    "Import workspace operational status header backed by current job/worker state only",
+    "Website wizard processing states mapped to real queued/running/completed job states",
+    "Website selected categories summary using existing category API behavior",
+    "PDF success View Job Results handoff mapped to real import job detail route",
+    "Import job event/log details rendered from real ImportJobEvent records",
+    "Discovery candidate edit/resolve fields mapped to current candidate update behavior",
+    "Discovery toast notification as local client feedback only",
+    "Catalog pagination controls using local/client pagination or existing query behavior",
+    "Catalog row quick action icon implemented as accessible existing item link/action",
+    "AI provider credential error Fix credentials affordance mapped to current edit/upsert form behavior",
+    "AI provider Edit buttons mapped to current provider update behavior",
+    "AI capability routing table mapped to current save-routing API"
+  ],
+  "deferred_scope_excluded": [
+    "Dedicated /app/overview route or redirect alias",
+    "Topbar notification button",
+    "Topbar help button",
+    "Website Download Analysis Report PDF",
+    "Import job notification/help topbar icons",
+    "Discovery filter pills requiring unavailable candidate states such as conflicts or duplicates",
+    "Catalog mobile floating create button",
+    "New Catalog Item category/taxonomy field requiring schema or state decisions",
+    "Vendor denied/request access state",
+    "Vendor footer links for Privacy Policy, Operations Log, or System Status",
+    "AI documentation/support footer links"
+  ],
+  "discarded_scope_excluded": [
+    "PDF demo state buttons for Empty/File Selected/Loading/Error/Success",
+    "Catalog loading/empty/error demo toggles",
+    "Vendor live/loading/empty/error/denied state switcher"
+  ],
+  "route_component_mapping": [
+    {
+      "prototype_folder": "workspace_overview_source_blendr",
+      "routes": [
+        "/app"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/page.tsx",
+        "apps/web/app/workspace-shell.tsx",
+        "apps/web/app/app/page-actions.tsx"
+      ],
+      "ticket_refs": [
+        "TICKET-061",
+        "TICKET-062"
+      ]
+    },
+    {
+      "prototype_folder": "imports_workspace_source_blendr",
+      "routes": [
+        "/app/imports",
+        "/app/imports/jobs"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/imports/page.tsx",
+        "apps/web/app/app/imports/jobs/page.tsx"
+      ],
+      "ticket_refs": [
+        "TICKET-063"
+      ]
+    },
+    {
+      "prototype_folder": "website_import_wizard_source_blendr",
+      "routes": [
+        "/app/imports/website"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/imports/website/page.tsx",
+        "apps/web/app/app/runtime-forms.tsx",
+        "apps/web/app/app/imports/jobs/[jobId]/category-job-selector.tsx",
+        "apps/web/app/api/imports/jobs/[jobId]/categories/route.ts"
+      ],
+      "ticket_refs": [
+        "TICKET-064"
+      ]
+    },
+    {
+      "prototype_folder": "pdf_import_source_blendr",
+      "routes": [
+        "/app/imports/pdf"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/imports/pdf/page.tsx",
+        "apps/web/app/app/runtime-forms.tsx",
+        "apps/web/app/api/imports/pdf/route.ts"
+      ],
+      "ticket_refs": [
+        "TICKET-065"
+      ]
+    },
+    {
+      "prototype_folder": "import_job_detail_source_blendr",
+      "routes": [
+        "/app/imports/jobs/:jobId"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/imports/jobs/[jobId]/page.tsx",
+        "apps/web/app/app/imports/jobs/[jobId]/job-actions.tsx",
+        "apps/web/app/app/imports/jobs/[jobId]/category-job-selector.tsx",
+        "apps/web/app/api/imports/jobs/[jobId]/route.ts"
+      ],
+      "ticket_refs": [
+        "TICKET-066"
+      ]
+    },
+    {
+      "prototype_folder": "discovery_session_source_blendr",
+      "routes": [
+        "/app/discovery",
+        "/app/discovery/:sessionId"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/discovery/page.tsx",
+        "apps/web/app/app/discovery/[sessionId]/page.tsx",
+        "apps/web/app/app/discovery/[sessionId]/discovery-client.tsx",
+        "apps/web/app/api/discovery-sessions/[sessionId]/*"
+      ],
+      "ticket_refs": [
+        "TICKET-067"
+      ]
+    },
+    {
+      "prototype_folder": "catalog_source_blendr",
+      "routes": [
+        "/app/catalog",
+        "/app/catalog/:itemId"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/catalog/page.tsx",
+        "apps/web/app/app/catalog/catalog-client.tsx",
+        "apps/web/app/app/catalog/[itemId]/page.tsx",
+        "apps/web/app/api/catalog-items/route.ts"
+      ],
+      "ticket_refs": [
+        "TICKET-068"
+      ]
+    },
+    {
+      "prototype_folder": "new_catalog_item_source_blendr",
+      "routes": [
+        "/app/catalog/new"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/catalog/new/page.tsx",
+        "apps/web/app/app/runtime-forms.tsx",
+        "apps/web/app/api/catalog-items/route.ts"
+      ],
+      "ticket_refs": [
+        "TICKET-069"
+      ]
+    },
+    {
+      "prototype_folder": "vendors_source_blendr",
+      "routes": [
+        "/app/vendors",
+        "/app/vendors/new",
+        "/app/vendors/:vendorId"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/vendors/page.tsx",
+        "apps/web/app/app/vendors/new/page.tsx",
+        "apps/web/app/app/vendors/[vendorId]/page.tsx",
+        "apps/web/app/api/vendors/*"
+      ],
+      "ticket_refs": [
+        "TICKET-070"
+      ]
+    },
+    {
+      "prototype_folder": "ai_provider_settings_source_blendr",
+      "routes": [
+        "/app/settings",
+        "/app/settings/ai"
+      ],
+      "current_behavior_owners": [
+        "apps/web/app/app/settings/page.tsx",
+        "apps/web/app/app/settings/ai/page.tsx",
+        "apps/web/app/app/settings/ai/ai-settings-client.tsx",
+        "apps/web/app/api/ai-settings/providers/*"
+      ],
+      "ticket_refs": [
+        "TICKET-071"
+      ]
+    }
+  ],
+  "data": {
+    "ticket_count": 14,
+    "tickets": [
+      {
+        "ticket_id": "TICKET-060",
+        "title": "Establish Stitch rebuild baseline and visual QA contract",
+        "ticket_type": "planning_and_validation_foundation",
+        "priority": "critical",
+        "depends_on_tickets": [],
+        "batch_id": "BATCH-026",
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/imports/website",
+          "/app/imports/pdf",
+          "/app/imports/jobs",
+          "/app/imports/jobs/:jobId",
+          "/app/discovery",
+          "/app/discovery/:sessionId",
+          "/app/catalog",
+          "/app/catalog/new",
+          "/app/catalog/:itemId",
+          "/app/vendors",
+          "/app/vendors/new",
+          "/app/vendors/:vendorId",
+          "/app/settings",
+          "/app/settings/ai"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/**/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/**/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/source_blendr_stage_4_design_system/DESIGN.md"
+        ],
+        "expected_files": [
+          "Build-Plans/Stage-6/evidence/REVISION-STITCH-PAGE-REBUILD-2026-08-08/visual-qa-contract.json",
+          "Build-Plans/Stage-6/evidence/REVISION-STITCH-PAGE-REBUILD-2026-08-08/route-component-baseline.md"
+        ],
+        "implementation_scope": [
+          "Record screenshot dimensions, route list, source screenshots, and pass/fail criteria before page rebuild work starts.",
+          "Confirm every route keeps its current behavior owner and API dependencies.",
+          "Confirm deferred/discarded prototype features remain excluded."
+        ],
+        "acceptance_criteria": [
+          "A route/component/source screenshot matrix exists for every page in scope.",
+          "The visual QA contract defines desktop, tablet, and mobile screenshot targets.",
+          "No application source code changes are made by this foundation ticket.",
+          "The approval/defer/discard scope from the revision summary is copied into implementation evidence."
+        ],
+        "validation_steps": [
+          "Validate that all ticket route_refs have at least one current app file or explicit inherited-source note.",
+          "Validate that no deferred or discarded item appears in a downstream acceptance criterion as production scope."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-061",
+        "title": "Rebuild shared shell, sidebar, topbar, and design-system primitives from Stitch",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "critical",
+        "depends_on_tickets": [
+          "TICKET-060"
+        ],
+        "batch_id": "BATCH-027",
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/catalog",
+          "/app/vendors",
+          "/app/settings/ai"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/source_blendr_stage_4_design_system/DESIGN.md",
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/screen.png"
+        ],
+        "expected_files": [
+          "apps/web/app/globals.css",
+          "apps/web/app/workspace-shell.tsx",
+          "apps/web/app/app/page-actions.tsx"
+        ],
+        "implementation_scope": [
+          "Translate Stitch color, spacing, type, border, badge, card, table, form, drawer, and button language into app-owned CSS/classes.",
+          "Rebuild the persistent left sidebar and mobile header to match Stitch proportions and active-route behavior.",
+          "Add approved visual-only user/workspace profile block in the shell footer without adding user settings routes."
+        ],
+        "acceptance_criteria": [
+          "Shell visual structure matches Stitch sidebar/topbar/canvas layout across in-scope app routes.",
+          "Navigation uses existing route paths only.",
+          "Topbar notification/help controls are excluded unless already backed by current approved behavior.",
+          "No Tailwind CDN, inline prototype JavaScript, href=\"#\" links, or hard-coded demo IDs are introduced.",
+          "Existing auth/workspace scoping behavior remains unchanged."
+        ],
+        "validation_steps": [
+          "Run typecheck/build checks used by the web app.",
+          "Run a static search for Tailwind CDN references, showState controls, href=\"#\", and known prototype demo IDs.",
+          "Capture shell screenshots on /app, /app/imports, /app/catalog, /app/vendors, and /app/settings/ai."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-062",
+        "title": "Rebuild workspace overview route from Stitch overview prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "critical",
+        "depends_on_tickets": [
+          "TICKET-061"
+        ],
+        "batch_id": "BATCH-028",
+        "route_refs": [
+          "/app"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/workspace_overview_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/page.tsx",
+          "apps/web/app/app/page-actions.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild the /app dashboard layout using Stitch overview regions: breadcrumb/header, quick actions, active jobs, catalog health, provider/status summary, and discovery/import panels.",
+          "Use real workspace counts, import jobs, catalog counts, provider checks, and links.",
+          "Keep approved permission/provider summary cards only where they map to current auth/provider data."
+        ],
+        "acceptance_criteria": [
+          "/app visually matches the Stitch overview layout at desktop width.",
+          "Sparse local data still renders the same structural slots through real empty states or placeholders clearly tied to real state.",
+          "All quick actions preserve current app routes and existing behavior.",
+          "No new /app/overview route is created."
+        ],
+        "validation_steps": [
+          "Capture /app screenshot and compare against workspace_overview_source_blendr/screen.png.",
+          "Verify links route to existing pages.",
+          "Run page-level smoke test with current local database state."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-063",
+        "title": "Rebuild imports workspace and import jobs list from Stitch imports prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "critical",
+        "depends_on_tickets": [
+          "TICKET-061"
+        ],
+        "batch_id": "BATCH-028",
+        "route_refs": [
+          "/app/imports",
+          "/app/imports/jobs"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/imports_workspace_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/imports_workspace_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/page.tsx",
+          "apps/web/app/app/imports/jobs/page.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild method chooser cards, operational status header, recent jobs table, status badges, and last sync text.",
+          "Derive last sync from available latest import job timestamps.",
+          "Render job cards/details only from current import job data."
+        ],
+        "acceptance_criteria": [
+          "/app/imports visually matches the Stitch imports workspace layout.",
+          "/app/imports/jobs inherits the same table/card visual grammar without creating a new prototype-only route.",
+          "Website import, PDF import, and job detail links preserve current route behavior.",
+          "No fake job IDs or unbacked operational statuses are introduced."
+        ],
+        "validation_steps": [
+          "Capture /app/imports and /app/imports/jobs screenshots.",
+          "Verify job list renders correctly with zero jobs and at least one real local job.",
+          "Run import route smoke tests."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-064",
+        "title": "Rebuild website import wizard from Stitch wizard prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "critical",
+        "depends_on_tickets": [
+          "TICKET-063"
+        ],
+        "batch_id": "BATCH-029",
+        "route_refs": [
+          "/app/imports/website"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/website_import_wizard_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/website_import_wizard_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/website/page.tsx",
+          "apps/web/app/app/runtime-forms.tsx",
+          "apps/web/app/app/imports/jobs/[jobId]/category-job-selector.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild source setup, detected category tree, selected categories summary, and processing/success handoff visuals.",
+          "Map processing states to current queued/running/completed job states instead of simulated prototype steps.",
+          "Use the existing category selector/API behavior for detected categories and selected category summaries."
+        ],
+        "acceptance_criteria": [
+          "/app/imports/website visually matches the Stitch website import wizard layout.",
+          "Detected Category Tree is included only through current category data/API behavior.",
+          "Download Analysis Report PDF remains excluded.",
+          "Submitting a website import still uses the current form/action/API flow."
+        ],
+        "validation_steps": [
+          "Capture website wizard screenshots before submit and after a real queued job handoff when possible.",
+          "Verify form submission still creates or queues a real import job.",
+          "Verify category selection behavior is unchanged."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-065",
+        "title": "Rebuild PDF import route from Stitch PDF prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "high",
+        "depends_on_tickets": [
+          "TICKET-063"
+        ],
+        "batch_id": "BATCH-029",
+        "route_refs": [
+          "/app/imports/pdf"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/pdf_import_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/pdf_import_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/pdf/page.tsx",
+          "apps/web/app/app/runtime-forms.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild upload drop zone, OCR/AI context, real pending/error/success states, and job-result handoff visuals.",
+          "Use only current PDF upload behavior and current import job route handoff.",
+          "Discard all prototype demo state buttons."
+        ],
+        "acceptance_criteria": [
+          "/app/imports/pdf visually matches the Stitch PDF import layout.",
+          "PDF success View Job Results maps to the real import job detail route when a job ID exists.",
+          "Prototype Empty/File Selected/Loading/Error/Success demo buttons do not ship.",
+          "Current PDF upload API contract remains unchanged."
+        ],
+        "validation_steps": [
+          "Capture PDF import screenshots for empty and local selected/pending/error states where feasible.",
+          "Run PDF upload smoke path using the existing local workflow.",
+          "Static-search for removed demo state controls."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-066",
+        "title": "Rebuild import job detail route from Stitch job detail prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "high",
+        "depends_on_tickets": [
+          "TICKET-063"
+        ],
+        "batch_id": "BATCH-029",
+        "route_refs": [
+          "/app/imports/jobs/:jobId"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/import_job_detail_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/import_job_detail_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/imports/jobs/[jobId]/page.tsx",
+          "apps/web/app/app/imports/jobs/[jobId]/job-actions.tsx",
+          "apps/web/app/app/imports/jobs/[jobId]/category-job-selector.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild job status, progress/timeline, source metadata, retry/cancel actions, discovery handoff, and events/logs regions.",
+          "Render event/log details from real ImportJobEvent records.",
+          "Preserve current retry, cancel, category, and discovery-session action behavior."
+        ],
+        "acceptance_criteria": [
+          "/app/imports/jobs/:jobId visually matches the Stitch import job detail layout.",
+          "Import job event/log details are shown only from real job events.",
+          "Notification/help topbar icons remain excluded.",
+          "Current job action APIs and error handling remain unchanged."
+        ],
+        "validation_steps": [
+          "Capture job detail screenshot for a real local job.",
+          "Verify retry/cancel/category/discovery controls still call existing actions/APIs.",
+          "Run import job detail route smoke test."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-067",
+        "title": "Rebuild discovery routes from Stitch discovery prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "high",
+        "depends_on_tickets": [
+          "TICKET-061"
+        ],
+        "batch_id": "BATCH-029",
+        "route_refs": [
+          "/app/discovery",
+          "/app/discovery/:sessionId"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/discovery_session_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/discovery_session_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/discovery/page.tsx",
+          "apps/web/app/app/discovery/[sessionId]/page.tsx",
+          "apps/web/app/app/discovery/[sessionId]/discovery-client.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild candidate table, bulk action toolbar, preview drawer, edit/resolve form, AI inference details, and local toast feedback.",
+          "Map filter controls only to current candidate states.",
+          "Use current candidate PATCH/resolve behavior and current candidate/source payload fields."
+        ],
+        "acceptance_criteria": [
+          "/app/discovery/:sessionId visually matches the Stitch discovery workspace layout.",
+          "/app/discovery inherits the same visual grammar for the session list.",
+          "Candidate edit/resolve fields and AI inference details remain backed by current data/action APIs.",
+          "All/New/Conflicts/Duplicates pills are excluded unless they map cleanly to current candidate state without backend changes.",
+          "Toast behavior remains local client feedback, not a new global notification system."
+        ],
+        "validation_steps": [
+          "Capture /app/discovery and /app/discovery/:sessionId screenshots.",
+          "Verify candidate preview/edit/resolve flows against existing APIs.",
+          "Verify no unbacked conflict/duplicate state is introduced."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-068",
+        "title": "Rebuild catalog list and detail routes from Stitch catalog prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "high",
+        "depends_on_tickets": [
+          "TICKET-061"
+        ],
+        "batch_id": "BATCH-028",
+        "route_refs": [
+          "/app/catalog",
+          "/app/catalog/:itemId"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/catalog_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/catalog/page.tsx",
+          "apps/web/app/app/catalog/catalog-client.tsx",
+          "apps/web/app/app/catalog/[itemId]/page.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild search toolbar, current type/status/category-compatible filters, table rows, row navigation, pagination controls, loading/empty/error states, and detail visual grammar.",
+          "Implement pagination as local/client state or existing query behavior only.",
+          "Implement row quick action icon as an accessible current item link/action."
+        ],
+        "acceptance_criteria": [
+          "/app/catalog visually matches the Stitch catalog layout.",
+          "/app/catalog/:itemId inherits the Stitch catalog/form detail language.",
+          "Catalog category filter uses current backed fields only.",
+          "Catalog mobile floating create button remains excluded.",
+          "Catalog demo state toggles do not ship."
+        ],
+        "validation_steps": [
+          "Capture catalog list and catalog detail screenshots.",
+          "Verify search/filter/pagination behavior with current local data.",
+          "Verify row quick action is keyboard-accessible and routes to the existing item route."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-069",
+        "title": "Rebuild new catalog item form from Stitch catalog form prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "high",
+        "depends_on_tickets": [
+          "TICKET-068"
+        ],
+        "batch_id": "BATCH-029",
+        "route_refs": [
+          "/app/catalog/new"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/catalog/new/page.tsx",
+          "apps/web/app/app/runtime-forms.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild segmented product/service control, grouped form sections, validation layout, and save/cancel action bar around current CatalogItemForm behavior.",
+          "Map product/service selection to current item type model.",
+          "Exclude category/taxonomy field changes that require schema or state decisions."
+        ],
+        "acceptance_criteria": [
+          "/app/catalog/new visually matches the Stitch new catalog item layout.",
+          "Create flow still uses current catalog item API contract.",
+          "Field-level validation and error rendering remain intact.",
+          "No new taxonomy/schema-backed category field is added."
+        ],
+        "validation_steps": [
+          "Capture new catalog item form screenshot.",
+          "Submit a valid and invalid form through current local behavior.",
+          "Verify generated payload shape is unchanged."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-070",
+        "title": "Rebuild vendors list, detail, and create routes from Stitch vendors prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "high",
+        "depends_on_tickets": [
+          "TICKET-061"
+        ],
+        "batch_id": "BATCH-028",
+        "route_refs": [
+          "/app/vendors",
+          "/app/vendors/new",
+          "/app/vendors/:vendorId"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/vendors_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/vendors_source_blendr/code.html",
+          "System-References/stitch_source_blendr_stage_4_prototype/new_catalog_item_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/vendors/page.tsx",
+          "apps/web/app/app/vendors/new/page.tsx",
+          "apps/web/app/app/vendors/[vendorId]/page.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild vendor table, real loading/empty/error states, new vendor CTA, row navigation, detail layout, and create form visual grammar.",
+          "Preserve current vendor routes and API contracts.",
+          "Do not add request-access, footer links, or demo state switchers."
+        ],
+        "acceptance_criteria": [
+          "/app/vendors visually matches the Stitch vendors layout.",
+          "/app/vendors/new and /app/vendors/:vendorId inherit the Stitch vendors/form visual language.",
+          "Vendor denied/request-access state remains deferred.",
+          "Vendor footer links remain excluded.",
+          "Vendor state switcher does not ship."
+        ],
+        "validation_steps": [
+          "Capture vendor list, vendor detail, and vendor create screenshots.",
+          "Verify vendor create/detail flows preserve current behavior.",
+          "Static-search for excluded footer routes and demo switcher behavior."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-071",
+        "title": "Rebuild settings hub and AI provider settings from Stitch AI prototype",
+        "ticket_type": "frontend_visual_rebuild",
+        "priority": "high",
+        "depends_on_tickets": [
+          "TICKET-061"
+        ],
+        "batch_id": "BATCH-028",
+        "route_refs": [
+          "/app/settings",
+          "/app/settings/ai"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/ai_provider_settings_source_blendr/screen.png",
+          "System-References/stitch_source_blendr_stage_4_prototype/ai_provider_settings_source_blendr/code.html"
+        ],
+        "expected_files": [
+          "apps/web/app/app/settings/page.tsx",
+          "apps/web/app/app/settings/ai/page.tsx",
+          "apps/web/app/app/settings/ai/ai-settings-client.tsx"
+        ],
+        "implementation_scope": [
+          "Rebuild provider cards/list, provider health states, credential error affordance, Edit buttons, capability routing table, save routing action, and health check action.",
+          "Map Fix credentials and Edit to current provider form/edit/upsert behavior.",
+          "Keep /app/settings as an existing settings hub or AI-settings entry point without adding docs/support routes."
+        ],
+        "acceptance_criteria": [
+          "/app/settings/ai visually matches the Stitch AI provider settings layout.",
+          "AI capability routing table saves through the current routing API.",
+          "Fix credentials and Edit controls are backed by existing form/update behavior.",
+          "Documentation/support footer links remain excluded.",
+          "Provider health and manual fallback behavior remain unchanged."
+        ],
+        "validation_steps": [
+          "Capture /app/settings and /app/settings/ai screenshots.",
+          "Verify provider add/edit/health/routing flows with current APIs.",
+          "Verify no unbacked docs/support links are introduced."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-072",
+        "title": "Run integrated visual consistency pass across rebuilt routes",
+        "ticket_type": "visual_qa_repair",
+        "priority": "critical",
+        "depends_on_tickets": [
+          "TICKET-062",
+          "TICKET-063",
+          "TICKET-064",
+          "TICKET-065",
+          "TICKET-066",
+          "TICKET-067",
+          "TICKET-068",
+          "TICKET-069",
+          "TICKET-070",
+          "TICKET-071"
+        ],
+        "batch_id": "BATCH-030",
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/imports/website",
+          "/app/imports/pdf",
+          "/app/imports/jobs",
+          "/app/imports/jobs/:jobId",
+          "/app/discovery",
+          "/app/discovery/:sessionId",
+          "/app/catalog",
+          "/app/catalog/new",
+          "/app/catalog/:itemId",
+          "/app/vendors",
+          "/app/vendors/new",
+          "/app/vendors/:vendorId",
+          "/app/settings",
+          "/app/settings/ai"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype/**/screen.png"
+        ],
+        "expected_files": [
+          "Build-Plans/Stage-6/evidence/REVISION-STITCH-PAGE-REBUILD-2026-08-08/visual-parity-review.md",
+          "Build-Plans/Stage-6/evidence/REVISION-STITCH-PAGE-REBUILD-2026-08-08/screenshots/**"
+        ],
+        "implementation_scope": [
+          "Capture rebuilt app screenshots at desktop, tablet, and mobile breakpoints.",
+          "Compare each route against its Stitch prototype screen or inherited visual source.",
+          "Create follow-up defects for remaining visual mismatches instead of expanding scope silently."
+        ],
+        "acceptance_criteria": [
+          "Each in-scope route has screenshot evidence.",
+          "Each route has an explicit pass, accepted deviation, or defect reference.",
+          "No deferred/discarded feature is accidentally visible as a production control.",
+          "Responsive behavior preserves the Stitch visual system and current navigation."
+        ],
+        "validation_steps": [
+          "Open each in-scope route locally.",
+          "Capture screenshots for configured breakpoints.",
+          "Review screenshots against prototype source images and record deviations."
+        ]
+      },
+      {
+        "ticket_id": "TICKET-073",
+        "title": "Run final regression gate for rebuilt visual layer",
+        "ticket_type": "stage_6_validation_gate",
+        "priority": "critical",
+        "depends_on_tickets": [
+          "TICKET-072"
+        ],
+        "batch_id": "BATCH-031",
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/imports/website",
+          "/app/imports/pdf",
+          "/app/imports/jobs",
+          "/app/discovery",
+          "/app/catalog",
+          "/app/catalog/new",
+          "/app/vendors",
+          "/app/settings/ai"
+        ],
+        "prototype_refs": [
+          "System-References/stitch_source_blendr_stage_4_prototype"
+        ],
+        "expected_files": [
+          "Build-Plans/Stage-6/evidence/REVISION-STITCH-PAGE-REBUILD-2026-08-08/final-regression-gate.json"
+        ],
+        "implementation_scope": [
+          "Run final static, type, build, route, and workflow smoke checks after visual rebuild.",
+          "Confirm scraper, PDF OCR, import job, discovery, catalog, vendor, and AI settings behavior was not interrupted.",
+          "Record known visual deviations and unresolved defects before marking execution complete."
+        ],
+        "acceptance_criteria": [
+          "Type/build checks pass or have explicit approved exception records.",
+          "Key app routes return successfully in local runtime.",
+          "Existing backend/API contracts remain unchanged unless separately approved.",
+          "Visual QA evidence exists and references the Stitch prototype screenshots.",
+          "Execution is not marked complete with unresolved critical visual or behavioral defects."
+        ],
+        "validation_steps": [
+          "Run the web app's available lint/type/build/test commands.",
+          "Smoke test scraper/import, PDF import, import job detail, discovery candidate action, catalog create/list, vendor create/list, and AI provider settings paths.",
+          "Record final gate result with links to evidence."
+        ]
+      }
+    ],
+    "batches": [
+      {
+        "batch_id": "BATCH-026",
+        "title": "Baseline and QA contract",
+        "tickets": [
+          "TICKET-060"
+        ],
+        "can_run_in_parallel": false
+      },
+      {
+        "batch_id": "BATCH-027",
+        "title": "Shared shell and design system rebuild",
+        "tickets": [
+          "TICKET-061"
+        ],
+        "depends_on_batches": [
+          "BATCH-026"
+        ],
+        "can_run_in_parallel": false
+      },
+      {
+        "batch_id": "BATCH-028",
+        "title": "Top-level route rebuilds",
+        "tickets": [
+          "TICKET-062",
+          "TICKET-063",
+          "TICKET-068",
+          "TICKET-070",
+          "TICKET-071"
+        ],
+        "depends_on_batches": [
+          "BATCH-027"
+        ],
+        "can_run_in_parallel": true,
+        "parallelization_note": "These tickets may run in parallel after the shell rebuild if shared component edits are coordinated or serialized through separate files."
+      },
+      {
+        "batch_id": "BATCH-029",
+        "title": "Workflow, detail, and form route rebuilds",
+        "tickets": [
+          "TICKET-064",
+          "TICKET-065",
+          "TICKET-066",
+          "TICKET-067",
+          "TICKET-069"
+        ],
+        "depends_on_batches": [
+          "BATCH-027",
+          "BATCH-028"
+        ],
+        "can_run_in_parallel": true,
+        "parallelization_note": "Workflow/detail tickets may run in parallel only when their parent route visual grammar is complete and they do not edit the same form component concurrently."
+      },
+      {
+        "batch_id": "BATCH-030",
+        "title": "Integrated visual QA",
+        "tickets": [
+          "TICKET-072"
+        ],
+        "depends_on_batches": [
+          "BATCH-028",
+          "BATCH-029"
+        ],
+        "can_run_in_parallel": false
+      },
+      {
+        "batch_id": "BATCH-031",
+        "title": "Final regression gate",
+        "tickets": [
+          "TICKET-073"
+        ],
+        "depends_on_batches": [
+          "BATCH-030"
+        ],
+        "can_run_in_parallel": false
+      }
+    ],
+    "dependency_notes": [
+      "TICKET-060 must run first because it defines the visual QA contract and route/component baseline.",
+      "TICKET-061 must run before page rebuilds because every target page depends on the shared shell and visual primitives.",
+      "TICKET-064, TICKET-065, and TICKET-066 depend on imports visual grammar from TICKET-063.",
+      "TICKET-069 depends on catalog visual grammar from TICKET-068.",
+      "TICKET-072 must wait for all rebuild tickets to complete because it validates cross-route visual consistency.",
+      "TICKET-073 must run last because it is the regression and release-readiness gate for this repair layer."
+    ]
+  }
+}

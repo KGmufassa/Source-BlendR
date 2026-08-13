@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Imports Workspace | Source BlendR</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        surface: "#FFFFFF",
+                        canvas: "#F9F8F6",
+                        graphite: "#333333",
+                        muted: "#666666",
+                        amber: {
+                            50: "#FFFBEB",
+                            100: "#FEF3C7",
+                            600: "#D97706",
+                            700: "#B45309"
+                        },
+                        stone: {
+                            50: "#F9F8F6",
+                            100: "#F3F2F0",
+                            200: "#E7E5E4",
+                            800: "#292524",
+                            900: "#1C1917",
+                            950: "#0C0A09"
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Inter", "sans-serif"],
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9F8F6;
+            color: #333333;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E7E5E4;
+            border-radius: 10px;
+        }
+        /* Active state for side nav from JSON */
+        .nav-item-active {
+            background-color: #FFFFFF;
+            color: #1C1917;
+            border-left: 4px solid #D97706;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-hidden">
+<!-- SideNavBar (Authority: JSON & Contextual State Logic) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 z-50 bg-stone-50 border-r border-stone-200 w-64">
+<div class="px-6 mb-8">
+<h1 class="text-stone-900 font-black text-xl tracking-tighter">Source BlendR</h1>
+<p class="text-stone-500 text-[10px] uppercase tracking-widest font-bold">Inventory Ops</p>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<!-- Overview -->
+<a class="flex items-center px-3 py-2 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-transform active:translate-x-1 rounded group" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">dashboard</span>
+<span>Overview</span>
+</a>
+<!-- Imports (ACTIVE per Route /app/imports) -->
+<a class="flex items-center px-3 py-2 text-xs font-medium text-stone-900 bg-white border-l-4 border-amber-600 shadow-sm transition-transform active:translate-x-1 rounded" href="/app/imports">
+<span class="material-symbols-outlined mr-3 text-lg text-amber-600">upload_file</span>
+<span>Imports</span>
+</a>
+<!-- Discovery -->
+<a class="flex items-center px-3 py-2 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-transform active:translate-x-1 rounded group" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">explore</span>
+<span>Discovery</span>
+</a>
+<!-- Catalog -->
+<a class="flex items-center px-3 py-2 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-transform active:translate-x-1 rounded group" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">inventory_2</span>
+<span>Catalog</span>
+</a>
+<!-- Vendors -->
+<a class="flex items-center px-3 py-2 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-transform active:translate-x-1 rounded group" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">storefront</span>
+<span>Vendors</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center px-3 py-2 text-xs font-medium text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-transform active:translate-x-1 rounded group" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto pt-4 border-t border-stone-200">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-stone-200 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a corporate operations manager with a confident expression. The lighting is bright and clean, typical of a modern workspace environment, using a soft off-white background that matches a minimalist UI aesthetic. The manager is wearing smart casual attire in neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5YVf9qZEcDYVBwyRnt9bfMSdCHSUygj6zPuMD3F94BrwNdlEeL4bhvmWLVSR1RFQSPSymmiyYIh5e9OhzvTq_I95quR0tUAACCCpUtce1yA86rK2pfsE36eAVHHpRLFPAJE5RVBuoQLT-B5_a9ImPUZn_wXAFQbOj0-fgl2MqgugrFEdLAJ5AfxYE8KotCn-ilUeHMJsygvj1LkIVrMopo8vggiP3VdSn7hLq25DAH2z6R6qfNM4h2K4O45lRpp5clkqhby0wp4w"/>
+</div>
+<div class="flex flex-col">
+<span class="text-[11px] font-semibold text-stone-900">Workspace Owner</span>
+<span class="text-[10px] text-stone-500 italic">Stage 4 Access</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col relative overflow-y-auto custom-scrollbar">
+<!-- TopBar (From JSON) -->
+<header class="flex justify-between items-center h-14 px-8 w-full z-40 bg-surface border-b border-stone-200 sticky top-0">
+<div class="flex items-center gap-4">
+<span class="text-stone-400 text-xs">/app/imports</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined text-stone-500 hover:text-stone-800 cursor-pointer">notifications</span>
+<span class="absolute top-0 right-0 w-1.5 h-1.5 bg-amber-600 rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-stone-500 hover:text-stone-800 cursor-pointer">help_outline</span>
+</div>
+</header>
+<div class="p-8 max-w-7xl w-full mx-auto">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-2xl font-bold text-graphite tracking-tight mb-1">Imports</h2>
+<div class="flex items-center gap-2">
+<span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium text-muted uppercase tracking-wider">System status: Operational</span>
+</div>
+</div>
+<div class="text-xs text-muted">
+                    Last sync: <span class="text-graphite font-medium">Just now</span>
+</div>
+</div>
+<!-- Import Methods (Method Chooser) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<a class="group block p-6 bg-white border border-stone-200 rounded hover:border-amber-600 transition-all focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2" href="/app/imports/website">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2 bg-amber-50 rounded">
+<span class="material-symbols-outlined text-amber-600">language</span>
+</div>
+<span class="material-symbols-outlined text-stone-300 group-hover:text-amber-600 transition-colors">arrow_forward_ios</span>
+</div>
+<h3 class="text-sm font-bold text-graphite mb-1">Website Import</h3>
+<p class="text-xs text-muted leading-relaxed">Sync product data directly from a vendor URL. Automated scraping and mapping of inventory items.</p>
+</a>
+<a class="group block p-6 bg-white border border-stone-200 rounded hover:border-amber-600 transition-all focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2" href="/app/imports/pdf">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2 bg-amber-50 rounded">
+<span class="material-symbols-outlined text-amber-600">picture_as_pdf</span>
+</div>
+<span class="material-symbols-outlined text-stone-300 group-hover:text-amber-600 transition-colors">arrow_forward_ios</span>
+</div>
+<h3 class="text-sm font-bold text-graphite mb-1">PDF Catalog</h3>
+<p class="text-xs text-muted leading-relaxed">Extract structured inventory from digital catalogs. AI-powered table and spec detection.</p>
+</a>
+</section>
+<!-- Recent Jobs Table -->
+<section class="bg-white border border-stone-200 rounded overflow-hidden">
+<div class="px-6 py-4 border-b border-stone-200 bg-stone-50 flex justify-between items-center">
+<h3 class="text-xs font-bold text-graphite uppercase tracking-wider">Recent Jobs</h3>
+<button class="text-[10px] font-bold text-amber-600 hover:underline uppercase">View All Logs</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-[11px] font-semibold text-muted bg-stone-50/50 border-b border-stone-100">
+<th class="px-6 py-3">Job ID / Vendor</th>
+<th class="px-6 py-3">Method</th>
+<th class="px-6 py-3">Status</th>
+<th class="px-6 py-3">Progress</th>
+<th class="px-6 py-3">Started</th>
+<th class="px-6 py-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="text-xs divide-y divide-stone-100">
+<!-- Job 1 -->
+<tr class="hover:bg-stone-50 transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-graphite">IMP-8924</div>
+<div class="text-[10px] text-muted">TechTronics Global</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-muted">
+<span class="material-symbols-outlined text-base">language</span>
+<span>Website</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-100">
+                                        Processing
+                                    </span>
+</td>
+<td class="px-6 py-4 w-40">
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between text-[10px] font-medium text-muted">
+<span>45%</span>
+<span>64/142 items</span>
+</div>
+<div class="w-full bg-stone-100 rounded-full h-1">
+<div class="bg-blue-600 h-1 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-muted italic">2m ago</td>
+<td class="px-6 py-4 text-right">
+<a class="text-amber-600 hover:text-amber-700 font-bold p-1" href="/app/imports/jobs/IMP-8924">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</td>
+</tr>
+<!-- Job 2 -->
+<tr class="hover:bg-stone-50 transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-graphite">IMP-8923</div>
+<div class="text-[10px] text-muted">Nordic Components</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-muted">
+<span class="material-symbols-outlined text-base">picture_as_pdf</span>
+<span>PDF</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
+                                        Completed
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="text-[10px] text-emerald-600 font-medium">100% (212 items)</div>
+</td>
+<td class="px-6 py-4 text-muted italic">14m ago</td>
+<td class="px-6 py-4 text-right">
+<a class="text-amber-600 hover:text-amber-700 font-bold p-1" href="/app/imports/jobs/IMP-8923">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</td>
+</tr>
+<!-- Job 3 -->
+<tr class="hover:bg-stone-50 transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-graphite">IMP-8922</div>
+<div class="text-[10px] text-muted">Acme Corp EU</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-muted">
+<span class="material-symbols-outlined text-base">language</span>
+<span>Website</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="inline-flex items-center w-fit px-2 py-0.5 rounded-full text-[10px] font-medium bg-red-50 text-red-700 border border-red-100 mb-1">
+                                            Failed
+                                        </span>
+<span class="text-[9px] text-red-500 leading-tight">Schema validation error</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="text-[10px] text-stone-400">0% aborted</div>
+</td>
+<td class="px-6 py-4 text-muted italic">1h ago</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="text-[10px] px-2 py-1 bg-amber-600 text-white font-bold rounded hover:bg-amber-700 transition-colors">Retry</button>
+<a class="text-stone-400 hover:text-graphite font-bold p-1" href="/app/imports/jobs/IMP-8922">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Empty State (Reference) - Hidden by default unless queue is clear -->
+<section class="hidden mt-12 py-20 bg-stone-100/50 border border-dashed border-stone-300 rounded flex flex-col items-center justify-center text-center" id="empty-state">
+<div class="w-12 h-12 rounded-full bg-stone-200 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-stone-500 text-2xl">queue</span>
+</div>
+<h4 class="text-sm font-bold text-graphite mb-1">No active imports</h4>
+<p class="text-xs text-muted max-w-xs px-6">Your job queue is currently empty. Start a new import above to populate this workspace.</p>
+</section>
+</div>
+</main>
+<!-- Micro-interaction script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to toggle empty state for demonstration if requested
+            window.toggleQueueState = (isEmpty) => {
+                const table = document.querySelector('section:has(table)');
+                const emptyState = document.getElementById('empty-state');
+                if (isEmpty) {
+                    table.classList.add('hidden');
+                    emptyState.classList.remove('hidden');
+                } else {
+                    table.classList.remove('hidden');
+                    emptyState.classList.add('hidden');
+                }
+            };
+
+            // Simple row interaction feedback
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                row.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+                        const link = row.querySelector('a');
+                        if (link) window.location.href = link.href;
+                    }
+                });
+                row.style.cursor = 'pointer';
+            });
+        });
+    </script>
+</body></html>

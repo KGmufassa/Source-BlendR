@@ -29,8 +29,8 @@ test("app shell renders design tokens and accessible navigation", () => {
     workspaceName: "Demo Workspace",
   });
 
-  assert.match(html, /--sb-canvas: #f7f9fb/);
+  assert.match(html, /--sb-canvas: #F7F6F2/);
   assert.match(html, /aria-label="Primary workspace navigation"/);
   assert.match(html, /aria-current="page">Catalog/);
-  assert.equal(DESIGN_TOKENS.color.action, "#006c49");
+  assert.equal(DESIGN_TOKENS.color.action, "#A85E2A");
 });

@@ -8,10 +8,7 @@
     "artifact_id",
     "artifact_type",
     "stage",
-    "status",
-    "context_ref",
-    "traceability_refs",
-    "data"
+    "status"
   ],
   "properties": {
     "format_version": { "const": "2.0" },
@@ -25,7 +22,10 @@
         "build_tickets",
         "agent_assignment_plan",
         "parallel_execution_plan",
-        "release_plan"
+        "release_plan",
+        "revision_build_tickets",
+        "revision_repair_tickets",
+        "stage_5_revision_ticket_plan"
       ]
     },
     "stage": { "const": "Stage 5" },
@@ -35,6 +35,25 @@
     "data": { "type": "object" }
   },
   "allOf": [
+    {
+      "if": {
+        "properties": {
+          "artifact_type": {
+            "enum": [
+              "development_roadmap",
+              "implementation_sequence",
+              "engineering_dependencies",
+              "testing_strategy",
+              "build_tickets",
+              "agent_assignment_plan",
+              "parallel_execution_plan",
+              "release_plan"
+            ]
+          }
+        }
+      },
+      "then": { "required": ["context_ref", "traceability_refs", "data"] }
+    },
     {
       "if": { "properties": { "artifact_type": { "const": "development_roadmap" } } },
       "then": { "properties": { "data": { "required": ["development_roadmap", "workstreams", "milestones"] } } }
@@ -66,6 +85,48 @@
     {
       "if": { "properties": { "artifact_type": { "const": "release_plan" } } },
       "then": { "properties": { "data": { "required": ["release_plan"] } } }
+    },
+    {
+      "if": { "properties": { "artifact_type": { "const": "stage_5_revision_ticket_plan" } } },
+      "then": {
+        "required": [
+          "created_at",
+          "revision_id",
+          "supersedes_or_extends",
+          "summary_ref",
+          "prototype_ref",
+          "ticket_id_range",
+          "goal",
+          "execution_policy",
+          "source_of_truth_policy",
+          "route_component_mapping",
+          "data"
+        ],
+        "properties": {
+          "data": { "required": ["ticket_count", "tickets", "batches"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "artifact_type": {
+            "enum": ["revision_build_tickets", "revision_repair_tickets"]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "revision_id",
+          "summary_ref",
+          "prototype_ref",
+          "ticket_id_range",
+          "data"
+        ],
+        "properties": {
+          "data": { "required": ["ticket_count", "tickets", "batches"] }
+        }
+      }
     }
   ],
   "additionalProperties": true

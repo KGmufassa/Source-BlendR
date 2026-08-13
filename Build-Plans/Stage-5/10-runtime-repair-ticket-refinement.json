@@ -1,0 +1,32 @@
+{
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S5-RUNTIME-REPAIR-REFINEMENT-2026-08-05",
+  "artifact_type": "ticket_refinement_revision",
+  "stage": "Stage 5",
+  "status": "routed_to_stage_6_repair",
+  "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
+  "created_at": "2026-08-05T00:00:00-04:00",
+  "revision_id": "REVISION-S5-RUNTIME-REPAIR-2026-08-05",
+  "reason": "Refine broad tickets into explicit user-verified runtime repair tickets before Stage 7.",
+  "added_tickets": [
+    "TICKET-022",
+    "TICKET-023",
+    "TICKET-024",
+    "TICKET-025",
+    "TICKET-026",
+    "TICKET-027",
+    "TICKET-028"
+  ],
+  "added_batches": [
+    "BATCH-008",
+    "BATCH-009"
+  ],
+  "completion_policy": {
+    "planned_wired_verified": true,
+    "verified_required_for_stage_7": true,
+    "dead_control_audit_required": true,
+    "fixture_ban_for_runtime_pages": true,
+    "smoke_test_per_core_workflow_required": true
+  },
+  "stage_7_boundary": "Stage 7 remains paused until TICKET-022 through TICKET-028 are implemented and validated in Stage 6."
+}

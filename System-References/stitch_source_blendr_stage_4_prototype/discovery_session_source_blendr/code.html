@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Source BlendR | Discovery Session SES-8812</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        surface: "#FFFFFF",
+                        canvas: "#F9F8F6", // Warm off-white canvas
+                        graphite: "#333333",
+                        muted: "#71717a",
+                        amber: {
+                            50: "#FFFBEB",
+                            100: "#FEF3C7",
+                            200: "#FDE68A",
+                            300: "#FCD34D",
+                            400: "#FBBF24",
+                            500: "#F59E0B",
+                            600: "#A85E2A", // Stage 4 Primary
+                            700: "#B45309",
+                            800: "#92400E",
+                            900: "#78350F",
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Inter", "sans-serif"],
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
+        
+        /* Drawer animation */
+        #candidate-drawer {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #candidate-drawer.closed {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="bg-canvas text-graphite antialiased min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 z-50 bg-stone-50 dark:bg-stone-950 border-r border-stone-200 dark:border-stone-800 w-64">
+<div class="px-6 mb-8">
+<h1 class="text-stone-900 dark:text-stone-50 font-black text-xl tracking-tight">Source BlendR</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Inventory Ops</p>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors font-medium text-xs rounded" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors font-medium text-xs rounded" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">upload_file</span>
+                Imports
+            </a>
+<!-- Active Tab: Discovery -->
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-stone-900 text-stone-900 dark:text-white border-l-4 border-amber-600 shadow-sm font-medium text-xs active:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined text-amber-600" style="font-size: 20px;">explore</span>
+                Discovery
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors font-medium text-xs rounded" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">inventory_2</span>
+                Catalog
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors font-medium text-xs rounded" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">storefront</span>
+                Vendors
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors font-medium text-xs rounded" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="px-6 py-4 border-t border-stone-200 dark:border-stone-800">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-stone-200 flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-500 text-sm">person</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold text-stone-900 truncate">Ops Lead</p>
+<p class="text-[10px] text-stone-500 truncate">ID: 8812-X</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="pl-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="flex justify-between items-center h-14 px-6 w-full z-40 bg-surface dark:bg-surface border-b border-stone-200 dark:border-stone-800 sticky top-0">
+<div class="flex items-center gap-4">
+<h2 class="text-lg font-bold tracking-tight text-stone-900 dark:text-stone-50">Discovery Session: <span class="text-amber-600 font-semibold">SES-8812</span></h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm">search</span>
+<input class="pl-9 pr-4 py-1.5 text-xs bg-stone-50 border border-stone-200 rounded w-64 focus:ring-1 focus:ring-amber-600 focus:border-amber-600 outline-none transition-all" placeholder="Search candidates..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-stone-50 dark:hover:bg-stone-900 transition-colors text-stone-500">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="p-2 hover:bg-stone-50 dark:hover:bg-stone-900 transition-colors text-stone-500">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-stone-200 border border-stone-300 overflow-hidden ml-2">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a female logistics manager with a focused expression, wearing a neutral grey business casual blazer against a soft, clean white background. High-key lighting highlights her professional and capable aura, matching a high-end corporate application aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_r5hBkHxMD307eVqB04DroiG8jFOv7VOWS0OStEefueUCCqjrcPPzSlaFKuFcZEfnoVgnBvbRYfXATI0uuKQro9hKJ-yPoyuey9Pzg7r7a3ug0sNCSHZabhuBIZkR-8pjWvuskDirGi4arxNUaaRQbVHbFb1tGMhAyGK_s-W7oGWzoA1dP0F1pFOnBBi3f1aIE5_sJ8ZKbgroOd1q7akLgudfh0KFPB9AZTKKdOkwIwyJVO2ppqe5cSJg7UNkTT4FH6OnynD5kDk"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Tool Bar / Filter Bar -->
+<div class="px-8 py-4 flex items-center justify-between bg-canvas/50 backdrop-blur-sm sticky top-14 z-30">
+<div class="flex items-center gap-3">
+<div class="flex bg-white rounded border border-stone-200 p-1 shadow-sm">
+<button class="px-3 py-1 text-xs font-semibold bg-amber-50 text-amber-700 rounded transition-colors">All (42)</button>
+<button class="px-3 py-1 text-xs font-medium text-stone-500 hover:text-stone-700 transition-colors">New (18)</button>
+<button class="px-3 py-1 text-xs font-medium text-stone-500 hover:text-stone-700 transition-colors">Conflicts (5)</button>
+<button class="px-3 py-1 text-xs font-medium text-stone-500 hover:text-stone-700 transition-colors">Duplicates (12)</button>
+</div>
+<div class="h-4 w-px bg-stone-300"></div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-white border border-stone-200 rounded text-stone-700 hover:bg-stone-50 transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                    More Filters
+                </button>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-muted uppercase font-bold tracking-wider mr-2">Bulk Actions</span>
+<button class="px-4 py-1.5 text-xs font-bold bg-amber-600 text-white rounded hover:bg-amber-700 transition-colors shadow-sm flex items-center gap-1.5" onclick="showToast('Import successful')">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Import Selected
+                </button>
+<button class="px-4 py-1.5 text-xs font-bold bg-white border border-stone-200 text-stone-600 rounded hover:bg-stone-50 transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">block</span>
+                    Ignore
+                </button>
+<button class="px-4 py-1.5 text-xs font-bold bg-white border border-stone-200 text-stone-600 rounded hover:bg-stone-50 transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">archive</span>
+                    Archive
+                </button>
+</div>
+</div>
+<!-- Table Container -->
+<section class="flex-1 px-8 pb-12">
+<div class="bg-surface border border-stone-200 rounded-lg shadow-sm overflow-hidden">
+<table class="w-full text-left border-collapse table-fixed">
+<thead>
+<tr class="bg-stone-50/50 border-b border-stone-200">
+<th class="w-12 px-4 py-3"><input class="rounded border-stone-300 text-amber-600 focus:ring-amber-600" type="checkbox"/></th>
+<th class="w-16 px-2 py-3 text-[10px] font-bold text-muted uppercase tracking-wider">Image</th>
+<th class="w-64 px-4 py-3 text-[10px] font-bold text-muted uppercase tracking-wider">Product Name</th>
+<th class="w-32 px-4 py-3 text-[10px] font-bold text-muted uppercase tracking-wider">SKU</th>
+<th class="w-24 px-4 py-3 text-[10px] font-bold text-muted uppercase tracking-wider">Price</th>
+<th class="w-24 px-4 py-3 text-[10px] font-bold text-muted uppercase tracking-wider">Confidence</th>
+<th class="w-32 px-4 py-3 text-[10px] font-bold text-muted uppercase tracking-wider">Status</th>
+<th class="w-24 px-4 py-3 text-[10px] font-bold text-muted uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-100">
+<!-- Row 1: Ready to Import -->
+<tr class="hover:bg-stone-50/50 transition-colors group">
+<td class="px-4 py-3"><input class="rounded border-stone-300 text-amber-600 focus:ring-amber-600" type="checkbox"/></td>
+<td class="px-2 py-3">
+<div class="w-10 h-10 rounded border border-stone-100 bg-stone-50 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A macro studio photograph of a premium ergonomic mechanical keyboard, featuring sleek matte black keycaps with soft orange backlighting. The scene is lit with cool blue and warm amber rim lighting, emphasizing metallic textures and industrial design quality suitable for an enterprise product catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpLd-BoA4IX-8eu2SWKgYqDyatev8RhOmryhMZl25HiaTT_scrIDNY-l9GKGAyzr-6iWvWVdYbYa0XpY6Ya1cJ-bWZQzlyivt1YFhN0RKLjfA3fQv0l7AcPZ3pTC1kymuNBN0bdPPIG3qhEfm0X2mlLJ0sBztijkh4ulPQTtxbbqdlKlwGr2g9B5nnchgvc7qADNFCrGsidXp4d_faYrfsRNChXhaOnV8_UM-7IiP7NAc_2GSacsLk3eEy_On-O2ina8c_zBp1GJM"/>
+</div>
+</td>
+<td class="px-4 py-3">
+<p class="text-xs font-bold text-stone-900">Vortex-X Mechanical Keyboard</p>
+<p class="text-[10px] text-muted">Peripherals &gt; Input</p>
+</td>
+<td class="px-4 py-3 text-[11px] font-mono text-stone-600">VX-882-BLK</td>
+<td class="px-4 py-3 text-xs font-semibold text-stone-800">$189.00</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<div class="h-1.5 w-12 bg-stone-100 rounded-full overflow-hidden">
+<div class="h-full bg-emerald-500 w-[96%]"></div>
+</div>
+<span class="text-[10px] font-bold text-emerald-600">96%</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 uppercase tracking-tight">Ready</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-[10px] font-bold text-amber-600 hover:text-amber-700 transition-colors uppercase" onclick="toggleDrawer()">Preview</button>
+</td>
+</tr>
+<!-- Row 2: Conflict (Schema Error) -->
+<tr class="hover:bg-stone-50/50 transition-colors group">
+<td class="px-4 py-3"><input class="rounded border-stone-300 text-amber-600 focus:ring-amber-600" type="checkbox"/></td>
+<td class="px-2 py-3">
+<div class="w-10 h-10 rounded border border-stone-100 bg-stone-50 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up professional product shot of an industrial-grade USB-C hub with multiple ports. The device has a brushed aluminum finish and is placed on a clean white surface with sharp shadows. The mood is clinical, modern, and highly detailed, conveying a sense of quality and reliability in hardware." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwCqjU5BE8cKRwPbHzdoDmJOndWlOtB6DTrXZzUb_cCMggVC6Yzx2yqtc-cNIqDr-CmtDKEdVTO0YMwgEAsm_538g-nMQ-FnC5QNPWLyG_UuzuPvQDyk_b-BCxHOhkLwGPQG_J7clA8sklXf01GLExzrIlpPVuB7r_tKQLEauPeFbB_2Nr-_qN7nnyTBfedIt4uy4xE3BFC0BX3mmJUlBhqq4lip1okmUw8aXuAWx4xCQf3-gE6johjletThRqQ5n6RHfwAQawBZY"/>
+</div>
+</td>
+<td class="px-4 py-3">
+<p class="text-xs font-bold text-stone-900">MultiPort Hub Gen 3</p>
+<p class="text-[10px] text-muted">Connectors &gt; Hubs</p>
+</td>
+<td class="px-4 py-3 text-[11px] font-mono text-red-600 bg-red-50/50 border border-red-100 rounded px-1">INVALID_SKU</td>
+<td class="px-4 py-3 text-xs font-semibold text-stone-800">$45.00</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<div class="h-1.5 w-12 bg-stone-100 rounded-full overflow-hidden">
+<div class="h-full bg-amber-400 w-[72%]"></div>
+</div>
+<span class="text-[10px] font-bold text-amber-600">72%</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-red-50 text-red-700 border border-red-100 uppercase tracking-tight">Conflict</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-[10px] font-bold text-amber-600 hover:text-amber-700 transition-colors uppercase" onclick="toggleDrawer()">Preview</button>
+</td>
+</tr>
+<!-- Row 3: Duplicate -->
+<tr class="hover:bg-stone-50/50 transition-colors group">
+<td class="px-4 py-3"><input class="rounded border-stone-300 text-amber-600 focus:ring-amber-600" type="checkbox"/></td>
+<td class="px-2 py-3">
+<div class="w-10 h-10 rounded border border-stone-100 bg-stone-50 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sleek minimalist wireless charging pad in white marble finish, captured in a bright high-end office environment with natural daylight. The image has a very clean aesthetic, focusing on the material texture and simple geometric shape, consistent with modern lifestyle and tech product photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0uNATVf_Zz5dVIRPGicwWB8WDrIozS0TTQipuAdEYkPoCYh04i-zEBJOIJqCGk-Y4lAwlWRWIHZ2kL94_yI3n3goMwQnJtn1WK699cxRKNUhgu9f7nlZQgLZEumVR3PBm3xW2NMkJheODJgzXUFoAueU1xC9Wi5mq9xXPVt_IxMYz3DrwF0ovBkQmnZ8H7EKEGa_6EcdFCE-2OOifkaNHk8i6H1w7tgURwvd1aZzEEIHjN0fSBn20E_1TfE9MDdwhKad1I6EIl5E"/>
+</div>
+</td>
+<td class="px-4 py-3">
+<p class="text-xs font-bold text-stone-900">Qi-Charge Pad (White)</p>
+<p class="text-[10px] text-muted">Power &gt; Wireless</p>
+</td>
+<td class="px-4 py-3 text-[11px] font-mono text-stone-600">QI-W-100</td>
+<td class="px-4 py-3 text-xs font-semibold text-stone-800">$29.99</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-1.5">
+<div class="h-1.5 w-12 bg-stone-100 rounded-full overflow-hidden">
+<div class="h-full bg-stone-300 w-[100%]"></div>
+</div>
+<span class="text-[10px] font-bold text-stone-500">100%</span>
+</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-stone-100 text-stone-600 border border-stone-200 uppercase tracking-tight">Duplicate</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-[10px] font-bold text-amber-600 hover:text-amber-700 transition-colors uppercase" onclick="toggleDrawer()">Preview</button>
+</td>
+</tr>
+<!-- Row 4: Skeleton Loading Row -->
+<tr class="animate-pulse">
+<td class="px-4 py-3"><div class="w-4 h-4 bg-stone-100 rounded"></div></td>
+<td class="px-2 py-3"><div class="w-10 h-10 bg-stone-100 rounded"></div></td>
+<td class="px-4 py-3">
+<div class="w-32 h-3 bg-stone-100 rounded mb-1.5"></div>
+<div class="w-20 h-2 bg-stone-100/50 rounded"></div>
+</td>
+<td class="px-4 py-3"><div class="w-16 h-3 bg-stone-100 rounded"></div></td>
+<td class="px-4 py-3"><div class="w-12 h-3 bg-stone-100 rounded"></div></td>
+<td class="px-4 py-3"><div class="w-16 h-1.5 bg-stone-100 rounded"></div></td>
+<td class="px-4 py-3"><div class="w-16 h-4 bg-stone-100 rounded"></div></td>
+<td class="px-4 py-3 text-right"><div class="w-12 h-3 bg-stone-100 rounded ml-auto"></div></td>
+</tr>
+</tbody>
+</table>
+<!-- Table Footer -->
+<div class="px-6 py-3 border-t border-stone-200 flex items-center justify-between bg-stone-50/30">
+<p class="text-[10px] font-medium text-stone-500">Showing 4 of 42 candidates identified in session SES-8812</p>
+<div class="flex items-center gap-1">
+<button class="p-1 hover:bg-stone-100 rounded text-stone-400"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<span class="px-2 text-[10px] font-bold text-stone-700">Page 1 of 11</span>
+<button class="p-1 hover:bg-stone-100 rounded text-stone-400"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Empty State Illustration (Hidden by default, used for logic) -->
+<div class="hidden flex-col items-center justify-center py-24 text-center" id="empty-state">
+<div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-3xl text-stone-300">fact_check</span>
+</div>
+<h3 class="text-sm font-bold text-stone-900">Queue is clear</h3>
+<p class="text-xs text-muted max-w-xs mt-1">All candidates in this session have been processed or archived. Check back later for new imports.</p>
+<button class="mt-4 px-4 py-2 text-xs font-bold border border-stone-200 rounded hover:bg-stone-50 transition-colors">Return to Dashboard</button>
+</div>
+</section>
+</main>
+<!-- Candidate Preview Drawer -->
+<div class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300" id="candidate-drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="fixed top-0 right-0 h-full w-[450px] bg-white border-l border-stone-200 shadow-2xl z-[70] closed flex flex-col" id="candidate-drawer">
+<div class="flex items-center justify-between px-6 py-4 border-b border-stone-100">
+<div>
+<h3 class="text-sm font-bold text-stone-900">Candidate Detail</h3>
+<p class="text-[10px] text-muted font-medium uppercase">Reference: SES-8812-CAN-042</p>
+</div>
+<button class="p-1 hover:bg-stone-100 rounded-full transition-colors" onclick="toggleDrawer()">
+<span class="material-symbols-outlined text-stone-400">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-8">
+<!-- Imagery Comparison -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<label class="text-[10px] font-bold text-muted uppercase tracking-wider">Source Analysis</label>
+<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">96% Confident</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<div class="aspect-square bg-stone-50 border border-stone-200 rounded overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale" data-alt="A raw, unedited source image of a mechanical keyboard taken in a warehouse setting under harsh fluorescent lighting. The photo shows the product from a slightly off-center angle, capturing a sense of 'real-world' source data before enterprise-grade curation. The mood is industrial and raw." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY35oFZ4ZOmMq4CpYicP5bLyEPX_S5AnlY9aBVmwwPxZ-w-dhHjUrLwgoz7eD6UwB7V7XldNnOAbMp-iYr7FMddBk1Uoplo_HozSNqUZPruTI0T3JN7VjPwSOd28KU8HVTO1gIUdZmlD1y0prS4fM2L-SWzwmTD-G7asetXOYppzfEAdhy-oCsvzzjdlBnbhGLhR8C1sR6KQ1mGpdRMCj2fLlEBAudHYfuBjOYSXcgG6tmbRVSMTtfD0x8DOaqkD-ME3c2KAXV7QY"/>
+<span class="absolute top-2 left-2 px-1.5 py-0.5 bg-black/50 text-[9px] text-white font-bold rounded">RAW SOURCE</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="aspect-square bg-stone-50 border border-amber-200 rounded overflow-hidden relative ring-2 ring-amber-500/10">
+<img class="w-full h-full object-cover" data-alt="An AI-curated and enhanced version of the same mechanical keyboard, now presented in a minimalist, soft-lit studio style. The background is pure neutral white, and the lighting is balanced to highlight the metallic texture and keycap legends. This version represents the desired final product for the catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG5SBXyywnf7vdTC7Z-Xb1HFsSQfh-QNbfo0nX2JX3G67bDNdA9h8xhsmafrtWUYjhFS_0KdJGNOpTAcbJEnpzAO4tl8wVX4sK1xjgzab6GYEz0jxsYfGB_4zRlypECxXlcgPd2uHFUWlBBnW1rJXBoo9TVEQCEDG-IhvkF9FUU5Z8V_AYgzaFKALs24Ip8AmhYb9tum9v04ecveZ6P0_x_DJjK9yaQf3AcjBbmT-cerMeH9dRCVhnPdnSRzFTW_P0uSkjHM_MYCs"/>
+<span class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-600 text-[9px] text-white font-bold rounded uppercase">AI Enhanced</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Metadata Fields -->
+<div class="space-y-4">
+<label class="text-[10px] font-bold text-muted uppercase tracking-wider">Extracted Metadata</label>
+<div class="space-y-4 bg-stone-50/50 p-4 rounded border border-stone-100">
+<div>
+<span class="text-[10px] text-muted font-medium mb-1 block">Product Name</span>
+<input class="w-full text-xs font-semibold px-3 py-2 border border-stone-200 rounded focus:ring-1 focus:ring-amber-600 outline-none" type="text" value="Vortex-X Mechanical Keyboard"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<span class="text-[10px] text-muted font-medium mb-1 block">SKU</span>
+<input class="w-full text-xs font-mono px-3 py-2 border border-stone-200 rounded focus:ring-1 focus:ring-amber-600 outline-none" type="text" value="VX-882-BLK"/>
+</div>
+<div>
+<span class="text-[10px] text-muted font-medium mb-1 block">Unit Price (USD)</span>
+<input class="w-full text-xs font-semibold px-3 py-2 border border-stone-200 rounded focus:ring-1 focus:ring-amber-600 outline-none" type="text" value="189.00"/>
+</div>
+</div>
+<div>
+<span class="text-[10px] text-muted font-medium mb-1 block">Attributes</span>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-white border border-stone-200 text-[10px] font-medium rounded">Switch: Cherry Blue <button class="text-stone-300 hover:text-stone-500">×</button></span>
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-white border border-stone-200 text-[10px] font-medium rounded">RGB: True <button class="text-stone-300 hover:text-stone-500">×</button></span>
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-white border border-stone-200 text-[10px] font-medium rounded">Wireless: False <button class="text-stone-300 hover:text-stone-500">×</button></span>
+<button class="text-[10px] font-bold text-amber-600 px-2 py-1">+ Add Attribute</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Provider Context -->
+<div class="space-y-3">
+<label class="text-[10px] font-bold text-muted uppercase tracking-wider">AI Inference Details</label>
+<div class="text-[11px] space-y-2 border-l-2 border-stone-200 pl-4 py-1">
+<div class="flex justify-between">
+<span class="text-muted">Model Provider</span>
+<span class="font-bold text-stone-800">SourceBlendR-V2 (Discovery)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-muted">Extracted Tokens</span>
+<span class="font-bold text-stone-800">1,204</span>
+</div>
+<div class="flex justify-between">
+<span class="text-muted">Processing Time</span>
+<span class="font-bold text-stone-800">0.84s</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-stone-100 grid grid-cols-2 gap-3">
+<button class="px-4 py-2 text-xs font-bold bg-white border border-stone-200 text-stone-600 rounded hover:bg-stone-50 transition-colors" onclick="toggleDrawer()">Discard</button>
+<button class="px-4 py-2 text-xs font-bold bg-amber-600 text-white rounded hover:bg-amber-700 transition-colors shadow-sm">Save &amp; Resolve</button>
+</div>
+</aside>
+<!-- Toast Success Notification -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 px-4 py-3 bg-stone-900 text-white rounded shadow-2xl z-[100] transform translate-y-24 opacity-0 transition-all duration-300" id="toast">
+<span class="material-symbols-outlined text-emerald-400">check_circle</span>
+<span class="text-xs font-medium" id="toast-message">Batch imported to Catalog successfully.</span>
+<button class="ml-2 p-0.5 hover:bg-white/10 rounded" onclick="hideToast()"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('candidate-drawer');
+            const overlay = document.getElementById('candidate-drawer-overlay');
+            
+            if (drawer.classList.contains('closed')) {
+                drawer.classList.remove('closed');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            } else {
+                drawer.classList.add('closed');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            
+            setTimeout(() => {
+                hideToast();
+            }, 4000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('translate-y-24', 'opacity-0');
+        }
+
+        // Simulating loading to empty state for demo purposes if someone clicks "Ignore" enough
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'e') {
+                document.querySelector('table').classList.toggle('hidden');
+                document.getElementById('empty-state').classList.toggle('hidden');
+                document.getElementById('empty-state').classList.toggle('flex');
+            }
+        });
+    </script>
+</body></html>

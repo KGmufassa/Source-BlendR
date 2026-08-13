@@ -1,0 +1,76 @@
+{
+  "evidence_id": "VISUAL-QA-STAGE4-REVISION-001",
+  "recorded_at": "2026-08-04T01:24:26Z",
+  "revision_scope": "Apply revised Stage 4 UI blueprint and design system contracts to the current frontend",
+  "traceability": {
+    "ui_blueprint_ids": [
+      "UI-BLUEPRINT-SCREEN-001",
+      "UI-BLUEPRINT-SCREEN-002",
+      "UI-BLUEPRINT-SCREEN-005",
+      "UI-BLUEPRINT-SCREEN-006",
+      "UI-BLUEPRINT-SCREEN-007",
+      "UI-BLUEPRINT-SCREEN-008",
+      "UI-BLUEPRINT-SCREEN-010"
+    ],
+    "design_system_ids": [
+      "DESIGN-SYSTEM-001"
+    ]
+  },
+  "implementation": {
+    "status": "complete_pending_visual_review",
+    "design_system_changes": [
+      "Applied the approved warm off-white, graphite, amber, semantic status, and teal focus tokens",
+      "Reduced cards and controls to the approved 6px default radius",
+      "Removed default card elevation in favor of flat bordered modules",
+      "Added compact sticky table headers and tabular numeric styling",
+      "Implemented persistent desktop navigation and labeled mobile bottom navigation",
+      "Implemented two-column desktop forms and single-column mobile forms",
+      "Implemented stacked labeled table records and full-screen mobile drawers"
+    ],
+    "workflow_changes": [
+      "Made workspace status and next actions the overview's primary focus",
+      "Added explicit website and PDF import method cards",
+      "Added a reusable text-labeled JobProgressTimeline",
+      "Added catalog and discovery empty-filter recovery states",
+      "Made discovery bulk actions selection-aware",
+      "Added an Escape-dismissible candidate preview drawer with explicit save and cancel actions",
+      "Improved provider routing status hierarchy and semantic status labels"
+    ],
+    "shared_components": [
+      "AppShell",
+      "Sidebar",
+      "Breadcrumbs",
+      "StatusBadge",
+      "JobProgressTimeline",
+      "SearchFilterBar",
+      "BulkActionToolbar",
+      "DataTable",
+      "FormField",
+      "Toast",
+      "EmptyState",
+      "ErrorState",
+      "AccessibleDrawer"
+    ]
+  },
+  "validation": {
+    "typecheck": "passed",
+    "contract_tests": {
+      "status": "passed",
+      "passed": 37,
+      "failed": 0
+    },
+    "lint": "passed",
+    "production_build": "passed",
+    "responsive_contract_review": "passed_by_source_inspection",
+    "design_system_compliance": "passed_by_token_and_component_contract_tests",
+    "browser_visual_qa": {
+      "status": "not_run",
+      "reason": "No in-app or connected browser was available in the execution workspace.",
+      "required_follow_up": "Capture fresh desktop and mobile previews for the revised frontend before marking visual QA complete."
+    }
+  },
+  "deployment": {
+    "status": "not_run",
+    "reason": "The existing Next.js application has no .openai/hosting.json or established Sites-compatible deployment output."
+  }
+}

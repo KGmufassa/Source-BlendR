@@ -1,7 +1,7 @@
 {
   "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
   "stage": "Stage 6",
-  "status": "needs_repair",
+  "status": "implementation_complete_visual_validation_pending",
   "implemented_tickets": [
     "TICKET-001",
     "TICKET-002",
@@ -23,7 +23,14 @@
     "TICKET-017",
     "TICKET-019",
     "TICKET-020",
-    "TICKET-021"
+    "TICKET-021",
+    "TICKET-022",
+    "TICKET-023",
+    "TICKET-024",
+    "TICKET-025",
+    "TICKET-026",
+    "TICKET-027",
+    "TICKET-028"
   ],
   "pending_tickets": [],
   "blocked_tickets": [],
@@ -547,13 +554,13 @@
     }
   ],
   "unresolved_blockers": [
-    "REVISION-S7-001 remains open: the deployable catalog, website-import, discovery-promotion, and credential runtime foundation is live-validated, but PDF/storage and live provider routing remain."
+    "Runtime implementation and HTTP smoke passed, but required browser click-through screenshots for TICKET-022, TICKET-023, TICKET-026, and TICKET-027 remain unavailable because no browser backend was connected."
   ],
   "runtime_revision": {
-    "revision_id": "REVISION-S7-001",
-    "status": "in_progress",
-    "evidence_ref": "ARTIFACT-S6-RUNTIME-REVISION-001",
-    "validated_at": "2026-07-31T00:59:00Z"
+    "revision_id": "REVISION-S5-RUNTIME-REPAIR-2026-08-05",
+    "status": "runtime_repair_implemented_visual_evidence_pending",
+    "evidence_ref": "ARTIFACT-S6-RUNTIME-REPAIR-2026-08-05",
+    "validated_at": "2026-08-06T01:33:00Z"
   },
   "artifact_refs": [
     "ARTIFACT-S5-001-TEST",
@@ -615,6 +622,7 @@
     "ARTIFACT-S5-021-TEST",
     "ARTIFACT-S5-021-VALIDATION",
     "ARTIFACT-S5-021-BUILD",
-    "ARTIFACT-S6-RUNTIME-REVISION-001"
+    "ARTIFACT-S6-RUNTIME-REVISION-001",
+    "ARTIFACT-S6-RUNTIME-REPAIR-2026-08-05"
   ]
 }

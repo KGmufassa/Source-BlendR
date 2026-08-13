@@ -1,0 +1,78 @@
+{
+  "$schema": "../../../System-References/Schemas/stage-6-output.schema.json",
+  "stage": "Stage 6",
+  "status": "runtime_passed_visual_evidence_pending",
+  "evidence_id": "ARTIFACT-S6-RUNTIME-REPAIR-2026-08-05",
+  "recorded_at": "2026-08-06T01:33:00Z",
+  "ticket_ids": [
+    "TICKET-022",
+    "TICKET-023",
+    "TICKET-024",
+    "TICKET-025",
+    "TICKET-026",
+    "TICKET-027",
+    "TICKET-028"
+  ],
+  "dependency_execution_order": [
+    "TICKET-022",
+    "TICKET-023",
+    "TICKET-024",
+    "TICKET-025",
+    "TICKET-026",
+    "TICKET-027",
+    "TICKET-028"
+  ],
+  "automated_validation": {
+    "corepack pnpm test": "passed: 41 contract tests and 15 Vitest tests",
+    "corepack pnpm typecheck": "passed",
+    "corepack pnpm lint": "passed",
+    "corepack pnpm build": "passed",
+    "corepack pnpm smoke:stage6": "passed"
+  },
+  "runtime_smoke": {
+    "status": "passed",
+    "vendor_id": "cmsguarqc00003lnzghcjq60f",
+    "catalog_item_id": "cmsguarth00013lnzoaavhnw5",
+    "provider_id": "cmsguarul00023lnzfh1nz31r",
+    "website_job_id": "cmsguarya00033lnzbz6ph0dt",
+    "website_session_id": "cmsguas6x0002eynzfvnatasm",
+    "pdf_job_id": "cmsguasav00063lnzkuieb3yd",
+    "pdf_session_id": "cmsguasb70007eynz72fr3uv8",
+    "imported_candidate_count": 3,
+    "retry_job_id": "cmsgubca1000a3lnzxfovg8ug",
+    "retry_event_chain": ["queued", "canceled", "retried", "processing", "completed"]
+  },
+  "preview_checks": {
+    "status": "passed",
+    "http_200_routes": [
+      "/app",
+      "/app/imports/website",
+      "/app/imports/pdf",
+      "/app/catalog/new",
+      "/app/vendors",
+      "/app/vendors/:vendorId",
+      "/app/imports/jobs/:jobId",
+      "/app/discovery/:sessionId",
+      "/app/settings/ai"
+    ]
+  },
+  "security_review": {
+    "status": "passed_with_residual_risk",
+    "fixed_findings": [
+      "Workspace ownership checks added to vendor-linked mutations",
+      "PDF MIME, filename, size, signature, workspace, and path validation enforced",
+      "Cross-origin browser mutations rejected",
+      "Hosted AI providers cannot health-check private literal endpoints or send credentials over HTTP",
+      "Canceled jobs cannot be overwritten as failed by workers"
+    ],
+    "residual_risks": [
+      "DNS rebinding protection for website imports and provider hostnames requires a pinned-address HTTP client before public multi-tenant launch.",
+      "PDF extraction currently handles readable text; full binary PDF parsing and OCR remain a documented upgrade path."
+    ]
+  },
+  "remaining_gate": {
+    "status": "blocked_by_unavailable_browser_backend",
+    "details": "The browser plugin reported no available browser backends, so repaired UI click-through screenshots and responsive browser evidence could not be captured.",
+    "required_action": "Connect an in-app or extension browser, rerun the visible workflows, and register TICKET-022, TICKET-023, TICKET-026, and TICKET-027 screenshot evidence before Stage 7 resumes."
+  }
+}

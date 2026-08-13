@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Job Detail IMP-8922 - Source BlendR</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        surface: "#FFFFFF",
+                        canvas: "#FBFBFA", // Warm off-white
+                        graphite: "#333333",
+                        muted: "#666666",
+                        amber: {
+                            50: "#FFFBEB",
+                            100: "#FEF3C7",
+                            500: "#F59E0B",
+                            600: "#D97706",
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Inter", "sans-serif"],
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #FBFBFA;
+            color: #333333;
+        }
+        .step-line::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            bottom: -8px;
+            width: 2px;
+            background-color: #E5E7EB;
+        }
+        .step-line-last::before {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-body antialiased">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-4 z-50 bg-stone-50 dark:bg-stone-950 border-r border-stone-200 dark:border-stone-800 w-64">
+<div class="px-6 mb-8">
+<h1 class="text-stone-900 dark:text-stone-50 font-black text-lg">Source BlendR</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Inventory Ops</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<!-- Overview -->
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 rounded group" href="/app/overview">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-medium text-xs">Overview</span>
+</a>
+<!-- Imports (Active) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-stone-900 text-stone-900 dark:text-white border-l-4 border-amber-600 shadow-sm transition-transform active:translate-x-1 rounded" href="/app/imports">
+<span class="material-symbols-outlined text-xl text-amber-600">upload_file</span>
+<span class="font-medium text-xs">Imports</span>
+</a>
+<!-- Discovery -->
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 rounded" href="/app/discovery">
+<span class="material-symbols-outlined text-xl">explore</span>
+<span class="font-medium text-xs">Discovery</span>
+</a>
+<!-- Catalog -->
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 rounded" href="/app/catalog">
+<span class="material-symbols-outlined text-xl">inventory_2</span>
+<span class="font-medium text-xs">Catalog</span>
+</a>
+<!-- Vendors -->
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 rounded" href="/app/vendors">
+<span class="material-symbols-outlined text-xl">storefront</span>
+<span class="font-medium text-xs">Vendors</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-3 py-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-900 transition-transform active:translate-x-1 rounded" href="/app/settings">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="font-medium text-xs">Settings</span>
+</a>
+</nav>
+<div class="px-6 py-4 border-t border-stone-200 dark:border-stone-800">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-600 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up professional headshot of a workspace owner in a minimalist modern office setting. The lighting is soft and natural, emphasizing a calm, professional atmosphere. The individual is wearing a charcoal blazer, reflecting the graphite and off-white color palette of the brand. High-resolution digital photography with subtle depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdW4mgLWJk5SbTv4Lgv02Lc1eB5xHTLyk-s8u4LCcYlSkSdrplTWInINuABtEKUIkjELR4dVmoIcM9LoP734jje_35O064WoTLXq2dGL-cJbub1HRSypTY9De56W7TWDbD7pIBEvv8ljFDCcZLfJd0T8tShvw2uyio70bwQ83Mq5H7kmZ1AsMvKUJ4aBP3M-6yMTX01BeRit0YwtoBinfzR-_GvtcZ35hj0Me5T_4jqAkDg7Cu6gRwn8bHRtXEgNy38Xy4bDk3PzE"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold text-stone-900 dark:text-stone-50 truncate">Workspace Owner</p>
+<p class="text-[10px] text-stone-500 truncate">role: workspace_owner</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pl-64 min-h-screen">
+<!-- TopAppBar (Simulated) -->
+<header class="flex justify-between items-center h-14 px-8 w-full z-40 bg-surface dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 sticky top-0">
+<div class="flex items-center gap-2 text-sm text-stone-500">
+<a class="hover:text-amber-600 transition-colors" href="/app/imports">Imports</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-stone-900 font-semibold">Job IMP-8922</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 text-stone-500 hover:bg-stone-50 rounded transition-colors">notifications</button>
+<button class="material-symbols-outlined p-2 text-stone-500 hover:bg-stone-50 rounded transition-colors">help_outline</button>
+</div>
+</header>
+<div class="p-8 max-w-6xl mx-auto space-y-6">
+<!-- Job Status Header Card -->
+<section class="bg-white border border-stone-200 rounded p-6 shadow-sm">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="space-y-1">
+<div class="flex items-center gap-3">
+<h2 class="text-xl font-bold text-stone-900">Job IMP-8922</h2>
+<span class="px-2 py-0.5 rounded bg-red-50 text-red-700 border border-red-200 text-xs font-bold uppercase tracking-wider">Failed - Schema Validation Error</span>
+</div>
+<div class="flex items-center gap-4 text-sm text-stone-500">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> Created: 1h ago</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">update</span> Last Activity: 42m ago</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 text-sm font-medium text-stone-600 bg-white border border-stone-300 rounded hover:bg-stone-50 active:opacity-80 transition-all focus:ring-2 focus:ring-amber-500 focus:outline-none" onclick="window.location.href='ACTION-CANCEL-JOB/cancel_job'">
+                            Cancel job
+                        </button>
+<button class="px-4 py-2 text-sm font-semibold text-white bg-amber-600 border border-amber-700 rounded hover:bg-amber-700 active:opacity-80 transition-all focus:ring-2 focus:ring-amber-500 focus:outline-none flex items-center gap-2" onclick="window.location.href='ACTION-RETRY-JOB/retry_job'">
+<span class="material-symbols-outlined text-sm">refresh</span>
+                            Retry failed work
+                        </button>
+</div>
+</div>
+<hr class="my-6 border-stone-100"/>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Success Rate</p>
+<p class="text-2xl font-bold text-red-600">0%</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Processed</p>
+<p class="text-2xl font-bold text-stone-900">0 <span class="text-sm font-normal text-stone-400">/ 142 items</span></p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Aborted</p>
+<p class="text-2xl font-bold text-stone-900">0%</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Discovery Link</p>
+<a class="text-sm font-semibold text-amber-600 hover:underline flex items-center gap-1 mt-2" href="/app/discovery/DS-102">
+                            Open Discovery Session <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Details Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left: Step Timeline -->
+<section class="lg:col-span-5 bg-white border border-stone-200 rounded overflow-hidden shadow-sm">
+<div class="px-5 py-3 bg-stone-50 border-b border-stone-200">
+<h3 class="text-xs font-bold text-stone-600 uppercase tracking-wider">Pipeline Progress</h3>
+</div>
+<div class="p-6 space-y-8">
+<!-- Step 1: Connection -->
+<div class="relative flex gap-4 step-line">
+<div class="z-10 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center border-2 border-green-500">
+<span class="material-symbols-outlined text-green-600 text-sm font-bold" style="font-variation-settings: 'wght' 700">check</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-stone-900">Connection Established</h4>
+<p class="text-xs text-stone-500 mt-0.5">Secure handshake with Vendor API completed via OAuth2.</p>
+<span class="text-[10px] font-medium text-green-600 mt-1 block">Success at 14:02 UTC</span>
+</div>
+</div>
+<!-- Step 2: Retrieval -->
+<div class="relative flex gap-4 step-line">
+<div class="z-10 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center border-2 border-green-500">
+<span class="material-symbols-outlined text-green-600 text-sm font-bold" style="font-variation-settings: 'wght' 700">check</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-stone-900">Data Retrieval</h4>
+<p class="text-xs text-stone-500 mt-0.5">142 raw JSON objects fetched from source endpoint.</p>
+<span class="text-[10px] font-medium text-green-600 mt-1 block">Success at 14:05 UTC</span>
+</div>
+</div>
+<!-- Step 3: Schema Mapping (Failed) -->
+<div class="relative flex gap-4 step-line">
+<div class="z-10 w-6 h-6 rounded-full bg-red-100 flex items-center justify-center border-2 border-red-500">
+<span class="material-symbols-outlined text-red-600 text-sm font-bold" style="font-variation-settings: 'wght' 700">close</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-stone-900">Schema Mapping</h4>
+<p class="text-xs text-red-600 mt-0.5 font-medium">Critical: Expected field 'sku' not found in source mapping.</p>
+<span class="text-[10px] font-medium text-red-500 mt-1 block">Failed at 14:08 UTC</span>
+</div>
+</div>
+<!-- Step 4: Validation -->
+<div class="relative flex gap-4 step-line">
+<div class="z-10 w-6 h-6 rounded-full bg-stone-50 flex items-center justify-center border-2 border-stone-200">
+<span class="material-symbols-outlined text-stone-300 text-sm font-bold" style="font-variation-settings: 'wght' 700">circle</span>
+</div>
+<div class="opacity-40">
+<h4 class="text-sm font-bold text-stone-900">Validation</h4>
+<p class="text-xs text-stone-500 mt-0.5">Integrity check for mandatory product attributes.</p>
+<span class="text-[10px] font-medium text-stone-400 mt-1 block">Pending</span>
+</div>
+</div>
+<!-- Step 5: Final Ingestion -->
+<div class="relative flex gap-4 step-line step-line-last">
+<div class="z-10 w-6 h-6 rounded-full bg-stone-50 flex items-center justify-center border-2 border-stone-200">
+<span class="material-symbols-outlined text-stone-300 text-sm font-bold" style="font-variation-settings: 'wght' 700">circle</span>
+</div>
+<div class="opacity-40">
+<h4 class="text-sm font-bold text-stone-900">Final Ingestion</h4>
+<p class="text-xs text-stone-500 mt-0.5">Synchronizing validated items to Master Catalog.</p>
+<span class="text-[10px] font-medium text-stone-400 mt-1 block">Pending</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Event Log / Details -->
+<section class="lg:col-span-7 space-y-6">
+<!-- Event Log -->
+<div class="bg-white border border-stone-200 rounded overflow-hidden shadow-sm">
+<div class="px-5 py-3 bg-stone-50 border-b border-stone-200 flex justify-between items-center">
+<h3 class="text-xs font-bold text-stone-600 uppercase tracking-wider">Event Log</h3>
+<button class="text-[10px] font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1 uppercase tracking-tighter">
+<span class="material-symbols-outlined text-xs">download</span> Download Raw Logs
+                            </button>
+</div>
+<div class="p-0">
+<table class="w-full text-left text-xs border-collapse">
+<thead>
+<tr class="text-[10px] font-bold text-stone-400 uppercase tracking-widest border-b border-stone-100 bg-stone-50/50">
+<th class="px-5 py-2 w-24">Timestamp</th>
+<th class="px-2 py-2 w-20">Level</th>
+<th class="px-5 py-2">Event Description</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-50">
+<tr class="hover:bg-stone-50 transition-colors">
+<td class="px-5 py-3 text-stone-400 tabular-nums">14:08:22</td>
+<td class="px-2 py-3"><span class="px-1.5 py-0.5 rounded bg-red-100 text-red-700 font-bold text-[9px] uppercase">Critical</span></td>
+<td class="px-5 py-3 font-medium text-red-600">Expected field 'sku' not found in source mapping. Mapping execution halted.</td>
+</tr>
+<tr class="hover:bg-stone-50 transition-colors">
+<td class="px-5 py-3 text-stone-400 tabular-nums">14:08:21</td>
+<td class="px-2 py-3"><span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 font-bold text-[9px] uppercase">Warning</span></td>
+<td class="px-5 py-3 text-stone-600">Minor mismatch in 'price' field format; auto-casting to Float.</td>
+</tr>
+<tr class="hover:bg-stone-50 transition-colors">
+<td class="px-5 py-3 text-stone-400 tabular-nums">14:05:44</td>
+<td class="px-2 py-3"><span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-bold text-[9px] uppercase">Info</span></td>
+<td class="px-5 py-3 text-stone-600">Data retrieval successful. Total items: 142. Size: 1.4MB.</td>
+</tr>
+<tr class="hover:bg-stone-50 transition-colors">
+<td class="px-5 py-3 text-stone-400 tabular-nums">14:02:11</td>
+<td class="px-2 py-3"><span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-bold text-[9px] uppercase">Info</span></td>
+<td class="px-5 py-3 text-stone-600">Connection to 'Acme Global Provider' established.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Environment Context -->
+<div class="bg-white border border-stone-200 rounded overflow-hidden shadow-sm">
+<div class="px-5 py-3 bg-stone-50 border-b border-stone-200">
+<h3 class="text-xs font-bold text-stone-600 uppercase tracking-wider">Job Context</h3>
+</div>
+<div class="p-5 grid grid-cols-2 gap-y-4 gap-x-8">
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-0.5">Provider</p>
+<p class="text-sm font-semibold text-stone-900">Acme Global Wholesale</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-0.5">Region</p>
+<p class="text-sm font-semibold text-stone-900">US-EAST-1</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-0.5">Job Initiator</p>
+<p class="text-sm font-semibold text-stone-900 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-amber-600" style="font-variation-settings: 'FILL' 1">smart_toy</span>
+                                    Scheduled Automation (Agent B-4)
+                                </p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-0.5">Schema Version</p>
+<p class="text-sm font-semibold text-stone-900">v4.2.1-stable</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Meta -->
+<footer class="flex justify-between items-center text-[10px] text-stone-400 font-medium px-2 py-4">
+<div class="flex items-center gap-4">
+<span>JOB_HASH: 0x82f9...a12</span>
+<span>ENGINE_VER: 4.12.0</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                    Operational Alert: Schema mismatch detected.
+                </div>
+</footer>
+</div>
+</main>
+<!-- Simple Tooltip Component (Vanilla JS for micro-interaction) -->
+<script>
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', function() {
+                this.classList.add('scale-95');
+            });
+            btn.addEventListener('mouseup', function() {
+                this.classList.remove('scale-95');
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.classList.remove('scale-95');
+            });
+        });
+    </script>
+</body></html>

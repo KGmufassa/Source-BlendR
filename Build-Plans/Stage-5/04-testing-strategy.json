@@ -4,7 +4,7 @@
   "artifact_id": "ARTIFACT-S5-TESTING",
   "artifact_type": "testing_strategy",
   "stage": "Stage 5",
-  "status": "ready_for_stage_6",
+  "status": "awaiting_user_approval_for_scraper_repair",
   "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
   "traceability_refs": [
     "FEATURE-001",
@@ -207,6 +207,26 @@
         "Screen-reader smoke and visual comparison require human review in Stage 6",
         "Representative-site anti-bot behavior requires controlled manual observation"
       ]
+    },
+    "scraper_repair_testing": {
+      "revision_id": "REVISION-S5-SCRAPER-REPAIR-2026-08-06",
+      "release_blocking": true,
+      "definition_of_100_percent": "All declared expected outputs and outcomes in the supported golden-fixture matrix pass; this is not a claim of universal arbitrary-site compatibility.",
+      "required_suites": [
+        "Shopify collection, pagination, product, variant, SKU, price, availability, image, canonical URL, and provenance fixtures",
+        "Generic JavaScript rendering, cookie overlay, load-more, bounded-scroll, timeout, and partial-success fixtures",
+        "Worker claim, heartbeat, graceful shutdown, stalled-job recovery, checkpoint resume, and counter reconciliation",
+        "Canonicalization and zero-duplicate assertions across retries and overlapping categories",
+        "Deterministic-first extraction, validated AI fallback, provider-disabled, budget-exhausted, invalid-output, and manual-review states",
+        "SSRF, redirect, DNS revalidation, protocol, robots, host-rate, timeout, response-size, page-count, and browser-resource controls",
+        "Browser category-selection workflow with desktop, tablet, mobile, keyboard, accessible status, and screenshot evidence"
+      ],
+      "live_canary": {
+        "target": "Blank Knights Shopify collection",
+        "consecutive_passes_required": 3,
+        "manual_queue_or_database_intervention_allowed": false
+      },
+      "failure_policy": "Any missing expected output, duplicate canonical record, unexplained counter mismatch, security-policy miss, stalled job, or missing browser evidence fails TICKET-039 and keeps Stage 7 paused."
     },
     "risk_refs": [
       "RISK-S5-001",

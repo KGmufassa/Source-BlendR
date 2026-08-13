@@ -1,0 +1,64 @@
+{
+  "$schema": "../../../System-References/Schemas/stage-6-evidence.schema.json",
+  "artifact_id": "ARTIFACT-S6-STITCH-PROTOTYPE-UI-EVIDENCE-2026-08-06",
+  "revision_id": "REVISION-STITCH-PROTOTYPE-UI-2026-08-06",
+  "source_ticket_plan": "Build-Plans/Stage-5/13-stitch-stage4-ui-revision-tickets.json",
+  "status": "passed",
+  "validated_at": "2026-08-07",
+  "tickets": [
+    "TICKET-040",
+    "TICKET-041",
+    "TICKET-042",
+    "TICKET-043",
+    "TICKET-044",
+    "TICKET-045",
+    "TICKET-046",
+    "TICKET-047",
+    "TICKET-048",
+    "TICKET-049",
+    "TICKET-050",
+    "TICKET-051",
+    "TICKET-052"
+  ],
+  "implemented_approved_features": [
+    "Detected Category Tree in wizard",
+    "Hierarchical category tree rendering",
+    "Import job status cards/details",
+    "Discovery candidate preview drawer",
+    "Discovery AI inference details",
+    "Catalog category filter",
+    "Catalog product/service segmented control",
+    "Permission denied/provider summary cards"
+  ],
+  "excluded_deferred_features": [
+    "Download Analysis Report PDF",
+    "Catalog mobile floating create button",
+    "Vendor state toggles",
+    "Vendor footer links",
+    "Topbar notification/help buttons",
+    "Provider documentation/support links"
+  ],
+  "validation_commands": [
+    {
+      "command": "corepack pnpm typecheck",
+      "status": "passed"
+    },
+    {
+      "command": "corepack pnpm test:contracts",
+      "status": "passed",
+      "result": "66 passed, 0 failed"
+    },
+    {
+      "command": "corepack pnpm --filter @source-blendr/web build",
+      "status": "passed"
+    }
+  ],
+  "notes": [
+    "Implementation followed the ticket dependency graph: design system, shell, independent top-level pages, workflow/detail pages, then validation.",
+    "No backend schema expansion was introduced for prototype-only visuals.",
+    "Catalog category filtering is derived from current catalog type metadata to preserve the existing repository contract.",
+    "AI inference details render only when candidate payload contains backed metadata such as provider/model, confidence, or explanation.",
+    "Only duplicate generated files matching apps/web/.next/* 2.* were removed to unblock TypeScript validation; no source files were deleted.",
+    "Fresh live browser screenshot evidence was not captured in this run; existing static preview evidence remains available and the production build route table passed."
+  ]
+}

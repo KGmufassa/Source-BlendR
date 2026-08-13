@@ -1,7 +1,7 @@
 {
   "$schema": "../../System-References/Schemas/stage-6-output.schema.json",
   "stage": "Stage 6",
-  "status": "ready_for_stage_7",
+  "status": "needs_visual_validation",
   "ticket_validation_results": [
     {
       "validation_id": "VALIDATION-S6-001",
@@ -946,6 +946,27 @@
       "coverage_gaps": [
         "Stage 6 records dry-run readiness only; Stage 7 owns production deployment execution, live credentials, hosted health endpoints, and live Sentry/project wiring."
       ]
+    },
+    {
+      "validation_id": "VALIDATION-S6-RUNTIME-REPAIR-2026-08-05",
+      "ticket_id": "TICKET-022-through-TICKET-028",
+      "slice_id": "SLICE-016-through-SLICE-022",
+      "agent_id": "AGENT-VALIDATION",
+      "batch_id": "BATCH-008-and-BATCH-009",
+      "status": "runtime_passed_visual_evidence_pending",
+      "acceptance_criteria_status": "partial",
+      "checks": [
+        { "command": "corepack pnpm test", "status": "passed", "notes": "41 contract tests and 15 Vitest tests passed." },
+        { "command": "corepack pnpm typecheck", "status": "passed" },
+        { "command": "corepack pnpm lint", "status": "passed" },
+        { "command": "corepack pnpm build", "status": "passed" },
+        { "command": "corepack pnpm smoke:stage6", "status": "passed", "evidence": "ARTIFACT-S6-RUNTIME-REPAIR-2026-08-05" },
+        { "command": "production route HTTP checks", "status": "passed", "notes": "Nine repaired runtime routes returned HTTP 200." },
+        { "command": "browser click-through and screenshot capture", "status": "blocked", "notes": "Browser runtime reported no available browser backends." }
+      ],
+      "coverage_gaps": [
+        "Required click-through, responsive browser, and screenshot evidence remains pending for frontend repair tickets."
+      ]
     }
   ],
   "agent_validation_results": [
@@ -1080,14 +1101,17 @@
       ]
     }
   ],
-  "failed_checks": [],
+  "failed_checks": [
+    "Browser click-through and screenshot capture could not run because no browser backend was available."
+  ],
   "coverage_gaps": [
     "TICKET-016 mobile/tablet screenshot capture was not available through the browser plugin; responsive rules are present in code and visual screenshot exists for desktop shell.",
     "BATCH-003 freezes contracts; runtime Redis/BullMQ, provider SDKs, route handlers, and Prisma repository implementations remain downstream.",
     "BATCH-004 freezes contracts and previewable UI; production integrations remain downstream.",
     "BATCH-005 freezes frontend workflow contracts and previewable UI; production route handlers and real browser automation remain downstream.",
     "BATCH-006 is contract-level validation; real browser automation, production middleware, and deployed storage ACL validation remain downstream.",
-    "BATCH-007 is dry-run deployment readiness evidence; Stage 7 must verify real deployment, credentials, hosted health checks, monitoring alerts, and rollback in target environments."
+    "BATCH-007 is dry-run deployment readiness evidence; Stage 7 must verify real deployment, credentials, hosted health checks, monitoring alerts, and rollback in target environments.",
+    "Runtime repair behavior passed production HTTP smoke, but repaired UI screenshot and responsive browser evidence remains pending."
   ],
   "visual_qa_results": [
     {
@@ -1316,6 +1340,7 @@
     "ARTIFACT-S5-020-SCREENSHOT",
     "ARTIFACT-S5-021-TEST",
     "ARTIFACT-S5-021-VALIDATION",
-    "ARTIFACT-S5-021-BUILD"
+    "ARTIFACT-S5-021-BUILD",
+    "ARTIFACT-S6-RUNTIME-REPAIR-2026-08-05"
   ]
 }

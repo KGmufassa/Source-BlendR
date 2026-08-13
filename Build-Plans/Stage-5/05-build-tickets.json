@@ -4,7 +4,7 @@
   "artifact_id": "ARTIFACT-S5-TICKETS",
   "artifact_type": "build_tickets",
   "stage": "Stage 5",
-  "status": "ready_for_stage_6",
+  "status": "scraper_repair_visual_validation_pending",
   "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
   "traceability_refs": [
     "SLICE-001",
@@ -42,10 +42,41 @@
     "TICKET-018",
     "TICKET-019",
     "TICKET-020",
-    "TICKET-021"
+    "TICKET-021",
+    "TICKET-022",
+    "SLICE-016",
+    "TICKET-023",
+    "SLICE-017",
+    "TICKET-024",
+    "SLICE-018",
+    "TICKET-025",
+    "SLICE-019",
+    "TICKET-026",
+    "SLICE-020",
+    "TICKET-027",
+    "SLICE-021",
+    "TICKET-028",
+    "SLICE-022",
+    "SLICE-023",
+    "SLICE-024",
+    "SLICE-025",
+    "SLICE-026",
+    "SLICE-027",
+    "SLICE-028",
+    "TICKET-029",
+    "TICKET-030",
+    "TICKET-031",
+    "TICKET-032",
+    "TICKET-033",
+    "TICKET-034",
+    "TICKET-035",
+    "TICKET-036",
+    "TICKET-037",
+    "TICKET-038",
+    "TICKET-039"
   ],
   "data": {
-    "ticket_count": 21,
+    "ticket_count": 39,
     "tickets": [
       {
         "ticket_id": "TICKET-001",
@@ -3997,6 +4028,1607 @@
         "handoff_notes": "Do not change the selected stack or upstream behavior. Mark blocked if a referenced contract is missing or contradictory.",
         "stage_6_execution_queue_position": 21,
         "completion_status": "not_started"
+      },
+      {
+        "ticket_id": "TICKET-022",
+        "slice_id": "SLICE-016",
+        "title": "Wire runtime forms and response handling",
+        "description": "Repair website import, PDF import, catalog create, and vendor create form/API mismatches so submissions produce redirects, success states, and field errors instead of raw JSON or no-op behavior.",
+        "ticket_type": "frontend",
+        "priority": "critical",
+        "stage_1_feature_refs": [
+          "FEATURE-001",
+          "FEATURE-003",
+          "FEATURE-004",
+          "FEATURE-005",
+          "FEATURE-013"
+        ],
+        "stage_1_workflow_refs": [
+          "WORKFLOW-001",
+          "WORKFLOW-002",
+          "WORKFLOW-003",
+          "WORKFLOW-007"
+        ],
+        "stage_2_assumption_refs": [],
+        "stage_3_architecture_refs": [
+          "ADR-003",
+          "ADR-006",
+          "ADR-009"
+        ],
+        "stage_4_ux_refs": [],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-003",
+          "UI-BLUEPRINT-SCREEN-004",
+          "UI-BLUEPRINT-SCREEN-005",
+          "UI-BLUEPRINT-SCREEN-006",
+          "UI-BLUEPRINT-SCREEN-009",
+          "UI-BLUEPRINT-SCREEN-010"
+        ],
+        "visual_spec_refs": [
+          "VISUAL-SPEC-001"
+        ],
+        "visual_reference_refs": [
+          "REF-UTILITARIAN",
+          "REF-BENTO-MODIFIER"
+        ],
+        "design_system_refs": [
+          "DESIGN-SYSTEM-001"
+        ],
+        "complete_app_blueprint_ref": "Build-Plans/Stage-4/09-complete-app-blueprint.md",
+        "page_refs": [],
+        "component_refs": [],
+        "shared_component_refs": [
+          "AppShell",
+          "StatusBadge",
+          "DataTable",
+          "FormField"
+        ],
+        "route_refs": [
+          "/app/imports/website",
+          "/app/imports/pdf",
+          "/app/catalog/new",
+          "/app/vendors/new"
+        ],
+        "state_refs": [],
+        "action_refs": [
+          "ACTION-ANALYZE-WEBSITE",
+          "ACTION-START-PDF",
+          "ACTION-SAVE-ITEM"
+        ],
+        "interactive_element_refs": [
+          "EL-WEB-002",
+          "EL-PDF-002",
+          "EL-FORM-002",
+          "EL-VEN-001"
+        ],
+        "frontend_task_hint": "Repair runtime UI wiring so every launch-critical action can be completed from the UI without developer tools.",
+        "visual_requirements": {
+          "preserve_existing_stage_4_visual_contract": true
+        },
+        "responsive_requirements": {
+          "preserve_existing_responsive_contract": true
+        },
+        "visual_acceptance_criteria_refs": [
+          "VISUAL-QA-001"
+        ],
+        "preview_required": true,
+        "visual_qa_required": true,
+        "design_system_compliance_required": true,
+        "expected_artifacts": [
+          {
+            "artifact_id": "ARTIFACT-S5-022-TEST",
+            "type": "test_output",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-022-VALIDATION",
+            "type": "validation_report",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-022-SMOKE",
+            "type": "workflow_smoke_test",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-022-PREVIEW",
+            "type": "preview_url",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-022-SCREENSHOT",
+            "type": "screenshot",
+            "required_for_completion": true
+          }
+        ],
+        "prerequisites": [
+          "Completed base Stage 6 implementation",
+          "Relevant live API/database/queue/storage contracts readable",
+          "No Stage 7 deployment or provisioning work in scope"
+        ],
+        "depends_on_tickets": [
+          "TICKET-008",
+          "TICKET-011",
+          "TICKET-012",
+          "TICKET-013",
+          "TICKET-017"
+        ],
+        "primary_skill": "frontend-design",
+        "recommended_skills": [
+          "frontend-design",
+          "Test-driven-development",
+          "ux-enforcement"
+        ],
+        "agent_required_skills": [
+          "frontend-design",
+          "Test-driven-development",
+          "ux-enforcement"
+        ],
+        "agent_skill_instructions": {
+          "must_use": [
+            "frontend-design",
+            "Test-driven-development"
+          ],
+          "use_if_needed": [
+            "ux-enforcement"
+          ],
+          "skill_usage_order": [
+            "frontend-design",
+            "Test-driven-development",
+            "ux-enforcement"
+          ],
+          "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+        },
+        "skill_match": {
+          "primary_skill_score": 0.92,
+          "matched_capabilities": [
+            "runtime_repair",
+            "frontend",
+            "ui_wiring"
+          ],
+          "matched_task_triggers": [
+            "Wire runtime forms and response handling"
+          ],
+          "matched_domains": [
+            "frontend"
+          ],
+          "risk_flags_considered": [
+            "REVISION-S7-001",
+            "RISK-S6-RUNTIME-WIRING"
+          ],
+          "selection_reason": "Repair ticket targets a launch-critical feature that existed as contract/static UI but was not user-verified end-to-end.",
+          "coverage_gaps": []
+        },
+        "completion_definition": {
+          "contract_only_allowed": false,
+          "fixture_runtime_allowed": false,
+          "requires_ui_wiring": true,
+          "requires_runtime_persistence": true,
+          "requires_end_to_end_smoke": true,
+          "done_means_user_can_complete_workflow": true,
+          "verification_chain": "UI action → API/server action → database/queue/storage → worker/service when applicable → result visible in UI → recorded test evidence"
+        },
+        "acceptance_criteria": [
+          "Submitting each launch-critical form works from the browser without developer tools",
+          "Each mutation either redirects to the created job/record or shows an accessible success/error message",
+          "No visible launch-critical control is left as a dead button or fixture-only interaction",
+          "Runtime pages use live database/API data; fixtures are allowed only in preview/static evidence files",
+          "User-facing success, redirect, validation error, and recoverable failure states are explicit",
+          "Required tests and evidence artifacts are registered"
+        ],
+        "validation_steps": [
+          "Smoke-submit website import, PDF import, catalog create, and vendor create through UI-level handlers",
+          "Run ticket-scoped unit/integration tests",
+          "Run typecheck, lint, and production build checks applicable to changed packages",
+          "Record smoke-test evidence and artifact registry updates"
+        ],
+        "risk_level": "critical",
+        "handoff_notes": "Repair ticket generated 2026-08-05T00:00:00-04:00 from user-identified pre-Stage-7 runtime gaps. Assigned owner: AGENT-FRONTEND.",
+      "stage_6_execution_queue_position": 22,
+      "completion_status": "implementation_complete_visual_validation_pending",
+        "repair_ticket": true,
+        "repair_reason": "Original broad tickets allowed contract/static implementation to pass without verified user workflow completion.",
+        "suggested_file_scopes": [
+          "apps/web/app/app/**",
+          "apps/web/app/api/**"
+        ]
+      },
+      {
+        "ticket_id": "TICKET-023",
+        "slice_id": "SLICE-017",
+        "title": "Replace fixture-backed runtime pages with live data",
+        "description": "Replace runtime usage of ui-fixtures on overview, imports, jobs, discovery, vendors, catalog detail, and AI settings pages with workspace-scoped database/API data.",
+        "ticket_type": "frontend",
+        "priority": "critical",
+        "stage_1_feature_refs": [
+          "FEATURE-001",
+          "FEATURE-003",
+          "FEATURE-004",
+          "FEATURE-005",
+          "FEATURE-013"
+        ],
+        "stage_1_workflow_refs": [
+          "WORKFLOW-001",
+          "WORKFLOW-002",
+          "WORKFLOW-003",
+          "WORKFLOW-007"
+        ],
+        "stage_2_assumption_refs": [],
+        "stage_3_architecture_refs": [
+          "ADR-003",
+          "ADR-006",
+          "ADR-009"
+        ],
+        "stage_4_ux_refs": [],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-003",
+          "UI-BLUEPRINT-SCREEN-004",
+          "UI-BLUEPRINT-SCREEN-005",
+          "UI-BLUEPRINT-SCREEN-006",
+          "UI-BLUEPRINT-SCREEN-009",
+          "UI-BLUEPRINT-SCREEN-010"
+        ],
+        "visual_spec_refs": [
+          "VISUAL-SPEC-001"
+        ],
+        "visual_reference_refs": [
+          "REF-UTILITARIAN",
+          "REF-BENTO-MODIFIER"
+        ],
+        "design_system_refs": [
+          "DESIGN-SYSTEM-001"
+        ],
+        "complete_app_blueprint_ref": "Build-Plans/Stage-4/09-complete-app-blueprint.md",
+        "page_refs": [],
+        "component_refs": [],
+        "shared_component_refs": [
+          "AppShell",
+          "StatusBadge",
+          "DataTable",
+          "FormField"
+        ],
+        "route_refs": [
+          "/app",
+          "/app/imports",
+          "/app/imports/jobs",
+          "/app/imports/jobs/:jobId",
+          "/app/discovery",
+          "/app/discovery/:sessionId",
+          "/app/vendors",
+          "/app/vendors/:vendorId",
+          "/app/settings/ai"
+        ],
+        "state_refs": [],
+        "action_refs": [
+          "ACTION-OPEN-JOB",
+          "ACTION-OPEN-DISCOVERY",
+          "ACTION-HEALTH-CHECK"
+        ],
+        "interactive_element_refs": [],
+        "frontend_task_hint": "Repair runtime UI wiring so every launch-critical action can be completed from the UI without developer tools.",
+        "visual_requirements": {
+          "preserve_existing_stage_4_visual_contract": true
+        },
+        "responsive_requirements": {
+          "preserve_existing_responsive_contract": true
+        },
+        "visual_acceptance_criteria_refs": [
+          "VISUAL-QA-001"
+        ],
+        "preview_required": true,
+        "visual_qa_required": true,
+        "design_system_compliance_required": true,
+        "expected_artifacts": [
+          {
+            "artifact_id": "ARTIFACT-S5-023-TEST",
+            "type": "test_output",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-023-VALIDATION",
+            "type": "validation_report",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-023-SMOKE",
+            "type": "workflow_smoke_test",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-023-PREVIEW",
+            "type": "preview_url",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-023-SCREENSHOT",
+            "type": "screenshot",
+            "required_for_completion": true
+          }
+        ],
+        "prerequisites": [
+          "Completed base Stage 6 implementation",
+          "Relevant live API/database/queue/storage contracts readable",
+          "No Stage 7 deployment or provisioning work in scope"
+        ],
+        "depends_on_tickets": [
+          "TICKET-006",
+          "TICKET-008",
+          "TICKET-014",
+          "TICKET-017",
+          "TICKET-018",
+          "TICKET-022"
+        ],
+        "primary_skill": "frontend-design",
+        "recommended_skills": [
+          "frontend-design",
+          "Test-driven-development",
+          "ux-enforcement"
+        ],
+        "agent_required_skills": [
+          "frontend-design",
+          "Test-driven-development",
+          "ux-enforcement"
+        ],
+        "agent_skill_instructions": {
+          "must_use": [
+            "frontend-design",
+            "Test-driven-development"
+          ],
+          "use_if_needed": [
+            "ux-enforcement"
+          ],
+          "skill_usage_order": [
+            "frontend-design",
+            "Test-driven-development",
+            "ux-enforcement"
+          ],
+          "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+        },
+        "skill_match": {
+          "primary_skill_score": 0.92,
+          "matched_capabilities": [
+            "runtime_repair",
+            "frontend",
+            "ui_wiring"
+          ],
+          "matched_task_triggers": [
+            "Replace fixture-backed runtime pages with live data"
+          ],
+          "matched_domains": [
+            "frontend"
+          ],
+          "risk_flags_considered": [
+            "REVISION-S7-001",
+            "RISK-S6-RUNTIME-WIRING"
+          ],
+          "selection_reason": "Repair ticket targets a launch-critical feature that existed as contract/static UI but was not user-verified end-to-end.",
+          "coverage_gaps": []
+        },
+        "completion_definition": {
+          "contract_only_allowed": false,
+          "fixture_runtime_allowed": false,
+          "requires_ui_wiring": true,
+          "requires_runtime_persistence": true,
+          "requires_end_to_end_smoke": true,
+          "done_means_user_can_complete_workflow": true,
+          "verification_chain": "UI action → API/server action → database/queue/storage → worker/service when applicable → result visible in UI → recorded test evidence"
+        },
+        "acceptance_criteria": [
+          "No launch-critical runtime page imports ui-fixtures for production-rendered data",
+          "Empty/loading/error states are shown when live data is unavailable",
+          "No visible launch-critical control is left as a dead button or fixture-only interaction",
+          "Runtime pages use live database/API data; fixtures are allowed only in preview/static evidence files",
+          "User-facing success, redirect, validation error, and recoverable failure states are explicit",
+          "Required tests and evidence artifacts are registered"
+        ],
+        "validation_steps": [
+          "Static grep or test proves ui-fixtures are absent from runtime pages except preview/test files",
+          "Run ticket-scoped unit/integration tests",
+          "Run typecheck, lint, and production build checks applicable to changed packages",
+          "Record smoke-test evidence and artifact registry updates"
+        ],
+        "risk_level": "critical",
+        "handoff_notes": "Repair ticket generated 2026-08-05T00:00:00-04:00 from user-identified pre-Stage-7 runtime gaps. Assigned owner: AGENT-FRONTEND.",
+      "stage_6_execution_queue_position": 23,
+      "completion_status": "implementation_complete_visual_validation_pending",
+        "repair_ticket": true,
+        "repair_reason": "Original broad tickets allowed contract/static implementation to pass without verified user workflow completion.",
+        "suggested_file_scopes": [
+          "apps/web/app/app/**",
+          "apps/web/app/api/**"
+        ]
+      },
+      {
+        "ticket_id": "TICKET-024",
+        "slice_id": "SLICE-018",
+        "title": "Complete vendor CRUD runtime",
+        "description": "Add workspace-scoped vendor create/list/detail API behavior and connect it to vendor pages and import forms.",
+        "ticket_type": "backend",
+        "priority": "high",
+        "stage_1_feature_refs": [
+          "FEATURE-002",
+          "FEATURE-005"
+        ],
+        "stage_1_workflow_refs": [
+          "WORKFLOW-001",
+          "WORKFLOW-002"
+        ],
+        "stage_2_assumption_refs": [],
+        "stage_3_architecture_refs": [
+          "ADR-003",
+          "ADR-006",
+          "ADR-009"
+        ],
+        "stage_4_ux_refs": [],
+        "ui_blueprint_refs": [],
+        "visual_spec_refs": [],
+        "visual_reference_refs": [],
+        "design_system_refs": [],
+        "complete_app_blueprint_ref": "not_applicable_non_frontend",
+        "page_refs": [],
+        "component_refs": [],
+        "shared_component_refs": [],
+        "route_refs": [],
+        "state_refs": [],
+        "action_refs": [],
+        "interactive_element_refs": [],
+        "frontend_task_hint": "not_applicable_non_frontend",
+        "visual_requirements": {
+          "not_applicable_reason": "Non-frontend ticket"
+        },
+        "responsive_requirements": {
+          "not_applicable_reason": "Non-frontend ticket"
+        },
+        "visual_acceptance_criteria_refs": [],
+        "preview_required": false,
+        "visual_qa_required": false,
+        "design_system_compliance_required": false,
+        "expected_artifacts": [
+          {
+            "artifact_id": "ARTIFACT-S5-024-TEST",
+            "type": "test_output",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-024-VALIDATION",
+            "type": "validation_report",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-024-SMOKE",
+            "type": "workflow_smoke_test",
+            "required_for_completion": true
+          }
+        ],
+        "prerequisites": [
+          "Completed base Stage 6 implementation",
+          "Relevant live API/database/queue/storage contracts readable",
+          "No Stage 7 deployment or provisioning work in scope"
+        ],
+        "depends_on_tickets": [
+          "TICKET-008",
+          "TICKET-009",
+          "TICKET-022"
+        ],
+        "primary_skill": "backend-development",
+        "recommended_skills": [
+          "backend-development",
+          "Test-driven-development",
+          "security-review"
+        ],
+        "agent_required_skills": [
+          "backend-development",
+          "Test-driven-development",
+          "security-review"
+        ],
+        "agent_skill_instructions": {
+          "must_use": [
+            "backend-development",
+            "Test-driven-development"
+          ],
+          "use_if_needed": [
+            "security-review"
+          ],
+          "skill_usage_order": [
+            "backend-development",
+            "Test-driven-development",
+            "security-review"
+          ],
+          "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+        },
+        "skill_match": {
+          "primary_skill_score": 0.92,
+          "matched_capabilities": [
+            "runtime_repair",
+            "backend",
+            "api_runtime"
+          ],
+          "matched_task_triggers": [
+            "Complete vendor CRUD runtime"
+          ],
+          "matched_domains": [
+            "backend"
+          ],
+          "risk_flags_considered": [
+            "REVISION-S7-001",
+            "RISK-S6-RUNTIME-WIRING"
+          ],
+          "selection_reason": "Repair ticket targets a launch-critical feature that existed as contract/static UI but was not user-verified end-to-end.",
+          "coverage_gaps": []
+        },
+        "completion_definition": {
+          "contract_only_allowed": false,
+          "fixture_runtime_allowed": false,
+          "requires_ui_wiring": false,
+          "requires_runtime_persistence": true,
+          "requires_end_to_end_smoke": true,
+          "done_means_user_can_complete_workflow": true,
+          "verification_chain": "UI action → API/server action → database/queue/storage → worker/service when applicable → result visible in UI → recorded test evidence"
+        },
+        "acceptance_criteria": [
+          "User can create a vendor and immediately use it in website/PDF import forms",
+          "Vendor list/detail pages load the created vendor from the database",
+          "No visible launch-critical control is left as a dead button or fixture-only interaction",
+          "Runtime pages use live database/API data; fixtures are allowed only in preview/static evidence files",
+          "User-facing success, redirect, validation error, and recoverable failure states are explicit",
+          "Required tests and evidence artifacts are registered"
+        ],
+        "validation_steps": [
+          "Create vendor, reload vendor list/detail, and verify workspace isolation",
+          "Run ticket-scoped unit/integration tests",
+          "Run typecheck, lint, and production build checks applicable to changed packages",
+          "Record smoke-test evidence and artifact registry updates"
+        ],
+        "risk_level": "high",
+        "handoff_notes": "Repair ticket generated 2026-08-05T00:00:00-04:00 from user-identified pre-Stage-7 runtime gaps. Assigned owner: AGENT-BACKEND.",
+      "stage_6_execution_queue_position": 24,
+      "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "Original broad tickets allowed contract/static implementation to pass without verified user workflow completion.",
+        "suggested_file_scopes": [
+          "apps/web/app/api/vendors/**",
+          "apps/web/app/app/vendors/**",
+          "packages/domain/**",
+          "packages/shared/**"
+        ]
+      },
+      {
+        "ticket_id": "TICKET-025",
+        "slice_id": "SLICE-019",
+        "title": "Complete import-to-discovery candidate pipeline",
+        "description": "Connect website/PDF worker outputs to discovery sessions and candidate items so completed import jobs produce reviewable records.",
+        "ticket_type": "integration",
+        "priority": "critical",
+        "stage_1_feature_refs": [
+          "FEATURE-001",
+          "FEATURE-003",
+          "FEATURE-004",
+          "FEATURE-005",
+          "FEATURE-013"
+        ],
+        "stage_1_workflow_refs": [
+          "WORKFLOW-001",
+          "WORKFLOW-002",
+          "WORKFLOW-003",
+          "WORKFLOW-007"
+        ],
+        "stage_2_assumption_refs": [],
+        "stage_3_architecture_refs": [
+          "ADR-003",
+          "ADR-006",
+          "ADR-009"
+        ],
+        "stage_4_ux_refs": [],
+        "ui_blueprint_refs": [],
+        "visual_spec_refs": [],
+        "visual_reference_refs": [],
+        "design_system_refs": [],
+        "complete_app_blueprint_ref": "not_applicable_non_frontend",
+        "page_refs": [],
+        "component_refs": [],
+        "shared_component_refs": [],
+        "route_refs": [],
+        "state_refs": [],
+        "action_refs": [],
+        "interactive_element_refs": [],
+        "frontend_task_hint": "not_applicable_non_frontend",
+        "visual_requirements": {
+          "not_applicable_reason": "Non-frontend ticket"
+        },
+        "responsive_requirements": {
+          "not_applicable_reason": "Non-frontend ticket"
+        },
+        "visual_acceptance_criteria_refs": [],
+        "preview_required": false,
+        "visual_qa_required": false,
+        "design_system_compliance_required": false,
+        "expected_artifacts": [
+          {
+            "artifact_id": "ARTIFACT-S5-025-TEST",
+            "type": "test_output",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-025-VALIDATION",
+            "type": "validation_report",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-025-SMOKE",
+            "type": "workflow_smoke_test",
+            "required_for_completion": true
+          }
+        ],
+        "prerequisites": [
+          "Completed base Stage 6 implementation",
+          "Relevant live API/database/queue/storage contracts readable",
+          "No Stage 7 deployment or provisioning work in scope"
+        ],
+        "depends_on_tickets": [
+          "TICKET-005",
+          "TICKET-010",
+          "TICKET-012",
+          "TICKET-014",
+          "TICKET-024"
+        ],
+        "primary_skill": "backend-development",
+        "recommended_skills": [
+          "backend-development",
+          "Test-driven-development",
+          "security-review"
+        ],
+        "agent_required_skills": [
+          "backend-development",
+          "Test-driven-development",
+          "security-review"
+        ],
+        "agent_skill_instructions": {
+          "must_use": [
+            "backend-development",
+            "Test-driven-development"
+          ],
+          "use_if_needed": [
+            "security-review"
+          ],
+          "skill_usage_order": [
+            "backend-development",
+            "Test-driven-development",
+            "security-review"
+          ],
+          "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+        },
+        "skill_match": {
+          "primary_skill_score": 0.92,
+          "matched_capabilities": [
+            "runtime_repair",
+            "integration",
+            "api_runtime"
+          ],
+          "matched_task_triggers": [
+            "Complete import-to-discovery candidate pipeline"
+          ],
+          "matched_domains": [
+            "integration"
+          ],
+          "risk_flags_considered": [
+            "REVISION-S7-001",
+            "RISK-S6-RUNTIME-WIRING"
+          ],
+          "selection_reason": "Repair ticket targets a launch-critical feature that existed as contract/static UI but was not user-verified end-to-end.",
+          "coverage_gaps": []
+        },
+        "completion_definition": {
+          "contract_only_allowed": false,
+          "fixture_runtime_allowed": false,
+          "requires_ui_wiring": false,
+          "requires_runtime_persistence": true,
+          "requires_end_to_end_smoke": true,
+          "done_means_user_can_complete_workflow": true,
+          "verification_chain": "UI action → API/server action → database/queue/storage → worker/service when applicable → result visible in UI → recorded test evidence"
+        },
+        "acceptance_criteria": [
+          "Completed website and PDF jobs create or update a discovery session",
+          "Normalized records create candidate items with deterministic validation/conflict state",
+          "No visible launch-critical control is left as a dead button or fixture-only interaction",
+          "Runtime pages use live database/API data; fixtures are allowed only in preview/static evidence files",
+          "User-facing success, redirect, validation error, and recoverable failure states are explicit",
+          "Required tests and evidence artifacts are registered"
+        ],
+        "validation_steps": [
+          "Run worker against representative website and PDF fixtures and verify discovery candidates in DB",
+          "Run ticket-scoped unit/integration tests",
+          "Run typecheck, lint, and production build checks applicable to changed packages",
+          "Record smoke-test evidence and artifact registry updates"
+        ],
+        "risk_level": "critical",
+        "handoff_notes": "Repair ticket generated 2026-08-05T00:00:00-04:00 from user-identified pre-Stage-7 runtime gaps. Assigned owner: AGENT-WORKER.",
+      "stage_6_execution_queue_position": 25,
+      "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "Original broad tickets allowed contract/static implementation to pass without verified user workflow completion.",
+        "suggested_file_scopes": [
+          "apps/worker/**",
+          "packages/scrapers/**",
+          "packages/shared/**",
+          "packages/domain/**"
+        ]
+      },
+      {
+        "ticket_id": "TICKET-026",
+        "slice_id": "SLICE-020",
+        "title": "Wire job and candidate workflow actions",
+        "description": "Implement and wire retry job, cancel job, import selected candidates, ignore/archive candidates, and save candidate edits.",
+        "ticket_type": "backend",
+        "priority": "critical",
+        "stage_1_feature_refs": [
+          "FEATURE-001",
+          "FEATURE-003",
+          "FEATURE-004",
+          "FEATURE-005",
+          "FEATURE-013"
+        ],
+        "stage_1_workflow_refs": [
+          "WORKFLOW-001",
+          "WORKFLOW-002",
+          "WORKFLOW-003",
+          "WORKFLOW-007"
+        ],
+        "stage_2_assumption_refs": [],
+        "stage_3_architecture_refs": [
+          "ADR-003",
+          "ADR-006",
+          "ADR-009"
+        ],
+        "stage_4_ux_refs": [],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-003",
+          "UI-BLUEPRINT-SCREEN-004",
+          "UI-BLUEPRINT-SCREEN-005",
+          "UI-BLUEPRINT-SCREEN-006",
+          "UI-BLUEPRINT-SCREEN-009",
+          "UI-BLUEPRINT-SCREEN-010"
+        ],
+        "visual_spec_refs": [
+          "VISUAL-SPEC-001"
+        ],
+        "visual_reference_refs": [
+          "REF-UTILITARIAN",
+          "REF-BENTO-MODIFIER"
+        ],
+        "design_system_refs": [
+          "DESIGN-SYSTEM-001"
+        ],
+        "complete_app_blueprint_ref": "Build-Plans/Stage-4/09-complete-app-blueprint.md",
+        "page_refs": [],
+        "component_refs": [],
+        "shared_component_refs": [
+          "AppShell",
+          "StatusBadge",
+          "DataTable",
+          "FormField"
+        ],
+        "route_refs": [
+          "/app/imports/jobs/:jobId",
+          "/app/discovery/:sessionId"
+        ],
+        "state_refs": [],
+        "action_refs": [
+          "ACTION-RETRY-JOB",
+          "ACTION-CANCEL-JOB",
+          "ACTION-IMPORT-SELECTED",
+          "ACTION-IGNORE-SELECTED",
+          "ACTION-ARCHIVE-SELECTED",
+          "ACTION-SAVE-CANDIDATE"
+        ],
+        "interactive_element_refs": [],
+        "frontend_task_hint": "Repair runtime UI wiring so every launch-critical action can be completed from the UI without developer tools.",
+        "visual_requirements": {
+          "preserve_existing_stage_4_visual_contract": true
+        },
+        "responsive_requirements": {
+          "preserve_existing_responsive_contract": true
+        },
+        "visual_acceptance_criteria_refs": [
+          "VISUAL-QA-001"
+        ],
+        "preview_required": true,
+        "visual_qa_required": true,
+        "design_system_compliance_required": true,
+        "expected_artifacts": [
+          {
+            "artifact_id": "ARTIFACT-S5-026-TEST",
+            "type": "test_output",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-026-VALIDATION",
+            "type": "validation_report",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-026-SMOKE",
+            "type": "workflow_smoke_test",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-026-PREVIEW",
+            "type": "preview_url",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-026-SCREENSHOT",
+            "type": "screenshot",
+            "required_for_completion": true
+          }
+        ],
+        "prerequisites": [
+          "Completed base Stage 6 implementation",
+          "Relevant live API/database/queue/storage contracts readable",
+          "No Stage 7 deployment or provisioning work in scope"
+        ],
+        "depends_on_tickets": [
+          "TICKET-006",
+          "TICKET-014",
+          "TICKET-015",
+          "TICKET-023",
+          "TICKET-025"
+        ],
+        "primary_skill": "frontend-design",
+        "recommended_skills": [
+          "frontend-design",
+          "Test-driven-development",
+          "ux-enforcement"
+        ],
+        "agent_required_skills": [
+          "frontend-design",
+          "Test-driven-development",
+          "ux-enforcement"
+        ],
+        "agent_skill_instructions": {
+          "must_use": [
+            "frontend-design",
+            "Test-driven-development"
+          ],
+          "use_if_needed": [
+            "ux-enforcement"
+          ],
+          "skill_usage_order": [
+            "frontend-design",
+            "Test-driven-development",
+            "ux-enforcement"
+          ],
+          "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+        },
+        "skill_match": {
+          "primary_skill_score": 0.92,
+          "matched_capabilities": [
+            "runtime_repair",
+            "backend",
+            "ui_wiring"
+          ],
+          "matched_task_triggers": [
+            "Wire job and candidate workflow actions"
+          ],
+          "matched_domains": [
+            "backend"
+          ],
+          "risk_flags_considered": [
+            "REVISION-S7-001",
+            "RISK-S6-RUNTIME-WIRING"
+          ],
+          "selection_reason": "Repair ticket targets a launch-critical feature that existed as contract/static UI but was not user-verified end-to-end.",
+          "coverage_gaps": []
+        },
+        "completion_definition": {
+          "contract_only_allowed": false,
+          "fixture_runtime_allowed": false,
+          "requires_ui_wiring": true,
+          "requires_runtime_persistence": true,
+          "requires_end_to_end_smoke": true,
+          "done_means_user_can_complete_workflow": true,
+          "verification_chain": "UI action → API/server action → database/queue/storage → worker/service when applicable → result visible in UI → recorded test evidence"
+        },
+        "acceptance_criteria": [
+          "Retry/cancel mutate job state and append events",
+          "Candidate import/ignore/archive/save actions persist state and update visible UI",
+          "No visible launch-critical control is left as a dead button or fixture-only interaction",
+          "Runtime pages use live database/API data; fixtures are allowed only in preview/static evidence files",
+          "User-facing success, redirect, validation error, and recoverable failure states are explicit",
+          "Required tests and evidence artifacts are registered"
+        ],
+        "validation_steps": [
+          "UI-level smoke test covers retry, cancel, import selected, ignore/archive, and candidate edit save",
+          "Run ticket-scoped unit/integration tests",
+          "Run typecheck, lint, and production build checks applicable to changed packages",
+          "Record smoke-test evidence and artifact registry updates"
+        ],
+        "risk_level": "critical",
+        "handoff_notes": "Repair ticket generated 2026-08-05T00:00:00-04:00 from user-identified pre-Stage-7 runtime gaps. Assigned owner: AGENT-BACKEND.",
+      "stage_6_execution_queue_position": 26,
+      "completion_status": "implementation_complete_visual_validation_pending",
+        "repair_ticket": true,
+        "repair_reason": "Original broad tickets allowed contract/static implementation to pass without verified user workflow completion.",
+        "suggested_file_scopes": [
+          "apps/web/app/api/imports/**",
+          "apps/web/app/api/discovery-sessions/**",
+          "apps/web/app/app/imports/**",
+          "apps/web/app/app/discovery/**"
+        ]
+      },
+      {
+        "ticket_id": "TICKET-027",
+        "slice_id": "SLICE-021",
+        "title": "Wire AI provider settings end-to-end",
+        "description": "Make AI provider settings usable from the UI: add provider, save encrypted credentials, list providers, run health checks, save route selection, and show fallback state.",
+        "ticket_type": "frontend",
+        "priority": "critical",
+        "stage_1_feature_refs": [
+          "FEATURE-001",
+          "FEATURE-003",
+          "FEATURE-004",
+          "FEATURE-005",
+          "FEATURE-013"
+        ],
+        "stage_1_workflow_refs": [
+          "WORKFLOW-001",
+          "WORKFLOW-002",
+          "WORKFLOW-003",
+          "WORKFLOW-007"
+        ],
+        "stage_2_assumption_refs": [],
+        "stage_3_architecture_refs": [
+          "ADR-003",
+          "ADR-006",
+          "ADR-009"
+        ],
+        "stage_4_ux_refs": [],
+        "ui_blueprint_refs": [
+          "UI-BLUEPRINT-SCREEN-003",
+          "UI-BLUEPRINT-SCREEN-004",
+          "UI-BLUEPRINT-SCREEN-005",
+          "UI-BLUEPRINT-SCREEN-006",
+          "UI-BLUEPRINT-SCREEN-009",
+          "UI-BLUEPRINT-SCREEN-010"
+        ],
+        "visual_spec_refs": [
+          "VISUAL-SPEC-001"
+        ],
+        "visual_reference_refs": [
+          "REF-UTILITARIAN",
+          "REF-BENTO-MODIFIER"
+        ],
+        "design_system_refs": [
+          "DESIGN-SYSTEM-001"
+        ],
+        "complete_app_blueprint_ref": "Build-Plans/Stage-4/09-complete-app-blueprint.md",
+        "page_refs": [],
+        "component_refs": [],
+        "shared_component_refs": [
+          "AppShell",
+          "StatusBadge",
+          "DataTable",
+          "FormField"
+        ],
+        "route_refs": [
+          "/app/settings/ai"
+        ],
+        "state_refs": [],
+        "action_refs": [
+          "ACTION-HEALTH-CHECK",
+          "ACTION-SAVE-AI"
+        ],
+        "interactive_element_refs": [
+          "EL-AI-001",
+          "EL-AI-002",
+          "EL-AI-003",
+          "EL-AI-004"
+        ],
+        "frontend_task_hint": "Repair runtime UI wiring so every launch-critical action can be completed from the UI without developer tools.",
+        "visual_requirements": {
+          "preserve_existing_stage_4_visual_contract": true
+        },
+        "responsive_requirements": {
+          "preserve_existing_responsive_contract": true
+        },
+        "visual_acceptance_criteria_refs": [
+          "VISUAL-QA-001"
+        ],
+        "preview_required": true,
+        "visual_qa_required": true,
+        "design_system_compliance_required": true,
+        "expected_artifacts": [
+          {
+            "artifact_id": "ARTIFACT-S5-027-TEST",
+            "type": "test_output",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-027-VALIDATION",
+            "type": "validation_report",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-027-SMOKE",
+            "type": "workflow_smoke_test",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-027-PREVIEW",
+            "type": "preview_url",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-027-SCREENSHOT",
+            "type": "screenshot",
+            "required_for_completion": true
+          }
+        ],
+        "prerequisites": [
+          "Completed base Stage 6 implementation",
+          "Relevant live API/database/queue/storage contracts readable",
+          "No Stage 7 deployment or provisioning work in scope"
+        ],
+        "depends_on_tickets": [
+          "TICKET-007",
+          "TICKET-018",
+          "TICKET-022",
+          "TICKET-023"
+        ],
+        "primary_skill": "frontend-design",
+        "recommended_skills": [
+          "frontend-design",
+          "Test-driven-development",
+          "ux-enforcement"
+        ],
+        "agent_required_skills": [
+          "frontend-design",
+          "Test-driven-development",
+          "ux-enforcement"
+        ],
+        "agent_skill_instructions": {
+          "must_use": [
+            "frontend-design",
+            "Test-driven-development"
+          ],
+          "use_if_needed": [
+            "ux-enforcement"
+          ],
+          "skill_usage_order": [
+            "frontend-design",
+            "Test-driven-development",
+            "ux-enforcement"
+          ],
+          "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+        },
+        "skill_match": {
+          "primary_skill_score": 0.92,
+          "matched_capabilities": [
+            "runtime_repair",
+            "frontend",
+            "ui_wiring"
+          ],
+          "matched_task_triggers": [
+            "Wire AI provider settings end-to-end"
+          ],
+          "matched_domains": [
+            "frontend"
+          ],
+          "risk_flags_considered": [
+            "REVISION-S7-001",
+            "RISK-S6-RUNTIME-WIRING"
+          ],
+          "selection_reason": "Repair ticket targets a launch-critical feature that existed as contract/static UI but was not user-verified end-to-end.",
+          "coverage_gaps": []
+        },
+        "completion_definition": {
+          "contract_only_allowed": false,
+          "fixture_runtime_allowed": false,
+          "requires_ui_wiring": true,
+          "requires_runtime_persistence": true,
+          "requires_end_to_end_smoke": true,
+          "done_means_user_can_complete_workflow": true,
+          "verification_chain": "UI action → API/server action → database/queue/storage → worker/service when applicable → result visible in UI → recorded test evidence"
+        },
+        "acceptance_criteria": [
+          "User can add an OpenAI-compatible or Ollama provider from the UI",
+          "Saved providers are listed without exposing credential plaintext",
+          "Health check updates visible provider state and default route selection can be saved",
+          "No visible launch-critical control is left as a dead button or fixture-only interaction",
+          "Runtime pages use live database/API data; fixtures are allowed only in preview/static evidence files",
+          "User-facing success, redirect, validation error, and recoverable failure states are explicit",
+          "Required tests and evidence artifacts are registered"
+        ],
+        "validation_steps": [
+          "Smoke test add provider, list provider, run health check, and verify manual fallback when provider unhealthy",
+          "Run ticket-scoped unit/integration tests",
+          "Run typecheck, lint, and production build checks applicable to changed packages",
+          "Record smoke-test evidence and artifact registry updates"
+        ],
+        "risk_level": "critical",
+        "handoff_notes": "Repair ticket generated 2026-08-05T00:00:00-04:00 from user-identified pre-Stage-7 runtime gaps. Assigned owner: AGENT-FRONTEND.",
+      "stage_6_execution_queue_position": 27,
+      "completion_status": "implementation_complete_visual_validation_pending",
+        "repair_ticket": true,
+        "repair_reason": "Original broad tickets allowed contract/static implementation to pass without verified user workflow completion.",
+        "suggested_file_scopes": [
+          "apps/web/app/app/settings/ai/**",
+          "apps/web/app/api/ai-settings/**",
+          "packages/shared/src/ai-provider-runtime.ts"
+        ]
+      },
+      {
+        "ticket_id": "TICKET-028",
+        "slice_id": "SLICE-022",
+        "title": "Add local end-to-end workflow smoke tests",
+        "description": "Add local smoke validation that proves launch-critical workflows are usable before Stage 7 resumes.",
+        "ticket_type": "testing",
+        "priority": "critical",
+        "stage_1_feature_refs": [
+          "FEATURE-001",
+          "FEATURE-003",
+          "FEATURE-004",
+          "FEATURE-005",
+          "FEATURE-013"
+        ],
+        "stage_1_workflow_refs": [
+          "WORKFLOW-001",
+          "WORKFLOW-002",
+          "WORKFLOW-003",
+          "WORKFLOW-007"
+        ],
+        "stage_2_assumption_refs": [],
+        "stage_3_architecture_refs": [
+          "ADR-003",
+          "ADR-006",
+          "ADR-009"
+        ],
+        "stage_4_ux_refs": [],
+        "ui_blueprint_refs": [],
+        "visual_spec_refs": [],
+        "visual_reference_refs": [],
+        "design_system_refs": [],
+        "complete_app_blueprint_ref": "not_applicable_non_frontend",
+        "page_refs": [],
+        "component_refs": [],
+        "shared_component_refs": [],
+        "route_refs": [],
+        "state_refs": [],
+        "action_refs": [],
+        "interactive_element_refs": [],
+        "frontend_task_hint": "not_applicable_non_frontend",
+        "visual_requirements": {
+          "not_applicable_reason": "Non-frontend ticket"
+        },
+        "responsive_requirements": {
+          "not_applicable_reason": "Non-frontend ticket"
+        },
+        "visual_acceptance_criteria_refs": [],
+        "preview_required": false,
+        "visual_qa_required": false,
+        "design_system_compliance_required": false,
+        "expected_artifacts": [
+          {
+            "artifact_id": "ARTIFACT-S5-028-TEST",
+            "type": "test_output",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-028-VALIDATION",
+            "type": "validation_report",
+            "required_for_completion": true
+          },
+          {
+            "artifact_id": "ARTIFACT-S5-028-SMOKE",
+            "type": "workflow_smoke_test",
+            "required_for_completion": true
+          }
+        ],
+        "prerequisites": [
+          "Completed base Stage 6 implementation",
+          "Relevant live API/database/queue/storage contracts readable",
+          "No Stage 7 deployment or provisioning work in scope"
+        ],
+        "depends_on_tickets": [
+          "TICKET-022",
+          "TICKET-023",
+          "TICKET-024",
+          "TICKET-025",
+          "TICKET-026",
+          "TICKET-027"
+        ],
+        "primary_skill": "Test-driven-development",
+        "recommended_skills": [
+          "Test-driven-development",
+          "security-review",
+          "lazy-mode"
+        ],
+        "agent_required_skills": [
+          "Test-driven-development",
+          "security-review",
+          "lazy-mode"
+        ],
+        "agent_skill_instructions": {
+          "must_use": [
+            "Test-driven-development",
+            "security-review"
+          ],
+          "use_if_needed": [
+            "lazy-mode"
+          ],
+          "skill_usage_order": [
+            "Test-driven-development",
+            "security-review",
+            "lazy-mode"
+          ],
+          "usage_notes": "Load each selected skill before implementation and validation. Completion requires user-visible workflow proof, not contract-only tests."
+        },
+        "skill_match": {
+          "primary_skill_score": 0.92,
+          "matched_capabilities": [
+            "runtime_repair",
+            "testing",
+            "api_runtime"
+          ],
+          "matched_task_triggers": [
+            "Add local end-to-end workflow smoke tests"
+          ],
+          "matched_domains": [
+            "testing"
+          ],
+          "risk_flags_considered": [
+            "REVISION-S7-001",
+            "RISK-S6-RUNTIME-WIRING"
+          ],
+          "selection_reason": "Repair ticket targets a launch-critical feature that existed as contract/static UI but was not user-verified end-to-end.",
+          "coverage_gaps": []
+        },
+        "completion_definition": {
+          "contract_only_allowed": false,
+          "fixture_runtime_allowed": false,
+          "requires_ui_wiring": false,
+          "requires_runtime_persistence": true,
+          "requires_end_to_end_smoke": true,
+          "done_means_user_can_complete_workflow": true,
+          "verification_chain": "UI action → API/server action → database/queue/storage → worker/service when applicable → result visible in UI → recorded test evidence"
+        },
+        "acceptance_criteria": [
+          "Smoke suite covers create vendor, create catalog item, add AI provider, run health check, submit website import, submit PDF import, worker processing, discovery candidates, and candidate import to catalog",
+          "Smoke evidence is recorded before Stage 6 can return to ready_for_stage_7",
+          "No visible launch-critical control is left as a dead button or fixture-only interaction",
+          "Runtime pages use live database/API data; fixtures are allowed only in preview/static evidence files",
+          "User-facing success, redirect, validation error, and recoverable failure states are explicit",
+          "Required tests and evidence artifacts are registered"
+        ],
+        "validation_steps": [
+          "Run full local smoke suite, test, typecheck, lint, and build",
+          "Run ticket-scoped unit/integration tests",
+          "Run typecheck, lint, and production build checks applicable to changed packages",
+          "Record smoke-test evidence and artifact registry updates"
+        ],
+        "risk_level": "critical",
+        "handoff_notes": "Repair ticket generated 2026-08-05T00:00:00-04:00 from user-identified pre-Stage-7 runtime gaps. Assigned owner: AGENT-VALIDATION.",
+      "stage_6_execution_queue_position": 28,
+      "completion_status": "runtime_smoke_passed_visual_smoke_pending",
+        "repair_ticket": true,
+        "repair_reason": "Original broad tickets allowed contract/static implementation to pass without verified user workflow completion.",
+        "suggested_file_scopes": [
+          "apps/validation/**",
+          "apps/web/**/*.test.*",
+          "apps/worker/**/*.test.*",
+          "Build-Plans/Stage-6/evidence/**"
+        ]
+      },
+      {
+        "ticket_id": "TICKET-029",
+        "slice_id": "SLICE-023",
+        "title": "Operationalize the scraper worker and stalled-job recovery",
+        "description": "Make the website-import worker a first-class local runtime service with health, heartbeat, graceful shutdown, retry, and stalled-job recovery behavior.",
+        "ticket_type": "devops",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-013", "FEATURE-014"],
+        "stage_1_workflow_refs": ["WORKFLOW-001"],
+        "stage_3_architecture_refs": ["ADR-006", "DEPLOY-WORKER", "DEPLOY-REDIS"],
+        "depends_on_tickets": [],
+        "primary_skill": "backend-development",
+        "recommended_skills": ["backend-development", "Test-driven-development", "systematic-debugger", "lazy-mode"],
+        "acceptance_criteria": [
+          "The worker starts with the documented local stack and exposes a verifiable health signal",
+          "A queued website job is claimed without a separately remembered manual process",
+          "Interrupted active jobs are retried or moved to an explicit recoverable failure state",
+          "Worker logs identify job, workspace, attempt, stage, and terminal outcome without exposing secrets"
+        ],
+        "validation_steps": ["Start the local stack from a clean state", "Submit a website import and prove worker claim", "Restart the worker mid-job and prove recovery"],
+        "expected_artifacts": ["worker lifecycle integration test", "restart recovery evidence", "local runbook update"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 29,
+        "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "The tested job remained queued because worker execution was not operationally guaranteed.",
+        "suggested_file_scopes": ["apps/worker/**", "docker-compose.yml", "packages/queue/**", "docs/**"]
+      },
+      {
+        "ticket_id": "TICKET-030",
+        "slice_id": "SLICE-023",
+        "title": "Define canonical scraper contracts, provenance, and crawl policy",
+        "description": "Create typed contracts for normalized targets, page snapshots, category nodes, product records, crawl checkpoints, provenance, budgets, and terminal states.",
+        "ticket_type": "backend",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013"],
+        "stage_1_workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "stage_3_architecture_refs": ["ADR-003", "ADR-006", "ADR-009"],
+        "depends_on_tickets": [],
+        "primary_skill": "backend-development",
+        "recommended_skills": ["backend-development", "Test-driven-development", "security-review", "lazy-mode"],
+        "acceptance_criteria": [
+          "Tracking parameters are removed while meaningful collection and pagination parameters are preserved",
+          "Every extracted field carries source URL, extraction method, and confidence/provenance metadata",
+          "Crawl budgets, allowed hosts, robots decisions, retries, partial success, and manual-review states are explicit",
+          "Contracts are shared by API, worker, adapters, UI, and tests"
+        ],
+        "validation_steps": ["Run contract tests for canonicalization and state transitions", "Validate backward compatibility with existing website jobs"],
+        "expected_artifacts": ["shared contract tests", "schema or migration evidence", "contract decision record"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 30,
+        "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "The current single-page title/HTML result cannot represent category discovery or trustworthy product extraction.",
+        "suggested_file_scopes": ["packages/types/**", "packages/domain/**", "packages/db/**", "packages/shared/**"]
+      },
+      {
+        "ticket_id": "TICKET-031",
+        "slice_id": "SLICE-024",
+        "title": "Implement the Shopify category and product adapter",
+        "description": "Add a deterministic Shopify adapter, using Blank Knights as the required live canary, for collection discovery, pagination, products, variants, prices, images, and canonical URLs.",
+        "ticket_type": "integration",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-004"],
+        "stage_1_workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "stage_3_architecture_refs": ["ADR-006", "ADR-009"],
+        "depends_on_tickets": ["TICKET-030"],
+        "primary_skill": "backend-development",
+        "recommended_skills": ["backend-development", "Test-driven-development", "security-review", "lazy-mode"],
+        "acceptance_criteria": [
+          "The adapter detects supported Shopify storefronts without relying on a single fragile marker",
+          "It discovers collections and exhausts collection pagination within policy budgets",
+          "It extracts product, variant, SKU, price, availability, image, and canonical URL data from deterministic Shopify sources",
+          "Blank Knights collection imports no longer stop at the landing-page title"
+        ],
+        "validation_steps": ["Run saved Shopify golden fixtures", "Run a controlled Blank Knights canary", "Compare actual records with expected fixture inventory"],
+        "expected_artifacts": ["Shopify adapter tests", "Blank Knights canary evidence", "golden fixture manifest"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 31,
+        "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "Blank Knights is Shopify, while the current worker performs only one native fetch and title extraction.",
+        "suggested_file_scopes": ["packages/scrapers/**", "apps/worker/**", "tests/fixtures/shopify/**"]
+      },
+      {
+        "ticket_id": "TICKET-032",
+        "slice_id": "SLICE-024",
+        "title": "Add Playwright rendering and generic discovery fallback",
+        "description": "Add a browser-backed collector for JavaScript-rendered sites and a bounded generic discovery fallback when no deterministic platform adapter applies.",
+        "ticket_type": "worker",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013"],
+        "stage_1_workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "stage_3_architecture_refs": ["ADR-006", "ADR-009"],
+        "depends_on_tickets": ["TICKET-029", "TICKET-030"],
+        "primary_skill": "backend-development",
+        "recommended_skills": ["backend-development", "Test-driven-development", "security-review", "systematic-debugger"],
+        "acceptance_criteria": [
+          "The worker image installs and launches a pinned Playwright browser reproducibly",
+          "Rendered DOM collection supports explicit waits, cookie overlays, load-more controls, and bounded scrolling",
+          "Generic category/product links are discovered with canonicalization, same-site rules, and crawl budgets",
+          "Timeouts and browser failures produce resumable partial outcomes instead of silent success"
+        ],
+        "validation_steps": ["Run JavaScript storefront fixtures", "Exercise load-more and bounded-scroll fixtures", "Prove timeout and restart behavior"],
+        "expected_artifacts": ["browser collector tests", "worker image build evidence", "rendered fixture screenshots"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 32,
+        "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "Native fetch cannot observe client-rendered navigation or interactive pagination.",
+        "suggested_file_scopes": ["apps/worker/**", "packages/scrapers/**", "docker/**", "tests/fixtures/browser/**"]
+      },
+      {
+        "ticket_id": "TICKET-033",
+        "slice_id": "SLICE-025",
+        "title": "Persist category discovery and expose category-job APIs",
+        "description": "Persist a unified category tree from deterministic and browser adapters, and expose workspace-scoped endpoints for previewing categories and creating independent category jobs.",
+        "ticket_type": "backend",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013"],
+        "stage_1_workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "stage_3_architecture_refs": ["ADR-003", "ADR-006"],
+        "depends_on_tickets": ["TICKET-031", "TICKET-032"],
+        "primary_skill": "backend-development",
+        "recommended_skills": ["backend-development", "Test-driven-development", "security-review"],
+        "acceptance_criteria": [
+          "Category discoveries are workspace scoped, idempotent, persisted, and tied to source provenance",
+          "Users can request discovery without immediately scraping every product",
+          "Selected categories create independently retryable jobs with stable deduplication keys",
+          "API responses expose counts, warnings, unsupported states, and crawl-budget truncation"
+        ],
+        "validation_steps": ["Run API and tenant-isolation tests", "Repeat discovery and prove idempotency", "Create two independent category jobs"],
+        "expected_artifacts": ["API integration tests", "database migration evidence", "category-job contract tests"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 33,
+        "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "The current workflow has no category discovery or independent category processing contract.",
+        "suggested_file_scopes": ["apps/web/app/api/**", "packages/domain/**", "packages/db/**", "packages/queue/**"]
+      },
+      {
+        "ticket_id": "TICKET-034",
+        "slice_id": "SLICE-025",
+        "title": "Add validated AI classification and extraction fallback",
+        "description": "Use configured AI providers only after deterministic extraction is insufficient, with schema validation, provenance, cost controls, and manual-review fallback.",
+        "ticket_type": "integration",
+        "priority": "high",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-015"],
+        "stage_1_workflow_refs": ["WORKFLOW-001", "WORKFLOW-003", "WORKFLOW-014"],
+        "stage_3_architecture_refs": ["ADR-009"],
+        "depends_on_tickets": ["TICKET-030", "TICKET-032"],
+        "primary_skill": "backend-development",
+        "recommended_skills": ["backend-development", "Test-driven-development", "security-review", "lazy-mode"],
+        "acceptance_criteria": [
+          "Deterministic platform and structured-data extraction runs before AI",
+          "AI outputs are schema validated and cannot directly write catalog records",
+          "Token, page, retry, and spend budgets are enforced per job",
+          "Low-confidence or invalid outputs enter an explicit manual-review state with source evidence"
+        ],
+        "validation_steps": ["Test deterministic bypass", "Test valid and invalid model outputs", "Test provider-disabled and budget-exhausted states"],
+        "expected_artifacts": ["AI adapter contract tests", "schema validation tests", "manual-review evidence"],
+        "risk_level": "high",
+        "stage_6_execution_queue_position": 34,
+        "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "Generic sites need controlled interpretation, but unvalidated AI extraction cannot be the primary correctness mechanism.",
+        "suggested_file_scopes": ["packages/ai/**", "packages/domain/**", "apps/worker/**"]
+      },
+      {
+        "ticket_id": "TICKET-035",
+        "slice_id": "SLICE-026",
+        "title": "Complete recursive scraping with checkpoints and deterministic deduplication",
+        "description": "Orchestrate category pagination and product extraction into resumable jobs with crawl checkpoints, bounded concurrency, deterministic dedupe, and partial-success accounting.",
+        "ticket_type": "worker",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013"],
+        "stage_1_workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "stage_3_architecture_refs": ["ADR-003", "ADR-006", "ADR-009"],
+        "depends_on_tickets": ["TICKET-029", "TICKET-031", "TICKET-032", "TICKET-033", "TICKET-034"],
+        "primary_skill": "backend-development",
+        "recommended_skills": ["backend-development", "Test-driven-development", "systematic-debugger", "lazy-mode"],
+        "acceptance_criteria": [
+          "All selected category pages are processed until an explicit terminal pagination condition or crawl budget",
+          "Canonical product and variant keys prevent duplicates across pagination, retries, and overlapping categories",
+          "A restarted job resumes from persisted checkpoints without redoing completed units",
+          "Job totals reconcile discovered, processed, succeeded, warned, failed, skipped, and deduplicated units"
+        ],
+        "validation_steps": ["Run multi-page and overlapping-category fixtures", "Restart at each checkpoint boundary", "Reconcile terminal counters"],
+        "expected_artifacts": ["orchestration integration tests", "restart matrix", "deduplication report"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 35,
+        "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "Single-page processing cannot provide complete collection results or safe retries.",
+        "suggested_file_scopes": ["apps/worker/**", "packages/queue/**", "packages/domain/**", "packages/scrapers/**"]
+      },
+      {
+        "ticket_id": "TICKET-036",
+        "slice_id": "SLICE-026",
+        "title": "Wire category selection and independent scraping jobs in the UI",
+        "description": "Add the browser workflow for analyzing a site, reviewing discovered categories, selecting scope, launching independent jobs, and viewing per-category outcomes.",
+        "ticket_type": "frontend",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013"],
+        "stage_1_workflow_refs": ["WORKFLOW-001", "WORKFLOW-003"],
+        "stage_3_architecture_refs": ["ADR-003", "ADR-006"],
+        "stage_4_ux_refs": ["SCREEN-003", "SCREEN-005"],
+        "depends_on_tickets": ["TICKET-033", "TICKET-035"],
+        "primary_skill": "frontend-design",
+        "recommended_skills": ["frontend-design", "Test-driven-development", "ux-enforcement"],
+        "acceptance_criteria": [
+          "A user can analyze Blank Knights, review discovered categories, select categories, and launch jobs without developer tools",
+          "Category jobs show live queued, active, partial, failed, recoverable, and completed states",
+          "Warnings and budget truncation are visible before import confirmation",
+          "Desktop, tablet, mobile, keyboard, and accessible status behavior preserve the Stage 4 design contract"
+        ],
+        "validation_steps": ["Run browser click-through", "Capture desktop/tablet/mobile screenshots", "Run keyboard and accessible-name checks"],
+        "expected_artifacts": ["Playwright UI test", "responsive screenshots", "visual QA record"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 36,
+        "completion_status": "implementation_complete_visual_validation_pending",
+        "repair_ticket": true,
+        "repair_reason": "A working backend scraper is not usable until category analysis and job control are exposed in the product.",
+        "suggested_file_scopes": ["apps/web/app/app/imports/**", "apps/web/app/app/jobs/**", "apps/web/components/**"]
+      },
+      {
+        "ticket_id": "TICKET-037",
+        "slice_id": "SLICE-027",
+        "title": "Add scraper observability, recovery controls, and status reconciliation",
+        "description": "Expose stage timings, adapter decisions, page/product counters, warnings, retry controls, and worker health while reconciling queue and database job state.",
+        "ticket_type": "integration",
+        "priority": "high",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-013", "FEATURE-014"],
+        "stage_1_workflow_refs": ["WORKFLOW-001"],
+        "stage_3_architecture_refs": ["ADR-003", "ADR-006", "INTEGRATION-SENTRY"],
+        "depends_on_tickets": ["TICKET-029", "TICKET-035", "TICKET-036"],
+        "primary_skill": "backend-development",
+        "recommended_skills": ["backend-development", "frontend-design", "Test-driven-development", "systematic-debugger"],
+        "acceptance_criteria": [
+          "Queue, database, and UI terminal states cannot silently disagree",
+          "Operators and users can distinguish discovery, rendering, extraction, AI fallback, persistence, and retry stages",
+          "Recoverable jobs have an authorized retry action and preserve prior evidence",
+          "Metrics and logs support diagnosis by adapter, host, failure class, and duration"
+        ],
+        "validation_steps": ["Inject failures at each processing stage", "Verify state reconciliation", "Retry a recoverable job from the UI"],
+        "expected_artifacts": ["failure-injection tests", "status reconciliation evidence", "observability field inventory"],
+        "risk_level": "high",
+        "stage_6_execution_queue_position": 37,
+        "completion_status": "implementation_complete_dependency_validation_pending",
+        "repair_ticket": true,
+        "repair_reason": "The queued Blank Knights job exposed insufficient worker-health and stalled-job visibility.",
+        "suggested_file_scopes": ["apps/worker/**", "apps/web/app/api/**", "apps/web/app/app/jobs/**", "packages/observability/**"]
+      },
+      {
+        "ticket_id": "TICKET-038",
+        "slice_id": "SLICE-027",
+        "title": "Enforce scraper security and crawl-compliance gates",
+        "description": "Apply SSRF controls to every navigation and redirect, DNS revalidation, allowed-protocol rules, robots policy, rate limits, response-size limits, and resource budgets.",
+        "ticket_type": "security",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-014"],
+        "stage_1_workflow_refs": ["WORKFLOW-001"],
+        "stage_3_architecture_refs": ["ADR-006", "SECURITY-SSRF"],
+        "depends_on_tickets": ["TICKET-029", "TICKET-030", "TICKET-031", "TICKET-032", "TICKET-033", "TICKET-034", "TICKET-035"],
+        "primary_skill": "security-review",
+        "recommended_skills": ["security-review", "backend-development", "Test-driven-development"],
+        "acceptance_criteria": [
+          "Private, loopback, link-local, metadata, credential-bearing, and unsupported-protocol targets are rejected",
+          "Every redirect and browser navigation is revalidated against the same policy",
+          "Robots decisions, host rate limits, timeouts, page limits, response limits, and browser resource limits are enforced and recorded",
+          "Security denials are terminal, user-readable, and do not leak network details or secrets"
+        ],
+        "validation_steps": ["Run redirect and DNS rebinding fixtures", "Run private-network and oversized-response fixtures", "Verify robots and host-throttling behavior"],
+        "expected_artifacts": ["security regression suite", "threat-model update", "crawl-policy evidence"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 38,
+        "completion_status": "complete",
+        "repair_ticket": true,
+        "repair_reason": "Browser rendering and recursion expand the existing SSRF and resource-exhaustion attack surface.",
+        "suggested_file_scopes": ["packages/security/**", "packages/scrapers/**", "apps/worker/**", "tests/security/**"]
+      },
+      {
+        "ticket_id": "TICKET-039",
+        "slice_id": "SLICE-028",
+        "title": "Prove the supported scraper matrix at 100 percent",
+        "description": "Create release-blocking golden fixtures and live canaries that prove the supported Shopify and generic-browser workflows end to end, including recovery and visual evidence.",
+        "ticket_type": "testing",
+        "priority": "critical",
+        "stage_1_feature_refs": ["FEATURE-001", "FEATURE-004", "FEATURE-013", "FEATURE-014", "FEATURE-015"],
+        "stage_1_workflow_refs": ["WORKFLOW-001", "WORKFLOW-003", "WORKFLOW-014"],
+        "stage_3_architecture_refs": ["ADR-003", "ADR-006", "ADR-009"],
+        "stage_4_ux_refs": ["SCREEN-003", "SCREEN-005"],
+        "depends_on_tickets": ["TICKET-029", "TICKET-030", "TICKET-031", "TICKET-032", "TICKET-033", "TICKET-034", "TICKET-035", "TICKET-036", "TICKET-037", "TICKET-038"],
+        "primary_skill": "Test-driven-development",
+        "recommended_skills": ["Test-driven-development", "security-review", "ux-enforcement", "systematic-debugger"],
+        "acceptance_criteria": [
+          "Golden Shopify and generic JavaScript fixtures achieve 100 percent expected category, product, variant, SKU, price, image, canonical URL, and provenance assertions",
+          "Fixture runs produce zero duplicate canonical products or variants and reconcile all terminal counters",
+          "Every restart, timeout, partial failure, unsupported-site, provider-disabled, and security-denial fixture reaches its expected recoverable or terminal state",
+          "The Blank Knights live canary passes three consecutive controlled runs without manual database or queue intervention",
+          "The complete browser workflow and responsive screenshot evidence pass before Stage 7 resumes",
+          "The release claim explicitly limits 100 percent to the declared supported matrix; arbitrary websites remain best-effort with manual fallback"
+        ],
+        "validation_steps": ["Run all golden fixtures from a clean stack", "Run three consecutive Blank Knights canaries", "Run UI click-through and capture visual evidence", "Publish a field-by-field coverage report"],
+        "expected_artifacts": ["supported-site matrix", "100-percent fixture coverage report", "three-run canary report", "browser screenshots", "Stage 6 validation record"],
+        "risk_level": "critical",
+        "stage_6_execution_queue_position": 39,
+        "completion_status": "automated_and_live_validation_passed_browser_evidence_pending",
+        "repair_ticket": true,
+        "repair_reason": "The previous example.com smoke proved queue plumbing, not scraper correctness or completeness.",
+        "suggested_file_scopes": ["apps/validation/**", "tests/fixtures/**", "apps/web/**/*.test.*", "apps/worker/**/*.test.*", "Build-Plans/Stage-6/evidence/**"]
       }
     ],
     "indexes": {
@@ -4096,6 +5728,30 @@
           "ticket_ids": [
             "TICKET-021"
           ]
+        },
+        {
+          "slice_id": "SLICE-023",
+          "ticket_ids": ["TICKET-029", "TICKET-030"]
+        },
+        {
+          "slice_id": "SLICE-024",
+          "ticket_ids": ["TICKET-031", "TICKET-032"]
+        },
+        {
+          "slice_id": "SLICE-025",
+          "ticket_ids": ["TICKET-033", "TICKET-034"]
+        },
+        {
+          "slice_id": "SLICE-026",
+          "ticket_ids": ["TICKET-035", "TICKET-036"]
+        },
+        {
+          "slice_id": "SLICE-027",
+          "ticket_ids": ["TICKET-037", "TICKET-038"]
+        },
+        {
+          "slice_id": "SLICE-028",
+          "ticket_ids": ["TICKET-039"]
         }
       ],
       "components_to_tickets": [
@@ -4202,7 +5858,25 @@
       "TICKET-018",
       "TICKET-019",
       "TICKET-020",
-      "TICKET-021"
+      "TICKET-021",
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028",
+      "TICKET-029",
+      "TICKET-030",
+      "TICKET-031",
+      "TICKET-032",
+      "TICKET-033",
+      "TICKET-034",
+      "TICKET-035",
+      "TICKET-036",
+      "TICKET-037",
+      "TICKET-038",
+      "TICKET-039"
     ],
     "risk_refs": [
       "RISK-S5-001",
@@ -4211,5 +5885,13 @@
       "RISK-S5-004",
       "RISK-S5-005"
     ]
+  },
+  "revision": {
+    "revision_id": "REVISION-S5-SCRAPER-REPAIR-2026-08-06",
+    "status": "approved_in_execution",
+    "approved_at": "2026-08-06T00:00:00-04:00",
+    "created_at": "2026-08-06T00:00:00-04:00",
+    "predecessor_revision_id": "REVISION-S5-RUNTIME-REPAIR-2026-08-05",
+    "reason": "User-tested Blank Knights import remained queued and the existing worker only fetched one page; add measurable category, product, recovery, security, UI, and acceptance repairs before further Stage 6 execution."
   }
 }

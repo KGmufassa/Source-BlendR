@@ -1,7 +1,7 @@
 {
   "stage": "Stage 5",
   "command": "stage-5-development-orchestration",
-  "status": "ready_for_stage_6",
+  "status": "scraper_repair_visual_validation_pending",
   "format_version": "2.0",
   "output_contract": {
     "context": "Build-Plans/Stage-5/00-stage-context.json",
@@ -14,7 +14,8 @@
       "Build-Plans/Stage-5/05-build-tickets.json",
       "Build-Plans/Stage-5/06-agent-assignment-plan.json",
       "Build-Plans/Stage-5/07-parallel-execution-plan.json",
-      "Build-Plans/Stage-5/08-release-plan.json"
+      "Build-Plans/Stage-5/08-release-plan.json",
+      "Build-Plans/Stage-5/11-scraper-repair-implementation-plan.json"
     ]
   },
   "stage_1_inputs": {
@@ -5694,7 +5695,24 @@
         "stage_6_execution_queue_position": 21,
         "completion_status": "not_started"
       }
-    ]
+    ],
+    "revision": {
+      "revision_id": "REVISION-S5-RUNTIME-REPAIR-2026-08-05",
+      "added_tickets": [
+        "TICKET-022",
+        "TICKET-023",
+        "TICKET-024",
+        "TICKET-025",
+        "TICKET-026",
+        "TICKET-027",
+        "TICKET-028"
+      ],
+      "added_batches": [
+        "BATCH-008",
+        "BATCH-009"
+      ],
+      "refinement_file": "Build-Plans/Stage-5/10-runtime-repair-ticket-refinement.json"
+    }
   },
   "agent_assignment_plan": {
     "assignment_plan": {
@@ -7116,10 +7134,13 @@
       "Build-Plans/Stage-5/06-agent-assignment-plan.json",
       "Build-Plans/Stage-5/07-parallel-execution-plan.json",
       "Build-Plans/Stage-5/08-release-plan.json",
-      "Build-Plans/Stage-5/09-stage-manifest.json"
+      "Build-Plans/Stage-5/09-stage-manifest.json",
+      "Build-Plans/Stage-5/11-scraper-repair-implementation-plan.json"
     ],
-    "ready": true,
-    "blocking_items": [],
+    "ready": false,
+    "blocking_items": [
+      "Connected-browser click-through and responsive screenshot evidence is required to complete TICKET-036 and TICKET-039."
+    ],
     "accepted_risks": [
       "RISK-001",
       "RISK-005",
@@ -7190,17 +7211,60 @@
       "BATCH-004",
       "BATCH-005",
       "BATCH-006",
-      "BATCH-007"
+      "BATCH-007",
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028",
+      "SLICE-016",
+      "SLICE-017",
+      "SLICE-018",
+      "SLICE-019",
+      "SLICE-020",
+      "SLICE-021",
+      "SLICE-022",
+      "BATCH-008",
+      "BATCH-009",
+      "SLICE-023",
+      "SLICE-024",
+      "SLICE-025",
+      "SLICE-026",
+      "SLICE-027",
+      "SLICE-028",
+      "TICKET-029",
+      "TICKET-030",
+      "TICKET-031",
+      "TICKET-032",
+      "TICKET-033",
+      "TICKET-034",
+      "TICKET-035",
+      "TICKET-036",
+      "TICKET-037",
+      "TICKET-038",
+      "TICKET-039",
+      "BATCH-010",
+      "BATCH-011",
+      "BATCH-012",
+      "BATCH-013",
+      "BATCH-014",
+      "BATCH-015"
     ],
     "completion_status": {
-      "stage_specific_status": "ready_for_stage_6",
-      "global_status": "ready_for_next_stage",
-      "reason": "All Stage 5 orchestration outputs, dependency-aware tickets, required skill chains, generated agent profiles, parallel batches, release gates, expected artifacts, and Stage 6 handoff are complete.",
-      "blocking_items": [],
-      "next_actions": [
-        "Run Stage 6 implementation and validation using BATCH-001 through BATCH-007."
+      "stage_specific_status": "scraper_repair_implementation_complete_visual_validation_pending",
+      "global_status": "blocked",
+      "reason": "Automated, container, queue, database, security, and live-canary validation passed; connected-browser visual evidence remains unavailable.",
+      "blocking_items": [
+        "Browser connector returned an empty browser inventory."
       ],
-      "ready_for": "Stage 6 (Implementation & Validation)"
+      "next_actions": [
+        "Connect an in-app or extension browser.",
+        "Run category-selection click-through at desktop, tablet, and mobile sizes.",
+        "Capture screenshot and keyboard evidence, then complete TICKET-036 and TICKET-039."
+      ],
+      "ready_for": "Stage 6 visual validation"
     },
     "execution_queue": [
       "TICKET-001",
@@ -7223,7 +7287,25 @@
       "TICKET-018",
       "TICKET-019",
       "TICKET-020",
-      "TICKET-021"
+      "TICKET-021",
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028",
+      "TICKET-029",
+      "TICKET-030",
+      "TICKET-031",
+      "TICKET-032",
+      "TICKET-033",
+      "TICKET-034",
+      "TICKET-035",
+      "TICKET-036",
+      "TICKET-037",
+      "TICKET-038",
+      "TICKET-039"
     ],
     "batch_order": [
       "BATCH-001",
@@ -7232,7 +7314,15 @@
       "BATCH-004",
       "BATCH-005",
       "BATCH-006",
-      "BATCH-007"
+      "BATCH-007",
+      "BATCH-008",
+      "BATCH-009",
+      "BATCH-010",
+      "BATCH-011",
+      "BATCH-012",
+      "BATCH-013",
+      "BATCH-014",
+      "BATCH-015"
     ],
     "required_agent_files": [
       ".opencode/agents/stage6-foundation-agent.md",
@@ -7240,17 +7330,49 @@
       ".opencode/agents/stage6-worker-agent.md",
       ".opencode/agents/stage6-frontend-agent.md",
       ".opencode/agents/stage6-validation-agent.md"
+    ],
+    "repair_ticket_ids": [
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028",
+      "TICKET-029",
+      "TICKET-030",
+      "TICKET-031",
+      "TICKET-032",
+      "TICKET-033",
+      "TICKET-034",
+      "TICKET-035",
+      "TICKET-036",
+      "TICKET-037",
+      "TICKET-038",
+      "TICKET-039"
+    ],
+    "repair_batch_ids": [
+      "BATCH-008",
+      "BATCH-009",
+      "BATCH-010",
+      "BATCH-011",
+      "BATCH-012",
+      "BATCH-013",
+      "BATCH-014",
+      "BATCH-015"
     ]
   },
   "completion_status": {
-    "stage_specific_status": "ready_for_stage_6",
-    "global_status": "ready_for_next_stage",
-    "reason": "All Stage 5 orchestration outputs, dependency-aware tickets, required skill chains, generated agent profiles, parallel batches, release gates, expected artifacts, and Stage 6 handoff are complete.",
-    "blocking_items": [],
-    "next_actions": [
-      "Run Stage 6 implementation and validation using BATCH-001 through BATCH-007."
+    "stage_specific_status": "scraper_repair_implementation_complete_visual_validation_pending",
+    "global_status": "blocked",
+    "reason": "Scraper repair implementation and all non-browser validation are complete; visual browser evidence remains.",
+    "blocking_items": [
+      "Browser connector returned an empty browser inventory."
     ],
-    "ready_for": "Stage 6 (Implementation & Validation)"
+    "next_actions": [
+      "Connect a browser and capture the remaining Stage 6 UI evidence."
+    ],
+    "ready_for": "Stage 6 visual validation"
   },
   "orchestration_progress": [
     {

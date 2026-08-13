@@ -4,7 +4,7 @@
   "artifact_id": "ARTIFACT-S5-PARALLEL",
   "artifact_type": "parallel_execution_plan",
   "stage": "Stage 5",
-  "status": "ready_for_stage_6",
+  "status": "scraper_repair_visual_validation_pending",
   "context_ref": "Build-Plans/Stage-5/00-stage-context.json",
   "traceability_refs": [
     "TICKET-001",
@@ -34,7 +34,21 @@
     "BATCH-004",
     "BATCH-005",
     "BATCH-006",
-    "BATCH-007"
+    "BATCH-007",
+    "TICKET-022",
+    "SLICE-016",
+    "TICKET-023",
+    "SLICE-017",
+    "TICKET-024",
+    "SLICE-018",
+    "TICKET-025",
+    "SLICE-019",
+    "TICKET-026",
+    "SLICE-020",
+    "TICKET-027",
+    "SLICE-021",
+    "TICKET-028",
+    "SLICE-022"
   ],
   "data": {
     "parallel_execution_plan": {
@@ -310,18 +324,213 @@
         "coordination_notes": [
           "No public rollout from Stage 6; Stage 7 owns deployment execution"
         ]
+      },
+      {
+        "batch_id": "BATCH-008",
+        "execution_order": 8,
+        "can_run_in_parallel": true,
+        "execution_waves": [
+          [
+            "TICKET-024"
+          ],
+          [
+            "TICKET-022",
+            "TICKET-025",
+            "TICKET-027"
+          ],
+          [
+            "TICKET-023",
+            "TICKET-026"
+          ]
+        ],
+        "assigned_agents": [
+          "AGENT-BACKEND",
+          "AGENT-WORKER",
+          "AGENT-FRONTEND"
+        ],
+        "tickets": [
+          "TICKET-022",
+          "TICKET-023",
+          "TICKET-024",
+          "TICKET-025",
+          "TICKET-026",
+          "TICKET-027"
+        ],
+        "blocked_by_batches": [
+          "BATCH-007"
+        ],
+        "file_ownership_boundaries": [
+          "Backend owns API/domain mutations",
+          "Worker owns source-to-candidate processing",
+          "Frontend owns UI wiring and fixture replacement"
+        ],
+        "shared_contracts": [
+          "live workflow DTOs",
+          "job/candidate state transitions",
+          "provider settings state",
+          "vendor/catalog persistence"
+        ],
+        "merge_strategy": "repair_wave_contract_review_then_merge",
+        "batch_validation": [
+          "dead-control audit",
+          "fixture ban for runtime pages",
+          "form/API response handling smoke",
+          "AI provider UI smoke",
+          "import-to-discovery smoke"
+        ],
+        "risk_level": "critical",
+        "coordination_notes": [
+          "Do not resume Stage 7 while BATCH-008 is incomplete",
+          "Every launch-critical action must be wired or intentionally disabled with a visible reason"
+        ]
+      },
+      {
+        "batch_id": "BATCH-009",
+        "execution_order": 9,
+        "can_run_in_parallel": false,
+        "assigned_agents": [
+          "AGENT-VALIDATION"
+        ],
+        "tickets": [
+          "TICKET-028"
+        ],
+        "blocked_by_batches": [
+          "BATCH-008"
+        ],
+        "file_ownership_boundaries": [
+          "validation evidence, smoke tests, readiness audit updates"
+        ],
+        "shared_contracts": [
+          "all launch-critical local workflow proofs"
+        ],
+        "merge_strategy": "manual_review_required",
+        "batch_validation": [
+          "create vendor smoke",
+          "add AI provider smoke",
+          "website import smoke",
+          "PDF import smoke",
+          "discovery candidate promotion smoke",
+          "test/typecheck/lint/build"
+        ],
+        "risk_level": "critical",
+        "coordination_notes": [
+          "Stage 6 may not return ready_for_stage_7 until BATCH-009 passes and evidence is recorded"
+        ]
+      },
+      {
+        "batch_id": "BATCH-010",
+        "completion_status": "complete",
+        "execution_order": 10,
+        "can_run_in_parallel": true,
+        "execution_waves": [["TICKET-029", "TICKET-030"]],
+        "assigned_agents": ["AGENT-WORKER", "AGENT-BACKEND"],
+        "tickets": ["TICKET-029", "TICKET-030"],
+        "blocked_by_batches": [],
+        "file_ownership_boundaries": ["Worker owns process lifecycle and queue recovery", "Backend owns shared contracts and persistence schema"],
+        "shared_contracts": ["scraper job, checkpoint, provenance, and terminal-state contracts"],
+        "merge_strategy": "contract_review_then_merge",
+        "batch_validation": ["automatic worker claim", "worker restart recovery", "canonicalization and contract tests"],
+        "risk_level": "critical",
+        "coordination_notes": ["User approval is the only start gate", "TICKET-029 and TICKET-030 may run concurrently but their shared contract must be frozen before BATCH-011"]
+      },
+      {
+        "batch_id": "BATCH-011",
+        "completion_status": "complete",
+        "execution_order": 11,
+        "can_run_in_parallel": true,
+        "execution_waves": [["TICKET-031", "TICKET-032"]],
+        "assigned_agents": ["AGENT-WORKER", "AGENT-BACKEND"],
+        "tickets": ["TICKET-031", "TICKET-032"],
+        "blocked_by_batches": ["BATCH-010"],
+        "file_ownership_boundaries": ["Shopify adapter modules", "browser collector and generic discovery modules"],
+        "shared_contracts": ["normalized page, category, product, variant, and provenance outputs"],
+        "merge_strategy": "adapter_contract_tests_then_merge",
+        "batch_validation": ["Shopify golden fixture", "Blank Knights canary", "JavaScript rendering fixture"],
+        "risk_level": "critical",
+        "coordination_notes": ["Adapter implementations must not fork the normalized output contract"]
+      },
+      {
+        "batch_id": "BATCH-012",
+        "completion_status": "complete",
+        "execution_order": 12,
+        "can_run_in_parallel": true,
+        "execution_waves": [["TICKET-033", "TICKET-034"]],
+        "assigned_agents": ["AGENT-BACKEND", "AGENT-WORKER"],
+        "tickets": ["TICKET-033", "TICKET-034"],
+        "blocked_by_batches": ["BATCH-011"],
+        "file_ownership_boundaries": ["Backend owns category persistence and API", "Worker owns AI fallback orchestration"],
+        "shared_contracts": ["category discovery result and candidate provenance contracts"],
+        "merge_strategy": "api_and_ai_contract_review_then_merge",
+        "batch_validation": ["category idempotency", "independent category jobs", "deterministic-first AI fallback"],
+        "risk_level": "critical",
+        "coordination_notes": ["AI must consume persisted source evidence and cannot write catalog records directly"]
+      },
+      {
+        "batch_id": "BATCH-013",
+        "completion_status": "implementation_complete_visual_validation_pending",
+        "execution_order": 13,
+        "can_run_in_parallel": false,
+        "execution_waves": [["TICKET-035"], ["TICKET-036"]],
+        "assigned_agents": ["AGENT-WORKER", "AGENT-FRONTEND"],
+        "tickets": ["TICKET-035", "TICKET-036"],
+        "blocked_by_batches": ["BATCH-012"],
+        "file_ownership_boundaries": ["Worker owns recursive orchestration", "Frontend owns category analysis and job-control UI"],
+        "shared_contracts": ["job counters, checkpoint, retry, warning, and partial-success states"],
+        "merge_strategy": "worker_workflow_then_ui_integration",
+        "batch_validation": ["pagination completeness", "restart recovery", "zero duplicate canonical records", "browser category workflow"],
+        "risk_level": "critical",
+        "coordination_notes": ["TICKET-036 starts only after TICKET-035 contract and integration tests pass"]
+      },
+      {
+        "batch_id": "BATCH-014",
+        "completion_status": "implementation_complete_dependency_validation_pending",
+        "execution_order": 14,
+        "can_run_in_parallel": true,
+        "execution_waves": [["TICKET-037", "TICKET-038"]],
+        "assigned_agents": ["AGENT-BACKEND", "AGENT-VALIDATION"],
+        "tickets": ["TICKET-037", "TICKET-038"],
+        "blocked_by_batches": ["BATCH-013"],
+        "file_ownership_boundaries": ["Observability and status reconciliation", "security policy and adversarial fixtures"],
+        "shared_contracts": ["failure classes, terminal states, crawl-policy decisions"],
+        "merge_strategy": "hardening_gate_review_then_merge",
+        "batch_validation": ["failure injection", "queue/database/UI reconciliation", "SSRF and redirect policy", "robots and resource budgets"],
+        "risk_level": "critical",
+        "coordination_notes": ["Security and operability are release blockers, not follow-up work"]
+      },
+      {
+        "batch_id": "BATCH-015",
+        "completion_status": "blocked_by_dependencies_and_browser_evidence",
+        "execution_order": 15,
+        "can_run_in_parallel": false,
+        "assigned_agents": ["AGENT-VALIDATION"],
+        "tickets": ["TICKET-039"],
+        "blocked_by_batches": ["BATCH-014"],
+        "file_ownership_boundaries": ["supported-site fixtures, live canary reports, browser evidence, Stage 6 validation record"],
+        "shared_contracts": ["supported scraper matrix and release claim"],
+        "merge_strategy": "manual_release_gate_review",
+        "batch_validation": ["100 percent golden fixture matrix", "three consecutive Blank Knights canaries", "browser click-through", "responsive screenshots"],
+        "risk_level": "critical",
+        "coordination_notes": ["Stage 7 remains paused until TICKET-039 passes and its evidence is accepted"]
       }
     ],
     "parallel_batch_ids": [
       "BATCH-002",
       "BATCH-003",
-      "BATCH-004"
+      "BATCH-004",
+      "BATCH-008",
+      "BATCH-010",
+      "BATCH-011",
+      "BATCH-012",
+      "BATCH-014"
     ],
     "serial_batch_ids": [
       "BATCH-001",
       "BATCH-005",
       "BATCH-006",
-      "BATCH-007"
+      "BATCH-007",
+      "BATCH-009",
+      "BATCH-013",
+      "BATCH-015"
     ],
     "conflict_controls": [
       "Freeze shared types before worker/web parallelization",

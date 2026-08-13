@@ -12,7 +12,11 @@ export function apiError(error: unknown): Response {
   }
 
   const message = error instanceof Error ? error.message : "unknown_error";
-  const status = message === "authentication_required" ? 401 : message === "active_organization_required" ? 403 : 500;
+  const status = message === "authentication_required" ? 401
+    : message === "active_organization_required" || message === "cross_origin_request_forbidden" ? 403
+      : message.endsWith("_not_found") ? 404
+        : message.endsWith("_invalid") || message.endsWith("_required") ? 400
+          : 500;
   return Response.json({
     error: {
       code: status === 500 ? "internal_error" : message,

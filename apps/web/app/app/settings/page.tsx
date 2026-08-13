@@ -1,15 +1,6 @@
-import { ButtonLink, PageHeader } from "../page-actions";
+import Link from "next/link";
+import type { CSSProperties } from "react";
 
-export default function SettingsPage() {
-  return (
-    <>
-      <PageHeader title="Settings" description="Workspace-scoped operational controls.">
-        <ButtonLink href="/app/settings/ai" primary>AI Provider Settings</ButtonLink>
-      </PageHeader>
-      <section className="panel">
-        <h2>Workspace settings</h2>
-        <p className="muted">Workspace-scoped controls stay grouped here; AI routing has its own launch-critical screen.</p>
-      </section>
-    </>
-  );
-}
+const styles = { page: { minHeight: "100vh", minWidth: 1120, background: "#f9f8f6", padding: 32, color: "#292524" }, breadcrumb: { display: "flex", gap: 8, marginBottom: 8, color: "#78716c", fontSize: 13 }, title: { margin: 0, fontSize: 20, fontWeight: 900 }, description: { margin: "8px 0 28px", color: "#78716c", fontSize: 13 }, grid: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 24 }, card: { minHeight: 150, display: "grid", alignContent: "space-between", border: "1px solid #e7e5e4", borderRadius: 8, background: "#fff", color: "inherit", padding: 24, textDecoration: "none" }, cardTitle: { margin: "0 0 8px", fontSize: 15, fontWeight: 900 }, cardText: { margin: 0, color: "#78716c", fontSize: 13, lineHeight: 1.5 }, arrow: { color: "#a85e2a", fontWeight: 900 } } satisfies Record<string, CSSProperties>;
+
+export default function SettingsPage() { return <div style={styles.page}><nav aria-label="Breadcrumb" style={styles.breadcrumb}><Link href="/app" style={{ color: "inherit", textDecoration: "none" }}>Workspace</Link><span>›</span><strong aria-current="page">Settings</strong></nav><h1 style={styles.title}>Settings</h1><p style={styles.description}>Workspace-scoped administrative configuration.</p><section aria-label="Settings areas" style={styles.grid}><Link href="/app/settings/ai" style={styles.card}><div><h2 style={styles.cardTitle}>AI Provider Settings</h2><p style={styles.cardText}>Configure model routing, provider credentials, health checks, and capability assignments.</p></div><span style={styles.arrow}>Open settings →</span></Link><Link href="/app/settings/workspace" style={styles.card}><div><h2 style={styles.cardTitle}>Workspace Settings</h2><p style={styles.cardText}>Manage workspace identity, regional defaults, branding, member access, and workspace lifecycle.</p></div><span style={styles.arrow}>Open settings →</span></Link></section></div>; }

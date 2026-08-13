@@ -1,0 +1,38 @@
+{
+  "format_version": "2.0",
+  "artifact_id": "ARTIFACT-S6-SCRAPER-REPAIR-2026-08-06",
+  "revision_id": "REVISION-S5-SCRAPER-REPAIR-2026-08-06",
+  "status": "automated_and_live_validation_passed_browser_evidence_pending",
+  "completed_ticket_ids": ["TICKET-029", "TICKET-030", "TICKET-031", "TICKET-032", "TICKET-033", "TICKET-034", "TICKET-035", "TICKET-038"],
+  "pending_ticket_ids": ["TICKET-036", "TICKET-037", "TICKET-039"],
+  "automated_validation": {
+    "contract_tests": 66,
+    "vitest_tests": 17,
+    "lint": "passed",
+    "typecheck": "passed",
+    "web_production_build": "passed",
+    "worker_build": "passed",
+    "production_dependency_audit": "no_high_or_critical_findings"
+  },
+  "live_canaries": [
+    { "run": 1, "categories": 12, "products": 19, "variants": 851, "duplicates": 0, "product_failures": 0 },
+    { "run": 2, "categories": 12, "products": 19, "variants": 851, "duplicates": 0, "product_failures": 0 },
+    { "run": 3, "categories": 12, "products": 19, "variants": 851, "duplicates": 0, "product_failures": 0 }
+  ],
+  "runtime_validation": {
+    "worker_health": "ready",
+    "chromium_launch": "passed",
+    "parent_job_id": "cmsh6ns2x0004iunzul0nii2e",
+    "parent_candidate_count": 851,
+    "discovered_category_count": 12,
+    "category_job_id": "cmsh6ob7n0006iunzdmjlsftm",
+    "category_job_candidate_count": 851,
+    "counter_reconciliation": "passed"
+  },
+  "browser_validation": {
+    "status": "blocked",
+    "reason": "Browser connector returned an empty browser inventory.",
+    "required_remaining_evidence": ["category-selection click-through", "desktop screenshot", "tablet screenshot", "mobile screenshot", "keyboard interaction evidence"]
+  },
+  "stage_7_ready": false
+}

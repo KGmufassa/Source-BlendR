@@ -9,7 +9,7 @@ export type WorkspaceContext = {
 
 export async function getWorkspaceContext(): Promise<WorkspaceContext> {
   if (process.env.SOURCE_BLENDR_DEV_AUTH === "1") {
-    if (process.env.NODE_ENV === "production") throw new Error("dev_auth_forbidden_in_production");
+    if (process.env.NODE_ENV === "production" && process.env.SOURCE_BLENDR_ALLOW_DEV_AUTH_IN_PRODUCTION !== "1") throw new Error("dev_auth_forbidden_in_production");
     return ensureWorkspace("dev-user", "dev-workspace", "admin");
   }
 
@@ -24,6 +24,11 @@ async function ensureWorkspace(userId: string, clerkOrgId: string, role: string)
     where: { clerkOrgId },
     update: {},
     create: { clerkOrgId, name: clerkOrgId === "dev-workspace" ? "Development workspace" : "Source BlendR workspace" },
+  });
+  await getDatabase().workspaceMember.upsert({
+    where: { workspaceId_userId: { workspaceId: workspace.id, userId } },
+    update: { role },
+    create: { workspaceId: workspace.id, userId, role },
   });
   return { userId, workspaceId: workspace.id, role };
 }

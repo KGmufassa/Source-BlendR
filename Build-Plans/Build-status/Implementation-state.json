@@ -1,7 +1,7 @@
 {
   "stage": "Stage 6",
   "command": "stage-6-implementation-validation",
-  "status": "in_progress",
+  "status": "needs_visual_validation",
   "stage_5_inputs": {
     "format_version": "2.0",
     "context": "Build-Plans/Stage-5/00-stage-context.json",
@@ -10,7 +10,20 @@
   },
   "build_tickets": {
     "source": "Build-Plans/Stage-5/05-build-tickets.json",
-    "count": 21
+    "count": 28,
+    "repair_ticket_ids": [
+      "TICKET-022",
+      "TICKET-023",
+      "TICKET-024",
+      "TICKET-025",
+      "TICKET-026",
+      "TICKET-027",
+      "TICKET-028"
+    ],
+    "repair_batch_ids": [
+      "BATCH-008",
+      "BATCH-009"
+    ]
   },
   "agent_assignment_plan": {
     "source": "Build-Plans/Stage-5/06-agent-assignment-plan.json",
@@ -648,24 +661,22 @@
     "user_confirmations": [
       "Begin Stage 6"
     ],
-    "implementation_confidence_gaps": [
-      "PDF/storage runtime and live provider routing"
-    ]
+    "implementation_confidence_gaps": []
   },
   "stage_7_handoff": {},
   "completion_status": {
-    "status": "in_progress",
-    "reason": "REVISION-S7-001 established and live-validated a deployable catalog and website-import runtime foundation; remaining runtime paths and deployed evidence are still required.",
+    "status": "needs_visual_validation",
+    "reason": "Runtime repair implementation, automated validation, and production HTTP smoke passed. Browser click-through screenshots remain required before ready_for_stage_7.",
     "completed_at": "",
-    "recorded_at": "2026-07-31T00:59:00Z",
+    "recorded_at": "2026-08-05T00:00:00-04:00",
     "blocking_items": [
-      "PDF/storage runtime incomplete",
-      "Live provider health and capability routing incomplete"
+      "Required browser click-through and screenshot evidence is unavailable because no browser backend was connected."
     ],
     "next_actions": [
-      "Implement PDF/storage and live provider health/capability routing.",
-      "Run the Stage 6 global readiness audit only after runtime and validation blockers are resolved."
+      "Connect an in-app or extension browser.",
+      "Run repaired UI workflows and capture responsive screenshots.",
+      "Rerun Stage 6 readiness audit after visual evidence is recorded."
     ],
-    "ready_for": "REVISION-S7-001 continuation"
+    "ready_for": "Stage 6 visual repair validation"
   }
 }
