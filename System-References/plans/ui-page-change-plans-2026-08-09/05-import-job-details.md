@@ -115,7 +115,7 @@
 ### Page Edits
 
 | ID | Approved change | Ramification | Approve | Defer | Discard |
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|
 | `CHANGE-JOB-004` | Convert Event Log into an accessible collapsible section. | Reduces page length while keeping diagnostic history available on demand. | [x] | [ ] | [ ] |
 | `CHANGE-JOB-005` | Restyle Category Tree to match the referenced image. | Requires the missing reference image before spacing, hierarchy, connectors, and node styling can be specified accurately. | [x] | [ ] | [ ] |
 | `CHANGE-JOB-006` | Remove controls labeled `Import Selected`, `Ignore Selected`, and `Archive Selected` from this page. | Focuses the page on scrape intent and category assignment rather than Discovery lifecycle mutations. | [x] | [ ] | [ ] |
@@ -140,10 +140,10 @@
 
 | Decision group | Option | Clear action | Ramification of approval | Approve | Defer | Discard |
 |---|---|---|---|---|---|---|
-| `DEC-JOB-004` | A | Use temporary row checkboxes only while Bulk Edit Category mode is open. | Satisfies bulk targeting without a permanent Select column but adds a mode-specific table state. | [ ] | [ ] | [ ] |
-| `DEC-JOB-004` | B | Apply bulk category edits to every row in the current filtered result. | Avoids checkboxes but increases the risk of broad unintended edits and requires confirmation. | [ ] | [ ] | [ ] |
-| `DEC-JOB-005` | A | Collapse Event Log by default except when the job has an error. | Keeps successful jobs concise while surfacing failures. | [ ] | [ ] | [ ] |
-| `DEC-JOB-005` | B | Expand Event Log by default for every job. | Maximizes visibility but provides less reduction in page length. | [ ] | [ ] | [ ] |
+| `DEC-JOB-004` | A | Use temporary row checkboxes only while Bulk Edit Category mode is open. | Satisfies bulk targeting without a permanent Select column but adds a mode-specific table state. | [x] | [ ] | [ ] |
+| `DEC-JOB-004` | B | Apply bulk category edits to every row in the current filtered result. | Avoids checkboxes but increases the risk of broad unintended edits and requires confirmation. | [ ] | [x] | [ ] |
+| `DEC-JOB-005` | A | Collapse Event Log by default except when the job has an error. | Keeps successful jobs concise while surfacing failures. | [x] | [ ] | [ ] |
+| `DEC-JOB-005` | B | Expand Event Log by default for every job. | Maximizes visibility but provides less reduction in page length. | [ ] | [x] | [ ] |
 
 ### Conflicts and Dependencies
 
@@ -162,6 +162,68 @@
 
 ### Implementation Status
 
-- Status: `planned_not_implemented`
-- Blocked decisions: `DEC-JOB-004`, `DEC-JOB-005`, candidate-table data contract, and the missing Category Tree image reference.
-- No code changes were made for this revision.
+- Status: `implemented_approved`
+- Approval date: `2026-08-15`
+
+## Revision Completion Record — 2026-08-15
+
+### Completed
+
+| Approved change | Completion record |
+|---|---|
+| Shared requirements | Added dynamic Job Details routes to the shared Imports shell/canvas, retaining the reference SVG icons, active Imports state, linked and entry-aware breadcrumbs, focus treatment, and consistent loading/error paths without the generic topbar breadcrumb. |
+| `CHANGE-JOB-004` and `DEC-JOB-005A` | Converted Event Log to a native semantic disclosure. It is collapsed by default and initially expanded for failed jobs or jobs with an error code; event content remains mounted and keyboard accessible. |
+| `CHANGE-JOB-006` | The candidate-review workflow contains no `Import Selected`, `Ignore Selected`, or `Archive Selected` actions. Existing API-backed retry, cancel, discovery, category scrape, and child-job behavior remains intact. |
+| `CHANGE-JOB-007` | The candidate table has no permanent Select column, Status column, or Status filter. |
+| `CHANGE-JOB-008` | Added a Search Table over the job's workspace-scoped Discovery Session candidates with Image, Product or Service, SKU/Reference, Vendor, Category, Price, and Action columns. Images use real candidate payload data with an accessible no-image fallback. |
+| `CHANGE-JOB-009` and `DEC-JOB-004A` | Added Bulk Edit Category mode. Row and visible-result checkboxes exist only while that mode is open; category changes are applied atomically to the selected job candidates. |
+| Candidate persistence | Added a same-origin, workspace- and job-scoped category mutation route that validates all selected candidate IDs and persists category values in candidate payloads. Complete failure leaves all selected rows unchanged and is reported in the table toolbar. |
+| Search Table behavior | Added server-backed name/SKU search, 20-row server pagination, result range, visible text actions, responsive overflow, empty/detecting/failed/completed messaging, and mutation feedback. Initial rendering retrieves only the first 20 candidates. |
+| Category discovery states | Website jobs show detecting or failed state copy until completed; completed jobs retain Collections and Category Tree selection over the same state. Non-website jobs do not show the category toggle. |
+| Loading and errors | Added entry-aware loading and recoverable error/access-failure states using the same shared shell and canonical fallback rules. |
+
+### Deferred
+
+- Exact `CHANGE-JOB-005` Category Tree visual matching is deferred because the requested reference remains `place image` and no image asset is attached. The existing accessible tree, connectors, hierarchy, expansion, and shared selection behavior remain functional.
+- Saved scrape-category selection across a full refresh remains deferred because the current data model persists discovered categories and child jobs but has no saved-selection field.
+- `FIX-JOB-003B`: automatic event/category refresh after child-job creation remains deferred as previously approved.
+
+### Discarded
+
+- Permanent row selection and its Select column were discarded under `CHANGE-JOB-007`; temporary checkboxes are limited to the approved Bulk Edit Category mode.
+- Candidate lifecycle mutations and Status filtering were not brought onto Job Details.
+- The broad apply-to-all-filtered bulk-edit option in `DEC-JOB-004B` was not implemented.
+
+### Conflict Resolution
+
+- The prior status note listed `DEC-JOB-004` and `DEC-JOB-005` as blocked even though their decision-table A options are checked. The checked decisions were treated as authoritative and the stale note was removed.
+- The candidate dataset and persistence contract were previously undefined. Implementation uses the existing one-to-one job Discovery Session and its workspace-scoped Candidate Items, avoiding a duplicate analysis model.
+- Bulk editing conflicts with permanent Select-column removal. Temporary selection appears only after Bulk Edit Category is activated, exactly following `DEC-JOB-004A`.
+- Exact tree styling cannot be inferred safely without the referenced image, so functionality was preserved and only visual matching remains deferred.
+
+### Page Effects
+
+| Pros | Cons or possible effects |
+|---|---|
+| Event diagnostics remain available without dominating successful-job pages. | Users must expand Event Log to inspect successful histories. |
+| Real analyzed items can be searched, recognized by image, and categorized before later Discovery work. | The page now contains an additional data table and client state. |
+| Temporary selection avoids a permanent workflow column. | Entering and exiting Bulk Edit mode adds one interaction step. |
+| Atomic category updates prevent partial writes. | If one selected ID is invalid, no selected candidate is updated. |
+| Shared-shell classification removes duplicate breadcrumbs and aligns the dynamic route with Imports. | Full-canvas rendering intentionally suppresses the generic shell topbar. |
+| Server paging keeps large analyses responsive; the local dataset includes jobs with more than 1,600 candidates. | Bulk category selection is intentionally limited to the currently loaded page. |
+
+### Suggestions
+
+- Attach the intended Category Tree reference image so spacing, connectors, nodes, and expansion affordances can be matched precisely.
+- Add an explicit saved-category-selection model if selections must survive refresh before child jobs are queued.
+- Consider a controlled category vocabulary or suggestions if free-text category inconsistency becomes common.
+- Extend server search to indexed category values if category-based lookup becomes a frequent job-review need.
+
+### Verification Record
+
+- Focused page-plan tests, web TypeScript validation, changed-application-file lint, and diff checks passed.
+- A completed real job returned HTTP `200` for direct, Recent Jobs, All Jobs, and Website Import entry markers; rendered breadcrumbs matched all four canonical or entry-aware paths.
+- Rendered output confirmed the shared Imports shell, absence of the generic topbar, semantic collapsed Event Log on the successful job, approved candidate columns, 20 initial candidate rows, and absence of the removed lifecycle controls and Status filter.
+- The candidate endpoint returned page 2 with 20 rows and the accurate 1,681-item total for the tested job, confirming server pagination without transferring the full dataset into initial page output.
+- Category mutation, retry, cancellation, and scrape submission were not invoked during verification because they would change real workspace or job state; their scoped handlers and validation are covered statically.
+- Exact Category Tree visual QA remains blocked by the missing reference image. Other interactive and visual QA remains pending because no browser backend is connected to this session.

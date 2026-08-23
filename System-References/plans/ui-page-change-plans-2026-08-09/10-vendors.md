@@ -20,8 +20,8 @@
 
 ## Filtering and Pagination
 
-- Add filters for vendor status and source coverage at minimum when supported by the data.
-- Reset to page 1 when search, filters, or page size changes.
+- Do not include the `All statuses` or `All sources` filter dropdowns in the vendor toolbar.
+- Reset to page 1 when search or page size changes.
 - Apply the approved vendor page-size behavior.
 - Preserve `New Vendor` as the primary page action.
 
@@ -29,7 +29,7 @@
 
 - No demo-state tab group appears in the header.
 - Each row has a visible `View Details` action linked to `/app/vendors/:vendorID`.
-- Search and approved filters combine correctly and expose a clear reset path.
+- Search does not include a separate `Reset filters` button.
 - The result range, total count, and pagination are accurate.
 - An authorization failure is presented as a real access state, not selectable demo content.
 - Generic `System Status` footer content is absent under the shared removal requirement.
@@ -80,7 +80,7 @@
 | Change | Record |
 |---|---|
 | Header cleanup | Removed Live, Loading, Empty, Error, and Denied demo controls. |
-| Search and filters | Added search across name, website, and sources plus Status and Source Coverage filters. |
+| Search | Added search across name, website, and sources. |
 | Table | Uses the Discovery-style toolbar, row density, labeled action, responsive overflow, real result range, pagination, and 20/50/100 page size. |
 | Actions | Real vendors use `View Details` built from their stable vendor IDs. |
 | Footer cleanup | Removed the generic version/status footer and dead anchors. |
@@ -127,24 +127,129 @@
 
 | ID | Approved change | Ramification | Approve | Defer | Discard |
 |---|---|---|---|---|---|
-| `CHANGE-VEN-005` | Redesign the vendor search/filter area with a cleaner structure and stronger visual hierarchy. | Improves scanability while preserving search, Status, Source Coverage, page size, and pagination behavior. | [x] | [ ] | [ ] |
-| `CHANGE-VEN-006` | Move `New Vendor` into the search/filter section. | Groups list-level actions in one place but requires the primary action to remain visually distinct from filters. | [x] | [ ] | [ ] |
+| `CHANGE-VEN-005` | Redesign the vendor search area with a cleaner structure and stronger visual hierarchy. | Improves scanability while preserving search, page size, and pagination behavior. | [x] | [ ] | [ ] |
+| `CHANGE-VEN-006` | Move `New Vendor` into the search section. | Groups list-level actions in one place but requires the primary action to remain visually distinct from search controls. | [x] | [ ] | [ ] |
 
 ### Search Table Toolbar Contract
 
 - Vendors uses the shared `Search Table` family.
-- Search is the dominant control; Status and Source Coverage form a compact secondary filter group.
+- Search is the dominant control; Status and Source Coverage filter dropdowns are not included.
 - New Vendor sits within the same toolbar region but uses primary-action styling and must not look like a filter.
 - Page size, result range, and pagination metadata remain visually secondary.
 - The toolbar wraps into deliberate rows at narrower widths instead of scattering or clipping controls.
 
 ### Acceptance Criteria
 
-- Search, filters, New Vendor, and page-size controls have aligned heights, predictable grouping, and clear visual priority.
+- Search, New Vendor, and page-size controls have aligned heights, predictable grouping, and clear visual priority.
 - New Vendor remains a keyboard-accessible link to `/app/vendors/new`.
 - Moving the action does not alter filtering, pagination, empty, no-results, error, or denied behavior.
 
 ### Implementation Status
 
-- Status: `planned_not_implemented`
-- No code changes were made for this revision.
+- Completion date: `2026-08-16`
+- Approval date: `2026-08-16`
+- Status: `implemented_approved`
+
+### Revised Completion Scope
+
+| Change | Completion record |
+|---|---|
+| Search hierarchy | Search is the dominant labeled control in the first toolbar row; the separate `Reset filters` button was removed at the user's direction. |
+| Primary action | Moved the keyboard-accessible `New Vendor` link into the search toolbar while preserving distinct warm-orange primary styling. |
+| Filter removal | Removed the `All statuses` and `All sources` toolbar filters at the user's direction. |
+| Search Table | Preserved the Discovery-aligned table density, responsive overflow, result range, 20/50/100 page-size choices, and pagination controls. |
+| Discovery page flow | Corrected the shared Vendors canvas from forced flex layout to the same block-flow layout used by Discovery, keeping the header, toolbar, table, and footer stacked at full content width. |
+| Pagination placement | Moved the unlabeled visual page-size selector beside the result-range text and retained an accessible `Vendors per page` name. |
+| Row actions | Real rows retain stable-ID `View Details` links; deferred sample rows remain clearly labeled and non-interactive. |
+| State handling | Preserved real no-results behavior and added dedicated route loading and error/access views using linked breadcrumbs. |
+| Cleanup | No demo-state controls, dead footer links, or generic System Status content are rendered. |
+
+### Revised Deferred Scope
+
+- `FIX-VEN-003` remains deferred: when no real vendors exist, the two clearly labeled sample rows remain visible without detail links.
+- Contact-field search remains deferred until vendor contact information is persisted.
+- URL-persisted search and page size remain deferred.
+- Interactive browser and responsive visual QA remain pending because no connected browser backend is available.
+
+### Revised Discarded Scope
+
+- Discarded the prior header placement for `New Vendor`; the action now belongs to the approved toolbar.
+- Discarded the previous single-row, evenly weighted control layout and removed the later Status/Source Coverage filter group.
+- No approved decision option was discarded.
+
+### Revised Conflict Resolution Record
+
+- The acceptance criterion expects every production row to offer View Details, while deferred `FIX-VEN-003` keeps fictional fallback rows. Sample rows remain visibly marked and non-interactive so they cannot route to nonexistent records.
+- Source Coverage remains visible in the table, but it is no longer available as a toolbar filter.
+
+### Revised Page Effects
+
+| Pros | Cons or resulting effects |
+|---|---|
+| The toolbar now has a clear Search-first hierarchy and keeps the creation action close to list controls. | The first toolbar row contains three controls and may wrap on narrower layouts. |
+| Search, page size, result count, and pagination remain predictable across Discovery and Vendors. | Vendor search is client-side and does not place state in shareable URLs. |
+| The page now follows Discovery's full-width vertical content flow instead of laying major sections side by side. | The fixed desktop minimum width still relies on horizontal overflow on smaller viewports. |
+| Manual source coverage remains visible in the table. | Users can no longer narrow the list by status or source coverage from the toolbar. |
+| Dedicated loading and failure views preserve the shared page shell. | Empty workspaces still show deferred sample rows rather than a create-first empty state. |
+
+### Revised Suggestions
+
+- Approve `FIX-VEN-003` in a future revision and replace sample rows with a create-first empty state.
+- Add persisted contact name, email, and phone fields so vendor search can cover contact details.
+- Move search and pagination to URL-backed server queries if vendor counts grow or views need to be shareable.
+
+### Revised Verification Record
+
+- All seven focused page-plan implementation tests pass.
+- TypeScript validation and focused ESLint validation pass with no errors or warnings.
+- A regression assertion verifies that the Vendors page canvas remains block-flow like Discovery rather than reverting to flex layout.
+- The live local `/app/vendors` route returned HTTP `200` and rendered Search, New Vendor, Status, Source Coverage, and View Details.
+- The rendered route did not include Live, Denied, or System Status demo content.
+- Runtime validation was read-only; no vendor data was created or changed.
+
+## Post-Review Bulk Revision — 2026-08-16
+
+### Approved Added Scope
+
+| Change | Completion record |
+|---|---|
+| Selection column | Added accessible row checkboxes and a Select visible vendors control before Vendor Name. Deferred sample rows are disabled and cannot enter a bulk request. |
+| Bulk section | Added a dedicated Discovery-style Bulk actions section between the search toolbar and table containing only the selected count and `Delete selected`. |
+| Confirmation | Delete selected requires confirmation that the action is permanent and that import-job vendor links will be cleared. |
+| Persistence | Added a same-origin, workspace-scoped bulk DELETE operation that validates the complete selection and deletes it atomically. |
+| Relationship protection | If any selected vendor is assigned to a catalog item, the entire deletion is rejected and no selected vendor is removed. Import jobs remain, with their vendor reference cleared by the database relationship contract. |
+| Selection lifecycle | Search, page-size, and page changes clear the selection to avoid acting on hidden rows. |
+
+### Added Deferred Scope
+
+- Bulk editing names or websites is deferred because one shared value would rarely be valid across multiple vendors.
+- Cross-page selection remains deferred; bulk deletion applies to explicitly selected visible records.
+
+### Added Discarded Scope
+
+- Discarded all bulk status choices and the Apply changes action at the user's direction; Delete selected is the only bulk operation.
+- Discarded selectable sample rows because they do not represent persisted vendor records.
+
+### Added Effects
+
+| Pros | Cons or resulting effects |
+|---|---|
+| Users can permanently remove multiple unreferenced vendors in one atomic operation. | Deletion cannot be undone. |
+| Invalid, cross-workspace, or catalog-item-linked selections change nothing and return actionable feedback. | A single protected vendor blocks deletion of the complete selection. |
+| Import-job history is preserved when its vendor is deleted. | The historical job loses its direct vendor-record relationship. |
+| The bulk section now matches Discovery's selection-and-action hierarchy. | Table width increases slightly because of the selection column. |
+
+### Added Suggestions
+
+- Replace browser-native confirmation with an accessible review dialog listing every vendor that will be deleted.
+- Add server-backed selection across pages if users need to update more than the currently visible page.
+- Consider preserving a vendor-name snapshot on import jobs before deletion so historical job attribution remains readable.
+
+### Added Verification Record
+
+- Focused implementation tests verify the selection controls, delete-only bulk section, atomic API transaction, invalid-selection guard, and catalog-item reference protection.
+- TypeScript validation and focused ESLint validation pass.
+- The live route returned HTTP `200`, rendered Delete selected, and did not render bulk Status or Apply changes controls.
+- The live route did not render the `All statuses` or `All sources` toolbar filters; Status and Source Coverage remain as table columns only.
+- The live route did not render the `Reset filters` button.
+- Runtime validation was read-only; no vendor was deleted.

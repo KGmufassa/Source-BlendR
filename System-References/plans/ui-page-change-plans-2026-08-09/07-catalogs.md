@@ -153,5 +153,68 @@
 
 ### Implementation Status
 
-- Status: `planned_not_implemented`
-- No code changes were made for this revision.
+- Revision completion date: `2026-08-16`
+- Approval date: `2026-08-16`
+- Status: `implemented_approved`
+
+### Revision Completed
+
+| Scope | Completion record |
+|---|---|
+| Search hierarchy | Matched Discovery's template: Search is the dominant flexible-width control with a visible label and catalog-specific placeholder, and Reset filters sits directly beside it. Search continues to cover catalog name and category type. |
+| Category filter | Moved Category Type into a secondary `Filters` row matching Discovery's structure and control sizing. |
+| Reset behavior | Added `Reset filters`; it clears Search and Category Type, returns pagination to page 1, and remains disabled when there is nothing to reset. |
+| Primary action | Kept `Create Catalog` isolated in the page header so it does not compete with query controls. |
+| Selection | Added a selection column before Catalog Name, stable catalog-ID selection, and visible-page select-all. Search, filtering, reset, and pagination clear selection and pending bulk values. |
+| Bulk section | Added a dedicated Bulk actions section between query controls and the table with selected-count feedback, a titled Category Type input, `Apply changes`, and `Delete selected`. |
+| Bulk Category Type | Accepts an existing suggested or custom category type and atomically updates every selected workspace catalog. Confirmed changes update the visible rows and Last Updated value immediately. |
+| Bulk deletion | Requires confirmation, validates every selected ID in the active workspace, and deletes the catalogs atomically. Existing cascade rules remove membership links while underlying products and services remain in Discovery. |
+| Data states | Preserved distinct real empty and no-results states and added route-level loading and error surfaces with explicit messaging and a working retry action. |
+| Shared requirements | Preserved the shared catalog shell and sidebar icons, linked Workspace breadcrumb, current-page semantics, Search Table overflow, labeled row actions, and absence of generic system-status or demo-state UI. |
+
+### Revision Deferred
+
+- Server-side catalog search, category filtering, counts, and pagination remain deferred until catalog volume exceeds the current safe client-side list size.
+- Interactive responsive, focus-order, keyboard, and screen-reader validation remains deferred because no browser backend is connected to this session.
+
+### Revision Discarded
+
+- No approved Catalogs revision was discarded.
+
+### Revision Conflict Resolution
+
+| Conflict | Resolution |
+|---|---|
+| Search and Category Type need a coherent group while Create Catalog must remain visually distinct. | Grouped only query controls inside the Search Table toolbar and retained Create Catalog as the sole header action. |
+| `FIX-CAT-003` permits selection only when a real catalog bulk action exists. | Added selection together with working Category Type and delete mutations, so the checkboxes have defined consumers. |
+| The first toolbar revision placed Category Type beside Search, while the subsequent request asks for Discovery's template. | The later request takes precedence: Search and Reset occupy the first row; Category Type occupies the secondary Filters row. |
+
+### Revision Page Effects
+
+| Pros | Cons or resulting effects |
+|---|---|
+| Visible labels and aligned control sizes improve hierarchy and make the toolbar easier to scan. | The labeled controls consume slightly more vertical space than the prior single-row unlabeled toolbar. |
+| Reset provides an explicit recovery path from combined query state. | Search and filtering remain local to the current client-loaded catalog collection. |
+| Loading, empty, no-results, populated, and error states now remain within the shared Catalog presentation. | Visual and responsive behavior still requires interactive browser confirmation. |
+| Catalogs and Discovery now use the same search/filter/bulk hierarchy. | The additional bulk section increases vertical space above the table. |
+| Multi-catalog recategorization avoids repetitive individual edits. | Custom category-type text can create near-duplicates without normalization. |
+| Atomic bulk deletion prevents partial completion and preserves underlying products. | Catalog membership organization is permanently removed after confirmation; no undo window exists. |
+
+### Revision Suggestions
+
+- Move catalog query and pagination to server parameters when catalog volume or multi-user update frequency grows.
+- Add a page-size selector only if workspaces regularly exceed the current 20-row page size.
+- Define catalog lifecycle transitions before adding Status as a toolbar filter.
+- Consider category-type normalization or a managed taxonomy before custom bulk values grow.
+- Consider an Archive Catalog action or short undo window if permanent bulk deletion proves too risky.
+
+### Revision Verification Record
+
+- Focused page-plan tests passed: `7/7`.
+- Web TypeScript check passed.
+- ESLint passed for all Catalogs route files.
+- Local runtime request to `/app/catalog` returned HTTP `200` and rendered Create Catalog, Reset filters, Category Type, and stable View Details output.
+- Static coverage verifies the selection column, visible-page select-all, dedicated bulk section, Category Type update, confirmed deletion, workspace validation, and transactional rollback contract.
+- Runtime output rendered Bulk actions, Apply changes, Delete selected, Reset filters, and View Details successfully.
+- No catalog record was created or modified during validation.
+- Interactive visual QA remains pending because no browser backend was connected.

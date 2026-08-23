@@ -56,4 +56,56 @@ describe("AI provider runtime health", () => {
 
     expect(result).toMatchObject({ status: "degraded", liveCheck: "failed", reason: "health_url_forbidden" });
   });
+
+  it("derives an authenticated models check from an OpenAI-compatible base URL", async () => {
+    let requestUrl = "";
+    let authorization = "";
+    const result = await assessProviderHealth({
+      id: "provider-openai",
+      provider: "workspace-openai",
+      enabled: true,
+      encryptedCredential: encryptCredential(JSON.stringify({
+        providerType: "openai-compatible",
+        baseUrl: "https://api.example.com/v1",
+        modelId: "model-1",
+        apiKey: "secret-token",
+        capabilities: ["normalize_item"],
+      }), key),
+    }, {
+      keyValue: key,
+      fetchImpl: async (input, init) => {
+        requestUrl = String(input);
+        authorization = new Headers(init?.headers).get("authorization") ?? "";
+        return new Response("ok", { status: 200 });
+      },
+    });
+
+    expect(requestUrl).toBe("https://api.example.com/v1/models");
+    expect(authorization).toBe("Bearer secret-token");
+    expect(result).toMatchObject({ status: "healthy", liveCheck: "passed" });
+  });
+
+  it("checks local Ollama through its model-list endpoint", async () => {
+    let requestUrl = "";
+    const result = await assessProviderHealth({
+      id: "provider-ollama",
+      provider: "local-models",
+      enabled: true,
+      encryptedCredential: encryptCredential(JSON.stringify({
+        providerType: "ollama",
+        baseUrl: "http://localhost:11434",
+        modelId: "gemma3",
+        capabilities: ["normalize_item"],
+      }), key),
+    }, {
+      keyValue: key,
+      fetchImpl: async (input) => {
+        requestUrl = String(input);
+        return new Response("ok", { status: 200 });
+      },
+    });
+
+    expect(requestUrl).toBe("http://localhost:11434/api/tags");
+    expect(result).toMatchObject({ status: "healthy", liveCheck: "passed" });
+  });
 });

@@ -12,6 +12,14 @@ export async function GET(request: Request) {
       orderBy: { provider: "asc" },
     });
     const providers = await Promise.all(credentials.map((credential) => assessProviderHealth(credential, { capability })));
+    const checkedAt = new Date();
+    await Promise.all(providers.map((provider) => getDatabase().aIProviderCredential.updateMany({
+      where: { id: provider.id, workspaceId: context.workspaceId },
+      data: {
+        lastConnectionStatus: provider.status === "healthy" && provider.liveCheck === "passed" ? "connected" : "not_connected",
+        lastConnectionCheckedAt: checkedAt,
+      },
+    })));
     return Response.json({
       data: {
         capability,

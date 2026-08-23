@@ -6,6 +6,7 @@ import { getWorkspaceContext } from "@/lib/workspace-context";
 
 const addSchema = z.object({ candidateIds: z.array(z.string().min(1)).min(1).max(500) });
 const removeSchema = z.object({ memberIds: z.array(z.string().min(1)).min(1).max(500) });
+const updateSchema = z.object({ memberId: z.string().min(1), customPriceCents: z.number().int().nonnegative().nullable() });
 
 export async function POST(request: Request, { params }: { params: Promise<{ catalogId: string }> }) {
   try {
@@ -22,6 +23,20 @@ export async function POST(request: Request, { params }: { params: Promise<{ cat
     if (candidateCount !== new Set(candidateIds).size) throw new Error("candidate_selection_invalid");
     await database.catalogMember.createMany({ data: [...new Set(candidateIds)].map((candidateId) => ({ workspaceId: context.workspaceId, catalogId, candidateId })), skipDuplicates: true });
     return Response.json({ data: { catalogId, added: candidateIds.length } }, { status: 201 });
+  } catch (error) {
+    return apiError(error);
+  }
+}
+
+export async function PATCH(request: Request, { params }: { params: Promise<{ catalogId: string }> }) {
+  try {
+    requireSameOrigin(request);
+    const context = await getWorkspaceContext();
+    const { catalogId } = await params;
+    const input = updateSchema.parse(await request.json());
+    const result = await getDatabase().catalogMember.updateMany({ where: { id: input.memberId, catalogId, workspaceId: context.workspaceId }, data: { customPriceCents: input.customPriceCents } });
+    if (!result.count) throw new Error("catalog_member_not_found");
+    return Response.json({ data: { updated: result.count } });
   } catch (error) {
     return apiError(error);
   }

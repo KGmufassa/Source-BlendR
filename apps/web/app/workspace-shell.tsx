@@ -52,6 +52,8 @@ export function WorkspaceShell({ children }: Readonly<{ children: React.ReactNod
   const pageLabel = findRouteLabel(pathname);
   const isOverviewPrototypePage = pathname === "/app";
   const isImportsPrototypePage = pathname === "/app/imports";
+  const isImportJobsPrototypePage = pathname === "/app/imports/jobs";
+  const isImportJobDetailPrototypePage = pathname.startsWith("/app/imports/jobs/");
   const isPdfImportPrototypePage = pathname === "/app/imports/pdf";
   const isWebsiteImportPrototypePage = pathname === "/app/imports/website";
   const isDiscoveryPrototypePage = pathname === "/app/discovery";
@@ -61,10 +63,10 @@ export function WorkspaceShell({ children }: Readonly<{ children: React.ReactNod
   const isNewVendorPrototypePage = pathname === "/app/vendors/new";
   const isCatalogPrototypePage = routeMatches(pathname, "/app/catalog");
   const isNewCatalogItemPage = pathname === "/app/catalog/new";
-  const useStitchPageCanvas = isSettingsPrototypePage || isAiSettingsPrototypePage || isCatalogPrototypePage || isOverviewPrototypePage || isImportsPrototypePage || isPdfImportPrototypePage || isWebsiteImportPrototypePage || isDiscoveryPrototypePage || isVendorsPrototypePage || isNewVendorPrototypePage;
+  const useStitchPageCanvas = isSettingsPrototypePage || isAiSettingsPrototypePage || isCatalogPrototypePage || isOverviewPrototypePage || isImportsPrototypePage || isImportJobsPrototypePage || isImportJobDetailPrototypePage || isPdfImportPrototypePage || isWebsiteImportPrototypePage || isDiscoveryPrototypePage || isVendorsPrototypePage || isNewVendorPrototypePage;
 
   return (
-    <div className={`workspace-shell${useStitchPageCanvas ? " stitch-ai-shell" : ""}${isOverviewPrototypePage ? " stitch-overview-shell" : ""}${isImportsPrototypePage ? " stitch-imports-shell" : ""}${isPdfImportPrototypePage ? " stitch-pdf-import-shell" : ""}${isWebsiteImportPrototypePage ? " stitch-website-import-shell" : ""}${isDiscoveryPrototypePage ? " stitch-discovery-shell" : ""}${isSettingsPrototypePage ? " stitch-settings-shell" : ""}${isAiSettingsPrototypePage ? " stitch-ai-settings-shell" : ""}${isVendorsPrototypePage ? " stitch-vendors-shell" : ""}${isCatalogPrototypePage ? " stitch-catalog-shell" : ""}`}>
+    <div className={`workspace-shell${useStitchPageCanvas ? " stitch-ai-shell" : ""}${isOverviewPrototypePage ? " stitch-overview-shell" : ""}${isImportsPrototypePage || isImportJobsPrototypePage || isImportJobDetailPrototypePage ? " stitch-imports-shell" : ""}${isPdfImportPrototypePage ? " stitch-pdf-import-shell" : ""}${isWebsiteImportPrototypePage ? " stitch-website-import-shell" : ""}${isDiscoveryPrototypePage ? " stitch-discovery-shell" : ""}${isSettingsPrototypePage ? " stitch-settings-shell" : ""}${isAiSettingsPrototypePage ? " stitch-ai-settings-shell" : ""}${isVendorsPrototypePage ? " stitch-vendors-shell" : ""}${isCatalogPrototypePage ? " stitch-catalog-shell" : ""}`}>
       <a className="skip-link" href="#workspace-content">Skip to workspace content</a>
       <aside className="workspace-sidebar">
         <div className="brand-block">

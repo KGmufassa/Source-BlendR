@@ -21,6 +21,9 @@ export type ProviderHealthResult = {
 type ProviderConfig = {
   apiKey?: string;
   healthUrl?: string;
+  baseUrl?: string;
+  providerType?: string;
+  modelId?: string;
   capabilities?: string[];
 };
 
@@ -49,17 +52,18 @@ export async function assessProviderHealth(
     return baseResult(credential, capability, false, "degraded", "not_configured", "capability_not_supported");
   }
 
-  if (!config.healthUrl) {
-    return baseResult(credential, capability, true, "healthy", "not_configured", "health_url_not_configured");
+  const healthRequest = providerHealthRequest(credential.provider, config);
+  if (!healthRequest) {
+    return baseResult(credential, capability, true, "degraded", "not_configured", "connection_endpoint_not_configured");
   }
 
-  if (!healthUrlAllowed(credential.provider, config.healthUrl, Boolean(config.apiKey))) {
+  if (!healthUrlAllowed(config.providerType ?? credential.provider, healthRequest.url, Boolean(config.apiKey))) {
     return baseResult(credential, capability, true, "degraded", "failed", "health_url_forbidden");
   }
 
   try {
-    const response = await (options.fetchImpl ?? fetch)(config.healthUrl, {
-      headers: config.apiKey ? { authorization: `Bearer ${config.apiKey}` } : undefined,
+    const response = await (options.fetchImpl ?? fetch)(healthRequest.url, {
+      headers: healthRequest.headers,
       signal: AbortSignal.timeout(5_000),
     });
     const healthy = response.ok;
@@ -67,6 +71,38 @@ export async function assessProviderHealth(
   } catch {
     return baseResult(credential, capability, supportsCapability, "degraded", "failed", "provider_unreachable");
   }
+}
+
+function providerHealthRequest(provider: string, config: ProviderConfig): { url: string; headers?: Record<string, string> } | null {
+  if (config.healthUrl) {
+    return { url: config.healthUrl, headers: config.apiKey ? { authorization: `Bearer ${config.apiKey}` } : undefined };
+  }
+  if (!config.baseUrl) return null;
+  const providerType = config.providerType ?? provider;
+  const headers: Record<string, string> = {};
+  let suffix = "/models";
+  if (providerType === "ollama") suffix = "/api/tags";
+  if (providerType === "anthropic" && config.apiKey) {
+    headers["x-api-key"] = config.apiKey;
+    headers["anthropic-version"] = "2023-06-01";
+  } else if (providerType === "gemini" && config.apiKey) {
+    headers["x-goog-api-key"] = config.apiKey;
+  } else if (providerType === "azure-openai" && config.apiKey) {
+    headers["api-key"] = config.apiKey;
+    suffix = "/openai/models";
+  } else if (config.apiKey) {
+    headers.authorization = `Bearer ${config.apiKey}`;
+  }
+  const url = appendEndpointPath(config.baseUrl, suffix);
+  if (providerType === "azure-openai" && !url.searchParams.has("api-version")) url.searchParams.set("api-version", "2024-10-21");
+  return { url: url.toString(), headers: Object.keys(headers).length ? headers : undefined };
+}
+
+function appendEndpointPath(baseUrl: string, suffix: string): URL {
+  const url = new URL(baseUrl);
+  const path = url.pathname.replace(/\/+$/, "");
+  if (!path.endsWith(suffix)) url.pathname = `${path}${suffix}`;
+  return url;
 }
 
 function healthUrlAllowed(provider: string, value: string, hasCredential: boolean): boolean {

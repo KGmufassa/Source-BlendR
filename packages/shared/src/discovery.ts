@@ -10,12 +10,15 @@ export async function promoteCandidates(workspaceId: string, sessionId: string, 
   return database.$transaction(async (transaction) => {
     const items = [];
     for (const candidate of candidates) {
+      const payload = candidate.payload && typeof candidate.payload === "object" && !Array.isArray(candidate.payload) ? candidate.payload as Record<string, unknown> : {};
+      const inventoryQuantity = typeof payload.inventoryQuantity === "number" && Number.isInteger(payload.inventoryQuantity) && payload.inventoryQuantity >= 0 ? payload.inventoryQuantity : 0;
       items.push(await transaction.catalogItem.upsert({
         where: { workspaceId_sku: { workspaceId, sku: candidate.sku } },
         update: {
           name: candidate.name,
           priceCents: candidate.priceCents,
           currency: candidate.currency,
+          inventoryQuantity,
           sourceCandidateId: candidate.id,
         },
         create: {
@@ -24,6 +27,7 @@ export async function promoteCandidates(workspaceId: string, sessionId: string, 
           sku: candidate.sku,
           priceCents: candidate.priceCents,
           currency: candidate.currency,
+          inventoryQuantity,
           sourceCandidateId: candidate.id,
         },
       }));

@@ -39,6 +39,8 @@ const styles = {
   actionCell: { display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 14 },
   retry: { minHeight: 30, border: 0, borderRadius: 5, background: "#a85e2a", color: "#fff", padding: "0 12px", fontSize: 11, fontWeight: 900 },
   rowLink: { color: "#a85e2a", fontSize: 24, fontWeight: 900, textDecoration: "none" },
+  tableActions: { display: "flex", justifyContent: "flex-end", paddingTop: 16 },
+  viewAllJobs: { minHeight: 38, display: "inline-flex", alignItems: "center", justifyContent: "center", border: "1px solid #a85e2a", borderRadius: 5, background: "#fff", color: "#a85e2a", padding: "0 16px", fontSize: 13, fontWeight: 900, textDecoration: "none" },
 } satisfies Record<string, CSSProperties>;
 
 function Glyph({ children }: { children: string }) {
@@ -103,7 +105,7 @@ export default async function ImportsPage() {
                   <td style={styles.td}><time dateTime={job.createdAt.toISOString()}>{job.createdAt.toLocaleString()}</time></td>
                   <td style={{ ...styles.td, textAlign: "right" }}>
                     <span style={styles.actionCell}>
-                      <Link href={`/app/imports/jobs/${job.id}`} aria-label={`Job Details for ${job.id}`} style={{ ...styles.rowLink, color: "#d97706", fontSize: 12 }}>Job Details</Link>
+                      <Link href={`/app/imports/jobs/${job.id}?entry=imports`} aria-label={`Job Details for ${job.id}`} style={{ ...styles.rowLink, color: "#d97706", fontSize: 12 }}>Job Details</Link>
                     </span>
                   </td>
                 </tr>
@@ -112,6 +114,9 @@ export default async function ImportsPage() {
             </tbody>
           </table>
         </section>
+        <div style={styles.tableActions}>
+          <Link href="/app/imports/jobs" style={styles.viewAllJobs}>View All Jobs</Link>
+        </div>
       </main>
     </div>
   );

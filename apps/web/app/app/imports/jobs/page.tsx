@@ -22,7 +22,7 @@ const styles = {
   tableTitle: { margin: 0, color: "#333", fontSize: 12, fontWeight: 900, letterSpacing: ".1em", textTransform: "uppercase" },
   tableMeta: { color: "#78716c", fontSize: 12, fontWeight: 700 },
   tableScroll: { overflowX: "auto" },
-  table: { width: "100%", minWidth: 900, tableLayout: "fixed", borderCollapse: "collapse", fontSize: 13 },
+  table: { width: "100%", minWidth: 1080, tableLayout: "fixed", borderCollapse: "collapse", fontSize: 13 },
   th: { borderBottom: "1px solid #f5f5f4", background: "rgb(250 250 249 / 50%)", color: "#666", padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 900, letterSpacing: ".08em", textTransform: "uppercase" },
   td: { borderBottom: "1px solid #f5f5f4", padding: "13px 20px", verticalAlign: "middle", color: "#666" },
   source: { display: "inline-flex", alignItems: "center", gap: 10, color: "#292524", fontSize: 14, fontWeight: 900 },
@@ -32,9 +32,14 @@ const styles = {
   badgeDot: { width: 7, height: 7, borderRadius: 999, background: "currentColor" },
   actionLink: { display: "inline-flex", alignItems: "center", justifyContent: "flex-end", gap: 8, color: "#a85e2a", fontSize: 13, fontWeight: 900, textDecoration: "none" },
   empty: { display: "grid", placeItems: "center", minHeight: 220, color: "#78716c", fontSize: 13, textAlign: "center" },
+  pagination: { minHeight: 58, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, borderTop: "1px solid #e7e5e4", background: "#fafaf9", padding: "0 20px", color: "#78716c", fontSize: 12 },
+  paginationControls: { display: "flex", alignItems: "center", gap: 12 },
+  paginationLink: { minHeight: 32, display: "inline-flex", alignItems: "center", border: "1px solid #d6d3d1", borderRadius: 5, background: "#fff", color: "#57534e", padding: "0 12px", fontWeight: 800, textDecoration: "none" },
+  paginationDisabled: { minHeight: 32, display: "inline-flex", alignItems: "center", border: "1px solid #e7e5e4", borderRadius: 5, background: "#f5f5f4", color: "#a8a29e", padding: "0 12px", fontWeight: 800 },
 } satisfies Record<string, CSSProperties>;
 
 const statusOrder = ["queued", "processing", "completed", "failed"] as const;
+const pageSize = 10;
 
 function Glyph({ children }: { children: string }) {
   return <span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "1.2em", lineHeight: 1, fontWeight: 900 }}>{children}</span>;
@@ -51,18 +56,28 @@ function badgeStyle(status: string): CSSProperties {
   return { ...styles.badge, borderColor: "#fde68a", background: "#fffbeb", color: "#b45309" };
 }
 
-export default async function ImportJobsPage() {
+export default async function ImportJobsPage({ searchParams }: Readonly<{ searchParams: Promise<{ page?: string | string[] }> }>) {
   const context = await getWorkspaceContext();
+  const { page } = await searchParams;
+  const requestedPage = typeof page === "string" && /^\d+$/.test(page) ? Number(page) : 1;
+  const where = { workspaceId: context.workspaceId };
+  const [totalJobs, statusGroups] = await Promise.all([
+    getDatabase().importJob.count({ where }),
+    getDatabase().importJob.groupBy({ by: ["status"], where, _count: { _all: true } }),
+  ]);
+  const pageCount = Math.max(1, Math.ceil(totalJobs / pageSize));
+  const currentPage = Math.min(Math.max(1, requestedPage), pageCount);
+  const skip = (currentPage - 1) * pageSize;
   const importJobs = await getDatabase().importJob.findMany({
-    where: { workspaceId: context.workspaceId },
-    include: { _count: { select: { events: true } } },
+    where,
+    include: { vendor: { select: { name: true } } },
     orderBy: { updatedAt: "desc" },
-    take: 100,
+    skip,
+    take: pageSize,
   });
-  const statusCounts = importJobs.reduce<Record<string, number>>((counts, job) => {
-    counts[job.status] = (counts[job.status] ?? 0) + 1;
-    return counts;
-  }, {});
+  const statusCounts = Object.fromEntries(statusGroups.map((group) => [group.status, group._count._all]));
+  const rangeStart = totalJobs ? skip + 1 : 0;
+  const rangeEnd = Math.min(skip + importJobs.length, totalJobs);
 
   return (
     <div className="import-jobs-prototype-page" style={styles.page}>
@@ -76,8 +91,8 @@ export default async function ImportJobsPage() {
               <Glyph>›</Glyph>
               <strong aria-current="page" style={{ color: "#292524" }}>Jobs</strong>
             </nav>
-            <h1 style={styles.title}>Active Import Jobs</h1>
-            <p style={styles.description}>Open a job to inspect progress and discovery handoff.</p>
+            <h1 style={styles.title}>Import Jobs</h1>
+            <p style={styles.description}>Review the complete import history and open any job for details.</p>
           </div>
         </header>
 
@@ -94,37 +109,43 @@ export default async function ImportJobsPage() {
         <section style={styles.tableCard}>
           <div style={styles.tableHeader}>
             <h2 style={styles.tableTitle}>Import Jobs</h2>
-            <span style={styles.tableMeta}>{importJobs.length} total</span>
+            <span style={styles.tableMeta}>{totalJobs} total</span>
           </div>
           {importJobs.length ? (
             <div style={styles.tableScroll}>
-              <table aria-label="Active import jobs" style={styles.table}>
+              <table aria-label="Import job history" style={styles.table}>
                 <colgroup>
-                  <col style={{ width: "34%" }} />
-                  <col style={{ width: "18%" }} />
-                  <col style={{ width: "16%" }} />
                   <col style={{ width: "20%" }} />
-                  <col style={{ width: "12%" }} />
+                  <col style={{ width: "16%" }} />
+                  <col style={{ width: "13%" }} />
+                  <col style={{ width: "13%" }} />
+                  <col style={{ width: "15%" }} />
+                  <col style={{ width: "15%" }} />
+                  <col style={{ width: "8%" }} />
                 </colgroup>
                 <thead>
                   <tr>
+                    <th style={styles.th}>Job ID</th>
+                    <th style={styles.th}>Vendor</th>
                     <th style={styles.th}>Source</th>
                     <th style={styles.th}>Status</th>
-                    <th style={styles.th}>Events</th>
-                    <th style={styles.th}>Job ID</th>
+                    <th style={styles.th}>Started</th>
+                    <th style={styles.th}>Updated</th>
                     <th style={{ ...styles.th, textAlign: "right" }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {importJobs.map((job) => (
                     <tr key={job.id}>
+                      <td style={styles.td}><span style={styles.mono}>{job.id}</span></td>
+                      <td style={styles.td}>{job.vendor?.name ?? "Unassigned"}</td>
                       <td style={styles.td}><span style={styles.source}><span style={styles.sourceIcon}>{job.sourceType === "pdf" ? "▣" : "◎"}</span>{statusLabel(job.sourceType)}</span></td>
                       <td style={styles.td}><span style={badgeStyle(job.status)}><span style={styles.badgeDot} />{statusLabel(job.status)}</span></td>
-                      <td style={styles.td}>{job._count.events}</td>
-                      <td style={styles.td}><span style={styles.mono}>{job.id}</span></td>
+                      <td style={styles.td}><time dateTime={job.createdAt.toISOString()}>{job.createdAt.toLocaleString()}</time></td>
+                      <td style={styles.td}><time dateTime={job.updatedAt.toISOString()}>{job.updatedAt.toLocaleString()}</time></td>
                       <td style={{ ...styles.td, textAlign: "right" }}>
-                        <Link href={`/app/imports/jobs/${job.id}`} data-element={blueprintActions.openJob.elementId} style={styles.actionLink}>
-                          {blueprintActions.openJob.label} ›
+                        <Link href={`/app/imports/jobs/${job.id}?entry=jobs`} aria-label={`Job Details for ${job.id}`} data-element={blueprintActions.openJob.elementId} style={styles.actionLink}>
+                          Job Details
                         </Link>
                       </td>
                     </tr>
@@ -137,6 +158,14 @@ export default async function ImportJobsPage() {
               <p>No import jobs are available.</p>
             </div>
           )}
+          <footer style={styles.pagination}>
+            <span>Showing {rangeStart}–{rangeEnd} of {totalJobs} jobs</span>
+            <nav aria-label="Import jobs pagination" style={styles.paginationControls}>
+              {currentPage > 1 ? <Link href={`/app/imports/jobs?page=${currentPage - 1}`} style={styles.paginationLink}>Previous</Link> : <span aria-disabled="true" style={styles.paginationDisabled}>Previous</span>}
+              <span>Page {currentPage} of {pageCount}</span>
+              {currentPage < pageCount ? <Link href={`/app/imports/jobs?page=${currentPage + 1}`} style={styles.paginationLink}>Next</Link> : <span aria-disabled="true" style={styles.paginationDisabled}>Next</span>}
+            </nav>
+          </footer>
         </section>
       </main>
     </div>

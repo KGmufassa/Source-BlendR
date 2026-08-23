@@ -143,3 +143,37 @@
 
 - AI Provider Settings changes are documented separately in [`14-ai-settings.md`](14-ai-settings.md) because `/app/settings/ai` is a distinct page with its own interactions and decisions.
 - No code changes were made for this revision.
+
+## Sequential Review Update — 2026-08-16
+
+- Status: `implemented_awaiting_approval`
+- Approval date: `2026-08-16`
+- Approval status: `approved`
+- No code changes were required during this review pass because the Settings hub and Workspace Settings destination already match the approved plan scope.
+
+### Review Completion Scope
+
+| Change | Completion record |
+|---|---|
+| Settings hub | Confirmed Workspace Settings is a real keyboard-accessible link to `/app/settings/workspace`. |
+| Workspace destination | Confirmed `/app/settings/workspace` renders the persistent workspace settings form, members/access section, and gated destructive action. |
+| Shared requirements | Confirmed linked breadcrumbs are present and generic Settings Status/System Status UI is absent. |
+| Permission model | Confirmed workspace settings edits remain administrator-gated as approved in `DEC-SET-001B`. |
+
+### Review Deferred Scope
+
+- Interactive dirty-navigation, role-change, and destructive-confirmation QA remains deferred because no connected browser backend is available.
+- Managed logo upload remains deferred; the implemented first release persists Logo URL.
+
+### Review Effects
+
+| Pros | Cons or resulting effects |
+|---|---|
+| No additional code churn was needed for the Settings page. | The page still relies on browser-native confirmation prompts for discard/delete flows. |
+| The hub no longer contains dead settings navigation. | Logo branding remains URL-based rather than uploaded asset-based. |
+
+### Review Verification Record
+
+- `/app/settings` returned HTTP `200` on the restarted local server.
+- `/app/settings/workspace` returned HTTP `200` on the restarted local server.
+- Focused implementation tests and TypeScript validation pass.

@@ -25,6 +25,7 @@ model Workspace {
   sessions     DiscoverySession[]
   sources      NormalizedSourceRecord[]
   credentials  AIProviderCredential[]
+  aiRoutes     AIProviderRoute[]
   auditEvents  AuditEvent[]
   catalogs     Catalog[]
   members      WorkspaceMember[]
@@ -50,6 +51,17 @@ model Vendor {
   workspaceId String
   name        String
   websiteUrl  String?
+  description String?
+  logoUrl     String?
+  contactName String?
+  contactRole String?
+  contactEmail String?
+  contactPhone String?
+  address     String?
+  defaultImportMethod String @default("website")
+  offeringType String?
+  offeringCategories String[] @default([])
+  offeringDescription String?
   archivedAt  DateTime?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
@@ -71,6 +83,7 @@ model CatalogItem {
   sku         String
   priceCents  Int
   vendorPriceCents Int?
+  inventoryQuantity Int @default(0)
   currency    String
   category    String    @default("")
   imageUrl    String?
@@ -110,6 +123,7 @@ model CatalogMember {
   catalogId     String
   candidateId   String?
   catalogItemId String?
+  customPriceCents Int?
   createdAt     DateTime     @default(now())
   catalog       Catalog      @relation(fields: [catalogId], references: [id], onDelete: Cascade)
   candidate     CandidateItem? @relation(fields: [candidateId], references: [id], onDelete: Cascade)
@@ -214,9 +228,12 @@ model AIProviderCredential {
   provider            String
   encryptedCredential String
   enabled             Boolean  @default(true)
+  lastConnectionStatus String?
+  lastConnectionCheckedAt DateTime?
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   workspace           Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  routes              AIProviderRoute[]
 
   @@unique([workspaceId, provider])
   @@index([workspaceId])
@@ -234,4 +251,19 @@ model AuditEvent {
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
   @@index([workspaceId, createdAt])
+}
+
+model AIProviderRoute {
+  id          String   @id @default(cuid())
+  workspaceId String
+  capability  String
+  providerId  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  provider    AIProviderCredential? @relation(fields: [providerId], references: [id], onDelete: SetNull)
+
+  @@unique([workspaceId, capability])
+  @@index([workspaceId])
+  @@index([providerId])
 }

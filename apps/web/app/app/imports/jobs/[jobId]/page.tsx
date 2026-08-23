@@ -3,8 +3,10 @@ import type { CSSProperties } from "react";
 import { getDatabase } from "@source-blendr/shared";
 import { notFound } from "next/navigation";
 import { getWorkspaceContext } from "@/lib/workspace-context";
+import { toJobCandidate, type JobCandidate } from "@/lib/job-candidates";
 import { blueprintActions } from "../../../../workspace-routes";
 import { CategoryJobSelector } from "./category-job-selector";
+import { CandidateReviewTable } from "./candidate-review-table";
 import { JobActions } from "./job-actions";
 
 export const dynamic = "force-dynamic";
@@ -24,6 +26,9 @@ const styles = {
   cardTitle: { margin: 0, color: "#333", fontSize: 12, fontWeight: 900, letterSpacing: ".1em", textTransform: "uppercase" },
   muted: { margin: "4px 0 0", color: "#78716c", fontSize: 12 },
   cardBody: { padding: 20 },
+  disclosure: { overflow: "hidden", marginBottom: 28 },
+  disclosureSummary: { minHeight: 56, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, borderBottom: "1px solid #e7e5e4", background: "#fafaf9", padding: "0 20px", cursor: "pointer", listStyle: "none" },
+  disclosureLabel: { display: "flex", alignItems: "center", gap: 12 },
   timeline: { display: "grid", gap: 14, margin: 0, padding: 0, listStyle: "none" },
   timelineItem: { display: "grid", gridTemplateColumns: "28px minmax(0, 1fr)", gap: 12, alignItems: "start" },
   timelineMark: { width: 22, height: 22, display: "grid", placeItems: "center", border: "1px solid", borderRadius: 999, fontSize: 11, fontWeight: 900 },
@@ -64,14 +69,24 @@ function markStyle(state: "complete" | "current" | "upcoming"): CSSProperties {
   return { ...styles.timelineMark, borderColor: "#e7e5e4", background: "#fafaf9", color: "#a8a29e" };
 }
 
-export default async function ImportJobDetailPage({ params }: Readonly<{ params: Promise<{ jobId: string }> }>) {
+export default async function ImportJobDetailPage({ params, searchParams }: Readonly<{ params: Promise<{ jobId: string }>; searchParams: Promise<{ entry?: string | string[] }> }>) {
   const { jobId } = await params;
+  const { entry } = await searchParams;
+  const enteredFromImports = entry === "imports";
+  const enteredFromWebsiteImport = entry === "website-import";
+  const enteredFromImportJobs = entry === "jobs";
   const context = await getWorkspaceContext();
   const job = await getDatabase().importJob.findFirst({
     where: { id: jobId, workspaceId: context.workspaceId },
-    include: { events: { orderBy: { createdAt: "asc" } }, session: { select: { id: true } } },
+    include: {
+      vendor: { select: { name: true } },
+      events: { orderBy: { createdAt: "asc" } },
+      session: { include: { candidates: { orderBy: { updatedAt: "desc" }, take: 20 }, _count: { select: { candidates: true } } } },
+    },
   });
   if (!job) notFound();
+
+  const candidates: JobCandidate[] = (job.session?.candidates ?? []).map((candidate) => toJobCandidate(candidate, job.vendor?.name ?? "Unassigned", job.sourceUri));
 
   const steps: Array<{ label: string; detail: string; state: "complete" | "current" | "upcoming" }> = [
     { label: "Queued", detail: "Import request validated and added to the worker queue.", state: "complete" },
@@ -90,9 +105,9 @@ export default async function ImportJobDetailPage({ params }: Readonly<{ params:
               <Glyph>›</Glyph>
               <Link href="/app/imports" style={{ color: "inherit", textDecoration: "none" }}>Imports</Link>
               <Glyph>›</Glyph>
-              <Link href="/app/imports/jobs" style={{ color: "inherit", textDecoration: "none" }}>Jobs</Link>
-              <Glyph>›</Glyph>
-              <strong aria-current="page" style={{ color: "#292524" }}>Job Detail</strong>
+              {enteredFromWebsiteImport ? <><Link href="/app/imports/website" style={{ color: "inherit", textDecoration: "none" }}>Website Import</Link><Glyph>›</Glyph></> : null}
+              {enteredFromImportJobs || (!enteredFromImports && !enteredFromWebsiteImport) ? <><Link href="/app/imports/jobs" style={{ color: "inherit", textDecoration: "none" }}>Jobs</Link><Glyph>›</Glyph></> : null}
+              <strong aria-current="page" style={{ color: "#292524" }}>Job Details</strong>
             </nav>
             <h1 style={styles.title}>Import Job {job.id}</h1>
             <p style={styles.description}>Review job progress, retry failed work, or open the discovery session.</p>
@@ -143,11 +158,11 @@ export default async function ImportJobDetailPage({ params }: Readonly<{ params:
           </aside>
         </div>
 
-        <section style={{ ...styles.card, marginBottom: 28 }}>
-          <div style={styles.cardHeader}>
-            <h2 style={styles.cardTitle}>Event Log</h2>
+        <details open={job.status === "failed" || Boolean(job.errorCode)} style={{ ...styles.card, ...styles.disclosure }}>
+          <summary style={styles.disclosureSummary}>
+            <span style={styles.disclosureLabel}><h2 style={styles.cardTitle}>Event Log</h2>{job.status === "failed" || job.errorCode ? <span style={{ color: "#dc2626", fontSize: 12, fontWeight: 800 }}>Failure details available</span> : null}</span>
             <span style={badgeStyle("queued")}><span style={styles.badgeDot} />{job.events.length} events</span>
-          </div>
+          </summary>
           {job.events.length ? (
             <div style={styles.tableScroll}>
               <table aria-label="Import job event log" style={styles.table}>
@@ -173,9 +188,11 @@ export default async function ImportJobDetailPage({ params }: Readonly<{ params:
               <p>No events recorded yet.<br /><span style={{ color: "#a8a29e" }}>The worker will append recoverable job events as processing starts.</span></p>
             </div>
           )}
-        </section>
+        </details>
 
-        {job.sourceType === "website" && job.status === "completed" ? <CategoryJobSelector jobId={job.id} /> : null}
+        <CandidateReviewTable jobId={job.id} initialCandidates={candidates} initialTotal={job.session?._count.candidates ?? 0} jobStatus={job.status} />
+
+        {job.sourceType === "website" ? job.status === "completed" ? <CategoryJobSelector jobId={job.id} /> : <section style={styles.card}><div style={styles.cardHeader}><div><h2 style={styles.cardTitle}>Discovered Categories</h2><p style={styles.muted}>{job.status === "failed" ? "Category discovery failed. Review the Event Log for the recorded error." : "Categories are being detected and will become selectable when analysis completes."}</p></div></div></section> : null}
       </main>
     </div>
   );

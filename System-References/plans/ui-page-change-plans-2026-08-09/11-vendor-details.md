@@ -144,10 +144,10 @@
 
 | Decision group | Option | Clear action | Ramification of approval | Approve | Defer | Discard |
 |---|---|---|---|---|---|---|
-| `DEC-VEND-002` | A | Give each editable card its own Edit, Save, and Cancel controls. | Limits the scope of each mutation but adds repeated actions and partial-page saved states. | [ ] | [ ] | [ ] |
-| `DEC-VEND-002` | B | Use one page-wide Edit mode with a single Save and Cancel action. | Produces one coherent transaction but increases form size, validation scope, and unsaved-change complexity. | [ ] | [ ] | [ ] |
-| `DEC-VEND-003` | A | Store vendor categories as reusable structured values with multi-select and free-entry support. | Improves filtering consistency but requires category normalization and relation or array persistence. | [ ] | [ ] | [ ] |
-| `DEC-VEND-003` | B | Store offering categories as free text. | Reduces schema and UI complexity but permits inconsistent labels. | [ ] | [ ] | [ ] |
+| `DEC-VEND-002` | A | Give each editable card its own Edit, Save, and Cancel controls. | Limits the scope of each mutation but adds repeated actions and partial-page saved states. | [x] | [ ] | [ ] |
+| `DEC-VEND-002` | B | Use one page-wide Edit mode with a single Save and Cancel action. | Produces one coherent transaction but increases form size, validation scope, and unsaved-change complexity. | [ ] | [x] | [ ] |
+| `DEC-VEND-003` | A | Store vendor categories as reusable structured values with multi-select and free-entry support. | Improves filtering consistency but requires category normalization and relation or array persistence. | [x] | [ ] | [ ] |
+| `DEC-VEND-003` | B | Store offering categories as free text. | Reduces schema and UI complexity but permits inconsistent labels. | [ ] | [x] | [ ] |
 
 ### Data Model Impact
 
@@ -164,6 +164,75 @@
 
 ### Implementation Status
 
-- Status: `planned_not_implemented`
-- Blocked decisions: `DEC-VEND-002`, `DEC-VEND-003`, and the new vendor-profile persistence schema.
-- No code changes were made for this revision.
+- Completion date: `2026-08-16`
+- Approval date: `2026-08-16`
+- Status: `implemented_approved`
+
+### Revised Completion Scope
+
+| Change | Completion record |
+|---|---|
+| Editable cards | Identity, Contact Information, Website Details, and Products and Services each have their own Edit, Save, and Cancel controls. |
+| Read-only activity | Recent Import Activity remains read-only and continues linking to stable Job Details routes. |
+| Persistence | Added vendor-owned profile fields for description, logo URL, contact details, address, default import method, offering type, offering categories, and offering description. |
+| API updates | Expanded the workspace-scoped vendor PATCH route with same-origin protection, editor mutation gating, URL/email validation, category normalization, and empty-string cleanup. |
+| Header action cleanup | Removed the page-level `Import` button at the user's direction. |
+| Structured categories | Offering categories are persisted as a string array; the edit card supports selecting derived categories and adding free-entry categories. |
+| Permission behavior | Workspace editors can edit vendor details; viewer users can view permitted details but do not receive enabled edit controls. |
+
+### Revised Deferred Scope
+
+- A page-wide edit mode remains deferred under `DEC-VEND-002B`.
+- A fully normalized reusable category table remains deferred; the current implementation stores structured category values on the vendor record.
+- Logo upload/storage remains deferred; the profile stores a safe HTTP(S) logo URL only.
+- Interactive browser and responsive visual QA remain pending because no connected browser backend is available.
+
+### Revised Discarded Scope
+
+- Discarded static `Not provided` placeholders for vendor-owned fields now covered by persistence.
+- Discarded editing for system-derived values such as domain, last access, record count, imported rows, and import history.
+
+### Revised Conflict Resolution Record
+
+- The request said all cards should be editable, but the plan explicitly marks Recent Import Activity as system-derived. It remains visibly read-only so users cannot overwrite operational history.
+- The approved structured category decision is implemented as a persisted string array with free-entry support rather than a separate normalized category table, keeping this page scoped while preserving multi-value data.
+
+### Revised Page Effects
+
+| Pros | Cons or resulting effects |
+|---|---|
+| Vendor profiles can now be maintained without leaving the detail page. | The Vendor table gains several nullable profile fields. |
+| Each card saves independently, reducing accidental broad updates. | Partial saves can leave different cards updated at different times. |
+| The vendor profile now stays focused on viewing and editing vendor information. | Users must start imports from the import workflows instead of this page header. |
+| Read-only operational history is protected from profile edits. | Users must use import workflows to change activity/history data. |
+
+### Revised Suggestions
+
+- Add an accessible unsaved-change dialog if users navigate away while a card is in edit mode.
+- Replace logo URL entry with managed workspace asset upload once storage rules are defined.
+- Promote offering categories into a normalized workspace taxonomy if category reuse becomes important across Vendors, Discovery, and Catalog.
+
+### Revised Verification Record
+
+- Focused implementation tests cover editable-card UI, editor/viewer gating, profile schema fields, PATCH validation, import handoff, and read-only import activity.
+- Migration `20260816000200_vendor_profile_fields` was applied successfully to the local PostgreSQL development database.
+- Prisma client generation completed successfully after the schema update.
+- TypeScript validation, focused implementation tests, focused app/API ESLint validation, and whitespace checks pass.
+- A real workspace-scoped `/app/vendors/:vendorID` route returned HTTP `200`.
+- Runtime mutation validation was not performed to avoid changing vendor data before review approval.
+
+### Post-Review Correction — 2026-08-16
+
+| Issue | Correction |
+|---|---|
+| Editable controls were not visible for non-admin workspace users. | Changed the page and API mutation gate from admin-only to workspace editor access; only viewer users are blocked from editing. |
+| The local dev server was serving stale page code from before the editable-card correction. | Restarted the Next development server on `http://localhost:3000`. |
+| Identity card saves could return the generic `The request could not be completed.` error. | The vendor PATCH route now removes undefined fields before calling Prisma, so partial card saves send only fields present in the request. |
+| The vendor detail header still exposed an `Import` button. | Removed the page-level `Import` button. |
+
+### Correction Verification Record
+
+- TypeScript validation, focused implementation tests, focused app/API ESLint validation, and whitespace checks pass after the permission correction.
+- The restarted live `/app/vendors/:vendorID` route returned HTTP `200` and rendered Identity, Contact Information, Website Details, Products and Services, Recent Import Activity, and Edit controls.
+- A same-origin Identity PATCH request with unchanged vendor data returned HTTP `200`.
+- The restarted live `/app/vendors/:vendorID` route no longer renders the page-level `Import` button.

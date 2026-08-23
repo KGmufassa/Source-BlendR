@@ -78,8 +78,8 @@
 
 ## Completion Scope
 
-- Completion date: `2026-08-10`
-- Status: `implemented_awaiting_bulk_review`
+- Completion date: `2026-08-16`
+- Status: `implemented_awaiting_approval`
 
 ### Completed
 
@@ -91,11 +91,16 @@
 | Actions | Centered Cancel, renamed the primary action to Save Catalog, and added a submitting state. |
 | Persistence | Save calls the catalog-creation API and opens the returned stable catalog ID. |
 | Member timing | Uses approved `DEC-CATN-001B`: save metadata first and add members from Catalog Details. |
+| Duplicate names | Workspace-level name uniqueness now returns a clear conflict message associated with the Name field instead of a generic server error. |
+| Validation accessibility | Server field errors are connected with `aria-describedby`, invalid fields expose `aria-invalid`, and request failures are announced. |
+| Shared route states | Added dedicated loading and error views with linked Workspace and Catalog breadcrumbs. |
 
 ### Deferred
 
 - Selecting catalog members before save remains deferred.
 - The explicit `FIX-CATN-002` branch remains deferred, although the item-type control disappeared as part of the approved form replacement.
+- Category-type autocomplete and normalization remain deferred; Category Type intentionally stays a required free-text field.
+- Interactive browser and responsive visual QA remain pending because no connected browser backend is available.
 
 ### Discarded
 
@@ -111,6 +116,8 @@
 |---|---|
 | Creation is short, clear, and creates a real catalog rather than an inventory item. | Users need a second step to add members. |
 | Category Type accepts workspace-specific language without a hard-coded taxonomy. | Free text can create near-duplicate category labels without normalization. |
+| Duplicate names now produce actionable field-level feedback. | Catalog names remain unique within a workspace, so users must choose another name rather than create an exact duplicate. |
+| Dedicated loading and error paths preserve the shared shell during route transitions and failures. | The page still relies on native browser validation before server validation runs. |
 
 ### Suggestions
 
@@ -120,5 +127,8 @@
 
 ### Verification Record
 
-- Focused page-plan test passed; TypeScript check and production build passed.
-- Migrated local runtime check passed with HTTP `200` on `/app/catalog/new`; interactive browser/form QA remains pending because no browser backend was connected.
+- All seven focused page-plan implementation tests pass.
+- TypeScript validation and focused ESLint validation pass with no errors or warnings.
+- The local `/app/catalog/new` route returned HTTP `200` and rendered Create Catalog, General Information, Category Type, and Save Catalog without Pricing or Tax content.
+- Runtime validation was read-only; no catalog was created.
+- Interactive browser/form and responsive visual QA remain pending because no browser backend is connected.

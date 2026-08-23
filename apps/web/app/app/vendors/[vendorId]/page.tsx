@@ -1,30 +1,37 @@
 import { getDatabase } from "@source-blendr/shared";
 import { notFound } from "next/navigation";
 import { getWorkspaceContext } from "@/lib/workspace-context";
-import Link from "next/link";
-import type { CSSProperties } from "react";
+import { VendorDetailClient } from "./vendor-detail-client";
 
 export const dynamic = "force-dynamic";
 
-const styles = { page: { minHeight: "100vh", minWidth: 1120, background: "#f9f8f6", padding: 32, color: "#292524" }, header: { display: "flex", justifyContent: "space-between", gap: 20, marginBottom: 24 }, breadcrumb: { display: "flex", gap: 8, marginBottom: 8, color: "#78716c", fontSize: 13 }, title: { margin: 0, fontSize: 20, fontWeight: 900 }, subtitle: { margin: "8px 0 0", color: "#78716c", fontSize: 13 }, import: { minHeight: 38, display: "inline-flex", alignItems: "center", borderRadius: 5, background: "#a85e2a", color: "#fff", padding: "0 16px", textDecoration: "none", fontWeight: 900 }, grid: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 20 }, card: { border: "1px solid #e7e5e4", borderRadius: 8, background: "#fff", padding: 22 }, wide: { gridColumn: "1 / -1" }, cardTitle: { margin: "0 0 18px", fontSize: 15, fontWeight: 900 }, dl: { display: "grid", gap: 14, margin: 0 }, row: { display: "grid", gridTemplateColumns: "150px 1fr", gap: 16, borderBottom: "1px solid #f5f5f4", paddingBottom: 12 }, dt: { color: "#78716c", fontSize: 11, fontWeight: 900, textTransform: "uppercase" }, dd: { margin: 0, color: "#292524", fontSize: 13 }, external: { color: "#a85e2a", fontWeight: 800 }, table: { width: "100%", borderCollapse: "collapse" }, th: { borderBottom: "1px solid #e7e5e4", background: "#fafaf9", padding: 12, textAlign: "left", color: "#78716c", fontSize: 11, textTransform: "uppercase" }, td: { borderBottom: "1px solid #f5f5f4", padding: 12, fontSize: 13 }, action: { color: "#a85e2a", fontWeight: 900, textDecoration: "none" } } satisfies Record<string, CSSProperties>;
-
-function safeWebsite(value: string | null): URL | null {
-  if (!value) return null;
-  try { const url = new URL(value); return ["http:", "https:"].includes(url.protocol) ? url : null; } catch { return null; }
-}
-
 export default async function VendorDetailPage({ params }: Readonly<{ params: Promise<{ vendorId: string }> }>) {
-  const { vendorId } = await params; const context = await getWorkspaceContext();
-  const vendor = await getDatabase().vendor.findFirst({ where: { id: vendorId, workspaceId: context.workspaceId }, include: { items: { orderBy: { updatedAt: "desc" }, take: 50 }, importJobs: { orderBy: { createdAt: "desc" }, take: 5 } } });
+  const { vendorId } = await params;
+  const context = await getWorkspaceContext();
+  const vendor = await getDatabase().vendor.findFirst({
+    where: { id: vendorId, workspaceId: context.workspaceId },
+    include: { items: { orderBy: { updatedAt: "desc" }, take: 50 }, importJobs: { orderBy: { createdAt: "desc" }, take: 5 } },
+  });
   if (!vendor) notFound();
-  const website = safeWebsite(vendor.websiteUrl); const categories = [...new Set(vendor.items.map((item) => item.category).filter(Boolean))]; const types = [...new Set(vendor.items.map((item) => item.type))]; const latest = vendor.importJobs[0]; const importHref = website ? `/app/imports/website?vendorId=${vendor.id}` : `/app/imports/pdf?vendorId=${vendor.id}`;
-  return <div style={styles.page}><header style={styles.header}><div><nav aria-label="Breadcrumb" style={styles.breadcrumb}><Link href="/app" style={{ color: "inherit", textDecoration: "none" }}>Workspace</Link><span>›</span><Link href="/app/vendors" style={{ color: "inherit", textDecoration: "none" }}>Vendors</Link><span>›</span><strong aria-current="page">Vendor Details</strong></nav><h1 style={styles.title}>{vendor.name}</h1><p style={styles.subtitle}>Complete vendor profile and source activity.</p></div><Link href={importHref} style={styles.import}>Import</Link></header><main style={styles.grid}>
-    <section style={styles.card}><h2 style={styles.cardTitle}>Identity</h2><dl style={styles.dl}><Detail label="Name" value={vendor.name} /><Detail label="Status" value={vendor.archivedAt ? "Inactive" : "Active"} /><Detail label="Description" value="Not provided" /><Detail label="Logo" value="Not provided" /></dl></section>
-    <section style={styles.card}><h2 style={styles.cardTitle}>Contact Information</h2><dl style={styles.dl}><Detail label="Primary Contact" value="Not provided" /><Detail label="Role" value="Not provided" /><Detail label="Email" value="Not provided" /><Detail label="Phone" value="Not provided" /><Detail label="Address" value="Not provided" /></dl></section>
-    <section style={styles.card}><h2 style={styles.cardTitle}>Website Details</h2><dl style={styles.dl}><div style={styles.row}><dt style={styles.dt}>Website</dt><dd style={styles.dd}>{website ? <a href={website.href} target="_blank" rel="noreferrer" style={styles.external}>{website.href}</a> : "Not provided"}</dd></div><Detail label="Domain" value={website?.hostname ?? "Not provided"} /><Detail label="Default Import" value={website ? "Website" : "PDF"} /><Detail label="Last Access" value={latest?.createdAt.toLocaleString() ?? "Not provided"} /></dl></section>
-    <section style={styles.card}><h2 style={styles.cardTitle}>Products and Services</h2><dl style={styles.dl}><Detail label="Offering Type" value={types.length ? types.join(", ") : "Not provided"} /><Detail label="Categories" value={categories.length ? categories.join(", ") : "Not provided"} /><Detail label="Records" value={String(vendor.items.length)} /><Detail label="Description" value={vendor.items.length ? `${vendor.name} supplies ${types.join(" and ") || "catalog records"}${categories.length ? ` across ${categories.join(", ")}` : ""}.` : "Not provided"} /></dl></section>
-    <section style={{ ...styles.card, ...styles.wide }}><h2 style={styles.cardTitle}>Recent Import Activity</h2>{vendor.importJobs.length ? <table style={styles.table}><thead><tr><th style={styles.th}>Source</th><th style={styles.th}>Status</th><th style={styles.th}>Created</th><th style={styles.th}>Action</th></tr></thead><tbody>{vendor.importJobs.map((job) => <tr key={job.id}><td style={styles.td}>{job.sourceType}</td><td style={styles.td}>{job.status}</td><td style={styles.td}>{job.createdAt.toLocaleString()}</td><td style={styles.td}><Link href={`/app/imports/jobs/${job.id}`} style={styles.action}>Job Details</Link></td></tr>)}</tbody></table> : <p style={styles.dd}>No imports have been created for this vendor.</p>}</section>
-  </main></div>;
+  return <VendorDetailClient canEdit={context.role !== "viewer"} initialVendor={{
+    id: vendor.id,
+    name: vendor.name,
+    websiteUrl: vendor.websiteUrl,
+    description: vendor.description,
+    logoUrl: vendor.logoUrl,
+    contactName: vendor.contactName,
+    contactRole: vendor.contactRole,
+    contactEmail: vendor.contactEmail,
+    contactPhone: vendor.contactPhone,
+    address: vendor.address,
+    defaultImportMethod: vendor.defaultImportMethod,
+    offeringType: vendor.offeringType,
+    offeringCategories: vendor.offeringCategories,
+    offeringDescription: vendor.offeringDescription,
+    archived: Boolean(vendor.archivedAt),
+    itemCount: vendor.items.length,
+    derivedTypes: [...new Set(vendor.items.map((item) => item.type).filter(Boolean))],
+    derivedCategories: [...new Set(vendor.items.map((item) => item.category).filter(Boolean))],
+    importJobs: vendor.importJobs.map((job) => ({ id: job.id, sourceType: job.sourceType, status: job.status, createdAt: job.createdAt.toISOString() })),
+  }} />;
 }
-
-function Detail({ label, value }: { label: string; value: string }) { return <div style={styles.row}><dt style={styles.dt}>{label}</dt><dd style={styles.dd}>{value}</dd></div>; }

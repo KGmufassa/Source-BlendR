@@ -132,5 +132,50 @@
 
 ### Implementation Status
 
-- Status: `planned_not_implemented`
-- No code changes were made for this revision.
+- Status: `implemented_approved`
+- Approval date: `2026-08-14`
+
+## Revision Completion Record — 2026-08-14
+
+### Completed
+
+| Approved change | Completion record |
+|---|---|
+| `CHANGE-IMP-005` | Added a keyboard-accessible `View All Jobs` link below the Recent Jobs table, aligned to the bottom right, routing to `/app/imports/jobs`. |
+| Entry-path breadcrumb | Recent Jobs now adds the allowlisted `entry=imports` marker to each Job Details link. Job Details validates that exact marker and displays `Workspace > Imports > Job Details`; direct visits retain the canonical `Workspace > Imports > Jobs > Job Details` hierarchy. |
+| Focus and placement | Implemented the link as a visually distinct secondary action outside the table and Action column, preserving the View Table structure. |
+
+### Deferred
+
+- The separate `/app/imports/jobs` revision remains deferred to its own page implementation and approval cycle.
+- Other Job Details layout and workflow revisions remain deferred to the Job Details page cycle.
+
+### Discarded
+
+- The retired `View All Logs` header control remains discarded; it was not restored or renamed in the table header.
+- No unapproved `FIX-IMP-001A/B` or `FIX-IMP-004A/B` branch was implemented.
+
+### Conflict Resolution
+
+- The new `View All Jobs` placement supersedes the unresolved `View All Logs` alternatives without reviving the dead header control.
+- The entry-path requirement affects the Job Details destination. That edit was limited to validating one allowlisted marker and choosing the matching breadcrumb; no other Job Details change was pulled forward.
+
+### Page Effects
+
+| Pros | Cons or possible effects |
+|---|---|
+| Complete import history is reachable directly from Recent Jobs. | Adds one secondary action below the compact table. |
+| Job Details breadcrumbs now match navigation from Imports. | The entry context is represented in the URL query string. |
+| Direct and refreshed detail URLs retain a stable canonical fallback. | Future entry paths require an explicit allowlisted mapping. |
+
+### Suggestions
+
+- Preserve the `entry` marker when Job Details links are added to other approved in-app entry points.
+- Consider centralizing allowlisted breadcrumb entry paths if more dynamic destinations adopt this pattern.
+
+### Verification Record
+
+- Focused page-plan tests and web TypeScript validation passed.
+- Local runtime checks returned HTTP `200` for Imports, Import Jobs, entry-marked Job Details, and directly opened Job Details.
+- Rendered HTML confirmed the `View All Jobs` action, the entry-aware `Workspace > Imports > Job Details` breadcrumb, and the canonical direct-entry `Workspace > Imports > Jobs > Job Details` fallback.
+- Interactive browser and visual QA remain pending because no browser backend was connected to this session.

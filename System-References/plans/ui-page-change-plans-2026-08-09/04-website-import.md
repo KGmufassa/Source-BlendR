@@ -131,8 +131,8 @@
 
 | Decision group | Option | Clear action | Ramification of approval | Approve | Defer | Discard |
 |---|---|---|---|---|---|---|
-| `DEC-WEB-002` | A | Require selection of an existing vendor from the suggestions. | Preserves referential integrity but requires users to create a vendor before analysis. | [ ] | [ ] | [ ] |
-| `DEC-WEB-002` | B | Allow a non-matching typed name to create a vendor during submission. | Shortens setup but combines vendor creation, duplicate handling, and website analysis in one transaction. | [ ] | [ ] | [ ] |
+| `DEC-WEB-002` | A | Require selection of an existing vendor from the suggestions. | Preserves referential integrity but requires users to create a vendor before analysis. | [x] | [ ] | [ ] |
+| `DEC-WEB-002` | B | Allow a non-matching typed name to create a vendor during submission. | Shortens setup but combines vendor creation, duplicate handling, and website analysis in one transaction. | [ ] | [x] | [ ] |
 
 ### Revised Acceptance Criteria
 
@@ -142,6 +142,56 @@
 
 ### Implementation Status
 
-- Status: `planned_not_implemented`
-- `DEC-WEB-002` requires a branch selection before implementation.
-- No code changes were made for this revision.
+- Status: `implemented_approved`
+- Approval date: `2026-08-15`
+
+## Revision Completion Record — 2026-08-14
+
+### Completed
+
+| Approved change | Completion record |
+|---|---|
+| `CHANGE-WEB-004` | Replaced the static Vendor Entity select with a typed, client-filtered combobox over existing workspace vendors. |
+| `DEC-WEB-002A` | Requires an explicit existing-vendor suggestion selection and submits its stable ID through a hidden form value; arbitrary typed text cannot be submitted as a vendor. |
+| Combobox accessibility | Added listbox semantics, expanded and active-descendant state, Arrow Up/Down navigation, Enter selection, Escape dismissal, mouse selection, selected-state exposure, no-results copy, and validation feedback. |
+| Preselected vendor | A valid workspace vendor supplied by `vendorId` still prepopulates both the visible vendor name and submitted stable ID. |
+| `CHANGE-WEB-005` | Removed the `ACTIVE` note from the source-setup card. |
+| Entry-path breadcrumb | Successful analysis now opens Job Details with the allowlisted `entry=website-import` marker, producing `Workspace > Imports > Website Import > Job Details`. |
+
+### Deferred
+
+- `DEC-WEB-002B`: creating a vendor from unmatched typed text remains deferred.
+- Server-backed vendor suggestion pagination is deferred until workspace vendor volumes make client filtering unsuitable.
+
+### Discarded
+
+- No approved revision item was discarded.
+- Free-text vendor creation during analysis was not implemented under the approved existing-vendor branch.
+
+### Conflict Resolution
+
+- The prior implementation-status note said `DEC-WEB-002` still needed selection, but the decision table marks option A approved. The checked decision was treated as authoritative and the stale note was removed.
+- Entry-aware navigation requires a destination breadcrumb change. Job Details was changed only to validate the `website-import` marker and render its corresponding ancestor; its remaining page revision stays untouched.
+
+### Page Effects
+
+| Pros | Cons or possible effects |
+|---|---|
+| Vendors are faster to find than in a long static select. | Users must create missing vendors before analysis. |
+| Stable vendor IDs preserve workspace referential integrity. | Client filtering may need server pagination for very large vendor lists. |
+| Keyboard and assistive-technology users receive explicit suggestion and validation behavior. | The interaction has more state than a native select. |
+| The card header is less cluttered without `ACTIVE`. | No status decoration remains in that header. |
+
+### Suggestions
+
+- Add a nearby `Create Vendor` link if users frequently encounter the no-results state.
+- Move filtering to a debounced vendor-search endpoint if vendor lists grow enough to affect page payload or responsiveness.
+- Consider centralizing entry-path breadcrumb mappings once additional dynamic routes use the same pattern.
+
+### Verification Record
+
+- Focused page-plan tests, web TypeScript validation, changed-application-file lint, and diff checks passed.
+- Local runtime checks returned HTTP `200` for Website Import and Job Details with the website-import entry marker.
+- Rendered output confirmed the combobox contract, removal of `ACTIVE`, and `Workspace > Imports > Website Import > Job Details` entry-path breadcrumb.
+- Import submission was not invoked during verification because it would enqueue a real scrape job; the existing API and automatic handoff path remain covered statically.
+- Interactive keyboard and visual QA remain pending because no browser backend was connected to this session.

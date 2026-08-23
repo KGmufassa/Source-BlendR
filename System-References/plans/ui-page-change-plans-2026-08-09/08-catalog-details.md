@@ -158,8 +158,8 @@
 
 | Decision group | Option | Clear action | Ramification of approval | Approve | Defer | Discard |
 |---|---|---|---|---|---|---|
-| `DEC-CATD-004` | A | Show a persistent Close control in the drawer header and use `Discard` only for confirmed catalog removal. | Separates safe dismissal from destructive removal and reduces accidental deletion. | [ ] | [ ] | [ ] |
-| `DEC-CATD-004` | B | Rename the destructive action to `Remove from Catalog` and retain `Cancel` for dismissal. | Uses clearer language but does not follow the requested `Discard` label exactly. | [ ] | [ ] | [ ] |
+| `DEC-CATD-004` | A | Show a persistent Close control in the drawer header and use `Discard` only for confirmed catalog removal. | Separates safe dismissal from destructive removal and reduces accidental deletion. | [x] | [ ] | [ ] |
+| `DEC-CATD-004` | B | Rename the destructive action to `Remove from Catalog` and retain `Cancel` for dismissal. | Uses clearer language but does not follow the requested `Discard` label exactly. | [ ] | [x] | [ ] |
 
 ### Revised Acceptance Criteria
 
@@ -171,6 +171,63 @@
 
 ### Implementation Status
 
-- Status: `planned_not_implemented`
-- `DEC-CATD-004` and catalog-specific Custom Price persistence must be resolved before implementation.
-- No code changes were made for this revision.
+- Completion date: `2026-08-16`
+- Status: `implemented_awaiting_approval`
+- `DEC-CATD-004` option A was implemented: the drawer has a persistent non-destructive Close control and reserves Discard for confirmed catalog-membership removal.
+
+### Revised Completion Scope
+
+| Change | Completion record |
+|---|---|
+| Catalog search toolbar | Added a Discovery-style search and filter toolbar with Search, Reset filters, an `All Vendors` filter, and the primary `Add from Discovery` action. |
+| Workspace vendor filter | Loads active vendors for the current workspace, including vendors without a current catalog member. |
+| Member table | Uses the Search Table dimensions and typography with Image, Product or Service, SKU, Vendor, Category, Price, and Edit columns; Status and the direct Remove action are absent. |
+| Description previews | Displays bounded ellipsis previews in the table while preserving the full description in the edit drawer and accessible text. |
+| Add from Discovery | Opens a candidate table that uses the same shared table styles, type scale, thumbnail treatment, and responsive overflow as the main member table. |
+| Catalog edit drawer | Edit opens a catalog-specific drawer in place, keeping the user on the catalog route and exposing full item details. |
+| Custom Price | Added a nullable, nonnegative `CatalogMember.customPriceCents` override. Saving it updates the catalog row without overwriting source or vendor pricing. |
+| Safe dismissal and discard | Added a persistent Close control for dismissal. Discard presents explicit confirmation, removes only the catalog membership, and preserves the underlying product or service. |
+| Shared route states | Added catalog-detail loading and error views using the shared shell and linked canonical breadcrumbs. |
+
+### Revised Deferred Scope
+
+- The Add from Discovery candidate picker remains capped at 100 available records and does not yet have independent server-backed search or pagination.
+- Catalog metadata editing remains deferred; this drawer edits catalog-member behavior only.
+- Interactive browser and responsive visual QA remain pending because no connected browser backend is available.
+
+### Revised Discarded Scope
+
+- Discarded the direct `Remove` action from the main Action column in favor of confirmed removal inside the edit drawer.
+- Discarded the Status column from the member table.
+- Discarded the old Edit behavior that navigated to the Discovery page.
+- `DEC-CATD-004` option B remains deferred rather than discarded; the approved `Discard` wording is in use.
+
+### Revised Conflict Resolution Record
+
+- Catalog Details is now the visible catalog-membership entry point because the approved Discovery revision removed its Add to Catalog bulk action.
+- The requested destructive `Discard` label could be confused with dismissing draft changes. A separate Close control and explicit confirmation copy resolve that ambiguity.
+- `Custom Price` is persisted on the catalog membership, not the underlying product or vendor record, so catalog customization does not change shared source data.
+
+### Revised Page Effects
+
+| Pros | Cons or resulting effects |
+|---|---|
+| Editing stays in catalog context and saves a true catalog-specific price override. | The new persistence field requires the accompanying database migration; it has been applied to the local development database. |
+| Main and picker tables now share a consistent, scan-friendly layout. | The candidate picker can expose only its first 100 available records until server search and pagination are added. |
+| Confirmed Discard protects the source product while allowing catalog cleanup. | Browser-native confirmation is functional but less polished than an accessible application dialog. |
+| Workspace-wide vendor filtering is more complete than deriving choices from current rows. | Loading all active vendor names adds one workspace-scoped query to the route. |
+
+### Revised Suggestions
+
+- Add server-backed candidate search and pagination for catalogs with more than 100 eligible Discovery records.
+- Replace browser-native confirmation with a focus-managed application dialog that names the item and catalog.
+- Add catalog name and category-type editing as a distinct metadata workflow.
+- Consider showing a subtle indicator when Custom Price overrides the source price.
+
+### Revised Verification Record
+
+- All seven focused page-plan implementation tests pass.
+- TypeScript validation and focused ESLint validation pass with no errors or warnings.
+- The real local catalog-detail route returned HTTP `200` and rendered Search, All Vendors, and Add from Discovery.
+- Prisma reports all four local migrations applied and the database schema up to date.
+- No catalog records were created, edited, added, or removed during runtime validation.
